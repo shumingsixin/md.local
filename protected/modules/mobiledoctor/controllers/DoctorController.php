@@ -113,11 +113,11 @@ class DoctorController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('register', 'ajaxRegister', 'mobileLogin'),
+                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('logout', 'createPatientBooking', 'viewContractDoctors', 'ajaxContractDoctor', 'ajaxStateList', 'ajaxDeptList', 'viewDoctor', 'addPatient', 'view', 'profile', 'ajaxProfile', 'ajaxUploadCert', 'doctorInfo', 'doctorCerts', 'account', 'delectDoctorCert', 'uploadCert', 'updateDoctor', 'toSuccess', 'contract', 'ajaxContract', 'sendEmailForCert', 'ajaxViewDoctorZz', 'createDoctorZz', 'ajaxDoctorZz', 'ajaxViewDoctorHz', 'createDoctorHz', 'ajaxDoctorHz', 'drView', 'ajaxDoctorTerms', 'doctorTerms'),
+                'actions' => array('logout', 'changePassword', 'createPatientBooking', 'viewContractDoctors', 'ajaxContractDoctor', 'ajaxStateList', 'ajaxDeptList', 'viewDoctor', 'addPatient', 'view', 'profile', 'ajaxProfile', 'ajaxUploadCert', 'doctorInfo', 'doctorCerts', 'account', 'delectDoctorCert', 'uploadCert', 'updateDoctor', 'toSuccess', 'contract', 'ajaxContract', 'sendEmailForCert', 'ajaxViewDoctorZz', 'createDoctorZz', 'ajaxDoctorZz', 'ajaxViewDoctorHz', 'createDoctorHz', 'ajaxDoctorHz', 'drView', 'ajaxDoctorTerms', 'doctorTerms'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -623,26 +623,62 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    protected function registerDoctor(DoctorForm $form) {
-        if (isset($_POST['DoctorForm'])) {
-            $values = $_POST['DoctorForm'];
-            $form->setAttributes($values);
-            $form->hp_dept_name = $form->faculty;
-            $doctorMgr = new DoctorManager();
-            if ($doctorMgr->createDoctor($form)) {
-                $doctorId = $form->getId();
-                $with = array('doctorCerts', 'doctorHospital', 'doctorHpDept', 'doctorCity');
-                $idoctor = $doctorMgr->loadIDoctor($doctorId, $with);
-                if (isset($idoctor)) {
-                    $emailMgr = new EmailManager();
-                    $emailMgr->sendEmailDoctorRegister($idoctor);
-                }
-                $this->setFlashMessage("doctor.success", "success");
-                $this->refresh(true);     // terminate and refresh the current page.
-            } else {
-                
+    //医生注册并自动登录
+    public function actionRegister() {
+        $userRole = User::ROLE_DOCTOR;
+        $form = new UserRegisterForm();
+        $form->role = $userRole;
+        $form->terms = 1;
+        $this->performAjaxValidation($form);
+        if (isset($_POST['UserRegisterForm'])) {
+            $form->attributes = $_POST['UserRegisterForm'];
+            $userMgr = new UserManager();
+            $userMgr->registerNewUser($form);
+            if ($form->hasErrors() === false) {
+                // success                
+                $loginForm = $userMgr->autoLoginUser($form->username, $form->password, $userRole, 1);
+                $this->redirect(array('profile'));
             }
         }
+
+        $this->render('register', array(
+            'model' => $form,
+        ));
+    }
+
+    //进入忘记密码页面
+    public function actionForgetPassword() {
+        $form = new ForgetPasswordForm();
+        $this->render('forgetPassword', array(
+            'model' => $form,
+        ));
+    }
+
+    //忘记密码功能
+    public function actionAjaxForgetPassword() {
+        $output = array('status' => 'no');
+        $form = new ForgetPasswordForm();
+        if (isset($_POST['ForgetPasswordForm'])) {
+            $form->attributes = $_POST['ForgetPasswordForm'];
+            if ($form->validate()) {
+                $userMgr = new UserManager();
+                $user = $userMgr->loadUserByUsername($form->username);
+                if (isset($user)) {
+                    $success = $userMgr->doResetPassword($user, null, $form->password_new);
+                    if ($success) {
+                        $output['status'] = 'ok';
+                    } else {
+                        $output['errors']['errorInfo'] = '密码修改失败!';
+                    }
+                } else {
+                    $output['errors']['username'] = '用户不存在';
+                }
+            } else {
+                $output['errors'] = $form->getErrors();
+            }
+        }
+
+        $this->renderJsonOutput($output);
     }
 
     protected function performAjaxValidation($model) {
