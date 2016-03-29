@@ -1,6 +1,6 @@
 <?php
 
-class ApiViewCity extends EApiViewService {
+class ApiViewState extends EApiViewService {
 
     private $country_id = 1;
 
@@ -10,7 +10,7 @@ class ApiViewCity extends EApiViewService {
     }
 
     protected function loadData() {
-        $this->loadCity();
+        $this->loadState();
     }
 
     protected function createOutput() {
@@ -24,7 +24,7 @@ class ApiViewCity extends EApiViewService {
         }
     }
 
-    public function loadCity() {
+    public function loadState() {
         $criteria = new CDbCriteria;
         $criteria->select = 's.id,s.name';
         $criteria->join = 'LEFT JOIN hospital h ON h.id = t.hospital_id LEFT JOIN region_state s ON h.state_id = s.id';

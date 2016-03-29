@@ -21,7 +21,7 @@ class ApiViewDiseaseCategory extends EApiViewService {
     }
     public function loadDiseaseCategory(){
         $disMgr = new DiseaseManager();
-        $models = $disMgr->loadDiseaseCategoryListV7();
+        $models = $disMgr->loadDiseaseCategoryList();
         $navList = array();
         foreach ($models as $model) {
             $data = new stdClass();
