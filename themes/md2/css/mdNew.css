@@ -1,0 +1,358 @@
+/****  ****/
+body,p,h1,h4{color: #333;letter-spacing: 2px;line-height: 1.5em;font-weight:200;font-family: 'Microsoft YaHei', 微软雅黑, 'Microsoft Yahei', 黑体, 宋体, Arial, Simsun, Helvetica, sans-serif !important;}
+.label{padding: 5px;}
+a{color:#333;display: inline!important;}
+.pad1{padding: 1em;}
+section.active{top:44px;}
+//#section_container article.active{padding: 1em;}
+img{max-width: 100%;}
+div.error,div.errorMessage{color: #E21E1A;font-size: 12px;margin-top: -10px;}
+.btn{border-radius: 5px;border:none;text-align: center;padding: 3px 5px;}
+.btn-block{display: block!important;width: 95%;margin: 5px 2.5%!important;padding: 10px!important;}
+.btn-yes{background-color:#19aea5!important;color: #fff!important;}
+.btn-default{border: 1px solid #ddd;background-color: #e4e4e4!important;}
+.btn-sendSmsCode{background-color: #EFA429!important;color: #fff!important;height: 40px;border-radius: 0;min-width: 8em;}
+button.btn-sendSmsCode:disabled{color: #fff!important;opacity: 0.5;}
+.divider{border-bottom: 1px solid #ddd;}
+.divider-green{border-bottom: 1px solid #19aea5;}
+.color-white{color: #fff;}
+.ui-grid-a>.ui-block-a,.ui-grid-a>.ui-block-b{width: 50%;float: left;}
+form label{margin-bottom: 5px!important;}
+.font-type{font-size:17px;}
+select{background-image:none;}
+#jingle_popup.loading>#tag_close_popup{display: none;}
+form span.required{display: none;}
+/*保存按钮无边框*/
+.btn-none input{border:none;}
+.btn-none input:focus{outline:none;}
+/*提示*/
+#jingle_toast {top:50%;}
+#jingle_toast>a{background-color: #999;color: #fff!important;}
+#jingle_popup{text-align: center;}
+#jingle_popup_mask.active{opacity: 0.3!important;display: block!important;min-height: 60em;}
+.popup-title{text-align: center;font-size: 20px;}
+#popup_btn_container>a{display: block!important;}
+.imgpopup{padding: 2.3em;background-color:rgba(0,0,0,0.3);}
+.pad2{padding: 2.3em;}
+#tag_close_popup {color: #fff!important;}
+#successConfirm,#deleteConfirm{background-color: #fff;position: fixed;}
+#jingle_toast{position: fixed;z-index: 999;}
+/**** header ****/
+header{border-bottom:1px solid #A9A9A9!important;background-color:#fff;}
+header nav.right{background-color: #19aea5;border-radius: 50%;width: 1.7em;height: 1.7em;padding: 0;line-height: 1.5em;margin-top: 8px;margin-right: 5px;}
+header nav.right a>.icon{font-size: 1.3em;color: #fff!important;line-height: 1.3em;}
+header nav.right .header-user{height: 28px;}
+/**** doctor view ****/
+#main_section .list a,#account_section .list a{display: block!important;}
+.verified{margin-top: -0.5em;}
+.unverified{background-color: #999;color: #fff;padding: 5px 10px;border-radius: 5px;}
+/**** 删除提醒 ****/
+.confirmPage .btn{display: block;}
+.confirmPage{display: none;position: fixed;margin:0;text-align: center;top: 39px;width: 100%;min-height: 44em;z-index: 999;background-color:rgba( 0, 0, 0, 0.5 );padding: 40% 0;}
+.confirmPage .confirmcontent{width: 90%;margin: 0 auto;background-color: #fff;padding: 1em;}
+#imgConfirm{padding: 1em;}
+/**** 上传病历 ****/
+.patientinfo span{padding: 0 9px;}
+.border-right{border-right: 1px solid #888;}
+.form-wrapper .ui-grid-b .ui-block-a,.ui-grid-b .ui-block-c{width: 45%;float: left;}
+.form-wrapper .ui-grid-b .ui-block-b{width: 10%;padding: 14px 0;text-align: center;float: left;}
+.form-wrapper .ui-popup-container{max-width: 375px;width: 100%;bottom:16em!important;top:auto!important;}
+.form-wrapper .example{border: 1px dotted #888;margin: 30px 10px 10px;padding: 10px;}
+.form-wrapper .example .ui-grid-b .ui-block-a,.example .ui-grid-b .ui-block-c{width: 40%}
+.form-wrapper .example .ui-grid-b .ui-block-b{width: 20%;text-align: center;padding-top: 30px;}
+.form-wrapper .example .ui-grid-b .ui-block-b span{vertical-align: middle;}
+
+.imglist .filelist {list-style: none;margin: 0;padding: 0;}
+.imglist li {width: 50%;height: 140px;text-align: center;margin: 0 0px 10px 0;padding: 0 10px;overflow: hidden;font-size: 12px;float: left;position: relative;display: inline;}
+.imglist .filelist li p.imgWrap {position: relative;z-index: 2;line-height: 110px;margin: 0 auto;vertical-align: middle;overflow: hidden;/* width: 110px; */height: 110px;-webkit-transform-origin: 50% 50%;-moz-transform-origin: 50% 50%;-o-transform-origin: 50% 50%;-ms-transform-origin: 50% 50%;transform-origin: 50% 50%;-webit-transition: 200ms ease-out;-moz-transition: 200ms ease-out;-o-transition: 200ms ease-out;-ms-transition: 200ms ease-out;transition: 200ms ease-out;}
+.imglist .filelist div.file-panel {position: absolute;height: 30px!important;background-color: #d9534f!important;width: 90%;top: 115px;left: 5%; padding: 0 10px; overflow: hidden;z-index: 300;text-align: center;color: #fff;}
+/**** android 上传病历 ****/
+.uploadfile{padding-top: 20px;}
+.uploadfile:before{content: '选择文件';padding: 10px 15px;font-size: 14px;background-color: #00b7ee;color: #fff;border-radius: 5px;}
+.uploadfile{position:relative;}
+.uploadfile input[type="file"]{position:absolute;top:10px;right:35%;width:30%;line-height:36px;opacity:0;}
+.MultiFile-list{margin-top: 10px;}
+.MultiFile-list .MultiFile-label{margin: 3px 0;}
+.MultiFile-list .MultiFile-label .MultiFile-remove{color: #f00;font-size: 16px;padding-right: 10px;text-decoration: initial;}
+
+.confirm{display: none;position: absolute;z-index: 999;background-color:rgba(0,0,0,0.3);box-shadow: 1px 1px 1px #ddd;border: 1px solid #ddd;}
+/**** calendar ****/
+.jingle-calendar-body td.disabled{background-color: #ddd!important;}
+/**** order ****/
+#order{line-height: 2em;font-size: 18px;padding: 1em;}
+#order .order-content{color: #333;font-size: 16px;}
+#order .order-content .title{display: inline-block;width: 5em;font-size: 16px;}
+#order .ch{text-align:center;}
+#order  .up{background-color: #e4e4e4;border:1px solid #ddd!important;border-radius:10px;background-position:center;background-repeat:no-repeat;width:190px!important;margin:5px auto 0!important;padding:10px!important;}
+#order .alipay{background-image: url(../images/icons/ic-alipay.png);}
+#order .yeepay{background-image: url(../images/icons/ic-yeepay.png);}
+#order .weixin{background-image: url(../images/icons/ic-weixin.png);}
+/**** patientBooking view ****/
+//#patientBookingView{padding: 1em;}
+#patientBookingView .title{color:#19aea5;padding: 0!important;}
+#patientBookingView .patientinfo{margin-bottom: 1em;letter-spacing: 2px;}
+#patientBookingView .patientinfo span{padding: 0px 9px;}
+#patientBookingView .patientinfo .patientname{padding-left: 0;}
+#patientBookingView .border-right{border-right: 1px solid #888;}
+#patientBookingView .payment .ui-grid-a>.ui-block-a{width: 60%;float: left;}
+#patientBookingView .payment .ui-grid-a>.ui-block-b{width: 40%;float: left;}
+#patientBookingView .payment .money{border: 1px solid #ddd;font-size: 18px;padding: 10px 0;}
+#patientBookingView .payment .pay-btn{font-size: 18px;padding: 10px 0;display: block;border-radius: 0!important;border: 1px solid #19aea5!important;display: block!important;}
+#patientBookingView .payment .hasPay{font-size: 18px;padding: 10px 0;border: 1px solid #ddd;background-color: #dfdfdf;}
+.imglist .col-1{padding: 0 10px;}
+.imglist img{background-color: #fff;margin: 10px 0;height: 100px;width: 100%;}
+.confirmPage .confirmcontent{width: 100%;padding: 0;}
+#patientBookingView .pad5{padding: 3px 5px;}
+/**** patient list ****/
+.color-change div.active{background:#19aea5;color:#fff;}
+.div-col{z-index:99;background-color:#00897b!important;}
+.b-leftGreen{border-top:1px solid #A9A9A9;border-bottom:1px solid #A9A9A9;border-left:4px solid #19aea5;border-right:1px solid #A9A9A9;}
+.headerMenu .grid{border: 1px solid #ddd;}
+.headerMenu .bookingMenu{padding: 10px;}
+.headerMenu .bookingMenu.active{background-color: #19aea5;color: #fff;}
+.noBookingList{display: none;}
+/**** doctorInfo ****/
+.doctorInfo .grid .title{width:5em;}
+/**** profile ****/
+.terms{display: none;position: absolute;top: 0;background-color: #fff;z-index: 9;padding: 10px;font-size: 14px;}
+#termslink{text-decoration: underline;}
+.strong{font-weight: bold;}
+/*专家签约*/
+#sign .bgImgGreen{background:url(../images/bg-green.png) no-repeat;background-size:120px 26px;height:26px;color:#fff;}
+
+/**/
+#popup_btn_container>div>a {
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    padding: 10px;
+    display: block;
+    color: #222;
+    border: 1px solid rgba(0,0,0,.2);
+    border-left: 0;
+    border-bottom: 0;
+}
+#popup_btn_container>div>a {
+    display: block!important;
+}
+
+/*签约医生*/
+#contractDoctors_nav.header-secondary{
+    height: 50px;
+}
+#contractDoctors_nav .grayImg>img{
+    margin-left:10px;
+    width:10px;
+    height:10px;
+}
+#contractDoctors_article .imgDoc{
+    display: block;
+    width: 100px;
+    border-radius: 5px;
+    z-index: 0;
+    overflow: hidden;
+}
+#contractDoctors_article{
+    line-height: 1.5;
+    font-size: 14px;
+}
+#contractDoctors_article .sign{
+    font-size:12px;
+    text-align:center;
+    background-color:#ee7635;
+    color:#fff;
+    border-radius:3px;
+}
+#contractDoctors_article #highDept ul.list {
+    background-color: #efefef;
+}
+#contractDoctors_article #highDept ul.list>li {
+    border-bottom: 1px solid #efefef;
+}
+#contractDoctors_article .button, button {
+    padding: 10px 10px;
+}
+
+/*医生详情*/
+#viewDoctor_nav{
+    font-size: 14px;
+}
+#viewDoctor_nav .doctorInf{
+    padding: 15px;
+    background-color: #ffffff;
+}
+#viewDoctor_nav .imgDiv{
+    width:70px;
+    height:70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+#viewDoctor_nav .imgDoc{
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    z-index: 0;
+}
+#viewDoctor_nav a{
+    display: inherit!important;
+}
+#viewDoctor_nav .button{
+    padding:4px 20px 0px;
+}
+#viewDoctor_article{
+    background-color: #eeeeee;
+}
+#viewDoctor_article .divSC{
+    padding: 15px;
+    margin: 10px 5px 0px;
+    background-color: #ffffff!important;
+    border-radius: 7px;
+}
+@media screen and (max-width:360px){
+    #viewDoctor_article .bgSC{
+        padding-left:25px;
+        background:url('../images/shanchang.png') no-repeat;
+        background-size:16px 16px;
+        background-position: 2px 3px;
+    }
+}
+@media screen and (min-width:361px){
+    #viewDoctor_article .bgSC{
+        padding-left:25px;
+        background:url('../images/shanchang.png') no-repeat;
+        background-size:22px 22px;
+    }
+}
+#viewDoctor_article .divCareer{
+    padding: 15px;
+    margin: 10px 5px 0px;
+    background-color: #ffffff!important;
+    border-radius: 7px;
+}
+@media screen and (max-width:360px){
+    #viewDoctor_article .bgCareer{
+        padding-left:25px;
+        background:url('../images/career.png') no-repeat;
+        background-size:16px 16px;
+        background-position: 2px 3px;
+    }
+}
+@media screen and (min-width:361px){
+    #viewDoctor_article .bgCareer{
+        padding-left:25px;
+        background:url('../images/career.png') no-repeat;
+        background-size:21px 21px;
+    }
+}
+/*小页面字体设置*/
+@media screen and (max-width:360px){
+    #viewDoctor_article .aFontSize{
+        font-size: 14px;
+    }
+    #viewDoctor_article .bFontSize{
+        font-size: 12px;
+    }
+}
+#viewDoctor_article .divHonor{
+    padding: 15px;
+    margin: 10px 5px 0px;
+    background-color: #ffffff!important;
+    border-radius: 7px;
+}
+@media screen and (max-width:360px){
+    #viewDoctor_article .bgHonor{
+        padding-left:25px;
+        background:url('../images/honor.png') no-repeat;
+        background-size:16px 16px;
+        background-position: 3px 3px;
+    }
+}
+@media screen and (min-width:361px){
+    #viewDoctor_article .bgHonor{
+        padding-left:25px;
+        background:url('../images/honor.png') no-repeat;
+        background-size:21px 17px;
+    }
+}
+#viewDoctor_article .bgStars{
+    padding-left:25px;
+    background:url('../images/stars.png') no-repeat;
+    background-size:11px 11px;
+    background-position:10px 3px;
+}
+#viewDoctor_article .divTJ{
+    margin: 10px 5px 0px 5px;
+    border-radius: 7px;
+    background-color: #ffffff!important;
+    padding: 15px;
+    background: url('../images/tuijian.png') no-repeat;
+    background-size: 37px 37px;
+    background-position-y: 0;
+    background-position-x: 100%;
+}
+@media screen and (max-width:360px){
+    #viewDoctor_article .bgReason{
+        background: url('../images/reason.png') no-repeat;
+        background-size: 20px 20px;
+        padding-left: 25px;
+        background-position-y: 0px;
+    }
+}
+@media screen and (min-width:361px){
+    #viewDoctor_article .bgReason{
+        background: url('../images/reason.png') no-repeat;
+        background-size: 22px 22px;
+        padding-left: 25px;
+        background-position-y: 2px;
+    }
+}
+#viewDoctor_article{
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+/*添加患者*/
+#addPatient_header nav.right{
+    width: auto;
+    margin-top: 12px;
+    padding: 0px 5px;
+}
+#addPatient_article{
+    font-size: 14px;
+    background-color: #eeeeee;
+}
+#addPatient_article .patientList{
+    border-radius: 5px;
+    background-color: #fff;
+}
+#addPatient_article .doctorInf{
+    background: url('../images/patientImg.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+/*选择患者->就诊意向*/
+#createPatientBooking_article .intention{
+    border: 1px solid #E7E7E7;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+#createPatientBooking_article .intention.active{
+    border: 1px solid #19aea5;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    background: url('../images/bookingIntention.png') no-repeat;
+    background-size: 15px;
+    background-position-x: 100%;
+    background-position-y: 100%;
+}
+#createPatientBooking_article .triangleGreen{
+    background: url('../images/triangleGreen.png') no-repeat;
+    background-size: 9px auto;
+    padding-left: 15px;
+    background-position-y: 3px;
+}
+#createPatientBooking_article .noTravelType{
+    color: #E21E1A;
+    font-size: 12px;
+}

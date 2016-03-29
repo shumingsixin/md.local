@@ -1,0 +1,39 @@
+登陆:
+http://mingyizhudao.com/api/userlogin
+POST: 
+ {"userLogin":
+              { 
+                 "username": 
+                 “password”: 
+              }
+};
+
+
+ 预约:
+http://mingyizhudao.com/api/booking
+POST
+
+//  从医生预约  booking_type = 2
+{"booking": 
+         {“contact_name":
+         "appt_date_str":  
+         “patient_condition":
+,        “booking_type": @“2”
+         "doctor_id": “医生id”
+         "username":  
+         "token" :
+         “mobile”:     }
+};
+
+
+ //  从团队预约 booking_type = 3
+{"booking": 
+         {“contact_name":
+         "appt_date_str":  
+         “patient_condition":
+,        “booking_type": @“3”
+         "expteam_id": “专家团队id”
+         "username":  
+         "token" :
+         “mobile”:     }
+};

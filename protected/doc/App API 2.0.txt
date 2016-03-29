@@ -1,0 +1,125 @@
+==== Api 2.0 ====
+测试时用测试接口替代 mingyizhudao.com
+测试接口：
+http://test.mingyizd.com/
+
+
+
+== 获取短信验证码 ==
+url: http://mingyizhudao.com/api/smsverifycode
+type: post
+params:
+    {smsVerifyCode:{mobile:"", action_type:""}}
+action_type:
+    100 = 用户注册    
+    200 = 预约
+返回：
+1. 成功 - {status:true}
+2. 失败 - {status:false, errors:[]}
+
+
+== 远程登录 ==
+url: http://mingyizhudao.com/api/userlogin
+type: post
+params:
+	{userLogin:{username:"", password:""}}
+返回：
+1. 成功 - {status:true, token:""}
+2. 失败 - {status:false, errors:{error_code:"", error_msg:""}}
+	
+== 远程注册 ==
+url: http://mingyizhudao.com/api/userregister
+type: post
+params:
+	{userRegister:{username:"", password:"", verify_code="", autoLogin:"1"}}
+
+autoLogin:1 - 注册用户成功之后系统自动登录并返回token。
+autoLogin:0 - 注册用户成功之后系统只返回status:true。
+
+返回：
+1. 成功 - {status:true, token:""}
+2. 失败 - {status:false, errors:[username:"", password:"", verify_code:""]}
+
+
+== 属于该用户的预约列表 ==
+个人中心里的‘我的预约’。
+用户必须先登录
+url: http://mingyizhudao.com/api/userbooking?username=""&token=""
+type: get
+params:
+    无
+返回:
+1. 成功 - {bookings:{...}}  // 数组
+2. 失败 - 401 代表username 或 token 不正确, 没有权限.    
+
+
+== 查看一个预约详情 ==
+用户必须先登录
+url: http://mingyizhudao.com/api/userbooking/$bookingId?username=""&token=""
+样例： http://mingyizhudao.com/api/userbooking/12?username="123456789098"&token="asfdasfasdfasdfasdfasdfasdf"
+$bookingId = 12.
+type; get
+params: 
+    id = booking.id (预约的id).
+返回:
+1. 成功 - {booking:{...}}
+2. 失败 - 401 代表username 或 token 不正确, 没有权限.   
+
+
+
+== 提交预约 ==
+用户必须先登录才可以访问此页面。
+
+url: http://mingyizhudao.com/api/booking
+type:post
+params:
+    科室：    {booking:{username:"",token:"",contact_name:"",mobile:"",appt_date_str:"", patient_condition:"", booking_type:"1", faculty_id:""}}
+    医生：    {booking:{username:"",token:"",contact_name:"",mobile:"",appt_date_str:"", patient_condition:"", booking_type:"2", doctor_id:""}}
+    专家团队：{booking:{username:"",token:"",contact_name:"",mobile:"",appt_date_str:"", patient_condition:"", booking_type:"3", expteam_id:""}}
+    医院及科室：{booking:{username:"",token:"",contact_name:"",mobile:"",appt_date_str:"", patient_condition:"", booking_type:"4", hospital_id:"", hospital_dept:""}}
+
+
+返回：
+1. 成功 - {status:true}
+2. 失败 - {status:false, errors:[相对应的字段错误信息]}
+
+== 上传预约病例照片 ==
+url: http://mingyizhudao.com/api/bookingfile
+type: post
+params:
+    {bookingFile:{username:"预存在手机上的手机号码", token:"预存在手机上的token", booking_id:"", file_data:"图片"}}
+
+返回：
+1. 成功 - {"status":true,"bookingFile":{}};
+2. 失败 - {status:false, errors:{error_code:"", error_msg:""}}
+
+
+== 删除病例 （图片）==
+
+
+== 查看预约详情 ==
+
+
+ 
+
+
+
+
+==== Api 1.0 ====
+
+== mobile site ==
+http://m.mingyihz.com/
+http://m.mingyihz.com/huizhen/
+http://m.mingyihz.com/hospital/
+http://m.mingyihz.com/overseas/
+http://m.mingyihz.com/app/contactus/
+
+== App ==
+http://api.mingyihz.com/?agent=app&header=1&footer=0
+http://api.mingyihz.com/huizhen/?agent=app&header=1&footer=0
+http://api.mingyihz.com/hospital/?agent=app&header=1&footer=0
+http://api.mingyihz.com/overseas/?agent=app&header=1&footer=0
+http://api.mingyihz.com/app/contactus/?agent=app&header=1&footer=0
+
+
+

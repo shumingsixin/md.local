@@ -1,0 +1,23 @@
+==  App 按键 1 ==
+url: api/appnav1?api=2&os=ios&appv=10
+appv: 当前app 版本号
+
+
+
+== App 按键 3==
+url: api/appnav3?os=ios&appv=10
+
+搜索医院URL：
+api/hospital?city=1
+
+医院详情URL：
+api/hospital/1&offset=0&limit=10
+
+offset: 作为翻页加载更多的参数。offset=10 指加载下10个。
+
+== 预约专家 ==
+POST
+booking{
+    doctor:$doctorId
+    expteam:$teamId
+}

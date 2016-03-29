@@ -1,0 +1,56 @@
+﻿/*main*/
+.f-i input{
+	border-radius:5px;
+	border:1px solid #A9A9A9;
+}
+.a-type{
+	border:1px solid #A9A9A9;
+}
+
+/*createPatinal*/
+#createPatinal_section select{
+	background-image:none;
+}
+
+/**/
+.bg-img{
+	background-image:url("../images/line.png");
+}
+
+
+.font-20{
+	font-size:20px;
+}
+
+
+
+/*支付成功*/
+.b-success{
+	border-top:4px solid #00897b;
+	border-bottom:1px solid #A9A9A9;
+	border-left:1px solid #A9A9A9;
+	border-right:1px solid #A9A9A9;
+}
+/*收到的邀请*/
+
+
+/*添加支付宝账户*/
+.input-img{background-image:url("../images/city-nanjing.jpg");}
+/*添加银行卡信息*/
+
+/*联系我们*/
+#btn-none{padding:0;display: block;padding: inherit;}
+/*保存按钮无边框*/
+.btn-none input{border:none;}
+.btn-none input:focus{outline:none;}
+/*******************************/
+#createPatinal textarea{width:200px;border:none;}
+.bt input:focus{outline:none;}
+/**/
+#create select{background-image:none;}
+/*我的患者*/
+.pad-2{padding:2px;}
+/*弹窗提示*/
+.actionsheet{padding:0;}
+
+
