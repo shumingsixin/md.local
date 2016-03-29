@@ -4,12 +4,12 @@
  */
 $this->setPageID('pMyBooking');
 $this->setPageTitle('我的患者');
-$hasBookingList = $data->results['hasBookingList'];
-$noBookingList = $data->results['noBookingList'];
+$hasBookingList = $data->results->hasBookingList;
+$noBookingList = $data->results->noBookingList;
 $urlCreatePatient = $this->createUrl('patient/create', array('addBackBtn' => 1));
 $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
-$urlDoctorTerms.='?returnUrl='.$currentUrl;
+$urlDoctorTerms.='?returnUrl=' . $currentUrl;
 $urlDoctorView = $this->createUrl('doctor/view');
 $checkTeamDoctor = $teamDoctor
 ?>

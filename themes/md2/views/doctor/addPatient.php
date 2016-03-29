@@ -6,7 +6,7 @@ $url = $this->createUrl('home/page', array('view' => 'bookingDoctor', 'addBackBt
 $urlPatientCreate = $this->createUrl('patient/create', array('addBackBtn' => 1));
 $this->show_footer = false;
 $doctor = $doctorInfo->results->doctor;
-$noBookingList = $patientList->results['noBookingList'];
+$noBookingList = $patientList->results->noBookingList;
 $id = Yii::app()->request->getQuery('id', '');
 $returnUrl = $this->createUrl('doctor/addPatient', array('id' => $id, 'addBackBtn' => 1));
 ?>

@@ -8,7 +8,7 @@ $disease_sub_category = Yii::app()->request->getQuery('disease_sub_category', ''
 $page = Yii::app()->request->getQuery('page', '');
 $urlAjaxContractDoctor = $this->createUrl('doctor/ajaxContractDoctor');
 $urlViewContractDoctors = $this->createUrl('doctor/viewContractDoctors');
-$urlState = $this->createUrl('doctor/ajaxCityList');
+$urlState = $this->createUrl('doctor/ajaxStateList');
 $urlDept = $this->createUrl('doctor/ajaxDeptList');
 $urlDoctorView = $this->createUrl('doctor/viewDoctor', array('id' => ''));
 
