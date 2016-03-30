@@ -665,7 +665,7 @@ class DoctorController extends MobiledoctorController {
             $form->attributes = $_POST['ForgetPasswordForm'];
             if ($form->validate()) {
                 $userMgr = new UserManager();
-                $user = $userMgr->loadUserByUsername($form->username);
+                $user = $userMgr->loadUserByUsername($form->username, StatCode::USER_ROLE_DOCTOR);
                 if (isset($user)) {
                     $success = $userMgr->doResetPassword($user, null, $form->password_new);
                     if ($success) {

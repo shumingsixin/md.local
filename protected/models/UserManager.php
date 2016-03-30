@@ -127,8 +127,8 @@ class UserManager {
         return $output;
     }
 
-    public function loadUserByUsername($username) {
-        return User::model()->getByUsername($username);
+    public function loadUserByUsername($username, $role = StatCode::USER_ROLE_DOCTOR) {
+        return User::model()->getByUsernameAndRole($username, $role);
     }
 
     /**
