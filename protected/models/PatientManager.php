@@ -115,6 +115,11 @@ class PatientManager {
         return PatientInfo::model()->getByIdAndCreatorId($id, $creatorId, $attributes, $with, $options);
     }
 
+    //根据患者名字查询患者
+    public function loadPatientListByCreateorIdAndName($createorId, $name, $attributes = '*', $with = null, $options = null) {
+        return PatientInfo::model()->getAllByAttributes(array('creator_id' => $createorId, 'name' => $name), $attributes, $with, $options);
+    }
+
     /**
      * Get EUploadedFile from $_FILE. 
      * Create DoctorCert model. 

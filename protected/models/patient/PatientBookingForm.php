@@ -6,6 +6,7 @@ class PatientBookingForm extends EFormModel {
     public $patient_name;
     public $doctor_id;
     public $doctor_name;
+    public $expected_doctor;
     public $creator_id;
     public $creator_name;
     public $status;
@@ -27,9 +28,10 @@ class PatientBookingForm extends EFormModel {
             array('patient_id, creator_id, status, travel_type', 'required'),
             array('patient_id, doctor_id, creator_id, status, travel_type', 'numerical', 'integerOnly' => true),
             array('user_agent', 'length', 'max' => 20),
+            array('expected_doctor', 'length', 'max' => 200),
             array('detail', 'length', 'max' => 1000),
             array('remark', 'length', 'max' => 500),
-            array('patient_name, creator_name, doctor_name , date_start, date_end', 'safe'),
+            array('expected_doctor, patient_name, creator_name, doctor_name , date_start, date_end', 'safe'),
         );
     }
 
@@ -43,6 +45,7 @@ class PatientBookingForm extends EFormModel {
             'creator_id' => '创建者',
             'status' => '状态',
             'travel_type' => '出行方式',
+            'expected_doctor' => '期望医生',
             'date_start' => '开始日期',
             'date_end' => '结束日期',
             'detail' => '细节',

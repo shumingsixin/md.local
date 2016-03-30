@@ -561,6 +561,7 @@ class DoctorController extends MobiledoctorController {
             $this->redirect(array('view'));
         }
         $isSuccess = false;
+        $loginType = 'sms';
         $smsform = new UserDoctorMobileLoginForm();
         $pawform = new UserLoginForm();
         $smsform->role = StatCode::USER_ROLE_DOCTOR;
@@ -572,6 +573,7 @@ class DoctorController extends MobiledoctorController {
             $userMgr = new UserManager();
             $isSuccess = $userMgr->mobileLogin($smsform);
         } else if (isset($_POST['UserLoginForm'])) {
+            $loginType = 'paw';
             $values = $_POST['UserLoginForm'];
             $pawform->setAttributes($values, true);
             $userMgr = new UserManager();
@@ -583,7 +585,8 @@ class DoctorController extends MobiledoctorController {
         //失败 则返回登录页面
         $this->render("mobileLogin", array(
             'model' => $smsform,
-            'pawModel' => $pawform
+            'pawModel' => $pawform,
+            'loginType' => $loginType
         ));
     }
 

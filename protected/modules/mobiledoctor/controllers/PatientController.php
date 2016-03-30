@@ -211,6 +211,15 @@ class PatientController extends MobiledoctorController {
         ));
     }
 
+    public function actionSearch($name) {
+        $userId = $this->getCurrentUserId();
+        $apisvc = new ApiViewPatientSearch($userId, $name);
+        $output = $apisvc->loadApiViewData();
+        $this->render('list', array(
+            'data' => $output
+        ));
+    }
+
     //我的患者详情
     public function actionView($id) {
         $userId = $this->getCurrentUserId();
