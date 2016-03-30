@@ -215,7 +215,7 @@ class PatientController extends MobiledoctorController {
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewPatientSearch($userId, $name);
         $output = $apisvc->loadApiViewData();
-        $this->render('list', array(
+        $this->render('search', array(
             'data' => $output
         ));
     }
