@@ -34,6 +34,17 @@ class PatientbookingController extends MobiledoctorController {
         $filterChain->run();
     }
 
+    public function filterUserContext($filterChain) {
+        $user = $this->loadUser();
+        if (is_null($user)) {
+            $redirectUrl = $this->createUrl('user/login');
+            $currentUrl = $this->getCurrentRequestUrl();
+            $redirectUrl.='?returnUrl=' . $currentUrl;
+            $this->redirect($redirectUrl);
+        }
+        $filterChain->run();
+    }
+
     /**
      * @return array action filters
      */
@@ -42,7 +53,8 @@ class PatientbookingController extends MobiledoctorController {
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
             'userDoctorContext + create',
-            'patientCreatorContext + create'
+            'patientCreatorContext + create',
+            'userContext + list doctorPatientBookingList'
         );
     }
 
@@ -58,7 +70,7 @@ class PatientbookingController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking'),
+                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'doctorPatientBooking'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

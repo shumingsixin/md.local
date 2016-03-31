@@ -37,6 +37,17 @@ class PatientController extends MobiledoctorController {
         $filterChain->run();
     }
 
+    public function filterUserContext($filterChain) {
+        $user = $this->loadUser();
+        if (is_null($user)) {
+            $redirectUrl = $this->createUrl('user/login');
+            $currentUrl = $this->getCurrentRequestUrl();
+            $redirectUrl.='?returnUrl=' . $currentUrl;
+            $this->redirect($redirectUrl);
+        }
+        $filterChain->run();
+    }
+
     /**
      * @return array action filters
      */
@@ -46,6 +57,7 @@ class PatientController extends MobiledoctorController {
             'postOnly + delete', // we only allow deletion via POST request
             'userDoctorContext + create ajaxCreate createPatientMR ajaxCreatePatientMR',
             'patientContext + createPatientMR updatePatientMR',
+            'userContext + list create'
         );
     }
 
@@ -61,7 +73,7 @@ class PatientController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'list', 'uploadMRFile'),
+                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users

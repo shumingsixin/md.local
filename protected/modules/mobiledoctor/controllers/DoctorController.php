@@ -90,6 +90,17 @@ class DoctorController extends MobiledoctorController {
         $filterChain->run();
     }
 
+    public function filterUserContext($filterChain) {
+        $user = $this->loadUser();
+        if (is_null($user)) {
+            $redirectUrl = $this->createUrl('user/login');
+            $currentUrl = $this->getCurrentRequestUrl();
+            $redirectUrl.='?returnUrl=' . $currentUrl;
+            $this->redirect($redirectUrl);
+        }
+        $filterChain->run();
+    }
+
     /**
      * @return array action filters
      */
@@ -101,7 +112,8 @@ class DoctorController extends MobiledoctorController {
             'patientContext + createPatientMR',
             'patientCreatorContext + createBooking',
             'userDoctorProfileContext + contract uploadCert',
-            'userDoctorVerified + delectDoctorCert ajaxUploadCert ajaxUploadCert ajaxProfile'
+            'userDoctorVerified + delectDoctorCert ajaxUploadCert ajaxUploadCert ajaxProfile',
+            'userContext + viewContractDoctors'
         );
     }
 
@@ -117,7 +129,7 @@ class DoctorController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('logout', 'changePassword', 'createPatientBooking', 'viewContractDoctors', 'ajaxContractDoctor', 'ajaxStateList', 'ajaxDeptList', 'viewDoctor', 'addPatient', 'view', 'profile', 'ajaxProfile', 'ajaxUploadCert', 'doctorInfo', 'doctorCerts', 'account', 'delectDoctorCert', 'uploadCert', 'updateDoctor', 'toSuccess', 'contract', 'ajaxContract', 'sendEmailForCert', 'ajaxViewDoctorZz', 'createDoctorZz', 'ajaxDoctorZz', 'ajaxViewDoctorHz', 'createDoctorHz', 'ajaxDoctorHz', 'drView', 'ajaxDoctorTerms', 'doctorTerms'),
+                'actions' => array('logout', 'changePassword', 'createPatientBooking', 'ajaxContractDoctor', 'ajaxStateList', 'ajaxDeptList', 'viewDoctor', 'addPatient', 'view', 'profile', 'ajaxProfile', 'ajaxUploadCert', 'doctorInfo', 'doctorCerts', 'account', 'delectDoctorCert', 'uploadCert', 'updateDoctor', 'toSuccess', 'contract', 'ajaxContract', 'sendEmailForCert', 'ajaxViewDoctorZz', 'createDoctorZz', 'ajaxDoctorZz', 'ajaxViewDoctorHz', 'createDoctorHz', 'ajaxDoctorHz', 'drView', 'ajaxDoctorTerms', 'doctorTerms'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
