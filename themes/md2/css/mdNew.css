@@ -11,8 +11,6 @@ div.error,div.errorMessage{color: #E21E1A;font-size: 12px;margin-top: -10px;}
 .btn-block{display: block!important;width: 95%;margin: 5px 2.5%!important;padding: 10px!important;}
 .btn-yes{background-color:#19aea5!important;color: #fff!important;}
 .btn-default{border: 1px solid #ddd;background-color: #e4e4e4!important;}
-.btn-sendSmsCode{background-color: #EFA429!important;color: #fff!important;height: 40px;border-radius: 0;min-width: 8em;}
-button.btn-sendSmsCode:disabled{color: #fff!important;opacity: 0.5;}
 .divider{border-bottom: 1px solid #ddd;}
 .divider-green{border-bottom: 1px solid #19aea5;}
 .color-white{color: #fff;}
@@ -110,7 +108,6 @@ header nav.right .header-user{height: 28px;}
 .headerMenu .grid{border: 1px solid #ddd;}
 .headerMenu .bookingMenu{padding: 10px;}
 .headerMenu .bookingMenu.active{background-color: #19aea5;color: #fff;}
-.noBookingList{display: none;}
 /**** doctorInfo ****/
 .doctorInfo .grid .title{width:5em;}
 /**** profile ****/
@@ -355,4 +352,137 @@ header nav.right .header-user{height: 28px;}
 #createPatientBooking_article .noTravelType{
     color: #E21E1A;
     font-size: 12px;
+}
+
+/*个人中心*/
+#doctorView_article .list>li.nextImg {
+    background: url('../images/nextImg.png') no-repeat;
+    background-position: 95% 50%;
+    background-size: 8px 15px;
+}
+
+/*就诊意向*/
+#patientBookingCreate_article .intention {
+    border: 1px solid #E7E7E7;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+#patientBookingCreate_article .intention.active {
+    border: 1px solid #19aea5;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    background: url('../images/bookingIntention.png') no-repeat;
+    background-size: 15px;
+    background-position-x: 100%;
+    background-position-y: 100%;
+}
+#patientBookingCreate_article .noTravelType {
+    color: #E21E1A;
+    font-size: 12px;
+}
+
+/*登录*/
+#login_article .inputBorder{
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+#login_article .noPaddingInput{
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 0px;
+    border: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    height: 40px;
+}
+#login_article .btn-sendSmsCode{
+    background-color: #fff!important;
+    color: #888!important;
+    height: 40px;
+    border-radius: 5px;
+}
+#login_article button.btn-sendSmsCode:disabled{
+    color: #ccc!important;
+    opacity: 0.5;
+}
+#login_article .phoneIcon{
+    background: url('../images/login/phone.png') no-repeat;
+    background-size: 11px 17px;
+    background-position: 15px 11px;
+    width: 40px;
+}
+#login_article .lockIcon{
+    background: url('../images/login/lock.png') no-repeat;
+    background-size: 11px 17px;
+    background-position: 15px 11px;
+    width: 40px;
+}
+
+/*注册*/
+#register_article .inputBorder{
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+#register_article .noPaddingInput{
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 0px;
+    border: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    height: 40px;
+}
+#register_article .btn-sendSmsCode {
+    background-color: #fff!important;
+    color: #888!important;
+    height: 40px;
+    border-radius: 5px;
+}
+#register_article button.btn-sendSmsCode:disabled{
+    color: #ccc!important;
+    opacity: 0.5;
+}
+#register_article .smsHide{
+    background: url('../images/login/smsHide.png') no-repeat;
+    background-size: 21px 16px;
+    background-position: 50% 50%;
+}
+#register_article .smsDisplay{
+    background: url('../images/login/smsDisplay.png') no-repeat;
+    background-size: 21px 16px;
+    background-position: 50% 50%;
+}
+
+/*忘记密码*/
+#forgetPassword_article .inputBorder{
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+#forgetPassword_article .noPaddingInput{
+    padding: 10px 0px 10px 10px;
+    margin-bottom: 0px;
+    border: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    height: 40px;
+}
+#forgetPassword_article .btn-sendSmsCode {
+    background-color: #fff!important;
+    color: #888!important;
+    height: 40px;
+    border-radius: 5px;
+}
+#forgetPassword_article button.btn-sendSmsCode:disabled{
+    color: #ccc!important;
+    opacity: 0.5;
+}
+#forgetPassword_article .smsHide{
+    background: url('../images/login/smsHide.png') no-repeat;
+    background-size: 21px 16px;
+    background-position: 50% 50%;
+}
+#forgetPassword_article .smsDisplay{
+    background: url('../images/login/smsDisplay.png') no-repeat;
+    background-size: 21px 16px;
+    background-position: 50% 50%;
 }

@@ -20,6 +20,12 @@ $(function () {
         return this.optional(element) || (enddate > startdate);
     }, "最迟时间必须大于最早时间");
     btnSubmit.click(function () {
+        $('.noTravelType').remove();
+        var travelType = $('input[name="booking[travel_type]"]').attr('value');
+        //console.log(travelType);
+        if (travelType == '') {
+            $('#travel_type').after('<div class="noTravelType">请选择就诊意向</div>');
+        }
         var bool = validator.form();
         if (bool) {
             formAjaxSubmit();
@@ -32,14 +38,6 @@ $(function () {
             'booking[travel_type]': {
                 required: true,
             },
-            'booking[date_start]': {
-                required: true,
-                //dataBeforeToday: true
-            },
-            'booking[date_end]': {
-                required: true,
-                //startdataBeforeEnddate: true
-            },
             'booking[detail]': {
                 required: true,
                 minlength: 1,
@@ -49,14 +47,6 @@ $(function () {
         messages: {
             'booking[travel_type]': {
                 required: '请选择就诊方式',
-            },
-            'booking[date_start]': {
-                required: '请选择就诊日期',
-                //dataBeforeToday: "日期必须大于今天"
-            },
-            'booking[date_end]': {
-                required: '请选择就诊日期',
-                //startdataBeforeEnddate: '最迟时间必须大于最早时间'
             },
             'booking[detail]': {
                 required: '如无任何需求，请填写‘无’',

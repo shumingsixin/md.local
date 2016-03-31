@@ -17,12 +17,12 @@ class UserRegisterForm extends EFormModel {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('username, password, password_repeat', 'required', 'message' => '请输入{attribute}', 'except' => 'getSmsCode'),
+            array('username, password', 'required', 'message' => '请输入{attribute}', 'except' => 'getSmsCode'),
             array('username', 'length', 'is' => 11, 'message' => '请输入正确的11位中国手机号码', 'except' => 'getSmsCode'),
             array('username', 'numerical', 'integerOnly' => true, 'message' => '请输入正确的11位中国手机号码', 'except' => 'getSmsCode'),
             array('username', 'checkUnique'),
             array('password', 'length', 'min' => 4, 'max' => 40, 'tooShort' => '最短为4个字母或数字', 'except' => 'getSmsCode'),
-            array('password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => '{attribute}不正确', 'except' => 'getSmsCode'),
+           // array('password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => '{attribute}不正确', 'except' => 'getSmsCode'),
             array('terms', 'compare', 'compareValue' => 1, 'message' => '请同意{attribute}', 'except' => 'getSmsCode'),
             array('username', 'required', 'message' => '请输入{attribute}', 'on' => 'getSmsCode'),
             array('verify_code', 'required', 'message' => '请输入{attribute}'),

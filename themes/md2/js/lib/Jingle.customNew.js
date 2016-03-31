@@ -54,6 +54,7 @@ var Jingle = J = {
             });
         }
         this.Element.init();
+        this.Element.initControlGroup();
         this.Menu.init();
         this.Selected.init();
     }
@@ -95,6 +96,17 @@ J.Element = (function ($) {
         $.map(_getMatchElements($el, SELECTOR.progress), _init_progress);
         $.map(_getMatchElements($el, SELECTOR.count), _init_badge);
         $.map(_getMatchElements($el, SELECTOR.checkbox), _init_checkbox);
+    }
+    /**
+     * 初始化按钮组(绑定事件)
+     */
+    var initControlGroup = function () {
+        $(document).on('tap', 'ul.control-group li', function () {
+            var $this = $(this);
+            if ($this.hasClass('active'))
+                return;
+            $this.addClass('active').siblings('.active').removeClass('active').parent().trigger('change', [$this]);
+        });
     }
     /**
      * 自身与子集相结合
@@ -231,6 +243,7 @@ J.Element = (function ($) {
 
     return {
         init: init,
+        initControlGroup: initControlGroup,
         initIcon: _init_icon,
         initToggle: _init_toggle,
         initProgress: _init_progress,

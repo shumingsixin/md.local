@@ -12,9 +12,8 @@ class ForgetPasswordForm extends EFormModel {
      */
     public function rules() {
         return array(
-            array('username, verify_code, password_new, password_repeat', 'required', 'message' => '请输入{attribute}'),
+            array('username, verify_code, password_new', 'required', 'message' => '请输入{attribute}'),
             array('password_new', 'length', 'min' => 4, 'max' => 40, 'tooShort' => '密码不可少于4个字母或数字', 'tooLong' => '密码不可多于40个字母或数字'),
-            array('password_repeat', 'compare', 'compareAttribute' => 'password_new', 'message' => '新密码不匹配'),
             array('verify_code', 'checkVerifyCode'),
         );
     }

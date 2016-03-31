@@ -20,7 +20,7 @@ $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
 ?>
 <div id="section_container">
     <section id="main_section" class="active">
-        <article class="active" data-scroll="true">
+        <article id="doctorView_article" class="active" data-scroll="true">
             <div class="">
                 <ul class="list">
                     <li class="">
@@ -42,80 +42,95 @@ $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
                             </div>
                         </div>
                     </li>
-                    <li>
-                        <a id="createCheck" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a id="createCheck" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="plus"></div>
-                                <div class="col-0 w40">
+                                <div class="col-0 w20 text-center" data-icon="plus"></div>
+                                <div class="col-0 w80">
                                     创建患者
                                 </div>
-                                <div class="col-0 ml20"></div>
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a id="patientListCheck" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a id="patientListCheck" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="users"></div>
-                                <div class="col-0 w40">
+                                <div class="col-0 w20 text-center" data-icon="users"></div>
+                                <div class="col-0 w80">
                                     我的患者
                                 </div>
-                                <div class="col-0 ml20"></div>
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a id="patientBookingListCheck" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a id="patientBookingListCheck" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="list"></div>
-                                <div class="col-0 w40">
-                                    发出的预约
+                                <div class="col-0 w20 text-center" data-icon="list"></div>
+                                <div class="col-0 w80">
+                                    发出预约
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo $urlDoctorPatientBookingList; ?>" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a href="<?php echo $urlDoctorPatientBookingList; ?>" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="envelop"></div>
-                                <div class="col-0 w40">
-                                    收到的预约
+                                <div class="col-0 w20 text-center" data-icon="envelop"></div>
+                                <div class="col-0 w80">
+                                    收到预约
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="bg-gray"></li>
-                    <li>
-                        <a href="<?php echo $urlDoctorAccount; ?>" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a href="<?php echo $urlDoctorAccount; ?>" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="info"></div>
-                                <div class="col-0 w40">
+                                <div class="col-0 w20 text-center" data-icon="info"></div>
+                                <div class="col-0 w80">
+                                    名医主刀顾问协议
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nextImg">
+                        <a href="<?php echo $urlDoctorContract; ?>" class="color-000" data-target="link">
+                            <div class="grid font-type">
+                                <div class="col-0 w20 text-center" data-icon="pencil-2"></div>
+                                <div class="col-0 w80">
+                                    成为签约主刀专家
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="bg-gray"></li>
+                    <li class="nextImg">
+                        <a href="<?php echo $urlDoctorAccount; ?>" class="color-000" data-target="link">
+                            <div class="grid font-type">
+                                <div class="col-0 w20 text-center" data-icon="info"></div>
+                                <div class="col-0 w80">
                                     我的账户
                                 </div>
-                                <div class="col-0 ml20"></div>
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo $urlDoctorContract; ?>" class="color-000 text-center" data-target="link">
+                    <li class="nextImg">
+                        <a href="<?php echo $urlDoctorAccount; ?>" class="color-000" data-target="link">
                             <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="pencil-2"></div>
-                                <div class="col-0 w40">
-                                    专家签约
+                                <div class="col-0 w20 text-center" data-icon="info"></div>
+                                <div class="col-0 w80">
+                                    联系客服
                                 </div>
-                                <div class="col-0 ml20"></div>
                             </div>
                         </a>
                     </li>
-                    <li class="bg-gray"></li>
-                    <li class="bg-red color-white">
-                        <a href="javascript:;" class="color-000 text-center" id="btn_out">
+                    <li class="nextImg">
+                        <a href="javascript:;" class="color-000" id="btn_out">
                             <div class="grid font-type">
-                                <div class="col-0 w20 text-center color-white" data-icon="switch"></div>
-                                <div class="col-0 w40 color-white">
+                                <div class="col-0 w20 text-center" data-icon="switch"></div>
+                                <div class="col-0 w80">
                                     退出登录
                                 </div>
-                                <div class="col-0 ml20"></div>
                             </div>
                         </a>
                     </li>
