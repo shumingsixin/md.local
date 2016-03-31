@@ -149,18 +149,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         <?php echo $form->error($pawModel, 'password'); ?>
                         <div class="error"></div>
                     </div>
-                    <div class="mt50 input">
-                        <div class="grid inputBorder mb10">
-                            <div class="col-0 lockIcon">
-                            </div>
-                            <div class="col-0 w2p br-gray mt10 mb10">
-                            </div>
-                            <div class="col-1">
-                                <input type="text" placeholder="请输入图形验证码" class="noPaddingInput">
-                            </div>
-                        </div>
-                        <div class="error"></div>
-                    </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
                         <a id="btnSubmitPaw" class="btn btn-yes btn-block">登录</a>
