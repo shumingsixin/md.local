@@ -40,7 +40,7 @@ class PatientController extends MobiledoctorController {
     public function filterUserContext($filterChain) {
         $user = $this->loadUser();
         if (is_null($user)) {
-            $redirectUrl = $this->createUrl('user/login');
+            $redirectUrl = $this->createUrl('doctor/mobileLogin');
             $currentUrl = $this->getCurrentRequestUrl();
             $redirectUrl.='?returnUrl=' . $currentUrl;
             $this->redirect($redirectUrl);
@@ -243,7 +243,9 @@ class PatientController extends MobiledoctorController {
         $apisvc = new ApiViewDoctorPatientInfo($id, $userId);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
-        $this->headerUTF8();
+        $salesOrder = new SalesOrder();
+        $orderInfo = $salesOrder->getByRefNo($output->results->patientBooking->refNo);
+        $output->results->orderInfo=$orderInfo;
         $statusCode=$output->results->patientBooking->statusCode;
         if($statusCode=="1"){
             $view='待支付';
