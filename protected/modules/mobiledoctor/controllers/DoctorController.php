@@ -415,6 +415,13 @@ class DoctorController extends MobiledoctorController {
         $data = new stdClass();
         $data->id = $user->getId();
         $data->mobile = $user->getMobile();
+        $userMgr = new UserManager();
+        $models = $userMgr->loadUserDoctorFilesByUserId($user->id);
+        $doctorCerts = false;
+        if (arrayNotEmpty($models)) {
+            $doctorCerts = true;
+        }
+        $data->doctorCerts = $doctorCerts;
         if (isset($profile)) {
             $data->name = $profile->getName();
             //是否是签约医生
@@ -425,7 +432,6 @@ class DoctorController extends MobiledoctorController {
             $data->verified = false;
             $data->teamDoctor = false;
         }
-
         $this->render('view', array(
             'user' => $data
         ));
