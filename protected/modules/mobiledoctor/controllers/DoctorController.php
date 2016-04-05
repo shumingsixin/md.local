@@ -592,7 +592,8 @@ class DoctorController extends MobiledoctorController {
             $isSuccess = $userMgr->doLogin($pawform);
         }
         if ($isSuccess) {
-            $this->redirect(array('view'));
+            $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
+            $this->redirect($returnUrl);
         }
         //失败 则返回登录页面
         $this->render("mobileLogin", array(
