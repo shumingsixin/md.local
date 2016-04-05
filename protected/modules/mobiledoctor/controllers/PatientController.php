@@ -73,7 +73,7 @@ class PatientController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile'),
+                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -223,13 +223,17 @@ class PatientController extends MobiledoctorController {
         ));
     }
 
-    public function actionSearch($name) {
+    //进入搜索页面
+    public function actionSearchView() {
+        $this->render('searchView');
+    }
+
+    //ajax查询
+    public function actionAjaxSearch($name) {
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewPatientSearch($userId, $name);
         $output = $apisvc->loadApiViewData();
-        $this->render('search', array(
-            'data' => $output
-        ));
+        $this->renderJsonOutput($output);
     }
 
     //我的患者详情
@@ -239,7 +243,27 @@ class PatientController extends MobiledoctorController {
         $apisvc = new ApiViewDoctorPatientInfo($id, $userId);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
-        $this->render('view', array(
+        $this->headerUTF8();
+        $statusCode=$output->results->patientBooking->statusCode;
+        if($statusCode=="1"){
+            $view='待支付';
+        }
+        elseif($statusCode=="2"){
+            $view='安排中';
+        }
+        elseif($statusCode=="5"){
+            $view='待确认';
+        }
+        elseif($statusCode=="6"){
+            $view='上传出院小结';
+        }
+        elseif($statusCode=="8"){
+            $view='完成';
+        }
+        else{
+            $view='取消订单';
+        }
+        $this->render($view, array(
             'data' => $output
         ));
     }

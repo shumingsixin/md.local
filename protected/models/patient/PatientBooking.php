@@ -31,14 +31,15 @@
 class PatientBooking extends EActiveRecord {
 
     const BK_STATUS_NEW = 1;         // 待处理
-    const BK_STATUS_PROCESSING = 2;   // 处理中    
+    const BK_STATUS_PROCESSING = 2;   // 安排中    
     const BK_STATUS_CONFIRMED_DOCTOR = 3;   // 已确认专家
     //const BK_STATUS_PATIENT_ACCEPTED = 4;   // 患者已接受
+    const BK_STATUS_SERVICE_UNPAID = 5;   //待确认
+    const BK_STATUS_SERVICE_PAIDED = 6;   // 上传出院小结
     const BK_STATUS_INVALID = 7;        // 失效的
     const BK_STATUS_SURGER_DONE = 8;        // 已完成手术
-    const BK_STATUS_DC_ACCEPTED = 9;          // 已收到出院小结
-    const BK_STATUS_CANCELLED = 99;   // 已取消
-
+    const BK_STATUS_CANCELLED = 9;          // 已取消
+    
     /**
      * @return string the associated database table name
      */
@@ -197,7 +198,8 @@ class PatientBooking extends EActiveRecord {
     public function getByIdAndDoctorId($id, $doctorId, $attributes = '*', $with = null) {
         return $this->getByAttributes(array('id' => $id, 'doctor_id' => $doctorId), $with);
     }
-
+    
+    
     /*     * ****** Accessors ******* */
 
     public function getPatient() {
@@ -250,14 +252,15 @@ class PatientBooking extends EActiveRecord {
 
     public function getOptionsBkStatus() {
         return array(
-            self::BK_STATUS_NEW => '待处理',
-            self::BK_STATUS_PROCESSING => '处理中',
-            self::BK_STATUS_CONFIRMED_DOCTOR => '已确认专家',
-            //    self::BK_STATUS_PATIENT_ACCEPTED => '患者已接受',
-            self::BK_STATUS_SURGER_DONE => '已完成手术',
-            self::BK_STATUS_DC_ACCEPTED => '收到出院小结',
-            self::BK_STATUS_CANCELLED => '已取消',
-            self::BK_STATUS_INVALID => '失效的'
+        self::BK_STATUS_NEW => '待处理',
+        self::BK_STATUS_PROCESSING => '安排中',
+        self::BK_STATUS_CONFIRMED_DOCTOR => '已确认专家',
+        //    self::BK_STATUS_PATIENT_ACCEPTED => '患者已接受',
+        self::BK_STATUS_SERVICE_UNPAID => '待确认',
+        self::BK_STATUS_SERVICE_PAIDED => '上传出院小结',
+        self::BK_STATUS_SURGER_DONE => '已完成手术',
+        self::BK_STATUS_CANCELLED => '已取消',
+        self::BK_STATUS_INVALID => '失效的'
         );
     }
 

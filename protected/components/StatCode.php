@@ -22,7 +22,7 @@ class StatCode {
     const BK_STATUS_CONFIRMED_DOCTOR = 3;   // 已确认专家
     const BK_STATUS_PATIENT_ACCEPTED = 4;   // 患者已接受
     const BK_STATUS_SERVICE_UNPAID = 5;      // 待支付服务费（确定手术时间）
-    const BK_STATUS_SERVICE_PAIDED = 6;      // 已支付服务费（入院手术）
+    const BK_STATUS_SERVICE_PAIDED = 6;      // 已支付服务费（入院手术）上传出院小结
     //const BK_STATUS_PROCESS_DONE = 7;   // 跟进结束
     const BK_STATUS_DONE = 8;         // 已完成
     const BK_STATUS_CANCELLED = 9;   // 已取消
