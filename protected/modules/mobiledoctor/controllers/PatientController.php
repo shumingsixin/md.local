@@ -73,7 +73,7 @@ class PatientController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile'),
+                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -223,13 +223,17 @@ class PatientController extends MobiledoctorController {
         ));
     }
 
-    public function actionSearch($name) {
+    //进入搜索页面
+    public function actionSearchView() {
+        $this->render('searchView');
+    }
+
+    //ajax查询
+    public function actionAjaxSearch($name) {
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewPatientSearch($userId, $name);
         $output = $apisvc->loadApiViewData();
-        $this->render('search', array(
-            'data' => $output
-        ));
+        $this->renderJsonOutput($output);
     }
 
     //我的患者详情
