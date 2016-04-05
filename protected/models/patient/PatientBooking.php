@@ -168,8 +168,14 @@ class PatientBooking extends EActiveRecord {
     }
 
     //查询创建者旗下所有的患者
-    public function getAllByCreatorId($creatorId, $attributes = '*', $with = null, $options = null) {
-        return $this->getAllByAttributes(array('t.creator_id' => $creatorId), $with, $options);
+    public function getAllByCreatorId($creatorId,$status, $attributes = '*', $with = null, $options = null) {
+        if($status=='0'){
+            $array=array('t.creator_id' => $creatorId);
+        }
+        else{
+            $array=array('t.creator_id' => $creatorId,'t.status' => $status);
+        }
+        return $this->getAllByAttributes($array, $with, $options);
     }
 
     //查询该创建者旗下的患者信息

@@ -66,11 +66,11 @@ class PatientbookingController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array(''),
+                'actions' => array('list', 'doctorPatientBookingList'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'doctorPatientBooking'),
+                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -105,7 +105,8 @@ class PatientbookingController extends MobiledoctorController {
         }
         $pagesize = 100;
         //service层
-        $apisvc = new ApiViewDoctorPatientBookingList($userId, $pagesize, $page);
+        $requestValue=$this->filterRequestParams(array('addBackBtn','status'));
+        $apisvc = new ApiViewDoctorPatientBookingList($userId,$requestValue['status'], $pagesize, $page);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
         $dataCount = $apisvc->loadCount();
