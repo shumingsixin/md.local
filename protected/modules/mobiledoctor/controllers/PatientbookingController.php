@@ -37,7 +37,7 @@ class PatientbookingController extends MobiledoctorController {
     public function filterUserContext($filterChain) {
         $user = $this->loadUser();
         if (is_null($user)) {
-            $redirectUrl = $this->createUrl('user/login');
+            $redirectUrl = $this->createUrl('doctor/mobileLogin');
             $currentUrl = $this->getCurrentRequestUrl();
             $redirectUrl.='?returnUrl=' . $currentUrl;
             $this->redirect($redirectUrl);
