@@ -423,11 +423,13 @@ class DoctorController extends MobiledoctorController {
         }
         $data->doctorCerts = $doctorCerts;
         if (isset($profile)) {
+            $data->isProfile = true;
             $data->name = $profile->getName();
             //是否是签约医生
             $data->verified = $profile->isVerified();
             $data->teamDoctor = $profile->isTermsDoctor();
         } else {
+            $data->isProfile = false;
             $data->name = $user->getMobile();
             $data->verified = false;
             $data->teamDoctor = false;

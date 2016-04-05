@@ -3,14 +3,13 @@
  * $model DoctorForm.
  */
 $this->setPageID('pMyBooking');
-$this->setPageTitle('发出的预约');
-$urlCreatePatient = $this->createUrl('patient/create', array('addBackBtn' => 1));
+$this->setPageTitle('我的订单');
 $status = Yii::app()->request->getQuery('status', 0);
 $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
 $urlPatientBookingList = $this->createUrl('patientBooking/list', array('addBackBtn' => 1, 'status' => ''));
 $urlDoctorTerms.='?returnUrl=' . $currentUrl;
-$urlDoctorView = $this->createUrl('doctor/view');
+$urlDoctorView = $this->createUrl('doctor/');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 ?>
@@ -34,11 +33,11 @@ $checkTeamDoctor = $teamDoctor;
             </div>
         </a>
     </nav>
-    <h1 class="title">发出的预约</h1>
+    <h1 class="title">我的订单</h1>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
-    <section id="bookinglist_section" class="active" data-init="true">
-        <nav class="header-secondary bg-white color-black3">
+    <section id="bookingList_section" class="active" data-init="true">
+        <nav id="bookingList_nav" class="header-secondary bg-white color-black3">
             <ul class="control-group w100">
                 <?php
                 $statusActive = '';
@@ -87,7 +86,7 @@ $checkTeamDoctor = $teamDoctor;
                 </li>
             </ul>
         </nav>
-        <article id="a1" class="active" data-scroll="true">
+        <article id="bookingList_article" class="active" data-scroll="true">
             <div class="">
                 <div class="">
                     <?php
@@ -116,9 +115,8 @@ $checkTeamDoctor = $teamDoctor;
                         }
                     } else {
                         ?>
-                        <h4 class="text-center">暂无预约信息</h4>
-                        <div class="mt30">
-                            <a href="<?php echo $urlCreatePatient; ?>" data-target="link" class="btn btn-yes btn-block">马上创建</a>
+                        <div class="mt50 text-center">
+                            暂无预约信息
                         </div>
                         <?php
                     }
@@ -131,6 +129,13 @@ $checkTeamDoctor = $teamDoctor;
 </div>
 <script>
     $(document).ready(function () {
+        $('#bookingList_article').scroll(function () {
+            if ($(this).scrollTop() > 0) {
+                $('#bookingList_nav').addClass('bb-gray');
+            } else {
+                $('#bookingList_nav').removeClass('bb-gray');
+            }
+        });
         if ('<?php echo $checkTeamDoctor; ?>' == 1) {
             J.customConfirm('您已实名认证',
                     '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
