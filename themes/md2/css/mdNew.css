@@ -355,12 +355,66 @@ header nav.right .header-user{height: 28px;}
 }
 
 /*个人中心*/
+header{
+    border-bottom: inherit!important;
+}
+#doctorView_article .nextImg{
+    background: url('../images/nextImg.png') no-repeat;
+    background-position: 95% 50%;
+    background-size: 8px 15px;
+}
 #doctorView_article .list>li.nextImg {
     background: url('../images/nextImg.png') no-repeat;
     background-position: 95% 50%;
     background-size: 8px 15px;
 }
-
+#doctorView_article .realNameIcon{
+    padding: 2px 5px;
+    background-color: #D99431;
+    border-radius: 5px;
+}
+#doctorView_article .myPatients{
+    background: url('../images/center/myPatients.png') no-repeat;
+    background-size: 20px 20px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .myBooking{
+    background: url('../images/center/myBooking.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .receivedBooking{
+    background: url('../images/center/receivedBooking.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .consultingAgreement{
+    background: url('../images/center/consultingAgreement.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .signDoctor{
+    background: url('../images/center/signDoctor.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .customerService{
+    background: url('../images/center/customerService.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
+#doctorView_article .signOut{
+    background: url('../images/center/signOut.png') no-repeat;
+    background-size: 18px 18px;
+    background-position-y: 1px;
+    background-position-x: 20px;
+}
 /*就诊意向*/
 #patientBookingCreate_article .intention {
     border: 1px solid #E7E7E7;
@@ -485,4 +539,19 @@ header nav.right .header-user{height: 28px;}
     background: url('../images/login/smsDisplay.png') no-repeat;
     background-size: 21px 16px;
     background-position: 50% 50%;
+}
+
+/*我的患者*/
+#patientList_nav .searchDiv{
+    border-radius: 4px;
+    background-color: #fff;
+    margin-top: 5px;
+    color: #333333;
+}
+#patientList_nav .searchIcon{
+    background: url('../images/searchBlack.png') no-repeat;
+    background-size: 14px 14px;
+    width: 24px;
+    background-position-x: 5px;
+    background-position-y: 7px;
 }

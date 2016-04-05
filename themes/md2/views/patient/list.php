@@ -9,6 +9,7 @@ $noBookingList = $data->results->noBookingList;
 $urlCreatePatient = $this->createUrl('patient/create', array('addBackBtn' => 1, 'status' => 0));
 $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
+$urlSearchView = $this->createUrl('patient/searchView', array('addBackBtn' => 1));
 $urlDoctorTerms.='?returnUrl=' . $currentUrl;
 $urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
@@ -17,7 +18,6 @@ $this->show_header = false;
 ?>
 <style>
     .header-secondary{top: 0px;height: 40px;display: inline;}
-    input[type=text]{height: 30px;margin-top: 5px;margin-bottom: 0px;width: 100%;}
     .header-secondary~article{top:40px;}
     .header-secondary{background-color: #e1e1e1;}
 </style>
@@ -36,9 +36,18 @@ $this->show_header = false;
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section class="active">
-        <nav class="header-secondary">
+        <nav id="patientList_nav" class="header-secondary">
             <div class="w100 pl10 pr10">
-                <input type="text" placeholder="搜索" class="">
+                <a href="<?php echo $urlSearchView; ?>">
+                    <div class="searchDiv grid">
+                        <div class="col-0 searchIcon">
+
+                        </div>
+                        <div class="col-1 text-left">
+                            搜索
+                        </div>
+                    </div>
+                </a>
             </div>
         </nav>
         <article id="a1" class="active" data-scroll="true">
