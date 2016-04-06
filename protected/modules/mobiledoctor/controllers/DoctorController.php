@@ -586,6 +586,7 @@ class DoctorController extends MobiledoctorController {
         $pawform = new UserLoginForm();
         $smsform->role = StatCode::USER_ROLE_DOCTOR;
         $pawform->role = StatCode::USER_ROLE_DOCTOR;
+        $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
         if (isset($_POST['UserDoctorMobileLoginForm'])) {
             $values = $_POST['UserDoctorMobileLoginForm'];
             $smsform->setAttributes($values, true);
@@ -607,7 +608,8 @@ class DoctorController extends MobiledoctorController {
         $this->render("mobileLogin", array(
             'model' => $smsform,
             'pawModel' => $pawform,
-            'loginType' => $loginType
+            'loginType' => $loginType,
+            'returnUrl' => $returnUrl
         ));
     }
 

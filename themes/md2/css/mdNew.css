@@ -358,6 +358,9 @@ header nav.right .header-user{height: 28px;}
 header{
     border-bottom: inherit!important;
 }
+#doctorView_article{
+    background-color: #EEEEEE;
+}
 #doctorView_article .nextImg{
     background: url('../images/nextImg.png') no-repeat;
     background-position: 95% 50%;

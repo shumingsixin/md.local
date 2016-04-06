@@ -21,6 +21,7 @@ $teamDoctor = $user->teamDoctor;
 $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
 ?>
 <style>
+    
 </style>
 <div id="section_container">
     <section id="main_section" class="active">
@@ -54,26 +55,7 @@ $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
                         </div>
                     </div>
                 </div>
-                <ul class="list">
-                    <li class="">
-                        <div class="grid mt20 mb20">
-                            <div class="col-0 text-center w10">
-                                <img src="<?php echo $urlResImage; ?>homelogo.png" />
-                            </div>
-                            <div class="col-0 text-center w70 mt5">
-                                您好！<?php echo $user->name; ?>
-                            </div>
-                            <div class="col-0 verified">
-                                <?php
-                                if ($user->verified) {
-                                    echo '<img src="' . $urlResImage . 'icons/verified.png"/>';
-                                } else {
-                                    echo '<img src="' . $urlResImage . 'icons/noverified.png"/>';
-                                }
-                                ?>
-                            </div>
-                        </div>
-                    </li>
+                <ul class="list mt10">
                     <li class="nextImg hide">
                         <a id="createCheck" class="color-000" data-target="link">
                             <div class="grid font-type">
@@ -114,7 +96,8 @@ $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
                             </div>
                         </a>
                     </li>
-                    <li class="bg-gray"></li>
+                </ul>
+                <ul class="list mt10">
                     <li class="nextImg">
                         <div id="checkInf" class="grid font-type">
                             <div class="col-0 w20 consultingAgreement"></div>
@@ -286,7 +269,7 @@ $urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
         });
 
         $('#phoneService').tap(function () {
-            J.customAlert('<ul class="list"><li><a href="tel://4001197900" class="color-green">立即拨打免费客服电话</a></li><li id="closeContract" class="color-red2">取消</li></ul>');
+            J.customAlert('<div><a href="tel://4001197900" class="color-green"><div class="pad10 bb-gray">立即拨打免费客服电话</div></a></div><div id="closeContract" class="color-red2 pad10">取消</div>');
             $('#closeContract').click(function () {
                 J.closePopup();
             });

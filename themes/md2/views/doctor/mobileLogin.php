@@ -55,7 +55,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
-                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . Yii::app()->request->getQuery('returnUrl', ''),
+                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . $returnUrl,
                         // Please note: When you enable ajax validation, make sure the corresponding
                         // controller action is handling ajax validation correctly.
                         // There is a call to performAjaxValidation() commented in generated controller code.
@@ -107,7 +107,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
-                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . Yii::app()->request->getQuery('returnUrl', ''),
+                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . $returnUrl,
                         // Please note: When you enable ajax validation, make sure the corresponding
                         // controller action is handling ajax validation correctly.
                         // There is a call to performAjaxValidation() commented in generated controller code.
