@@ -243,29 +243,7 @@ class PatientController extends MobiledoctorController {
         $apisvc = new ApiViewDoctorPatientInfo($id, $userId);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
-        $salesOrder = new SalesOrder();
-        $orderInfo = $salesOrder->getByRefNo($output->results->patientBooking->refNo);
-        $output->results->orderInfo=$orderInfo;
-        $statusCode=$output->results->patientBooking->statusCode;
-        if($statusCode=="1"){
-            $view='待支付';
-        }
-        elseif($statusCode=="2"){
-            $view='安排中';
-        }
-        elseif($statusCode=="5"){
-            $view='待确认';
-        }
-        elseif($statusCode=="6"){
-            $view='上传出院小结';
-        }
-        elseif($statusCode=="8"){
-            $view='完成';
-        }
-        else{
-            $view='取消订单';
-        }
-        $this->render($view, array(
+        $this->render('view', array(
             'data' => $output
         ));
     }

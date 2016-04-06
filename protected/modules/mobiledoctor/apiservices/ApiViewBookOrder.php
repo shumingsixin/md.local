@@ -1,0 +1,98 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of ApiViewBookOrder
+ *
+ * @author shuming
+ */
+class ApiViewBookOrder extends EApiViewService {
+
+    private $bookingId;
+    private $patientMgr;
+    private $orderMgr;
+    private $bookingInfo;
+    private $notPay;
+    private $payList;
+
+    public function __construct($bookingId) {
+        parent::__construct();
+        $this->bookingId = $bookingId;
+        $this->patientMgr = new PatientManager();
+        $this->orderMgr = new OrderManager();
+        $this->bookingInfo = null;
+        $this->notPayList = array();
+        $this->payList = array();
+    }
+
+    protected function createOutput() {
+        $this->output = array(
+            'status' => self::RESPONSE_OK,
+            'errorCode' => 0,
+            'errorMsg' => 'success',
+            'results' => $this->results,
+        );
+    }
+
+    protected function loadData() {
+        $this->loadBooking();
+        $this->loadOrders();
+    }
+
+    private function loadBooking() {
+        $booking = $this->patientMgr->loadPatientBookingById($this->bookingId);
+        if (isset($booking)) {
+            $this->setBooking($booking);
+        }
+        $this->results->booking = $this->bookingInfo;
+    }
+
+    private function loadOrders() {
+        $orders = $this->orderMgr->loadSalesOrderByBkIdAndBkType($this->bookingId);
+        if (arrayNotEmpty($orders)) {
+            $this->setOrder($orders);
+        }
+        $this->results->notPays = $this->notPayList;
+        $this->results->pays = $this->payList;
+    }
+
+    private function setBooking(PatientBooking $model) {
+        $data = new stdClass();
+        $data->id = $model->getId();
+        $data->refNo = $model->getRefNo();
+        $data->creatorId = $model->getCreatorId();
+        $data->doctorName = $model->getDoctorName();
+        $data->expectedDoctor = $model->getExpectedDoctor();
+        $data->patientId = $model->getPatientId();
+        $data->patientName = $model->getPatientName();
+        $data->statusTitle = $model->getStatusTitle();
+        $data->statusCode = $model->getStatus(false);
+        $data->travelType = $model->getTravelType();
+        $data->detail = $model->getDetail(false);
+        $data->dateCreated = $model->getDateCreated('Y-m-d h:i:s');
+        $data->dateUpdated = $model->getDateUpdated('Y-m-d h:i:s');
+        $this->bookingInfo = $data;
+    }
+
+    private function setOrder($models) {
+        foreach ($models as $model) {
+            $data = new stdClass();
+            $data->id = $model->getId();
+            $data->refNo = $model->ref_no;
+            $data->orderType = $model->getOrderType();
+            $data->finalAmount = $model->getFinalAmount();
+            $data->isPaid = $model->getIsPaid();
+            if ($model->getIsPaid(false) == '0') {
+                $this->notPayList[] = $data;
+            } else {
+                $this->payList[] = $data;
+            }
+        }
+    }
+
+}

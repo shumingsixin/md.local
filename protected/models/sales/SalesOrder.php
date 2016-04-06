@@ -68,7 +68,7 @@ class SalesOrder extends EActiveRecord {
 
     //表示预约定金
     const ORDER_TYPE_DEPOSIT = 'deposit';   // 预约金
-    const ORDER_TYPE_SERVICE = 'service';   // 服务费
+    const ORDER_TYPE_SERVICE = 'service';   // 咨询费
     const ORDER_AMOUNT_DEPOSIT = 1000;
     const ORDER_AMOUNT_SERVICE = 1000;
     const ORDER_UNPAIDED = 0;
@@ -416,7 +416,7 @@ class SalesOrder extends EActiveRecord {
     public function getOptionsOrderType() {
         return array(
             self::ORDER_TYPE_DEPOSIT => '预约金',
-            self::ORDER_TYPE_SERVICE => '服务费',
+            self::ORDER_TYPE_SERVICE => '咨询费',
         );
     }
 
@@ -426,7 +426,7 @@ class SalesOrder extends EActiveRecord {
             if (isset($options[$this->order_type])) {
                 return $options[$this->order_type];
             } else {
-                return '';
+                return '咨询费';
             }
         } else {
             return $this->order_type;

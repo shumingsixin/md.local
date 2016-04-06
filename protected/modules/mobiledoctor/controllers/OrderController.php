@@ -2,6 +2,34 @@
 
 class OrderController extends MobiledoctorController {
 
+    public function filters() {
+        return array(
+            'accessControl', // perform access control for CRUD operations
+            'postOnly + delete', // we only allow deletion via POST requestf           
+        );
+    }
+
+    /**
+     * Specifies the access control rules.
+     * This method is used by the 'accessControl' filter.
+     * @return array access control rules
+     */
+    public function accessRules() {
+        return array(
+            array('allow', // allow all users to perform 'index' and 'view' actions
+                'actions' => array('view', 'loadOrderPay'),
+                'users' => array('*'),
+            ),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions' => array('orderView'),
+                'users' => array('@'),
+            ),
+            array('deny', // deny all users
+                'users' => array('*'),
+            ),
+        );
+    }
+
     /**
      * In order to compromize wx-pub-pay(微信支付), if client browser is weixin webview, redirect to domain/weixin/pay.php.
      * So $order data will be saved in session at here.
@@ -70,6 +98,15 @@ class OrderController extends MobiledoctorController {
             $output->error = 'invalid refNo';
         }
         $this->renderJsonOutput($output);
+    }
+
+    //支付单详情
+    public function actionOrderView($bookingid) {
+        $apiSvc = new ApiViewBookOrder($bookingid);
+        $output = $apiSvc->loadApiViewData();
+        $this->render('orderView', array(
+            'data' => $output
+        ));
     }
 
 }
