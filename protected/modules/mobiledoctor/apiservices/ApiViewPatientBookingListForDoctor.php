@@ -4,7 +4,8 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
 
     private $doctorId;  // User.id
     private $patientMgr;
-    private $patientBookings;  // array
+    private $doneList;  // array
+    private $processingList;  // array
     private $pagesize = 10;
     private $page = 1;
 
@@ -15,7 +16,8 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
         $this->pagesize = $pagesize;
         $this->page = $page;
         $this->patientMgr = new PatientManager();
-        $this->patientBookings = array();
+        $this->processingList = array(); //处理中
+        $this->doneList = array(); //已完成
     }
 
     protected function loadData() {
@@ -44,6 +46,8 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
         if (arrayNotEmpty($models)) {
             $this->setPatientBookings($models);
         }
+        $this->results->processingList = $this->processingList;
+        $this->results->doneList = $this->doneList;
     }
 
     public function loadCount() {
@@ -78,7 +82,11 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
                 $data->age = '';
                 $data->ageMonth = '';
             }
-            $this->patientBookings[] = $data;
+            if ($model->getStatus(false) == PatientBooking::BK_STATUS_SURGER_DONE) {
+                $this->doneList[] = $data;
+            } else {
+                $this->processingList[] = $data;
+            }
         }
     }
 

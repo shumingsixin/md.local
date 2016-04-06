@@ -14,6 +14,7 @@
 class ApiViewBookOrder extends EApiViewService {
 
     private $bookingId;
+    private $status;
     private $patientMgr;
     private $orderMgr;
     private $bookingInfo;
@@ -26,7 +27,7 @@ class ApiViewBookOrder extends EApiViewService {
         $this->patientMgr = new PatientManager();
         $this->orderMgr = new OrderManager();
         $this->bookingInfo = null;
-        $this->notPayList = array();
+        $this->notPay = null;
         $this->payList = array();
     }
 
@@ -77,6 +78,7 @@ class ApiViewBookOrder extends EApiViewService {
         $data->dateCreated = $model->getDateCreated('Y-m-d h:i:s');
         $data->dateUpdated = $model->getDateUpdated('Y-m-d h:i:s');
         $this->bookingInfo = $data;
+        $this->status = $model->getStatus(false);
     }
 
     private function setOrder($models) {
@@ -88,7 +90,11 @@ class ApiViewBookOrder extends EApiViewService {
             $data->finalAmount = $model->getFinalAmount();
             $data->isPaid = $model->getIsPaid();
             if ($model->getIsPaid(false) == '0') {
-                $this->notPayList[] = $data;
+                if ($this->status == PatientBooking::BK_STATUS_NEW && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_DEPOSIT) {
+                    $this->notPay = $data;
+                } elseif ($this->status == PatientBooking::BK_STATUS_SERVICE_UNPAID && $model->getOrderType(false) != SalesOrder::ORDER_TYPE_DEPOSIT) {
+                    $this->notPay = $data;
+                }
             } else {
                 $this->payList[] = $data;
             }

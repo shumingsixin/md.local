@@ -103,10 +103,10 @@ class PatientbookingController extends MobiledoctorController {
                 }
             }
         }
-        $pagesize = 100;
+        $pagesize = 200;
         //service层
-        $requestValue=$this->filterRequestParams(array('addBackBtn','status'));
-        $apisvc = new ApiViewDoctorPatientBookingList($userId,$requestValue['status'], $pagesize, $page);
+        $requestValue = $this->filterRequestParams(array('addBackBtn', 'status'));
+        $apisvc = new ApiViewDoctorPatientBookingList($userId, $requestValue['status'], $pagesize, $page);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
         $dataCount = $apisvc->loadCount();
@@ -122,9 +122,8 @@ class PatientbookingController extends MobiledoctorController {
         $apisvc = new ApiViewPatientBookingListForDoctor($doctorId, $pagesize, $page);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
-        $dataCount = $apisvc->loadCount();
         $this->render('doctorPatientBookingList', array(
-            'data' => $output, 'dataCount' => $dataCount
+            'data' => $output
         ));
     }
 
