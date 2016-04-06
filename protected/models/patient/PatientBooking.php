@@ -338,10 +338,6 @@ class PatientBooking extends EActiveRecord {
         return $this->user_agent;
     }
 
-    public function getCrMedicalOpinion() {
-        return $this->cr_medical_opinion;
-    }
-
     public function getExpectedDoctor() {
         return $this->expected_doctor;
     }

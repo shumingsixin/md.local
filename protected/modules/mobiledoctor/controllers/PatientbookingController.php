@@ -80,8 +80,6 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     public function actionView($id) {
-        //    echo 'View Patient Booking - ' . $id;
-        //    $booking = $this->model;
         $userId = $this->getCurrentUserId();
         $apiSvc = new ApiViewPatientBooking($id, $userId);
         $output = $apiSvc->loadApiViewData();
