@@ -132,10 +132,10 @@ class UserDoctorCert extends EFileModel {
             return false;
         }
     }
-    
+
     //查询医生文件
-    public function getDoctorFilesByUserId($userId,$attrbutes=null,$with=null){
-        return $this->getAllByAttributes(array('t.user_id'=>$userId), $with);
+    public function getDoctorFilesByUserId($userId, $attrbutes = null, $with = null) {
+        return $this->getAllByAttributes(array('t.user_id' => $userId), $with);
     }
 
     //Overwrites parent::getFileUploadRootPath().
