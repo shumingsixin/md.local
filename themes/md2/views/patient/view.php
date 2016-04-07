@@ -30,7 +30,7 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                             <?php echo $patientBooking->travelType; ?>
                         </div>
                         <div class="mb10">
-                            <?php echo $patientBooking->dateStart; ?>-<?php echo $patientBooking->dateEnd; ?>
+                            <?php echo $patientBooking->expectedDoctor; ?>
                         </div>
                         <div class="line-h">
                             <?php echo $patientBooking->detail; ?>

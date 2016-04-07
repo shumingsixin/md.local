@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.formvalidate.min.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/patient.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/patient.js?ts=' . time(), CClientScript::POS_END);
 /*
  * $model PatientInfoForm.
  */
@@ -45,8 +45,8 @@ $checkTeamDoctor = $teamDoctor;
                         </li>
                         <li>
                             <?php //echo CHtml::activeLabel($model, 'mobile'); ?>    
-                            <label for="PatientInfoForm_mobile">患者联系方式</label>
-                            <?php echo $form->textField($model, 'mobile', array('name' => 'patient[mobile]', 'placeholder' => '请填写手机号码或座机电话', 'maxlength' => 50)); ?>
+                            <label for="PatientInfoForm_mobile">患者手机号码</label>
+                            <?php echo $form->textField($model, 'mobile', array('name' => 'patient[mobile]', 'placeholder' => '请填写手机号码', 'maxlength' => 50)); ?>
                             <?php echo $form->error($model, 'mobile'); ?>
                             <div></div>
                         </li>

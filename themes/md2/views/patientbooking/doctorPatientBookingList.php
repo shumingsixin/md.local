@@ -5,41 +5,61 @@
 $this->setPageID('pMyBooking');
 $this->setPageTitle('收到的预约');
 $urlDoctorView = $this->createUrl('doctor/view');
+$urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
+<header class="bg-green">
+    <nav class="left">
+        <a href="" data-target="back">
+            <div class="pl5">
+                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
+            </div>
+        </a>
+    </nav>
+    <ul class="control-group">
+        <li data-booking="processing" class="bookingMenu active">待处理</li>
+        <li data-booking="done" class="bookingMenu">已完成</li>
+    </ul>
+</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="getRequest_section" class="active" data-init="true">
         <article id="a1" class="active" data-scroll="true">
             <div class="pb20">
-                <div class="mt20 ml10 mr10">
+                <div class="processingList">
                     <?php
-                    $bookings = $data->results;
-                    if ($bookings) {
-                        for ($i = 0; $i < count($bookings); $i++) {
-                            $booking = $bookings[$i];
-                            $yearly = $booking->age;
+                    $processingList = $data->results->processingList;
+                    if ($processingList) {
+                        for ($i = 0; $i < count($processingList); $i++) {
+                            $processingBooking = $processingList[$i];
+                            $yearly = $processingBooking->age;
                             $monthly = "";
-                            if ($yearly <= 5 && $booking->ageMonth > 0) {
-                                $monthly = $booking->ageMonth . '个月';
-                            } else if ($yearly > 5 && $booking->ageMonth > 0) {
+                            if ($yearly <= 5 && $processingBooking->ageMonth > 0) {
+                                $monthly = $processingBooking->ageMonth . '个月';
+                            } else if ($yearly > 5 && $processingBooking->ageMonth > 0) {
                                 $yearly++;
                             }
                             ?>
-                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $booking->id, 'addBackBtn' => 1)); ?>" data-target="link">
-                                <div class="grid vertical b-leftGreen mb20">
-                                    <div class="col-1 mt10 ml10 mb10">
-                                        预约单号：<?php echo $booking->refNo; ?>
+                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $processingBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                                <div class="p10 bt5-gray">
+                                    <div class="text-right font-s12 color-green">发送时间：
+                                        <?php
+                                        if (isset($processingBooking->dateUpdated)) {
+                                            echo $processingBooking->dateUpdated;
+                                        } else {
+                                            echo $processingBooking->dateCreated;
+                                        }
+                                        ?>
                                     </div>
-                                    <div class="col-1 ml10 mb10">
-                                        患者姓名：<?php echo $booking->name; ?>
+                                    <div class="grid">
+                                        <div class="col-0">患者姓名:</div>
+                                        <div class="col-1 pl5"><?php echo $processingBooking->name; ?></div>
                                     </div>
-                                    <div class="col-1 grid ml10 mb10">
-                                        疾病名称：<?php echo $booking->diseaseName; ?>
+                                    <div class="grid mt10">
+                                        <div class="col-0">疾病名称:</div>
+                                        <div class="col-1 pl5"><?php echo $processingBooking->diseaseName; ?></div>
                                     </div>
-                                    <div class="col-1 ml10 mb10">
-                                        就诊意向：邀请专家过来
-                                    </div>
-                                    <div class="col-1 mb5 text-right mr10">
-                                        提交日期：<?php echo $booking->dateUpdated; ?>
+                                    <div class="grid mt10 mb10">
+                                        <div class="col-0">就诊意向:</div>
+                                        <div class="col-1 pl5"><?php echo $processingBooking->travelType; ?></div>
                                     </div>
                                 </div>
                             </a>
@@ -54,9 +74,73 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         <?php
                     }
                     ?>
-
+                </div>
+                <div class="doneList hide">
+                    <?php
+                    $doneList = $data->results->doneList;
+                    if ($doneList) {
+                        for ($i = 0; $i < count($doneList); $i++) {
+                            $doneBooking = $doneList[$i];
+                            $yearly = $doneBooking->age;
+                            $monthly = "";
+                            if ($yearly <= 5 && $doneBooking->ageMonth > 0) {
+                                $monthly = $doneBooking->ageMonth . '个月';
+                            } else if ($yearly > 5 && $doneBooking->ageMonth > 0) {
+                                $yearly++;
+                            }
+                            ?>
+                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $doneBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                                <div class="p10 bt5-gray">
+                                    <div class="text-right font-s12 color-green">发送时间：
+                                        <?php
+                                        if (isset($doneBooking->dateUpdated)) {
+                                            echo $doneBooking->dateUpdated;
+                                        } else {
+                                            echo $doneBooking->dateCreated;
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-0">患者姓名:</div>
+                                        <div class="col-1 pl5"><?php echo $doneBooking->name; ?></div>
+                                    </div>
+                                    <div class="grid mt10">
+                                        <div class="col-0">疾病名称:</div>
+                                        <div class="col-1 pl5"><?php echo $doneBooking->diseaseName; ?></div>
+                                    </div>
+                                    <div class="grid mt10 mb10">
+                                        <div class="col-0">就诊意向:</div>
+                                        <div class="col-1 pl5"><?php echo $doneBooking->travelType; ?></div>
+                                    </div>
+                                </div>
+                            </a>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <h4 class="text-center">暂无预约信息</h4>
+                        <div class="mt30">
+                            <a href="<?php echo $urlDoctorView; ?>" data-target="link" class="btn btn-yes btn-block">返回个人中心</a>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
             </div>
         </article>
     </section>
 </div>
+<script>
+    $(document).ready(function () {
+        $(".bookingMenu").click(function () {
+            var dataBooking = $(this).attr('data-booking');
+            if (dataBooking == 'processing') {
+                $('.doneList').addClass('hide');
+                $('.processingList').removeClass('hide');
+            } else {
+                $('.processingList').addClass('hide');
+                $('.doneList').removeClass('hide');
+            }
+        });
+    });
+</script>

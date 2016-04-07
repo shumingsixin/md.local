@@ -1,4 +1,10 @@
 <?php
+Yii::app()->clientScript->registerCssFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/css/webuploader.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/webuploader/css/webuploader.custom.css');
+Yii::app()->clientScript->registerScriptFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/js/webuploader.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/uploadMRFile.js?ts=' . time(), CClientScript::POS_END);
+?>
+<?php
 /*
  * $model DoctorForm.
  */
@@ -13,6 +19,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
 $BK_STATUS_SERVICE_PAIDED = StatCode::BK_STATUS_SERVICE_PAIDED;
+$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
+$urlReturn = $this->createUrl('order/orderView', array('bookingid' => 172, 'addBackBtn' => 1));
 $this->show_footer = false;
 $booking = $data->results->booking;
 $notPays = $data->results->notPays;
@@ -23,7 +31,7 @@ $pays = $data->results->pays;
     #payOrder_article{
         background-color: #EAEFF1;
     }
-    #payOrder_article ul{
+    #payOrder_article ul.list{
         box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
     }
 </style>
@@ -79,7 +87,7 @@ $pays = $data->results->pays;
                         <img src="<?php echo $urlResImage; ?>orderStatusIcon.png" class="w20p mr10">
                     </div>
                     <div class="col-1 pt3">
-                        当前状态：<?php echo $booking->statusTitle; ?>
+                        <?php echo $booking->statusTitle; ?>
                     </div>
                 </div>
                 <div class="mt20 ml10 mr10 bbb">
@@ -121,7 +129,42 @@ $pays = $data->results->pays;
                 <?php
                 if ($booking->statusCode == $BK_STATUS_SERVICE_PAIDED) {
                     ?>
-                    <a>上传照片</a>
+                    <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                        <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $booking->patientId; ?>" />
+                        <input id="patientReport_type" type="hidden" name="patient[report_type]" value="da" />
+                    </form>
+                    <div class="mt20 pl10 pr10">
+                        <!--图片上传区域 -->
+                        <div id="uploader" class="wu-example">
+                            <div class="imglist">
+                                <ul class="filelist"></ul>
+                            </div>
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker"></div>
+                                    <!-- <p>或将照片拖到这里，单次最多可选10张</p>-->
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none; padding-bottom: 40px;">
+                                <div class="progress">
+                                    <span class="text">0%</span>
+                                    <span class="percentage"></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="">
+                                    <!-- btn 继续添加 -->
+                                    <div id="filePicker2" class="pull-right"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="mt20">
+    <!--                                    <input id="btnSubmit" class="statusBar uploadBtn state-pedding btn btn-yes btn-block" type="button" name="yt0" value="提交">-->
+                                    <a id="btnSubmit" class="statusBar uploadBtn state-pedding btn btn-yes btn-block">提交</a>
+                                </div>
+                            </div>
+                            <!--一开始就显示提交按钮就注释上面的提交 取消下面的注释 -->
+                            <!--                         <div class="statusBar uploadBtn">提交</div>-->
+                        </div>
+                    </div>
                     <?php
                 }
                 ?>

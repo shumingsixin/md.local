@@ -17,10 +17,10 @@ $urlReturn = $this->createUrl('patient/view', array('id' => $patientId));
 
 $type = Yii::app()->request->getQuery('type', 'create');
 if ($type == 'update') {
-    $urlReturn = $this->createUrl('patient/view', array('id' => $patientId));
+    $urlReturn = $this->createUrl('patient/view', array('id' => $patientId, 'addBackBtn' => 1));
 } else if ($type == 'create') {
     if ($output['returnUrl'] == '') {
-        $urlReturn = $this->createUrl('patientbooking/create', array('pid' => $patientId));
+        $urlReturn = $this->createUrl('patientbooking/create', array('pid' => $patientId, 'addBackBtn' => 1));
     } else {
         $urlReturn = $output['returnUrl'];
     }

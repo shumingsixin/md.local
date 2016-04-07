@@ -18,7 +18,7 @@ $urlDoctorUploadCert = $this->createUrl('doctor/uploadCert');
 $real = $userDoctorProfile;
 $userDoctorCerts = $doctorCerts;
 ?>
-<div id="section_container">
+<div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="patientBookingCreate_section" class="active" data-init="true">
         <article id="patientBookingCreate_article" class="active" data-scroll="true">
             <div class="ml10 mr10 mb20">

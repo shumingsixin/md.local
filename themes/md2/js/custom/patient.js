@@ -6,7 +6,7 @@ $(function () {
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
         var length = value.length;
-        var mobile = /^((0[0-9]{2,3})?([2-9][0-9]{6,7})$)|(^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9}))$/;
+        var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (mobile.test(value));
     }, "请填写正确的电话号码");
 
@@ -58,8 +58,8 @@ $(function () {
                 maxlength: "请将字数控制在45以内"
             },
             'patient[mobile]': {
-                required: '请填写患者联系方式',
-                isMobile: '请填写正确的电话号码'
+                required: '请填写患者手机号码',
+                isMobile: '请填写正确的手机号码'
             },
             'patient[gender]': {
                 required: '请选择性别'
@@ -105,7 +105,7 @@ $(function () {
             success: function (data) {
                 //success.
                 if (data.status == 'ok') {
-                    returnUrl += '?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
+                    returnUrl += '/addBackBtn/1?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
                     window.location.href = returnUrl;
                 } else {
                     domForm.find("div.error").remove();
