@@ -63,7 +63,8 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
             $data->status = $model->getStatus();
             $data->date_start = $model->getDateStart();
             $data->date_end = $model->getDateEnd();
-            $data->dateUpdated = $model->getDateUpdated('m月d日');
+            $data->dateUpdated = $model->getDateUpdated('Y-m-d');
+            $data->travelType = $model->getTravelType();
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
                 $data->patientId = $patientInfo->getId();
