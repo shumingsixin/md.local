@@ -12,7 +12,7 @@ class DoctorController extends MobiledoctorController {
         $user = $this->loadUser();
         $user->userDoctorProfile = $user->getUserDoctorProfile();
         if (isset($user->userDoctorProfile) === false) {
-            $redirectUrl = $this->createUrl('profile');
+            $redirectUrl = $this->createUrl('profile', array('addBackBtn' => 1));
             $currentUrl = $this->getCurrentRequestUrl();
             $redirectUrl.='?returnUrl=' . $currentUrl;
             $this->redirect($redirectUrl);

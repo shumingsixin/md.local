@@ -74,23 +74,25 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     echo CHtml::hiddenField("smsverify[actionType]", $authActionType);
                     ?>
                     <div class="input">
-                        <?php echo $form->textField($model, 'username', array('placeholder' => '请输入您的手机号')); ?>
-                        <?php echo $form->error($model, 'username'); ?>
-                        <div class="error"></div>
+                        <div class="">
+                            <div class="inputBorder mb10">
+                                <?php echo $form->textField($model, 'username', array('placeholder' => '请输入您的手机号', 'class' => 'noPaddingInput')); ?>
+                            </div>
+                            <?php echo $form->error($model, 'username'); ?>
+                        </div>
                     </div>
-                    <div class="mt40 input">
+                    <div class="input mt30">
                         <div class="grid inputBorder mb10">
                             <div class="col-1">
                                 <?php echo $form->textField($model, 'verify_code', array('placeholder' => '请输入验证码', 'class' => 'noPaddingInput')); ?>
                             </div>
                             <div class="col-0 w2p mt5 mb5 br-gray">
                             </div>
-                            <div class="col-0 sendSmsCodeBtn">
+                            <div class="col-0 w95p text-center">
                                 <button id="btn-sendSmsCode" class="btn btn-sendSmsCode ui-corner-all ui-shadow">获取验证码</button>
                             </div>
                         </div>
                         <?php echo $form->error($model, 'verify_code'); ?>
-                        <div class="error"></div>
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
@@ -134,9 +136,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             </div>
                         </div>
                         <?php echo $form->error($pawModel, 'username'); ?>
-                        <div class="error"></div>
                     </div>
-                    <div class="mt50 input">
+                    <div class="input mt30">
                         <div class="grid inputBorder mb10">
                             <div class="col-0 lockIcon">
                             </div>
@@ -147,7 +148,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             </div>
                         </div>
                         <?php echo $form->error($pawModel, 'password'); ?>
-                        <div class="error"></div>
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->

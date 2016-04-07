@@ -29,7 +29,9 @@ class ApiViewPatientBooking extends EApiViewService {
     }
 
     private function loadBooking() {
-        $model = $this->patientMgr->loadPatientBookingByIdAndCreatorId($this->id, $this->creatorId, null, array('pbPatient'));
+        $model = $this->patientMgr->loadPatientBookingByIdAndCreatorId($this->bookingId, $this->creatorId, null, array('pbPatient'));
+        
+        
         if (isset($model)) {
             $this->setBooking($model);
         }
@@ -45,13 +47,13 @@ class ApiViewPatientBooking extends EApiViewService {
         $data->detail = $model->getDetail(false);
         $patient = $model->getPatient();
         $data->patientId = $patient->getId();
-        $data->patientName = $model->getName();
-        $data->age = $model->getAge();
-        $data->ageMonth = $model->getAgeMonth();
-        $data->cityName = $model->getCityName();
-        $data->gender = $model->getGender();
-        $data->diseaseName = $model->getDiseaseName();
-        $data->diseaseDetail = $model->getDiseaseDetail();
+        $data->patientName = $patient->getName();
+        $data->age = $patient->getAge();
+        $data->ageMonth = $patient->getAgeMonth();
+        $data->cityName = $patient->getCityName();
+        $data->gender = $patient->getGender();
+        $data->diseaseName = $patient->getDiseaseName();
+        $data->diseaseDetail = $patient->getDiseaseDetail();
         $this->booking = $data;
     }
 

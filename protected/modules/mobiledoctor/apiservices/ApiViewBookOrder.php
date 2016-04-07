@@ -58,7 +58,7 @@ class ApiViewBookOrder extends EApiViewService {
         if (arrayNotEmpty($orders)) {
             $this->setOrder($orders);
         }
-        $this->results->notPays = $this->notPayList;
+        $this->results->notPays = $this->notPay;
         $this->results->pays = $this->payList;
     }
 

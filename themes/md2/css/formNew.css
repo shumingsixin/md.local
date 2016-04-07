@@ -342,6 +342,8 @@ a .none{text-decoration:none;}
 .btn-over{padding:4px 10px;border:1px solid #ddd;background-color:#dfdfdf;}
 .btn-full{display: block!important;width: 100%;padding: 10px!important;}
 .btn-yellow {background-color: #fe8c08;width: 60%;display: block;margin: 5px auto;}
+.btn-red{background-color:#FB5858;color:#fff!important;border-radius:5px}
+.btn-white{border:1px solid #A9A9A9;background-color:#fff;color:#222222;}
 
 /**/
 .p-a{padding:auto;}

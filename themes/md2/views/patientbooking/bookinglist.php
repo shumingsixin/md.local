@@ -55,7 +55,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story">待提交</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story">待处理</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -95,7 +95,7 @@ $checkTeamDoctor = $teamDoctor;
                         for ($i = 0; $i < count($bookings); $i++) {
                             $booking = $bookings[$i];
                             ?>
-                            <a href="<?php echo $this->createUrl('patientbooking/view', array('id' => $booking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                            <a href="<?php echo $this->createUrl('order/orderView', array('bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray">
                                     <div class="grid mt10">
                                         <div class="col-0">患者姓名:</div>
