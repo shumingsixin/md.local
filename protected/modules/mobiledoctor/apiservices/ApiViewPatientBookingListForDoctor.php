@@ -32,7 +32,7 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
                 'status' => self::RESPONSE_OK,
                 'errorCode' => 0,
                 'errorMsg' => 'success',
-                'results' => $this->patientBookings,
+                'results' => $this->results,
             );
         }
     }

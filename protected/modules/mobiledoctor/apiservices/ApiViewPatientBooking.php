@@ -31,7 +31,7 @@ class ApiViewPatientBooking extends EApiViewService {
     private function loadBooking() {
         $model = $this->patientMgr->loadPatientBookingByIdAndCreatorId($this->id, $this->creatorId, null, array('pbPatient'));
         if (isset($model)) {
-            $this->setPatientBooking($model);
+            $this->setBooking($model);
         }
         $this->results->booking = $this->booking;
     }
