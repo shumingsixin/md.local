@@ -47,7 +47,7 @@ class PatientInfo extends EActiveRecord {
             array('state_name, city_name', 'length', 'max' => 20),
             array('disease_detail', 'length', 'max' => 1000),
             array('remark', 'length', 'max' => 500),
-            array('mobile', 'length', 'max' => 50),
+            array('mobile', 'length', 'max' => 11),
             array('date_created, date_updated, date_deleted, disease_name,disease_detail', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

@@ -167,6 +167,7 @@ class PatientbookingController extends MobiledoctorController {
 
     public function actionAjaxCreate() {
         $output = array('status' => 'no');
+        $bookingDB = null;
         if (isset($_POST['booking'])) {
             $values = $_POST['booking'];
             $patientId = null;
@@ -206,6 +207,7 @@ class PatientbookingController extends MobiledoctorController {
                     $output['errors'] = $patientBooking->getErrors();
                     throw new CException('error saving data.');
                 }
+                $bookingDB = $patientBooking;
 //                $apiRequest = new ApiRequestUrl();
 //                $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
                 $remote_url = 'http://localhost/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
@@ -218,12 +220,13 @@ class PatientbookingController extends MobiledoctorController {
                     //发送提示短信
                     $this->sendSmsToCreator($patientBooking);
                 } else {
-                    $output['errors'] = $salesOrder->getErrors();
                     throw new CException('error saving data.');
                 }
             } catch (CException $cex) {
                 $output['status'] = 'no';
-                //$output['error'] = 'invalid request';
+                if (isset($bookingDB)) {
+                    $bookingDB->delete(true);
+                }
             }
         }
         $this->renderJsonOutput($output);
