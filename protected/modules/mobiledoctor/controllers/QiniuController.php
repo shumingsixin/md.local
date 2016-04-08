@@ -38,7 +38,7 @@ class QiniuController extends MobiledoctorController {
                     $output['status'] = 'ok';
                     $output['fileId'] = $file->getId();
                 } else {
-                    $output['$file'] = $file->getErrors();
+                    $output['errors'] = $file->getErrors();
                 }
             }
         } else {
@@ -63,7 +63,7 @@ class QiniuController extends MobiledoctorController {
                     $output['status'] = 'ok';
                     $output['fileId'] = $file->getId();
                 } else {
-                    $output['$file'] = $file->getErrors();
+                    $output['errors'] = $file->getErrors();
                 }
             }
         } else {
