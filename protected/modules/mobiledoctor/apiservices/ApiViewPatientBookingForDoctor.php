@@ -62,6 +62,8 @@ class ApiViewPatientBookingForDoctor extends EApiViewService {
         $data->dateCreated = $model->getDateCreated();
         $data->dateUpdated = $model->getDateUpdated('Y年m月d日 h:i');
         $data->dateNow = date('Y-m-d H:i', time());
+        $data->csExplain = $model->getCsExplain();
+        $data->doctorOpinion = $model->getDoctorOpinion();
         $patient = $model->getPatient();
         if (isset($patient)) {
             $this->setPatient($patient);

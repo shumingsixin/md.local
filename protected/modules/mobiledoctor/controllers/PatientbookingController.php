@@ -70,13 +70,34 @@ class PatientbookingController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking'),
+                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking', 'ajaxDoctorOpinion'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
         );
+    }
+
+    //异步提交上级医生反馈
+    public function actionAjaxDoctorOpinion($id, $accept = StatCode::DOCTOR_ACCPET_AGREE, $option) {
+        $output = array('status' => 'no');
+        $userId = $this->getCurrentUserId();
+        $patientMgr = new PatientManager();
+        $booking = $patientMgr->loadPatientBookingByIdAndCreatorId($id, $userId);
+        if (isset($booking)) {
+            $booking->setDoctorAccept($accept);
+            $booking->setDoctorOpinion($option);
+            if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
+                $output['status'] = 'ok';
+                $output['id'] = $booking->getId();
+            } else {
+                $output['errors'] = $booking->getErrors();
+            }
+        } else {
+            $output['errors'] = 'no data..';
+        }
+        $this->renderJsonOutput($output);
     }
 
     public function actionView($id) {

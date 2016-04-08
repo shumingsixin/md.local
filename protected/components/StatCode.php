@@ -56,6 +56,8 @@ class StatCode {
     const APP_NAME_MOBILEDOCTOR = 'md';   // 医生版
     const HAS_REMOTE = 1;   //已上传至七牛
     const HAS_NOTREMOTE = 0; //已上传至七牛 未上传至七牛
+    const DOCTOR_ACCPET_AGREE = 1; //医生同意接受订单
+    const DOCTOR_ACCPET_NOTAGREE = 0; //医生同意接受订单
 
     // gender.
 
