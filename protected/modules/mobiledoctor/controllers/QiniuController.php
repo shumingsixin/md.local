@@ -16,7 +16,7 @@ class QiniuController extends MobiledoctorController {
      * 安卓获取病人病历七牛上传权限
      */
     public function actionAjaxPatientToken() {
-        $url = 'http://file.mingyizhudao.com/api/token/tokenpatientmr';
+        $url = 'http://file.mingyizhudao.com/api/tokenpatientmr';
         $data = $this->send_get($url);
         $output = array('uptoken' => $data['results']['uploadToken']);
         $this->renderJsonOutput($output);
