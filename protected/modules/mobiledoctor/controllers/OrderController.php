@@ -21,7 +21,7 @@ class OrderController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('orderView'),
+                'actions' => array('orderView', 'payOrders'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -105,6 +105,14 @@ class OrderController extends MobiledoctorController {
         $apiSvc = new ApiViewBookOrder($bookingid);
         $output = $apiSvc->loadApiViewData();
         $this->render('orderView', array(
+            'data' => $output
+        ));
+    }
+    //分批支付订单
+    public function actionPayOrders($bookingId, $orderType) {
+        $apiSvc = new ApiViewPayOrders($bookingId, $orderType);
+        $output = $apiSvc->loadApiViewData();
+        $this->render('payOrders', array(
             'data' => $output
         ));
     }
