@@ -84,10 +84,10 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
                 $data->age = '';
                 $data->ageMonth = '';
             }
-            if ($model->getStatus(false) == PatientBooking::BK_STATUS_SURGER_DONE) {
-                $this->doneList[] = $data;
-            } else {
+            if (strIsEmpty($model->getDoctorAccept())) {
                 $this->processingList[] = $data;
+            } else {
+                $this->doneList[] = $data;
             }
         }
     }
