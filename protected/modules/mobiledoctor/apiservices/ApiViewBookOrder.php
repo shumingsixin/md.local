@@ -80,6 +80,7 @@ class ApiViewBookOrder extends EApiViewService {
 
     private function setOrder($models) {
         $needPay = 0; //剩余支付
+        $payed = 0;
         foreach ($models as $model) {
             $data = new stdClass();
             $data->id = $model->getId();
@@ -88,6 +89,7 @@ class ApiViewBookOrder extends EApiViewService {
             $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
             $data->needPay = 0;
+            $data->payed = 0;
             $data->isPaid = $model->getIsPaid();
             if ($model->getIsPaid(false) == '0') {
                 if ($this->status == PatientBooking::BK_STATUS_NEW && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_DEPOSIT) {
@@ -99,11 +101,15 @@ class ApiViewBookOrder extends EApiViewService {
                 }
             } else {
                 $this->payList[] = $data;
+                if ($this->status == PatientBooking::BK_STATUS_SERVICE_UNPAID && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_SERVICE) {
+                    $payed += $model->getFinalAmount();
+                }
             }
         }
 
         if (isset($this->notPay)) {
             $this->notPay->needPay = $needPay;
+            $this->notPay->payed = $payed;
         }
     }
 
