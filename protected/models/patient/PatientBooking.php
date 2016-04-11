@@ -326,6 +326,10 @@ class PatientBooking extends EActiveRecord {
         return $this->getTextAttribute($this->remark, $ntext);
     }
 
+    public function getDoctorAccept() {
+        return $this->doctor_accept;
+    }
+
     public function getDoctorOpinion($ntext = true) {
         return $this->getTextAttribute($this->doctor_opinion, $ntext);
     }
