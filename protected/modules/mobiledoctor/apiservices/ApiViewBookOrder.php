@@ -90,9 +90,11 @@ class ApiViewBookOrder extends EApiViewService {
             $data->orderTypeText = $model->getOrderType();
             $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
+            $data->needPay = 0;
             $data->isPaid = $model->getIsPaid();
             if ($model->getIsPaid(false) == '0') {
                 if ($this->status == PatientBooking::BK_STATUS_NEW && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_DEPOSIT) {
+                    $needPay += $model->getFinalAmount();
                     $this->notPay = $data;
                 } elseif ($this->status == PatientBooking::BK_STATUS_SERVICE_UNPAID && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_SERVICE) {
                     $needPay += $model->getFinalAmount();
