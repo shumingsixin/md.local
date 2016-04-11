@@ -66,38 +66,44 @@ class ApiViewBookOrder extends EApiViewService {
         $data = new stdClass();
         $data->id = $model->getId();
         $data->refNo = $model->getRefNo();
-        $data->creatorId = $model->getCreatorId();
         $data->doctorName = $model->getDoctorName();
         $data->expectedDoctor = $model->getExpectedDoctor();
-        $data->patientId = $model->getPatientId();
         $data->patientName = $model->getPatientName();
         $data->statusTitle = $model->getStatusTitle();
         $data->statusCode = $model->getStatus(false);
         $data->travelType = $model->getTravelType();
         $data->detail = $model->getDetail(false);
         $data->dateCreated = $model->getDateCreated('Y-m-d h:i:s');
-        $data->dateUpdated = $model->getDateUpdated('Y-m-d h:i:s');
         $this->bookingInfo = $data;
         $this->status = $model->getStatus(false);
     }
 
     private function setOrder($models) {
+        $needPay = 0; //剩余支付
         foreach ($models as $model) {
             $data = new stdClass();
             $data->id = $model->getId();
             $data->refNo = $model->ref_no;
-            $data->orderType = $model->getOrderType();
+            $data->orderTypeText = $model->getOrderType();
+            $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
+            $data->needPay = 0;
             $data->isPaid = $model->getIsPaid();
             if ($model->getIsPaid(false) == '0') {
                 if ($this->status == PatientBooking::BK_STATUS_NEW && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_DEPOSIT) {
+                    $needPay += $model->getFinalAmount();
                     $this->notPay = $data;
-                } elseif ($this->status == PatientBooking::BK_STATUS_SERVICE_UNPAID && $model->getOrderType(false) != SalesOrder::ORDER_TYPE_DEPOSIT) {
+                } elseif ($this->status == PatientBooking::BK_STATUS_SERVICE_UNPAID && $model->getOrderType(false) == SalesOrder::ORDER_TYPE_SERVICE) {
+                    $needPay += $model->getFinalAmount();
                     $this->notPay = $data;
                 }
             } else {
                 $this->payList[] = $data;
             }
+        }
+
+        if (isset($this->notPay)) {
+            $this->notPay->needPay = $needPay;
         }
     }
 
