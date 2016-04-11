@@ -1,5 +1,15 @@
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/ajaxfileupload.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/bootstrap.min.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/main.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/highlight.css');
+//Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/bootstrap.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/plupload.full.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/zh_CN.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/ui.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/qiniu.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/highlight.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/userUpload.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/jquery-1.9.1.min.js?ts=' . time(), CClientScript::POS_END);
 ?>
 <?php
 /*
@@ -11,12 +21,18 @@ $urlLogin = $this->createUrl('doctor/login');
 $urlTermsPage = $this->createUrl('home/page', array('view' => 'terms'));
 $urlLoadCity = $this->createUrl('/region/loadCities', array('state' => ''));
 $urlSubmitProfile = $this->createUrl("doctor/ajaxProfile");
-$urlUploadFile = 'http://file.mingyizhudao.com/api/uploaddoctorcert'; //$this->createUrl("doctor/ajaxUploadCert");
+//$urlUploadFile = 'http://file.mingyizhudao.com/api/uploaddoctorcert'; //$this->createUrl("doctor/ajaxUploadCert");
+
+
+$urlUploadFile = $this->createUrl('qiniu/ajaxDrCert');
+$urlQiniuAjaxDrToken = $this->createUrl('qiniu/ajaxDrToken');
+
+
 $urlSendEmailForCert = $this->createUrl('doctor/sendEmailForCert');
 $urlReturn = $this->createUrl('doctor/view');
 if (isset($output['id'])) {
-    $urlDoctorCerts = 'http://file.mingyizhudao.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
-    $urlDelectDoctorCert = 'http://file.mingyizhudao.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
+    $urlDoctorCerts = 'http://192.168.31.119/file.myzd.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
+    $urlDelectDoctorCert = 'http://192.168.31.119/file.myzd.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
 } else {
     $urlDoctorCerts = "";
     $urlDelectDoctorCert = "";
@@ -24,6 +40,16 @@ if (isset($output['id'])) {
 
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
+<style>
+    .progressName{word-break: break-all; word-wrap:break-word;}
+    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
+    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
+    #container{margin-bottom: 0px;}
+    .btn-default{background-color: #19aea5!important;}
+    .body .btn-default{border: inherit;color: #fff;}
+    .btn{padding:3px 10px;}
+</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section class="active">
         <article class="active pad1" data-scroll="true">
@@ -45,59 +71,35 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-wrapper mt20">
-                        <?php
-                        $form = $this->beginWidget('CActiveForm', array(
-                            'id' => 'doctor-form',
-                            // Please note: When you enable ajax validation, make sure the corresponding
-                            // controller action is handling ajax validation correctly.
-                            // There is a call to performAjaxValidation() commented in generated controller code.
-                            // See class documentation of CActiveForm for details on this.
-                            'htmlOptions' => array('class' => "form-horizontal", 'role' => 'form', 'autocomplete' => 'off', "enctype" => "multipart/form-data"),
-                            'enableClientValidation' => true,
-                            'clientOptions' => array(
-                                'validateOnSubmit' => true,
-                                'validateOnType' => true,
-                                'validateOnDelay' => 500,
-                                'errorCssClass' => 'error',
-                            ),
-                            'enableAjaxValidation' => false,
-                        ));
-                        echo CHtml::hiddenField("doctor[id]", $output['id']);
-                        ?>
-                        <div class="">    
-                            <div class="uploadfile text-center">
-                                <?php
-                                $this->widget('CMultiFileUpload', array(
-                                    //'model' => $model,
-                                    'attribute' => 'file',
-                                    'id' => "btn-addfiles",
-                                    'name' => 'file', //$_FILES['BookingFiles'].
-                                    'accept' => 'jpeg|jpg|png',
-                                    'options' => array(
-                                        'afterFileSelect' => 'function(e, v, m){ var inputCount = $(".MultiFile-applied").length;if (inputCount == 0) {$("#btnSubmit").removeClass("btn-block");} else {$("#btnSubmit").addClass("btn-block");} }',
-                                        'afterFileRemove' => 'function(e, v, m){ var inputCount = $(".MultiFile-applied").length - 1;if (inputCount == 0) {$("#btnSubmit").removeClass("btn-block");} else {$("#btnSubmit").addClass("btn-block");} }',
-                                    ),
-                                    'denied' => '请上传jpg、png格式',
-                                    'duplicate' => '该文件已被选择',
-                                    'max' => 8, // max 8 files
-                                    //'htmlOptions' => array(),
-                                    'value' => '上传病历',
-                                    'selected' => '已选文件',
-                                        //'file'=>'文件'
-                                ));
-                                ?>
-
+                        <div class="">
+                            <div class="container">
+                                <div class="text-left wrapper">
+                                    <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                                        <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id'];  ?>" />
+                                        <input type="hidden" id="domain" value="http://7xq939.com2.z0.glb.qiniucdn.com">
+                                        <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxDrToken; ?>">
+                                    </form>
+                                </div>
+                                <div class="body mt10">
+                                    <div class="text-center">
+                                        <div id="container">
+                                            <a class="btn btn-default btn-lg " id="pickfiles" href="#" >
+                                                <span>选择图片</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt10">
+                                        <table class="table table-striped table-hover text-left" style="display:none">
+                                            <tbody id="fsUploadProgress">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div id="submitBtn" class="hide">
+                                    <a class="btn btn-full bg-green color-white">上传</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="mt30">
-                            <div class="col-sm-6 col-sm-offset-3">
-                                <button id="btnSubmit" type="button" class="btn btn-lg btn-yes" name="">上&nbsp;传</button>       
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <?php
-                        $this->endWidget();
-                        ?>
                         <div class="">
                             <div class="example">
                                 <label class="color-red">示例:</label>
@@ -120,10 +122,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             </div>
             <div id="deleteConfirm" class="confirm" style="top: 50%; left: 5%; right: 5%; border-radius: 3px; margin-top: -64.5px;">
                 <div class="popup-title">提示</div>
-                <div class="popup-content">确定删除这张图片?</div>
+                <div class="popup-content text-center">确定删除这张图片?</div>
                 <div id="popup_btn_container">
-                    <a class="cancel" data-icon="close"><i class="icon close"></i>取消</a>
-                    <a class="delete" data-icon="checkmark"><i class="icon checkmark"></i>确定</a>
+                    <a class="cancel">取消</a>
+                    <a class="delete">确定</a>
                 </div>
             </div>
             <div id="successConfirm" class="confirm" style="top: 50%; left: 5%; right: 5%; border-radius: 3px; margin-top: -77.5px;">
@@ -167,7 +169,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         if (isVerified) {
             $(".uploadfile").hide();
         }
-        $("#imgConfirm #tag_close_popup").click(function(){
+        $("#imgConfirm #tag_close_popup").click(function () {
             $(this).parents(".confirm").hide();
         });
         $("#btnSubmit").hide();
@@ -275,7 +277,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         initDelete();
         $('.imgWrap img').click(function () {
             var imgUrl = $(this).attr("data-src");
-            $("#imgConfirm img").attr('src',imgUrl);
+            $("#imgConfirm img").attr('src', imgUrl);
             $("#imgConfirm").show();
         });
     }

@@ -160,6 +160,7 @@ button [disabled]{
 .pl30{padding-left:30px;}
 .pl40{padding-left:40px;}
 .pl50{padding-left:50px;}
+.pr2{padding-right:2px;}
 .pr3{padding-right:3px;}
 .pr10{padding-right:10px;}
 .pr15{padding-right:15px;}
@@ -226,6 +227,7 @@ button [disabled]{
 .w21p{width:21px!important;}
 .w25p{width:25px!important;}
 .w30p{width:30px!important;}
+.w35p{width:35px!important;}
 .w40p{width:40px!important;}
 .w43p{width:43px!important;}
 .w50p{width:50px!important;}
@@ -319,6 +321,7 @@ a .none{text-decoration:none;}
 .b-green-t{border-top:1px solid #18aea5;}
 .b-green-b{border-bottom:1px solid #18aea5;}
 .b-green-b1{border-bottom:1px solid #06c1ac;}
+.bd-gray{border:1px dashed #dfdfdf;}
 .br-gray{border-right:1px solid #dfdfdf;}
 .bb-gray{border-bottom:1px solid #dfdfdf;}
 .bb-gray3{border-bottom:1px solid #f2f2f2;}

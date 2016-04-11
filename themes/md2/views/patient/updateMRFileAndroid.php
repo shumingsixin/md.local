@@ -1,5 +1,15 @@
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/ajaxfileupload.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/bootstrap.min.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/main.css');
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/highlight.css');
+//Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/bootstrap.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/plupload.full.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/zh_CN.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/ui.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/qiniu.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/highlight.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/patientUpload.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/jquery-1.9.1.min.js?ts=' . time(), CClientScript::POS_END);
 ?>
 
 <?php
@@ -12,7 +22,15 @@ $urlLogin = $this->createUrl('doctor/login');
 $patientId = $output['id'];
 $user = $this->loadUser();
 $urlSubmitMR = $this->createUrl("patient/ajaxCreatePatientMR");
-$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
+//$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
+
+
+$urlUploadFile = $this->createUrl('qiniu/ajaxPatienMr');
+$urlQiniuAjaxToken = $this->createUrl('qiniu/ajaxPatientToken');
+$reportType = Yii::app()->request->getQuery('report_type', 'mr');
+$bookingId = Yii::app()->request->getQuery('bookingid', '');
+
+
 $urlReturn = $this->createUrl('patient/view', array('id' => $patientId));
 
 $type = Yii::app()->request->getQuery('type', 'create');
@@ -21,13 +39,15 @@ if ($type == 'update') {
 } else if ($type == 'create') {
     if ($output['returnUrl'] == '') {
         $urlReturn = $this->createUrl('patientbooking/create', array('pid' => $patientId, 'addBackBtn' => 1));
+    } else if ($reportType == 'da') {
+        $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
     } else {
         $urlReturn = $output['returnUrl'];
     }
 }
 if (isset($output['id'])) {
-    $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
-    $urldelectPatientMRFile = 'http://file.mingyizhudao.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
+    $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=' . $reportType; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+    $urldelectPatientMRFile = 'http://192.168.31.119/file.myzd.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
 } else {
     $urlPatientMRFiles = "";
     $urldelectPatientMRFile = "";
@@ -36,7 +56,14 @@ if (isset($output['id'])) {
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
 <style>
-    .uploadfile:before{content: '选择影像资料';}
+    .progressName{word-break: break-all; word-wrap:break-word;}
+    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
+    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
+    #container{margin-bottom: 0px;}
+    .btn-default{background-color: #19aea5!important;}
+    .body .btn-default{border: inherit;color: #fff;}
+    .btn{padding:3px 10px;}
 </style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="uploadMRFile_section" class="active">
@@ -54,64 +81,36 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             </div>
             <div class="clearfix"></div>
             <div class="form-wrapper mt20">
-                <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'patient-form',
-                    // Please note: When you enable ajax validation, make sure the corresponding
-                    // controller action is handling ajax validation correctly.
-                    // There is a call to performAjaxValidation() commented in generated controller code.
-                    // See class documentation of CActiveForm for details on this.
-                    'htmlOptions' => array('class' => "form-horizontal", 'role' => 'form', 'autocomplete' => 'off', "enctype" => "multipart/form-data"),
-                    'enableClientValidation' => true,
-                    'clientOptions' => array(
-                        'validateOnSubmit' => true,
-                        'validateOnType' => true,
-                        'validateOnDelay' => 500,
-                        'errorCssClass' => 'error',
-                    ),
-                    'enableAjaxValidation' => false,
-                ));
-                echo CHtml::hiddenField("patient[id]", $output['id']);
-                echo CHtml::hiddenField("patient[type]", $type);
-                ?>
-                <div class="">    
-                    <div class="uploadfile text-center">
-                        <?php
-                        $this->widget('CMultiFileUpload', array(
-                            //'model' => $model,
-                            'attribute' => 'files',
-                            'id' => "btn-addfiles",
-                            'name' => 'file', //$_FILES['BookingFiles'].
-                            'accept' => 'jpeg|jpg|png',
-                            'options' => array(
-                                'afterFileSelect' => 'function(e, v, m){ var inputCount = $(".MultiFile-applied").length;if (inputCount == 0) {$("#btnSubmit").removeClass("btn-block");} else {$("#btnSubmit").addClass("btn-block");} }',
-                                //'onFileSelect'=>'function(e, v, m){ alert("afterFileSelect - "+v) }',
-                                //'onFileAppend'=>'function(e, v, m){ alert("onFileAppend - "+v) }',
-                                // 'afterFileAppend'=>'function(e, v, m){ alert("afterFileAppend - "+v) }',
-                                // 'onFileRemove'=>'function(e, v, m){ alert("onFileRemove - "+v) }',
-                                'afterFileRemove' => 'function(e, v, m){ var inputCount = $(".MultiFile-applied").length - 1;if (inputCount == 0) {$("#btnSubmit").removeClass("btn-block");} else {$("#btnSubmit").addClass("btn-block");} }',
-                            ),
-                            'denied' => '请上传jpg、png格式',
-                            'duplicate' => '该文件已被选择',
-                            'max' => 8, // max 8 files
-                            //'htmlOptions' => array(),
-                            'value' => '选择影像资料',
-                            'selected' => '已选文件',
-                                //'file'=>'文件'
-                        ));
-                        ?>
-
+                <div class="">
+                    <div class="container">
+                        <div class="text-left wrapper">
+                            <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                                <input id="patientId" type="hidden" name="Booking[patient_id]" value="<?php echo $patientId; ?>" />
+                                <input id="reportType" type="hidden" name="Booking[report_type]" value="<?php echo $reportType; ?>" />
+                                <input type="hidden" id="domain" value="http://7xq93p.com2.z0.glb.qiniucdn.com">
+                                <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxToken; ?>">
+                            </form>
+                        </div>
+                        <div class="body mt10">
+                            <div class="text-center">
+                                <div id="container">
+                                    <a class="btn btn-default btn-lg " id="pickfiles" href="#" >
+                                        <span>选择影像资料</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt10">
+                                <table class="table table-striped table-hover text-left" style="display:none">
+                                    <tbody id="fsUploadProgress">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="submitBtn" class="hide">
+                            <button class="btn btn-full bg-green color-white">上传</button>
+                        </div>
                     </div>
                 </div>
-                <div class="mt30">
-                    <div class="col-sm-6 col-sm-offset-3">
-                        <button id="btnSubmit" type="button" class="btn btn btn-yes" name="">上&nbsp;传</button>       
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <?php
-                $this->endWidget();
-                ?>
                 <div class="">
                     <div class="example">
                         <label class="color-red">示例:</label>
@@ -132,10 +131,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             </div>
             <div id="deleteConfirm" class="confirm" style="top: 50%; left: 5%; right: 5%; border-radius: 3px; margin-top: -64.5px;">
                 <div class="popup-title">提示</div>
-                <div class="popup-content">确定删除这张图片?</div>
+                <div class="popup-content text-center">确定删除这张图片?</div>
                 <div id="popup_btn_container">
-                    <a class="cancel" data-icon="close"><i class="icon close"></i>取消</a>
-                    <a class="delete" data-icon="checkmark"><i class="icon checkmark"></i>确定</a>
+                    <a class="cancel">取消</a>
+                    <a class="delete">确定</a>
                 </div>
             </div>
             <div id="jingle_toast" class="toast"><a href="#">取消!</a></div>
@@ -180,7 +179,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         $(".MultiFile-applied").attr("name", 'file');
         var successCount = 0, inputCount = 0, backCount = 0;
         inputCount = $(".MultiFile-applied").length - 1;
-        var data = {'patient[id]': $("#patient_id").val(), 'patient[report_type]': 'mr', 'plugin': 'ajaxFileUpload'};
+        var data = {'patient[id]': $("#patient_id").val(), 'patient[report_type]': '<?php echo $reportType; ?>', 'plugin': 'ajaxFileUpload'};
         $(".MultiFile-applied").each(function () {
             if ($(this).val()) {
                 var doctorId = $("#doctor_id").val();
