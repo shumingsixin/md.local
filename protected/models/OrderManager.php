@@ -23,4 +23,9 @@ class OrderManager {
         return SalesOrder::model()->getByBkIdAndBkType($bkId, $bkType, $attributes, $with, $options);
     }
 
+    //查询某订单的所有支付情况
+    public function loadOrdersByBkIdAndBkTypeAndOrderType($bkId, $bkType = StatCode::TRANS_TYPE_PB, $orderType = SalesOrder::ORDER_TYPE_SERVICE) {
+        return SalesOrder::model()->getAllByAttributes(array('bk_id' => $bkId, 'bk_type' => $bkType, 'order_type' => $orderType));
+    }
+
 }

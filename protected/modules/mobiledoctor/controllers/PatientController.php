@@ -163,6 +163,23 @@ class PatientController extends MobiledoctorController {
         ));
     }
 
+    /**
+     * 进入上传出院小结页面
+     * @param type $id
+     */
+    public function actionUploadDAFile($id) {
+        $returnUrl = $this->getReturnUrl($this->createUrl('order/orderView'));
+        $url = 'updateDAFile';
+        if ($this->isUserAgentIOS()) {
+            $url .= 'Ios';
+        } else {
+            $url .= 'Android';
+        }
+        $this->render($url, array(
+            'output' => array('id' => $id, 'returnUrl' => $returnUrl)
+        ));
+    }
+
     private function loadPatientInfoById($id) {
         if ($this->patient === null) {
             $this->patient = PatientInfo::model()->getById($id);

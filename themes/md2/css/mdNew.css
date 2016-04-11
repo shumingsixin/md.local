@@ -558,3 +558,8 @@ header{
     background-position-x: 5px;
     background-position-y: 7px;
 }
+
+/*支付详情*/
+#payOrder_article .imglist li{
+    height: inherit;
+}

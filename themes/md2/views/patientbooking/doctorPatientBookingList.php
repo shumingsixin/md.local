@@ -90,27 +90,39 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             }
                             ?>
                             <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $doneBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
-                                <div class="p10 bt5-gray">
-                                    <div class="text-right font-s12 color-green">发送时间：
+                                <div class="p10 bt5-gray grid">
+                                    <div class="col-0 grid middle mr10">
                                         <?php
-                                        if (isset($doneBooking->dateUpdated)) {
-                                            echo $doneBooking->dateUpdated;
+                                        if ($doneBooking->doctorAccept == 1) {
+                                            $imgName = 'agree';
                                         } else {
-                                            echo $doneBooking->dateCreated;
+                                            $imgName = 'disAgree';
                                         }
                                         ?>
+                                        <img src="<?php echo $urlResImage; ?><?php echo $imgName; ?>.png" class="w35p">
                                     </div>
-                                    <div class="grid">
-                                        <div class="col-0">患者姓名:</div>
-                                        <div class="col-1 pl5"><?php echo $doneBooking->name; ?></div>
-                                    </div>
-                                    <div class="grid mt10">
-                                        <div class="col-0">疾病名称:</div>
-                                        <div class="col-1 pl5"><?php echo $doneBooking->diseaseName; ?></div>
-                                    </div>
-                                    <div class="grid mt10 mb10">
-                                        <div class="col-0">就诊意向:</div>
-                                        <div class="col-1 pl5"><?php echo $doneBooking->travelType; ?></div>
+                                    <div class="col-1">
+                                        <div class="text-right font-s12 color-green">发送时间：
+                                            <?php
+                                            if (isset($doneBooking->dateUpdated)) {
+                                                echo $doneBooking->dateUpdated;
+                                            } else {
+                                                echo $doneBooking->dateCreated;
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-0">患者姓名:</div>
+                                            <div class="col-1 pl5"><?php echo $doneBooking->name; ?></div>
+                                        </div>
+                                        <div class="grid mt10">
+                                            <div class="col-0">疾病名称:</div>
+                                            <div class="col-1 pl5"><?php echo $doneBooking->diseaseName; ?></div>
+                                        </div>
+                                        <div class="grid mt10 mb10">
+                                            <div class="col-0">就诊意向:</div>
+                                            <div class="col-1 pl5"><?php echo $doneBooking->travelType; ?></div>
+                                        </div>
                                     </div>
                                 </div>
                             </a>

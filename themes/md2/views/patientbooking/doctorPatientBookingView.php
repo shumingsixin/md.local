@@ -7,27 +7,50 @@ $this->setPageTitle('预约详情');
 $booking = $data->results['patientBooking'];
 $patient = $data->results['patientInfo'];
 $user = $this->loadUser();
-$urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId='.$user->id.'&pbId='.$booking->id.'&reportType=mr';//$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
+$urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId=' . $user->id . '&pbId=' . $booking->id . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
+$urlAjaxDoctorOpinion = $this->createUrl('patientBooking/ajaxDoctorOpinion');
+$urlDoctorView = $this->createUrl('doctor/view');
 ?>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="yy_section" class="active" data-init="true">
         <article id="patientBookingView" class="active" data-scroll="true">
             <div class="">
-                <div class="grid pt8 pb8 pl10 pr10">
-                    <div class="col-1 w30">预约单号</div>
-                    <div class="col-1 w70 text-right"><?php echo $booking->refNo; ?></div>
+                <?php
+                if (isset($booking->doctorAccept)) {
+                    ?>
+                    <div class="pl10 pr10 mb10 mt10">
+                        <div class="bd-gray pad5">
+                            <span class="color-green">您的答复：</span>
+                            <?php echo $booking->doctorOpinion ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+                <ul class="list">
+                    <li class="grid">
+                        <div class="col-1 w30">就诊意向</div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->travelType; ?></div>
+                    </li>
+                    <li class="grid">
+                        <div class="col-1 w30">意向专家</div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->expected_doctor; ?></div>
+                    </li>
+                </ul>
+                <div class="pad10">
+                    <div>诊疗意见</div>
+                    <div class="mt5"><?php echo $booking->detail; ?></div>
                 </div>
-                <div class="gridDiv"></div>
-                <div class="pl10 pr10">
-                    <div class="grid pt8 pb8 b-gray-b">
+                <ul class="list">
+                    <li class="grid">
                         <div class="col-1 w30">患者姓名</div>
                         <div class="col-1 w70 text-right"><?php echo $patient->name; ?></div>
-                    </div>
-                    <div class="grid pt8 pb8 b-gray-b">
+                    </li>
+                    <li class="grid">
                         <div class="col-1 w30">患者性别</div>
                         <div class="col-1 w70 text-right"><?php echo $patient->gender; ?></div>
-                    </div>
+                    </li>
                     <?php
                     $yearly = $patient->age;
                     $monthly = "";
@@ -37,35 +60,22 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                         $yearly++;
                     }
                     ?>
-                    <div class="grid pt8 pb8">
+                    <li class="grid">
                         <div class="col-1 w30">患者年龄</div>
                         <div class="col-1 w70 text-right"><?php echo $yearly; ?>岁<?php echo $monthly; ?></div>
-                    </div>
-                </div>
-                <div class="gridDiv"></div>
-                <div class="pl10 pr10">
-                    <div class="grid pt8 pb8 b-gray-b">
-                        <div class="col-1 w30">处理状态</div>
-                        <div class="col-1 w70 text-right color-green"><?php echo $booking->status; ?></div>
-                    </div>
-                    <div class="grid pt8 pb8 b-gray-b">
+                    </li>
+                    <li class="grid">
                         <div class="col-1 w30">所在城市</div>
                         <div class="col-1 w70 text-right"><?php echo $patient->placeCity; ?></div>
-                    </div>
-                    <div class="grid pt8 pb8 b-gray-b">
-                        <div class="col-1 w30">就诊方式</div>
-                        <div class="col-1 w70 text-right"><?php echo $booking->travelType; ?></div>
-                    </div>
-                    <div class="pt8 pb8">就诊时间</div>
-                    <div class="pb8 b-gray-b font-s15"><?php echo $booking->dateStart; ?>--<?php echo $booking->dateEnd; ?></div>
-                    <div class="pt8 pb8 b-gray-b">
-                        <span>详情描述:</span>
-                        <span class=""><?php echo $booking->detail; ?></span>
-                    </div>
-                    <div class="pt8 pb8 b-gray-b">
-                        <span>疾病描述:</span>
-                        <span class=""><?php echo $patient->diseaseDetail; ?></span>
-                    </div>
+                    </li>
+                    <li class="grid">
+                        <div class="col-1 w30">疾病诊断</div>
+                        <div class="col-1 w70 text-right"><?php echo $patient->diseaseName; ?></div>
+                    </li>
+                </ul>
+                <div class="pad10 bb-gray">
+                    <div>疾病描述</div>
+                    <div class="mt5"><?php echo $patient->diseaseDetail; ?></div>
                 </div>
                 <div>
                     <div class="grid middle h40 pl10 pr10">
@@ -74,6 +84,43 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                     <div class="imglist">
                     </div>
                 </div>
+                <div class="pl10 pr10">
+                    <div class="mt20">
+                        名医助手补充说明：
+                    </div>
+                    <div>
+                        <?php echo $booking->csExplain; ?>
+                    </div>
+                    <?php
+                    if (!isset($booking->doctorAccept)) {
+                        ?>
+                        <div class="mt20">
+                            您的反馈意见：
+                        </div>
+                        <div class="mt5">
+                            <textarea></textarea>
+                        </div>
+                        <div class="grid">
+                            <div class="col-1 w40">
+                                <button id="disAgree" class="btnSubmit btn-full b-gray br5 text-center bg-white color-black">拒绝</button>
+                            </div>
+                            <div class="col-1 w20"></div>
+                            <div class="col-1 w40">
+                                <button id="agree" class="btnSubmit btn-full br5 text-center bg-green color-white">同意</button>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                    <div class="font-s12 color-red mt20">
+                        *如有疑问，请拨打客服热线：400-119-7900
+                    </div>
+                    <div class="text-center mb20">
+                        <a href="tel:4001197900" class="btn-red pl10 pr10">点击拨号</a>
+                    </div>
+                </div>
+                <?php //var_dump($booking); ?>
+            </div>
         </article>
     </section>
 </div>
@@ -82,6 +129,42 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
         ajaxPatientFiles();
         $(".confirmPage").click(function () {
             $(this).hide();
+        });
+
+        $('.btnSubmit').click(function () {
+            var option = $('textarea').val();
+            if (option == '') {
+                J.showToast('请输入反馈意见', '', 1000);
+                return;
+            }
+            $('.btnSubmit').each(function () {
+                $(this).attr("disabled", true);
+            });
+            var requestUrl = '<?php echo $urlAjaxDoctorOpinion; ?>';
+            if ($(this).attr('id') == 'disAgree') {
+                requestUrl += '/id/<?php echo $booking->id; ?>/accept/0/option/' + option;
+            } else {
+                requestUrl += '/id/<?php echo $booking->id; ?>/option/' + option;
+            }
+            $.ajax({
+                url: requestUrl,
+                success: function (data) {
+                    console.log(data);
+                    J.customConfirm('',
+                            '<div class="mb10 text-left">感谢您的爱心和辛勤付出，名医助手将尽快和您联系</div>',
+                            '<a id="backCenter" class="color-green">返回个人中心</a>',
+                            '',
+                            function () {
+                            },
+                            function () {
+                            });
+                    $('#backCenter').click(function () {
+                        location.href = "<?php echo $urlDoctorView; ?>";
+                    });
+                },
+                error: function (data) {
+                }
+            });
         });
     });
     function ajaxPatientFiles() {

@@ -1,10 +1,4 @@
 <?php
-Yii::app()->clientScript->registerCssFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/css/webuploader.css');
-Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/webuploader/css/webuploader.custom.css');
-Yii::app()->clientScript->registerScriptFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/js/webuploader.min.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/uploadMRFile.js?ts=' . time(), CClientScript::POS_END);
-?>
-<?php
 /*
  * $model DoctorForm.
  */
@@ -19,12 +13,13 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
 $BK_STATUS_SERVICE_PAIDED = StatCode::BK_STATUS_SERVICE_PAIDED;
-$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
-$urlReturn = $this->createUrl('order/orderView', array('bookingid' => 172, 'addBackBtn' => 1));
+$BK_STATUS_DONE = StatCode::BK_STATUS_DONE;
+$user = $this->loadUser();
 $this->show_footer = false;
 $booking = $data->results->booking;
 $notPays = $data->results->notPays;
 $pays = $data->results->pays;
+$urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
 ?>
 <style>
     .popup-title{color: #333333;}
@@ -68,26 +63,43 @@ $pays = $data->results->pays;
     <h1 class="title">支付订单</h1>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
-    <section id="doctorInfo_section" class="active" data-init="true">
+    <section id="" class="active" data-init="true">
         <?php
         if (isset($notPays)) {
             ?>
             <footer class="bg-white grid">
                 <div class="col-1 w60 color-green middle grid">¥<?php echo $notPays->finalAmount; ?>元</div>
-                <div id="pay" class="col-1 w40 bg-green color-white middle grid">支付</div>;
+                <div id="pay" data-refNo="<?php echo $notPays->ref_no; ?>" class="col-1 w40 bg-green color-white middle grid">
+                    支付
+                </div>
             </footer>
             <?php
         }
         ?>
         <article id='payOrder_article' class="active" data-scroll="true">
             <div>
-                <?php //var_dump($data); ?>
-                <div class="grid pl10 pr10 mt20 color-green font-s18">
+                <?php
+                if ($booking->statusCode == $BK_STATUS_DONE) {
+                    $fontSize = 'font-s16';
+                } else {
+                    $fontSize = 'font-s18';
+                }
+                ?>
+                <div class="grid pl10 pr10 mt20 color-green <?php echo $fontSize; ?>">
                     <div class="col-0">
                         <img src="<?php echo $urlResImage; ?>orderStatusIcon.png" class="w20p mr10">
                     </div>
-                    <div class="col-1 pt3">
-                        <?php echo $booking->statusTitle; ?>
+                    <div class="col-1 pt3 grid">
+                        <div class="col-0"><?php echo $booking->statusTitle; ?></div>
+                        <?php
+                        if ($booking->statusCode == $BK_STATUS_DONE) {
+                            ?>
+                            <div class="col-0 ml5 font-s12 bg-yellow color-white pl3 pr2">
+                                审核中
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="mt20 ml10 mr10 bbb">
@@ -129,41 +141,19 @@ $pays = $data->results->pays;
                 <?php
                 if ($booking->statusCode == $BK_STATUS_SERVICE_PAIDED) {
                     ?>
-                    <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
-                        <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $booking->patientId; ?>" />
-                        <input id="patientReport_type" type="hidden" name="patient[report_type]" value="da" />
-                    </form>
-                    <div class="mt20 pl10 pr10">
-                        <!--图片上传区域 -->
-                        <div id="uploader" class="wu-example">
-                            <div class="imglist">
-                                <ul class="filelist"></ul>
-                            </div>
-                            <div class="queueList">
-                                <div id="dndArea" class="placeholder">
-                                    <div id="filePicker"></div>
-                                    <!-- <p>或将照片拖到这里，单次最多可选10张</p>-->
-                                </div>
-                            </div>
-                            <div class="statusBar" style="display:none; padding-bottom: 40px;">
-                                <div class="progress">
-                                    <span class="text">0%</span>
-                                    <span class="percentage"></span>
-                                </div>
-                                <div class="info"></div>
-                                <div class="">
-                                    <!-- btn 继续添加 -->
-                                    <div id="filePicker2" class="pull-right"></div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="mt20">
-    <!--                                    <input id="btnSubmit" class="statusBar uploadBtn state-pedding btn btn-yes btn-block" type="button" name="yt0" value="提交">-->
-                                    <a id="btnSubmit" class="statusBar uploadBtn state-pedding btn btn-yes btn-block">提交</a>
-                                </div>
-                            </div>
-                            <!--一开始就显示提交按钮就注释上面的提交 取消下面的注释 -->
-                            <!--                         <div class="statusBar uploadBtn">提交</div>-->
+                    <div class="imglist mt10">
+                        <ul class="filelist"></ul>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="reselection" class="grid hide pl10 pr10 pb20">
+                        <div class="col-1"></div>
+                        <div class="col-0">
+                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadMRFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1, 'report_type' => 'da')); ?>">重新选择</a>
                         </div>
+                    </div>
+                    <div id="upload" class="pl10 pr10 pt20 pb20 hide">
+                        <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadMRFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1, 'report_type' => 'da')); ?>"
+                           class = "btn btn-full bg-green color-white">上传照片</a>
                     </div>
                     <?php
                 }
@@ -174,6 +164,36 @@ $pays = $data->results->pays;
 </div>
 <script>
     $(document).ready(function () {
+
+//加载小结
+        var urlPatientMRFiles = "<?php echo $urlPatientMRFiles; ?>";
+        $.ajax({
+            url: urlPatientMRFiles,
+            success: function (data) {
+                console.log(data);
+                setImgHtml(data.results.files);
+            }
+        });
+
+        function setImgHtml(imgfiles) {
+            var innerHtml = '';
+            if (imgfiles && imgfiles.length > 0) {
+                $('#reselection').removeClass('hide');
+                for (i = 0; i < imgfiles.length; i++) {
+                    imgfile = imgfiles[i];
+                    innerHtml +=
+                            '<li id="' +
+                            imgfile.id + '"><p class="imgWrap"><img src="' +
+                            imgfile.thumbnailUrl + '" data-src="' +
+                            imgfile.absFileUrl + '"></p></li>';
+                }
+            } else {
+                $('#upload').removeClass('hide');
+                innerHtml += '';
+            }
+            $(".imglist .filelist").html(innerHtml);
+        }
+
         //待处理返回
         $('#noPayNew').tap(function () {
             J.customConfirm('提示',
@@ -197,8 +217,10 @@ $pays = $data->results->pays;
                 J.hideMask();
             });
         });
-        $('#pay').click(function () {
 
+        $('#pay').click(function () {
+            var refNo = $(this).attr('data-refNo');
+            location.href = '<?php echo $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => '')); ?>' + refNo;
         });
     });
 </script>
