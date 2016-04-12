@@ -125,7 +125,7 @@ class DoctorController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'viewContractDoctors'),
+                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'viewContractDoctors', 'ajaxLogin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -580,37 +580,55 @@ class DoctorController extends MobiledoctorController {
         if (isset($user)) {
             $this->redirect(array('view'));
         }
-        $isSuccess = false;
-        $loginType = 'sms';
         $smsform = new UserDoctorMobileLoginForm();
         $pawform = new UserLoginForm();
         $smsform->role = StatCode::USER_ROLE_DOCTOR;
         $pawform->role = StatCode::USER_ROLE_DOCTOR;
         $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
-        if (isset($_POST['UserDoctorMobileLoginForm'])) {
-            $values = $_POST['UserDoctorMobileLoginForm'];
+        //失败 则返回登录页面
+        $this->render("mobileLogin", array(
+            'model' => $smsform,
+            'pawModel' => $pawform,
+            'returnUrl' => $returnUrl
+        ));
+    }
+
+    /**
+     * 异步登陆
+     */
+    public function actionAjaxLogin() {
+        $output = array('status' => 'no');
+        if (isset($_POST['MobileLoginForm'])) {
+            $loginType = 'sms';
+            $smsform = new UserDoctorMobileLoginForm();
+            $values = $_POST['MobileLoginForm'];
             $smsform->setAttributes($values, true);
+            $smsform->role = StatCode::USER_ROLE_DOCTOR;
             $smsform->autoRegister = false;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->mobileLogin($smsform);
         } else if (isset($_POST['UserLoginForm'])) {
             $loginType = 'paw';
+            $pawform = new UserLoginForm();
             $values = $_POST['UserLoginForm'];
             $pawform->setAttributes($values, true);
+            $pawform->role = StatCode::USER_ROLE_DOCTOR;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->doLogin($pawform);
+        } else {
+            $output['errors'] = 'no data..';
         }
         if ($isSuccess) {
-            $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
-            $this->redirect($returnUrl);
+            $output['status'] = 'ok';
+        } else {
+            if ($loginType == 'sms') {
+                $output['errors'] = $smsform->getErrors();
+            } else {
+                $output['errors'] = $pawform->getErrors();
+            }
+            $output['loginType'] = $loginType;
         }
-        //失败 则返回登录页面
-        $this->render("mobileLogin", array(
-            'model' => $smsform,
-            'pawModel' => $pawform,
-            'loginType' => $loginType,
-            'returnUrl' => $returnUrl
-        ));
+        $this->renderJsonOutput($output);
     }
 
     /**
