@@ -14,6 +14,7 @@ $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
 $BK_STATUS_SERVICE_PAIDED = StatCode::BK_STATUS_SERVICE_PAIDED;
 $BK_STATUS_DONE = StatCode::BK_STATUS_DONE;
+$orderType = SalesOrder::ORDER_TYPE_SERVICE;
 $user = $this->loadUser();
 $this->show_footer = false;
 $booking = $data->results->booking;
@@ -66,14 +67,25 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
     <section id="" class="active" data-init="true">
         <?php
         if (isset($notPays)) {
-            ?>
-            <footer class="bg-white grid">
-                <div class="col-1 w60 color-green middle grid">¥<?php echo $notPays->finalAmount; ?>元</div>
-                <div id="pay" data-refNo="<?php echo $notPays->ref_no; ?>" class="col-1 w40 bg-green color-white middle grid">
-                    支付
-                </div>
-            </footer>
-            <?php
+            if ($notPays->orderType == $orderType) {
+                ?>
+                <footer class="bg-white grid">
+                    <div class="col-1 w60 color-green middle grid">还需支付<?php echo $notPays->needPay; ?>元</div>
+                    <div id="pay" class="col-1 w40 bg-green color-white middle grid">
+                        继续支付
+                    </div>
+                </footer>
+                <?php
+            } else {
+                ?>
+                <footer class="bg-white grid">
+                    <div class="col-1 w60 color-green middle grid"><?php echo $notPays->needPay; ?>元</div>
+                    <div id="payNow" data-refNo="<?php echo $notPays->refNo; ?>" class="col-1 w40 bg-green color-white middle grid">
+                        支付
+                    </div>
+                </footer>
+                <?php
+            }
         }
         ?>
         <article id='payOrder_article' class="active" data-scroll="true">
@@ -133,7 +145,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
                     <?php
                     if (isset($pays)) {
                         for ($i = 0; $i < count($pays); $i++) {
-                            echo '<div>提交时间:已支付' . $pays[$i]->orderType . $pays[$i]->finalAmount . '</div>';
+                            echo '<div>提交时间:已支付' . $pays[$i]->orderTypeText . $pays[$i]->finalAmount . '元</div>';
                         }
                     }
                     ?>
@@ -148,11 +160,11 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
                     <div id="reselection" class="grid hide pl10 pr10 pb20">
                         <div class="col-1"></div>
                         <div class="col-0">
-                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadMRFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1, 'report_type' => 'da')); ?>">重新选择</a>
+                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>">重新选择</a>
                         </div>
                     </div>
                     <div id="upload" class="pl10 pr10 pt20 pb20 hide">
-                        <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadMRFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1, 'report_type' => 'da')); ?>"
+                        <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>"
                            class = "btn btn-full bg-green color-white">上传照片</a>
                     </div>
                     <?php
@@ -164,8 +176,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
 </div>
 <script>
     $(document).ready(function () {
-
-//加载小结
+        //加载小结
         var urlPatientMRFiles = "<?php echo $urlPatientMRFiles; ?>";
         $.ajax({
             url: urlPatientMRFiles,
@@ -209,7 +220,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         //待确定返回
         $('#noPayService').tap(function () {
             J.customConfirm('提示',
-                    '<div class="mb10">确定暂不支付手术服务费?</div><div class="font-s12">（稍后可在"订单-待确定"里完成）</div>',
+                    '<div class="mb10">确定暂不支付手术咨询费?</div><div class="font-s12">（稍后可在"订单-待支付"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
                     '<a data="ok" class="w50 color-green">确定</a>', function () {
                         location.href = history.go(-1);
@@ -218,9 +229,13 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
             });
         });
 
-        $('#pay').click(function () {
+        $('#payNow').click(function () {
             var refNo = $(this).attr('data-refNo');
-            location.href = '<?php echo $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => '')); ?>' + refNo;
+            location.href = '<?php echo $this->createUrl('order/view', array('bookingId' => $booking->id, 'refNo' => '')); ?>/' + refNo;
+        });
+
+        $('#pay').click(function () {
+            location.href = '<?php echo $this->createUrl('order/payOrders', array('bookingId' => $booking->id, 'orderType' => $orderType, 'addBackBtn' => 1)); ?>';
         });
     });
 </script>

@@ -607,10 +607,10 @@ class DoctorController extends MobiledoctorController {
      */
     public function actionAjaxLogin() {
         $output = array('status' => 'no');
-        if (isset($_POST['MobileLoginForm'])) {
+        if (isset($_POST['UserDoctorMobileLoginForm'])) {
             $loginType = 'sms';
             $smsform = new UserDoctorMobileLoginForm();
-            $values = $_POST['MobileLoginForm'];
+            $values = $_POST['UserDoctorMobileLoginForm'];
             $smsform->setAttributes($values, true);
             $smsform->role = StatCode::USER_ROLE_DOCTOR;
             $smsform->autoRegister = false;
