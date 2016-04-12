@@ -480,15 +480,15 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * 医生上传认证全部成功 发送电邮提醒
+     * 医生上传认证全部成功 添加任务
      */
     public function actionSendEmailForCert() {
-        $output = array('status' => 'ok');
-        $user = $this->loadUser();
-        $doctorProfile = $user->getUserDoctorProfile();
-        $emailMgr = new EmailManager();
-        $emailMgr->sendEmailDoctorUploadCert($doctorProfile);
-        $this->renderJsonOutput($output);
+        $userId = $this->getCurrentUserId();
+        $type = StatCode::TASK_DOCTOR_CERT;
+        $apiUrl = new ApiRequestUrl();
+        $url = $apiUrl->getUrlDoctorInfoTask() . "?userid={$userId}&type={$type}";
+        //本地测试请用 $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        $this->send_get($url);
     }
 
     public function actionAjaxProfile() {
@@ -507,27 +507,27 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $userId = $user->getId();
             $doctorProfile = $user->getUserDoctorProfile();
+            $isupdate = true;
             if (is_null($doctorProfile)) {
                 $doctorProfile = new UserDoctorProfile();
+                $isupdate = false;
             }
             $attributes = $form->getSafeAttributes();
             $doctorProfile->setAttributes($attributes, true);
             $doctorProfile->user_id = $userId;
             $doctorProfile->setMobile($user->username);
-            // UserDoctorProfile.state_name.
             $state = $regionMgr->loadRegionStateById($doctorProfile->state_id);
             if (isset($state)) {
                 $doctorProfile->state_name = $state->getName();
             }
-            // UserDoctorProflie.city_name;
             $city = $regionMgr->loadRegionCityById($doctorProfile->city_id);
             if (isset($city)) {
                 $doctorProfile->city_name = $city->getName();
             }
             if ($doctorProfile->save()) {
-                //信息保存成功 电邮提示
-                $emailMgr = new EmailManager();
-                $emailMgr->sendEmailDoctorUpdateInfo($doctorProfile);
+                if ($isupdate) {
+                    $this->createTaskProfile($userId);
+                }
                 $output['status'] = 'ok';
                 $output['doctor']['id'] = $doctorProfile->getUserId();
                 $output['doctor']['profileId'] = $doctorProfile->getId();
@@ -539,6 +539,15 @@ class DoctorController extends MobiledoctorController {
             }
         }
         $this->renderJsonOutput($output);
+    }
+
+    //修改医生认证信息添加task
+    public function createTaskProfile($userId) {
+        $type = StatCode::TASK_DOCTOR_PROFILE_UPDATE;
+        $apiRequest = new ApiRequestUrl();
+        $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . "?userid={$userId}&type={$type}";
+        //本地测试请用 $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        $this->send_get($remote_url);
     }
 
     public function actionProfile() {
