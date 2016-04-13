@@ -9,6 +9,7 @@ $(function () {
     var domForm = $('#booking-form'),
             submitBtn = $('#submitBtn'),
             returnUrl = domForm.attr('data-url-return'),
+            urlSendEmail = domForm.attr('data-url-sendEmail'),
             returnResult = true;
     var uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -62,6 +63,14 @@ $(function () {
                 $('#success').show();
                 $('#success').show();
                 if (returnResult) {
+                    //电邮提醒
+                    $.ajax({
+                        url: urlSendEmail,
+                        type: 'post',
+                        success: function () {
+
+                        }
+                    });
                     $("#jingle_toast").find('a').text('上传成功!');
                     $("#jingle_toast").show();
                     setTimeout(function () {

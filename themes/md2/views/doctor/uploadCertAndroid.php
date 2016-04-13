@@ -23,7 +23,7 @@ $urlLoadCity = $this->createUrl('/region/loadCities', array('state' => ''));
 $urlSubmitProfile = $this->createUrl("doctor/ajaxProfile");
 //$urlUploadFile = 'http://file.mingyizhudao.com/api/uploaddoctorcert'; //$this->createUrl("doctor/ajaxUploadCert");
 
-
+$urlSendEmailForCert = $this->createUrl('doctor/sendEmailForCert');
 $urlUploadFile = $this->createUrl('qiniu/ajaxDrCert');
 $urlQiniuAjaxDrToken = $this->createUrl('qiniu/ajaxDrToken');
 
@@ -74,7 +74,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         <div class="">
                             <div class="container">
                                 <div class="text-left wrapper">
-                                    <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                                    <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-url-sendEmail="<?php echo $urlSendEmailForCert; ?>">
                                         <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id'];  ?>" />
                                         <input type="hidden" id="domain" value="http://7xq939.com2.z0.glb.qiniucdn.com">
                                         <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxDrToken; ?>">

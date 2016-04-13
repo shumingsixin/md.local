@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.form.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.validate.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/loginValidator.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/loginValidator.js?ts=' . time(), CClientScript::POS_END);
 /*
  * $model UserDoctorMobileLoginForm.
  */
@@ -11,6 +11,7 @@ $urlRegister = $this->createUrl("doctor/register", array('addBackBtn' => 1));
 $urlForgetPassword = $this->createUrl('doctor/forgetPassword', array('addBackBtn' => 1));
 $urlPage = Yii::app()->request->getQuery('page', '0');
 $urlGetSmsVerifyCode = $this->createAbsoluteUrl('/auth/sendSmsVerifyCode');
+$urlAjaxLogin = $this->createUrl('doctor/ajaxLogin');
 $authActionType = AuthSmsVerify::ACTION_USER_LOGIN;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
@@ -21,27 +22,12 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 </style>
 <header class="bg-green">
     <?php
-    if (($loginType == 'sms') && ($urlPage == 1)) {
-        $loginType = 'paw';
-    }
-    $smsActive = 'active';
-    $smsHide = '';
-    $pawActive = '';
-    $pawHide = 'hide';
-    if (isset($loginType)) {
-        if ($loginType == 'paw') {
-            $smsActive = '';
-            $smsHide = 'hide';
-            $pawActive = 'active';
-            $pawHide = '';
-        }
-    }
     ?>
     <ul class="control-group">
-        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive; ?>">
+        <li data-page="smsLogin" class="pageSwitch active">
             快速登录
         </li>
-        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive; ?>">
+        <li data-apge="pawLogin" class="pageSwitch">
             密码登录
         </li>
     </ul>
@@ -51,16 +37,15 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <article id="login_article" class="active bg-gary" data-scroll="true">
             <div>
                 <?php //var_dump($pawModel); ?>
-                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide; ?>">
+                <div id="smsLogin" class="mt30 ml10 mr10">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
-                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . $returnUrl,
                         // Please note: When you enable ajax validation, make sure the corresponding
                         // controller action is handling ajax validation correctly.
                         // There is a call to performAjaxValidation() commented in generated controller code.
                         // See class documentation of CActiveForm for details on this.
-                        'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false'),
+                        'htmlOptions' => array('data-url-action' => $urlAjaxLogin, 'data-url-return' => $returnUrl),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,
@@ -105,16 +90,15 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <?php $this->endWidget(); ?>
                 </div>
-                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide; ?>">
+                <div id="pawLogin" class="mt30 ml10 mr10 hide">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
-                        'action' => $this->createUrl('doctor/mobileLogin') . '?returnUrl=' . $returnUrl,
                         // Please note: When you enable ajax validation, make sure the corresponding
                         // controller action is handling ajax validation correctly.
                         // There is a call to performAjaxValidation() commented in generated controller code.
                         // See class documentation of CActiveForm for details on this.
-                        'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false'),
+                        'htmlOptions' => array('data-url-action' => $urlAjaxLogin, 'data-url-return' => $returnUrl),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,
@@ -135,7 +119,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                                 <?php echo $form->textField($pawModel, 'username', array('placeholder' => '请输入您的手机号', 'class' => 'noPaddingInput')); ?>
                             </div>
                         </div>
-                        <?php echo $form->error($pawModel, 'username'); ?>
                     </div>
                     <div class="input mt30">
                         <div class="grid inputBorder mb10">
@@ -147,7 +130,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                                 <?php echo $form->passwordField($pawModel, 'password', array('placeholder' => '请输入密码', 'class' => 'noPaddingInput')); ?>
                             </div>
                         </div>
-                        <?php echo $form->error($pawModel, 'password'); ?>
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->

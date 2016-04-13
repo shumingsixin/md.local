@@ -44,8 +44,9 @@ class ApiViewPatientSearch extends EApiViewService {
 
     private function loadPatients() {
         $criteria = new CDbCriteria();
-        $criteria->compare('t.doctor_id', $this->createorId);
+        $criteria->compare('t.creator_id', $this->createorId);
         $criteria->addSearchCondition('t.name', $this->name);
+        $criteria->addCondition('t.date_deleted is NULL');
         $models = PatientInfo::model()->findAll($criteria);
         if (arrayNotEmpty($models)) {
             $this->setPatientList($models);

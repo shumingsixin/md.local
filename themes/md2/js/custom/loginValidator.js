@@ -1,18 +1,20 @@
 $(function () {
     //验证码登录
     var domSmsForm = $("#smsLogin-form"), // form - html dom object.;
-            btnSubmitSms = $("#btnSubmitSms");
+            btnSubmitSms = $("#btnSubmitSms"),
+            actionSmsUrl = domSmsForm.attr('data-url-action'),
+            returnSmsUrl = domSmsForm.attr('data-url-return');
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
         var length = value.length;
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
-    
-    btnSubmitSms.click(function(){
+
+    btnSubmitSms.click(function () {
         var bool = validator.form();
-        if(bool){
-            domSmsForm.submit();
+        if (bool) {
+            ajaxSubmitSmsForm();
         }
     });
     //登陆页面表单验证模块
@@ -49,21 +51,49 @@ $(function () {
             error.appendTo(element.parents('div.input'));                        //这里的element是录入数据的对象  
         }
     });
-    
+    function ajaxSubmitSmsForm() {
+        var formdata = domSmsForm.serialize();
+        $.ajax({
+            type: 'post',
+            url: actionSmsUrl,
+            data: formdata,
+            success: function (data) {
+                console.log(data);
+                if (data.status == 'ok') {
+                    location.href = returnSmsUrl;
+                } else {
+                    domSmsForm.find('div.error').remove();
+                    for (error in data.errors) {
+                        var errorMsg = data.errors[error];
+                        var inputKey = '#UserDoctorMobileLoginForm_' + error;
+                        $(inputKey).parents('div.inputBorder').after("<div class='error'>" + errorMsg + "</div>");
+                        J.hideMask();
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+
     //密码登录
     var domPawForm = $("#pawLogin-form"), // form - html dom object.;
-            btnSubmitPaw = $("#btnSubmitPaw");
+            btnSubmitPaw = $("#btnSubmitPaw"),
+            actionPawUrl = domSmsForm.attr('data-url-action'),
+            returnPawUrl = domSmsForm.attr('data-url-return');
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
         var length = value.length;
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
-    
-    btnSubmitPaw.click(function(){
+
+    btnSubmitPaw.click(function () {
         var bool = validator.form();
-        if(bool){
-            domPawForm.submit();
+        if (bool) {
+            ajaxSubmitPawForm();
         }
     });
     //登陆页面表单验证模块
@@ -96,6 +126,31 @@ $(function () {
             error.appendTo(element.parents('div.input'));                        //这里的element是录入数据的对象  
         }
     });
+    function ajaxSubmitPawForm() {
+        var formdata = domPawForm.serialize();
+        $.ajax({
+            type: 'post',
+            url: actionPawUrl,
+            data: formdata,
+            success: function (data) {
+                console.log(data);
+                if (data.status == 'ok') {
+                    location.href = returnPawUrl;
+                } else {
+                    domSmsForm.find('div.error').remove();
+                    for (error in data.errors) {
+                        var errorMsg = data.errors[error];
+                        var inputKey = '#UserLoginForm_' + error;
+                        $(inputKey).parents('div.inputBorder').after("<div class='error'>" + errorMsg + "</div>");
+                        J.hideMask();
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 
 });
 

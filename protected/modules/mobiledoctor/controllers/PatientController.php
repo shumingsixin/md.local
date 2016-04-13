@@ -73,7 +73,7 @@ class PatientController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch'),
+                'actions' => array('ajaxTask', 'view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch', 'uploadDAFile'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -263,6 +263,14 @@ class PatientController extends MobiledoctorController {
         $this->render('view', array(
             'data' => $output
         ));
+    }
+
+    //修改已创建的患者图片信息添加任务提示
+    public function actionAjaxTask($id) {
+        $apiRequest = new ApiRequestUrl();
+        $remote_url = $apiRequest->getUrlPatientMrTask() . "?id={$id}";
+        //本地测试请用 $remote_url="192.168.31.119/admin/api/taskpatientmr?id={$id}";
+        $this->send_get($remote_url);
     }
 
 }

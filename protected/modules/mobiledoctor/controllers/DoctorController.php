@@ -125,7 +125,7 @@ class DoctorController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'viewContractDoctors'),
+                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'viewContractDoctors', 'ajaxLogin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -480,15 +480,15 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * 医生上传认证全部成功 发送电邮提醒
+     * 医生上传认证全部成功 添加任务
      */
     public function actionSendEmailForCert() {
-        $output = array('status' => 'ok');
-        $user = $this->loadUser();
-        $doctorProfile = $user->getUserDoctorProfile();
-        $emailMgr = new EmailManager();
-        $emailMgr->sendEmailDoctorUploadCert($doctorProfile);
-        $this->renderJsonOutput($output);
+        $userId = $this->getCurrentUserId();
+        $type = StatCode::TASK_DOCTOR_CERT;
+        $apiUrl = new ApiRequestUrl();
+        $url = $apiUrl->getUrlDoctorInfoTask() . "?userid={$userId}&type={$type}";
+        //本地测试请用 $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        $this->send_get($url);
     }
 
     public function actionAjaxProfile() {
@@ -507,27 +507,27 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $userId = $user->getId();
             $doctorProfile = $user->getUserDoctorProfile();
+            $isupdate = true;
             if (is_null($doctorProfile)) {
                 $doctorProfile = new UserDoctorProfile();
+                $isupdate = false;
             }
             $attributes = $form->getSafeAttributes();
             $doctorProfile->setAttributes($attributes, true);
             $doctorProfile->user_id = $userId;
             $doctorProfile->setMobile($user->username);
-            // UserDoctorProfile.state_name.
             $state = $regionMgr->loadRegionStateById($doctorProfile->state_id);
             if (isset($state)) {
                 $doctorProfile->state_name = $state->getName();
             }
-            // UserDoctorProflie.city_name;
             $city = $regionMgr->loadRegionCityById($doctorProfile->city_id);
             if (isset($city)) {
                 $doctorProfile->city_name = $city->getName();
             }
             if ($doctorProfile->save()) {
-                //信息保存成功 电邮提示
-                $emailMgr = new EmailManager();
-                $emailMgr->sendEmailDoctorUpdateInfo($doctorProfile);
+                if ($isupdate) {
+                    $this->createTaskProfile($userId);
+                }
                 $output['status'] = 'ok';
                 $output['doctor']['id'] = $doctorProfile->getUserId();
                 $output['doctor']['profileId'] = $doctorProfile->getId();
@@ -541,7 +541,16 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    public function actionProfile() {
+    //修改医生认证信息添加task
+    public function createTaskProfile($userId) {
+        $type = StatCode::TASK_DOCTOR_PROFILE_UPDATE;
+        $apiRequest = new ApiRequestUrl();
+        $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . "?userid={$userId}&type={$type}";
+        //本地测试请用 $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        $this->send_get($remote_url);
+    }
+
+    public function actionProfile($register = 0) {
         $user = $this->loadUser();
         $doctorProfile = $user->getUserDoctorProfile();
         $form = new UserDoctorProfileForm();
@@ -556,6 +565,7 @@ class DoctorController extends MobiledoctorController {
         $this->render('profile', array(
             'model' => $form,
             'returnUrl' => $returnUrl,
+            'register' => $register,
         ));
     }
 
@@ -580,37 +590,55 @@ class DoctorController extends MobiledoctorController {
         if (isset($user)) {
             $this->redirect(array('view'));
         }
-        $isSuccess = false;
-        $loginType = 'sms';
         $smsform = new UserDoctorMobileLoginForm();
         $pawform = new UserLoginForm();
         $smsform->role = StatCode::USER_ROLE_DOCTOR;
         $pawform->role = StatCode::USER_ROLE_DOCTOR;
         $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
+        //失败 则返回登录页面
+        $this->render("mobileLogin", array(
+            'model' => $smsform,
+            'pawModel' => $pawform,
+            'returnUrl' => $returnUrl
+        ));
+    }
+
+    /**
+     * 异步登陆
+     */
+    public function actionAjaxLogin() {
+        $output = array('status' => 'no');
         if (isset($_POST['UserDoctorMobileLoginForm'])) {
+            $loginType = 'sms';
+            $smsform = new UserDoctorMobileLoginForm();
             $values = $_POST['UserDoctorMobileLoginForm'];
             $smsform->setAttributes($values, true);
+            $smsform->role = StatCode::USER_ROLE_DOCTOR;
             $smsform->autoRegister = false;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->mobileLogin($smsform);
         } else if (isset($_POST['UserLoginForm'])) {
             $loginType = 'paw';
+            $pawform = new UserLoginForm();
             $values = $_POST['UserLoginForm'];
             $pawform->setAttributes($values, true);
+            $pawform->role = StatCode::USER_ROLE_DOCTOR;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->doLogin($pawform);
+        } else {
+            $output['errors'] = 'no data..';
         }
         if ($isSuccess) {
-            $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
-            $this->redirect($returnUrl);
+            $output['status'] = 'ok';
+        } else {
+            if ($loginType == 'sms') {
+                $output['errors'] = $smsform->getErrors();
+            } else {
+                $output['errors'] = $pawform->getErrors();
+            }
+            $output['loginType'] = $loginType;
         }
-        //失败 则返回登录页面
-        $this->render("mobileLogin", array(
-            'model' => $smsform,
-            'pawModel' => $pawform,
-            'loginType' => $loginType,
-            'returnUrl' => $returnUrl
-        ));
+        $this->renderJsonOutput($output);
     }
 
     /**
@@ -663,7 +691,7 @@ class DoctorController extends MobiledoctorController {
             if ($form->hasErrors() === false) {
                 // success                
                 $loginForm = $userMgr->autoLoginUser($form->username, $form->password, $userRole, 1);
-                $this->redirect(array('profile'));
+                $this->redirect(array('profile', 'register' => 1));
             }
         }
 

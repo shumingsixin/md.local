@@ -9,6 +9,8 @@ $(function () {
     var domForm = $('#booking-form'),
             submitBtn = $('#submitBtn'),
             returnUrl = domForm.attr('data-url-return'),
+            patientBookingId = domForm.attr('data-aptientBookingId'),
+            patientAjaxTask = domForm.attr('data-patientAjaxTask'),
             returnResult = true;
     var uploader = Qiniu.uploader({
         runtimes: 'html5,flash,html4',
@@ -62,6 +64,16 @@ $(function () {
             'UploadComplete': function () {
                 $('#success').show();
                 if (returnResult) {
+                    //电邮提醒
+                    if (patientBookingId != '') {
+                        $.ajax({
+                            type: 'get',
+                            url: patientAjaxTask,
+                            success: function (data) {
+                                //console.log(data);
+                            }
+                        });
+                    }
                     $("#jingle_toast").find('a').text('上传成功!');
                     $("#jingle_toast").show();
                     setTimeout(function () {

@@ -40,7 +40,7 @@ class ApiViewPayOrders extends EApiViewService {
     }
 
     private function loadPayOrders() {
-        $models = $this->orderMgr->loadOrdersByBkIdAndBkTypeAndOrderType($this->bookingId, StatCode::TRANS_TYPE_BK, $this->type);
+        $models = $this->orderMgr->loadOrdersByBkIdAndBkTypeAndOrderType($this->bookingId, StatCode::TRANS_TYPE_PB, $this->type);
         if (arrayNotEmpty($models)) {
             $this->setOrder($models);
         }

@@ -68,7 +68,7 @@ $checkTeamDoctor = $teamDoctor;
                 </li>
                 <?php
                 $statusActive = '';
-                if ($status == 3) {
+                if ($status == 5) {
                     $statusActive = 'active';
                 }
                 ?>
@@ -77,7 +77,7 @@ $checkTeamDoctor = $teamDoctor;
                 </li>
                 <?php
                 $statusActive = '';
-                if ($status == 4) {
+                if ($status == 6) {
                     $statusActive = 'active';
                 }
                 ?>

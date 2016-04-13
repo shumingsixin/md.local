@@ -132,6 +132,7 @@ button [disabled]{
 .pt2{padding-top:2px;}
 .pt3{padding-top:3px;}
 .pt5{padding-top:5px;}
+.pt7{padding-top:7px;}
 .pt8{padding-top:8px;}
 .pt10{padding-top:10px;}
 .pt15{padding-top:15px;}
@@ -358,6 +359,7 @@ a .none{text-decoration:none;}
 .text-justify{text-align:justify!important;}
 /*vertical-align*/
 .vertical-bottom{vertical-align:bottom!important;}
+.vertical-center{-webkit-box-align: center;display: -webkit-box;}
 
 /*a加下划线*/
 .a-underline{text-decoration:underline;  }
