@@ -9,58 +9,32 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/c
  * $model PatientMRForm.
  */
 $this->setPageID('pCreatePatientMR');
-$this->setPageTitle('上传患者病历');
-$urlLogin = $this->createUrl('doctor/login');
+$this->setPageTitle('上传出院小结');
 $patientId = $output['id'];
 $user = $this->loadUser();
-$urlSubmitMR = $this->createUrl("patient/ajaxCreatePatientMR");
-$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
-$urlReturn = $this->createUrl('patient/view', array('id' => $patientId));
-
-$patientBookingId = Yii::app()->request->getQuery('patientBookingId', '');
-$patientAjaxTask = $this->createUrl('patient/ajaxTask', array('id' => ''));
-
-$reportType = Yii::app()->request->getQuery('report_type', 'mr');
+$urlUploadFile = 'http://192.168.31.119/file.myzd.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
 $bookingId = Yii::app()->request->getQuery('bookingid', '');
-
-$type = Yii::app()->request->getQuery('type', 'create');
-if ($type == 'update') {
-    $urlReturn = $this->createUrl('patient/view', array('id' => $patientId, 'addBackBtn' => 1));
-} else if ($type == 'create') {
-    if ($output['returnUrl'] == '') {
-        $urlReturn = $this->createUrl('patientbooking/create', array('pid' => $patientId, 'addBackBtn' => 1));
-    } else if ($reportType == 'da') {
-        $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
-    } else {
-        $urlReturn = $output['returnUrl'];
-    }
-}
+$urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
 if (isset($output['id'])) {
-    $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=' . $reportType; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+    $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
     $urldelectPatientMRFile = 'http://192.168.31.119/file.myzd.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
 } else {
     $urlPatientMRFiles = "";
     $urldelectPatientMRFile = "";
 }
-
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="uploadMRFile_section" class="active">
         <article id="a1" class="active" data-scroll="true">
             <div class="form-wrapper mt10">
-                <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-patientBookingId="<?php echo $patientBookingId; ?>" data-patientAjaxTask="<?php echo $patientAjaxTask; ?>">
-                    <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $output['id']; ?>" />
-                    <input id="reportType" type="hidden" name="patient[report_type]" value="" />
+                <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                    <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $patientId; ?>" />
+                    <input id="reportType" type="hidden" name="patient[report_type]" value="da" />
                 </form>
-                <div class="">
-                    <div class="grid">
-                        <div class="col-1 ml10">上传影像资料：</div>
-                        <?php if ($type == 'create') { ?>
-                            <div class="col-0">
-                                <a href="<?php echo $urlReturn; ?>" class="btn btn-yes mr10" data-ajax="false">跳过</a>
-                            </div>
-                        <?php } ?>
+                <div class="pl10 pr10">
+                    <div>
+                        上传影像资料：
                     </div>
                     <div class="mt20">    
                         <!--图片上传区域 -->
@@ -94,21 +68,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             <!--                         <div class="statusBar uploadBtn">提交</div>-->
                         </div>
 
-                    </div>
-                    <div class="example">
-                        <label class="color-red">示例:</label>
-                        <div class="ui-grid-b">
-                            <div class="ui-block-a">
-                                <img src="<?php echo $urlResImage; ?>patientexample1.jpg"/>
-                            </div>
-                            <div class="ui-block-b">
-                                <span>或</span>
-                            </div>
-                            <div class="ui-block-c">
-                                <img src="<?php echo $urlResImage; ?>patientexample2.jpg"/>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
                     </div>
                 </div>
             </div>
@@ -178,4 +137,3 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         });
     }
 </script>
-

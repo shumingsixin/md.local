@@ -26,6 +26,10 @@ $urlSubmitMR = $this->createUrl("patient/ajaxCreatePatientMR");
 $urlUploadFile = $this->createUrl('qiniu/ajaxPatienMr');
 $urlQiniuAjaxToken = $this->createUrl('qiniu/ajaxPatientToken');
 $urlReturn = $this->createUrl('patient/view', array('id' => $patientId));
+
+$patientBookingId = Yii::app()->request->getQuery('patientBookingId', '');
+$patientAjaxTask = $this->createUrl('patient/ajaxTask', array('id' => ''));
+
 $type = Yii::app()->request->getQuery('type', 'create');
 if ($type == 'update') {
     $urlReturn = $this->createUrl('patient/view', array('id' => $patientId, 'addBackBtn' => 1));
@@ -77,7 +81,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                 <div class="">
                     <div class="container">
                         <div class="text-left wrapper">
-                            <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                            <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-patientBookingId="<?php echo $patientBookingId; ?>" data-patientAjaxTask="<?php echo $patientAjaxTask; ?>">
                                 <input id="patientId" type="hidden" name="Booking[patient_id]" value="<?php echo $patientId; ?>" />
                                 <input id="reportType" type="hidden" name="Booking[report_type]" value="mr" />
                                 <input type="hidden" id="domain" value="http://7xq93p.com2.z0.glb.qiniucdn.com">

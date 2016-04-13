@@ -6,6 +6,8 @@ $(function () {
             $wrap = $('#uploader'),
             //全部成功 返回地址
             uploadReturnUrl = domForm.attr("data-url-return"),
+            patientBookingId = domForm.attr('data-aptientBookingId'),
+            patientAjaxTask = domForm.attr('data-patientAjaxTask'),
             //请求路径
             //actionUrl = '';
             //data-url-uploadFile
@@ -75,7 +77,7 @@ $(function () {
         // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
         //compress: true,
         chunked: true,
-        formData: {'patient[id]': domForm.find("input#patientId").val(), 'patient[report_type]': 'mr'},
+        formData: {'patient[id]': domForm.find("input#patientId").val(), 'patient[report_type]': domForm.find("input#reportType").val()},
         // server: 'http://webuploader.duapp.com/server/fileupload.php',
         server: urlUploadFile,
         fileNumLimit: 10,
@@ -359,6 +361,16 @@ $(function () {
                 if (stats.successNum) {
                     //console.log(stats);
                     enableBtn(btnSubmit);
+                    //电邮提醒
+                    if (patientBookingId != '') {
+                        $.ajax({
+                            type: 'get',
+                            url: patientAjaxTask,
+                            success: function (data) {
+                                //console.log(data);
+                            }
+                        });
+                    }
                     location.href = uploadReturnUrl;
                     //location.hash = uploadReturnUrl;
                 } else {

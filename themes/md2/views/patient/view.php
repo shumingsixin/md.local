@@ -82,7 +82,13 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                             影像资料：
                         </div>
                         <div class="col-0 w20 text-center">
-                            <a href="<?php echo $urlUploadMRFile; ?>" class="color-green" data-target="link">修改</a>
+                            <?php
+                            if ($patientBooking) {
+                                echo '<a href="' . $urlUploadMRFile . '/patientBookingId/' . $patientBooking->id . '" class="color-green" data-target="link">修改</a>';
+                            } else {
+                                echo '<a href="' . $urlUploadMRFile . '" class="color-green" data-target="link">修改</a>';
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class="imglist mb20">
