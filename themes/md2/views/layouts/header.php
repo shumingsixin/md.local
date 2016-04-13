@@ -11,9 +11,5 @@ $urlDocView = $this->createUrl('doctor/view');
     }
     ?>
     <h1 class="title color-white"><?php echo $this->pageTitle; ?></h1>
-    <?php
-    if (false) {
-        echo '<nav class="right"><a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDocView ?>"><i class="icon user"></i></a></nav>';
-    }
-    ?>
+    <nav class="right"><a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDocView ?>"><i class="icon user"></i></a></nav>
 </header>

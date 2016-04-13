@@ -9,6 +9,7 @@ $urlPatientBookingView = $this->createUrl('patientBooking/view', array('id' => '
 $status = Yii::app()->request->getQuery('status', 0);
 $payUrl = $this->createUrl('/payment/doPingxxPay');
 $refUrl = $this->createAbsoluteUrl('order/view');
+$urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
@@ -62,6 +63,11 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         ?>
     </nav>
     <h1 class="title">支付订单</h1>
+    <nav class="right">
+        <a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDoctorView ?>">
+            <i class="icon user"></i>
+        </a>
+    </nav>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="" class="active" data-init="true">

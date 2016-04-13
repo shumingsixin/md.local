@@ -25,16 +25,6 @@ $checkTeamDoctor = $teamDoctor;
     .control-group li.active a, .control-group li.active .icon{color: #06c1ae;}
 
 </style>
-<header class="bg-green">
-    <nav class="left">
-        <a href="<?php echo $urlDoctorView; ?>">
-            <div class="pl5">
-                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
-            </div>
-        </a>
-    </nav>
-    <h1 class="title">我的订单</h1>
-</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="bookingList_section" class="active" data-init="true">
         <nav id="bookingList_nav" class="header-secondary bg-white color-black3">

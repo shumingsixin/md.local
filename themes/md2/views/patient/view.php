@@ -84,9 +84,9 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                         <div class="col-0 w20 text-center">
                             <?php
                             if ($patientBooking) {
-                                echo '<a href="' . $urlUploadMRFile . '/patientBookingId/' . $patientBooking->id . '" class="color-green" data-target="link">修改</a>';
+                                echo '<a href="' . $urlUploadMRFile . '/patientBookingId/' . $patientBooking->id . '" class="color-green imgUrl" data-target="link">修改</a>';
                             } else {
-                                echo '<a href="' . $urlUploadMRFile . '" class="color-green" data-target="link">修改</a>';
+                                echo '<a href="' . $urlUploadMRFile . '" class="color-green imgUrl" data-target="link">修改</a>';
                             }
                             ?>
                         </div>
@@ -144,7 +144,8 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                 //'<div class="' + uiBlock + '"><img data-src="' + imgfiles[i].absFileUrl + '" src="' + imgfiles[i].absThumbnailUrl + '"></div>';
             }
         } else {
-            innerHtml += '无';
+            var url = $('.imgUrl').attr('href');
+            innerHtml += '<div class="mt10">暂未上传该患者的影像</div><div class="text-center mt20"><a href="' + url + '"><span class="bg-green color-white br5 pl10 pr10 pt5 pb5">立即上传</span></a></div>';
         }
         $(".imglist").html(innerHtml);
         $('.btn_alert').tap(function () {

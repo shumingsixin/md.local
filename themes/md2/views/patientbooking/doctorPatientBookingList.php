@@ -19,6 +19,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <li data-booking="processing" class="bookingMenu active">待处理</li>
         <li data-booking="done" class="bookingMenu">已完成</li>
     </ul>
+    <nav class="right">
+        <a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDoctorView ?>">
+            <i class="icon user"></i>
+        </a>
+    </nav>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="getRequest_section" class="active" data-init="true">

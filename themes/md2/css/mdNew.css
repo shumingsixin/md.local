@@ -37,8 +37,8 @@ form span.required{display: none;}
 #jingle_toast{position: fixed;z-index: 999;}
 /**** header ****/
 header{border-bottom:1px solid #A9A9A9!important;background-color:#fff;}
-header nav.right{background-color: #19aea5;border-radius: 50%;width: 1.7em;height: 1.7em;padding: 0;line-height: 1.5em;margin-top: 8px;margin-right: 5px;}
-header nav.right a>.icon{font-size: 1.3em;color: #fff!important;line-height: 1.3em;}
+header nav.right{background-color: #fff;border-radius: 50%;width: 1.7em;height: 1.7em;padding: 0;line-height: 1.5em;margin-top: 8px;margin-right: 5px;}
+header nav.right a>.icon{font-size: 1.3em;color: #19aea5!important;line-height: 1.3em;}
 header nav.right .header-user{height: 28px;}
 /**** doctor view ****/
 #main_section .list a,#account_section .list a{display: block!important;}
