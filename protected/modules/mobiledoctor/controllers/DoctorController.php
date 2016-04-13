@@ -550,7 +550,7 @@ class DoctorController extends MobiledoctorController {
         $this->send_get($remote_url);
     }
 
-    public function actionProfile() {
+    public function actionProfile($register = 0) {
         $user = $this->loadUser();
         $doctorProfile = $user->getUserDoctorProfile();
         $form = new UserDoctorProfileForm();
@@ -565,6 +565,7 @@ class DoctorController extends MobiledoctorController {
         $this->render('profile', array(
             'model' => $form,
             'returnUrl' => $returnUrl,
+            'register' => $register,
         ));
     }
 
@@ -690,7 +691,7 @@ class DoctorController extends MobiledoctorController {
             if ($form->hasErrors() === false) {
                 // success                
                 $loginForm = $userMgr->autoLoginUser($form->username, $form->password, $userRole, 1);
-                $this->redirect(array('profile'));
+                $this->redirect(array('profile', 'register' => 1));
             }
         }
 
