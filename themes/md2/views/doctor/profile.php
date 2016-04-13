@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.formvalidate.min.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/profile.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/profile.js?ts=' . time(), CClientScript::POS_END);
 ?>
 <?php
 /*
@@ -18,6 +18,18 @@ $urlReturn = $returnUrl;
     <section id="profile_section" class="active" data-init="true">
         <article id="a1" class="active" data-scroll="true">
             <div class="pb20">
+                <?php
+                if ($register == 1) {
+                    ?>
+                    <div class="pad10">
+                        注册成功
+                    </div>
+                    <div class="pad10">
+                        请您完善基本信息，让我们认识您：
+                    </div>
+                    <?php
+                }
+                ?>
                 <div class="form-wrapper">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
@@ -35,7 +47,7 @@ $urlReturn = $returnUrl;
                     ?>
                     <ul class="list">
                         <li>
-                            <?php echo CHtml::activeLabel($model, 'name'); ?>                                           
+                            <?php echo CHtml::activeLabel($model, 'name'); ?>
                             <?php echo $form->textField($model, 'name', array('name' => 'doctor[name]', 'placeholder' => '请输入真实姓名', 'maxlength' => 45)); ?>
                             <?php echo $form->error($model, 'name'); ?> 
                         </li>

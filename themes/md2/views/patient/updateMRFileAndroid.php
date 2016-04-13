@@ -134,7 +134,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <a class="delete">确定</a>
                 </div>
             </div>
-            <div id="jingle_toast" class="toast"><a href="#">取消!</a></div>
+            <div id="jingle_toast" class="toast"><a href="#" class="font-s18">取消!</a></div>
         </article>
     </section>
 </div>

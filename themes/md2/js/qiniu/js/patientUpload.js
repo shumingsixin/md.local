@@ -87,7 +87,9 @@ $(function () {
                     }, 2000);
                 }
                 submitBtn.find('button').attr('disabled', false);
-                location.href = returnUrl;
+                setTimeout(function () {
+                    location.href = returnUrl;
+                }, 2000);
             },
             'FileUploaded': function (up, file, info) {
                 //单个文件上传成功所做的事情 

@@ -81,7 +81,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
-                        <a id="btnSubmitSms" class="btn btn-yes btn-block">登录</a>
+                        <a id="btnSubmitSms" class="btn btn-yes btn-block" data-target="link">登录</a>
                     </div>
                     <div class="">                
                         <div class="mt20 text-right">

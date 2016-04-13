@@ -106,7 +106,10 @@ $(function () {
                 //success.
                 if (data.status == 'ok') {
                     returnUrl += '/addBackBtn/1?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
-                    window.location.href = returnUrl;
+                    J.showToast('修改成功', '', '2000');
+                    setTimeout(function () {
+                        location.href = returnUrl;
+                    }, 2000);
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {
@@ -120,6 +123,7 @@ $(function () {
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                J.showToast('网络异常，修改失败', '', '2000');
                 //enableBtn(btnSubmit);
                 console.log(XmlHttpRequest);
                 console.log(textStatus);

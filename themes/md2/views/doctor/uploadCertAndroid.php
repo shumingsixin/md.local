@@ -152,7 +152,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                 <div id="tag_close_popup" data-target="closePopup" class="icon cancel-circle"></div>
             </div>
 
-            <div id="jingle_toast" class="toast"><a href="#">取消!</a></div>
+            <div id="jingle_toast" class="toast"><a href="#" class="font-s18">取消!</a></div>
             <div id="jingle_popup_mask" style="opacity: 0.3;"></div>
         </article>
         <div id="imgConfirm" class="confirm" style="left: 0px; right: 0px;min-height: 50em;">
