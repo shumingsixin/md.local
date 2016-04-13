@@ -136,6 +136,7 @@ $(function () {
                 });
             },
             'Error': function (up, err, errTip) {
+                returnResult = false;
                 console.log('错误信息' + errTip);
                 $('table').show();
                 var progress = new FileProgress(err.file, 'fsUploadProgress');

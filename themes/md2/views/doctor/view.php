@@ -18,11 +18,10 @@ $urlDoctorUploadCert = $this->createUrl('doctor/uploadCert');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $verified = $user->verified;
 $teamDoctor = $user->teamDoctor;
-$urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
 ?>
-<style>
-    
-</style>
+<header class="bg-green">
+    <h1 class="title">个人中心</h1>
+</header>
 <div id="section_container">
     <section id="main_section" class="active">
         <article id="doctorView_article" class="active" data-scroll="true">

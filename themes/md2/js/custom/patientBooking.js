@@ -114,6 +114,7 @@ $(function () {
                     }
                     //error.
                     enableBtn(btnSubmit);
+                    J.showToast('网络异常，请稍后预约', '', '1000');
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
