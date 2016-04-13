@@ -312,6 +312,7 @@ header nav.right .header-user{height: 28px;}
     width: auto;
     margin-top: 12px;
     padding: 0px 5px;
+    background-color: inherit;
 }
 #addPatient_article{
     font-size: 14px;

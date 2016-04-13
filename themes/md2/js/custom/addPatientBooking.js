@@ -9,6 +9,7 @@ $(function () {
         //console.log(travelType);
         if (travelType == '') {
             $('#travel_type').after('<div class="noTravelType">请选择就诊意向</div>');
+            return;
         }
         var bool = validator.form();
         if (bool) {
@@ -65,9 +66,11 @@ $(function () {
                     }
                     //error.
                     enableBtn(btnSubmit);
+                    J.showToast('网络异常，请稍后预约', '', '2000');
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                J.showToast('网络异常，请稍后预约', '', '2000');
                 enableBtn(btnSubmit);
                 console.log(XmlHttpRequest);
                 console.log(textStatus);

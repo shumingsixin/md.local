@@ -114,10 +114,11 @@ $(function () {
                     }
                     //error.
                     enableBtn(btnSubmit);
-                    J.showToast('网络异常，请稍后预约', '', '1000');
+                    J.showToast('网络异常，请稍后预约', '', '2000');
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                J.showToast('网络异常，请稍后预约', '', '2000');
                 enableBtn(btnSubmit);
                 console.log(XmlHttpRequest);
                 console.log(textStatus);
