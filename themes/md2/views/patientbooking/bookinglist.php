@@ -45,7 +45,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">待处理</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">待支付</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -63,7 +63,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">待支付</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">待确认</a>
                 </li>
                 <?php
                 $statusActive = '';

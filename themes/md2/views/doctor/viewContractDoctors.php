@@ -25,7 +25,7 @@ $this->show_footer = false;
 <nav id="contractDoctors_nav" class="header-secondary bg-white">
     <div class="grid w100 font-s16 color-black6">
         <div id="stateSelect" class="col-1 w50 br-gray bb-gray grid middle grayImg">
-            <span id="stateTitle" data-dept="">地区</span><img src="<?php echo $urlResImage; ?>gray.png">
+            <span id="stateTitle" data-dept="">全部</span><img src="<?php echo $urlResImage; ?>gray.png">
         </div>
         <div id="deptSelect" class="col-1 w50 bb-gray grid middle grayImg">
             <span id="deptTitle" data-disease="">科室</span><img src="<?php echo $urlResImage; ?>gray.png">
@@ -132,7 +132,8 @@ $this->show_footer = false;
 
         function readyState(data) {
             var stateList = data.results.stateList;
-            var innerHtml = '<div data-scroll="true" style="height:315px;margin-top:93px;"><ul class="list">';
+            var innerHtml = '<div data-scroll="true" style="height:315px;margin-top:93px;"><ul class="list">'
+                    + '<li class="state" data-state="">全部</li>';
             //console.log(stateList(1));
             for (var s in stateList) {
                 innerHtml += '<li class="state" data-state="' + s + '">' + stateList[s] + '</li>';
