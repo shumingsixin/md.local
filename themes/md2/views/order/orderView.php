@@ -187,7 +187,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         $.ajax({
             url: urlPatientMRFiles,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 setImgHtml(data.results.files);
             }
         });
