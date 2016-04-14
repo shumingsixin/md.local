@@ -105,8 +105,6 @@ $(function () {
                 progress.setComplete(up, info);
                 var formdata = new FormData();
                 var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
-                console.log('文件' + info);
-                console.log();
                 formdata.append('cert[user_id]', domForm.find('#userId').val());
                 formdata.append('cert[file_size]', file.size);
                 formdata.append('cert[mime_type]', file.type);
@@ -122,7 +120,7 @@ $(function () {
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        console.log('保存信息返回数据:' + data);
+                        //console.log('保存信息返回数据:' + data);
                         if (data.status == 'no') {
                             returnResult = false;
                             //alert('上传失败!');
@@ -155,7 +153,7 @@ $(function () {
     });
 
     uploader.bind('FileUploaded', function () {
-        console.log('hello man,a file is uploaded');
+        //console.log('hello man,a file is uploaded');
     });
     submitBtn.click(function () {
         submitBtn.attr('disabled', true);

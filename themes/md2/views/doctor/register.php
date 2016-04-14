@@ -16,6 +16,16 @@ $this->show_footer = false;
         width:160px;
     }
 </style>
+<header class="bg-green">
+    <nav class="left">
+        <a href="" data-target="back">
+            <div class="pl5">
+                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
+            </div>
+        </a>
+    </nav>
+    <h1 class="title">用户注册</h1>
+</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
     <section id="" class="active" data-init="true">
         <article id="register_article" class="active" data-scroll="true">

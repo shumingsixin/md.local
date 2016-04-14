@@ -140,10 +140,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#btnSubmit").hide();
-        $("#btnSubmit").click(function () {
-            ajaxUploadFile();
-        });
         $("#deleteConfirm .cancel").click(function () {
             $("#deleteConfirm").hide();
             $("#jingle_toast").show();
@@ -170,50 +166,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             }
         });
     });
-    function ajaxUploadFile() {
-        var btnSubmit = $("#btnSubmit");
-        disabledBtn(btnSubmit);
-        $(".MultiFile-applied").attr("name", 'file');
-        var successCount = 0, inputCount = 0, backCount = 0;
-        inputCount = $(".MultiFile-applied").length - 1;
-        var data = {'patient[id]': $("#patient_id").val(), 'patient[report_type]': 'mr', 'plugin': 'ajaxFileUpload'};
-        $(".MultiFile-applied").each(function () {
-            if ($(this).val()) {
-                var doctorId = $("#doctor_id").val();
-                var fileId = $(this).attr("id");
-                $.ajaxFileUpload({
-                    url: '<?php echo $urlUploadFile; ?>',
-                    secureuri: false, //是否安全提交
-                    data: data, //提交时带上的参数
-                    fileElementId: fileId, //input file 的id
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data, status) {
-                        if (status == 'success') {
-                            successCount++;
-                        }
-                    },
-                    error: function (data, status, e) {
-                        //错误处理
-                        if (status == 'error') {
-                            alert('上传失败!');
-                        }
-                    },
-                    complete: function () {
-                        backCount++;
-                        if (inputCount == backCount) {
-                            if (successCount == inputCount) {
-                                window.location.href = '<?php echo $urlReturn; ?>';
-                            } else {
-                                $("#reloadConfirm").show();
-                            }
-                            enableBtn(btnSubmit);
-                        }
-                    }
-                });
-            }
-        });
-    }
     function setImgHtml(imgfiles) {
         var innerHtml = '';
         if (imgfiles && imgfiles.length > 0) {
