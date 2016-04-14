@@ -584,7 +584,7 @@ class DoctorController extends MobiledoctorController {
     /**
      * 手机用户登录
      */
-    public function actionMobileLogin() {
+    public function actionMobileLogin($loginType = 'sms') {
         $user = $this->getCurrentUser();
         //已登陆 跳转至主页
         if (isset($user)) {
@@ -599,7 +599,8 @@ class DoctorController extends MobiledoctorController {
         $this->render("mobileLogin", array(
             'model' => $smsform,
             'pawModel' => $pawform,
-            'returnUrl' => $returnUrl
+            'returnUrl' => $returnUrl,
+            'loginType' => $loginType
         ));
     }
 
