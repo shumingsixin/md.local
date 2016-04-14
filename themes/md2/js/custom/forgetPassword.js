@@ -75,7 +75,7 @@ $(function () {
                 console.log(data);
                 //success.
                 if (data.status == 'ok') {
-                    window.location.href = returnUrl + '?loginType=1';
+                    window.location.href = returnUrl + '?loginType=paw';
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {

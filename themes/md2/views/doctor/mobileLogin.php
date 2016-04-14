@@ -22,12 +22,23 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 </style>
 <header class="bg-green">
     <?php
+    if ($loginType == 'sms') {
+        $smsActive = 'active';
+        $smsHide = '';
+        $pawActive = '';
+        $pawHide = 'hide';
+    } else {
+        $smsActive = '';
+        $smsHide = 'hide';
+        $pawActive = 'active';
+        $pawHide = '';
+    }
     ?>
     <ul class="control-group">
-        <li data-page="smsLogin" class="pageSwitch active">
+        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive;?>">
             快速登录
         </li>
-        <li data-apge="pawLogin" class="pageSwitch">
+        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive;?>">
             密码登录
         </li>
     </ul>
@@ -37,7 +48,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <article id="login_article" class="active bg-gary" data-scroll="true">
             <div>
                 <?php //var_dump($pawModel); ?>
-                <div id="smsLogin" class="mt30 ml10 mr10">
+                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide;?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
@@ -90,7 +101,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <?php $this->endWidget(); ?>
                 </div>
-                <div id="pawLogin" class="mt30 ml10 mr10 hide">
+                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide;?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
