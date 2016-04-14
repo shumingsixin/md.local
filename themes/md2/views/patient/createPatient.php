@@ -24,7 +24,7 @@ $checkTeamDoctor = $teamDoctor;
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'patient-form',
-                        'htmlOptions' => array('data-url-action' => $urlSubmit, 'data-url-return' => $urlReturn),
+                        'htmlOptions' => array('data-url-action' => $urlSubmit, 'data-url-return' => $urlReturn, 'data-type' => 'create'),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,

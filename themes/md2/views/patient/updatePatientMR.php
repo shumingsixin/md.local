@@ -33,7 +33,7 @@ $birth_month = $model->birth_month;
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'patient-form',
-                        'htmlOptions' => array('data-url-action' => $urlSubmitMR, 'data-url-return' => $urlReturn),
+                        'htmlOptions' => array('data-url-action' => $urlSubmitMR, 'data-url-return' => $urlReturn, 'data-type' => 'update'),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,
@@ -137,7 +137,7 @@ $birth_month = $model->birth_month;
 <script>
     $(document).ready(function () {
         $returnUrl = '';
-        
+
         var gender = '<?php echo $gender; ?>';
         var birth_year = '<?php echo $birth_year; ?>';
         var birth_month = '<?php echo $birth_month; ?>';

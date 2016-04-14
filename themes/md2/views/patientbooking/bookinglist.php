@@ -9,7 +9,7 @@ $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
 $urlPatientBookingList = $this->createUrl('patientBooking/list', array('addBackBtn' => 1, 'status' => ''));
 $urlDoctorTerms.='?returnUrl=' . $currentUrl;
-$urlDoctorView = $this->createUrl('doctor/');
+$urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 ?>
@@ -25,6 +25,21 @@ $checkTeamDoctor = $teamDoctor;
     .control-group li.active a, .control-group li.active .icon{color: #06c1ae;}
 
 </style>
+<header class="bg-green">
+    <nav class="left">
+        <a href="<?php echo $urlDoctorView; ?>" data-target="link">
+            <div class="pl5">
+                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
+            </div>
+        </a>
+    </nav>
+    <h1 class="title">我的订单</h1>
+    <nav class="right">
+        <a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDoctorView ?>">
+            <i class="icon user"></i>
+        </a>
+    </nav>
+</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="bookingList_section" class="active" data-init="true">
         <nav id="bookingList_nav" class="header-secondary bg-white color-black3">
