@@ -688,3 +688,84 @@ header{
 #patientBookingView_article .list>li{
     padding:10px;
 }
+
+/*滴滴医生专题*/
+#diDoctor_section{
+    top: 0px;
+}
+#diDoctor_article .placeIcon{
+    background: url('../images/event/didi/placeIcon.png') no-repeat;
+    background-size: 15px 21px;
+    padding-left: 20px;
+}
+#diDoctor_article .titleIcon{
+    background: url('../images/event/didi/titleIcon.png') no-repeat;
+    background-size: 15px 16px;
+    padding-left: 20px;
+    background-position-y: 2px;
+}
+#diDoctor_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*福布斯专题*/
+#forbes_section{
+    top:0px;
+}
+#forbes_article .greenLine{
+    width: 5px;
+    height: 18px;
+    background-color: #06C1AE;
+    border-radius: 3px;
+}
+#forbes_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*名医主刀*/
+#myzd_section{
+    top:0px;
+}
+#myzd_article .resourcesIcon{
+    background: url('../images/event/resources.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+#myzd_article .serviceIcon{
+    background: url('../images/event/service.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+#myzd_article .circularIcon{
+    background: url('../images/event/circular.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+
+/*新芽榜*/
+#newList_section{
+    top:0px;
+}
+#newList_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*机器人*/
+#robot_section{
+    top:0px;
+}
+#robot_article .lineGreen{
+    width:5px;
+    background-color: #06C1AE;
+    border-radius: 4px;
+    height: 1em;
+}

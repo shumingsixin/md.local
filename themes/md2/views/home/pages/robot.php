@@ -4,18 +4,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 $this->show_header = false;
 ?>
-<style>
-    section.active{top:0px;}
-
-    #robot_article .lineGreen{
-        width:5px;
-        background-color: #06C1AE;
-        border-radius: 4px;
-        height: 1em;
-    }
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
-    <section id="" class="active" data-init="true">
+    <section id="robot_section" class="active" data-init="true">
         <article id="robot_article" class="active" data-scroll="true">
             <div class="pl10 pr10 text-justify">
                 <div class="text-indent-2 mt20">
