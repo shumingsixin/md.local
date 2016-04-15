@@ -35,19 +35,9 @@ if (isset($output['id'])) {
 
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    .progressName{word-break: break-all; word-wrap:break-word;}
-    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
-    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
-    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
-    #container{margin-bottom: 0px;}
-    .btn-default{background-color: #19aea5!important;}
-    .body .btn-default{border: inherit;color: #fff;}
-    .btn{padding:3px 10px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="uploadMRFile_section" class="active">
-        <article id="a1" class="active" data-scroll="true">
+        <article id="" class="active android_article" data-scroll="true">
             <div class="mt20 pl10 pr10">
                 <div>
                     上传影像资料

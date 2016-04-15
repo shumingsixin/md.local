@@ -12,12 +12,7 @@ $authActionType = AuthSmsVerify::ACTION_USER_PASSWORD_RESET;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 ?>
-<style>
-    header .control-group{
-        width:160px;
-    }
-</style>
-<header class="bg-green">
+<header id="forgetPassword_header" class="bg-green">
     <nav class="left">
         <a href="" data-target="back">
             <div class="pl5">

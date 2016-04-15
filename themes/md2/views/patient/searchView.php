@@ -3,15 +3,9 @@ $this->setPageTitle('搜索');
 $urlAjaxSearch = $this->createUrl('patient/ajaxSearch');
 $urlPatientView = $this->createUrl('patient/view', array('id' => ''));
 ?>
-<style>
-    .header-secondary{top: 0px;height: 40px;display: inline;}
-    input[type=text]{height: 30px;margin-top: 5px;margin-bottom: 0px;width: 100%;}
-    .header-secondary{background-color: #e1e1e1;}
-    .header-secondary~article{top:40px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section class="active">
-        <nav id="patientList_nav" class="header-secondary">
+        <nav id="patientSearchView_nav" class="header-secondary">
             <div class="w100 pl10 pr10 grid">
                 <div class="col-1">
                     <input type="text" placeholder="请输入患者姓名">

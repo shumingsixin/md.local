@@ -13,18 +13,6 @@ $urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 ?>
-<style>
-    .header-secondary{top: 0px;height: 40px;}
-    .header-secondary~article{top: 40px;}
-    .control-group li:first-child{border-radius: 0px;}
-    .control-group{border-radius: 0px;}
-    .control-group li:last-child{border-radius: 0px;}
-    .control-group li{border: inherit;}
-    .control-group li>a{color: #333333;}
-    .control-group li.active{background: #fff;}
-    .control-group li.active a, .control-group li.active .icon{color: #06c1ae;}
-
-</style>
 <header class="bg-green">
     <nav class="left">
         <a href="<?php echo $urlDoctorView; ?>" data-target="link">
@@ -100,7 +88,7 @@ $checkTeamDoctor = $teamDoctor;
                         for ($i = 0; $i < count($bookings); $i++) {
                             $booking = $bookings[$i];
                             ?>
-                            <a href="<?php echo $this->createUrl('order/orderView', array('bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                            <a href="<?php echo $this->createUrl('order/orderView', array('bookingid' => $booking->id, 'status' => $status, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray">
                                     <div class="grid mt10">
                                         <div class="col-0">患者姓名:</div>

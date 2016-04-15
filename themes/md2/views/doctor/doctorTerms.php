@@ -10,11 +10,8 @@ $urlAjaxDoctorTerms = $this->createUrl('doctor/ajaxDoctorTerms');
 $urlReturn = $returnUrl;
 ?>
 <div id="section_container">
-    <style>
-        #terms{display: block;position: relative;}
-    </style>
     <section id="createPatinal_section" class="active" data-init="true">
-        <article id="terms_section" class="active" data-scroll="true">
+        <article id="terms_article" class="active" data-scroll="true">
             <div id="terms" class="terms">
                 <div>
                     <div>

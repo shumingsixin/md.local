@@ -9,13 +9,9 @@ $booking = $data->results->booking;
 $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $booking->patientId));
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
 ?>
-<style>
-    .gridDiv{height:8px;background-color:#eeefec;}
-    .list>li{padding:10px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="yy_section" class="active" data-init="true">
-        <article id="patientBookingView" class="active" data-scroll="true">
+        <article id="patientBookingView_article" class="active" data-scroll="true">
             <div class="">
                 <ul class="list">
                     <li class="grid">

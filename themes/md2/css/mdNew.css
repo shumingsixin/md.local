@@ -564,3 +564,127 @@ header{
 #payOrder_article .imglist li{
     height: inherit;
 }
+#payOrder_article .popup-title{
+    color: #333333;
+}
+#payOrder_article{
+    background-color: #EAEFF1;
+}
+#payOrder_article ul.list{
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+}
+
+/*协议*/
+#terms_article #terms{
+    display: block;
+    position: relative;
+}
+
+/*登录*/
+#login_header .control-group{
+    width:180px;
+}
+
+/*医生详情*/
+#viewDoctor_nav.header-secondary {
+    height: auto;
+    line-height: 1.5;
+}
+
+/*安卓七牛上传*/
+.android_article .progressName{
+    word-break: break-all;
+    word-wrap:break-word;
+}
+.android_article .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{
+    background-color: #fff;
+}
+.android_article .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+    border-top: inherit;
+    padding:0px;
+}
+.android_article tr .progressCancel{
+    font-size: 30px;
+    color: #FF1818;
+    line-height: 22px;
+}
+.android_article #container{
+    margin-bottom: 0px;
+}
+.android_article .btn-default{
+    background-color: #19aea5!important;
+}
+.android_article .body .btn-default{
+    border: inherit;
+    color: #fff;
+}
+.android_article .btn{
+    padding:3px 10px;
+}
+
+/*我的患者*/
+#patientList_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+    display: inline;
+}
+#patientList_nav.header-secondary~article{
+    top:40px;
+}
+#patientList_nav.header-secondary{
+    background-color: #e1e1e1;
+}
+
+/*搜索患者*/
+#patientSearchView_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+    display: inline;
+}
+#patientSearchView_nav.header-secondary input[type=text]{
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+#patientSearchView_nav.header-secondary{
+    background-color: #e1e1e1;
+}
+#patientSearchView_nav.header-secondary~article{
+    top:40px;
+}
+
+/*我的订单*/
+#bookingList_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+}
+#bookingList_nav.header-secondary~article{
+    top: 40px;
+}
+#bookingList_nav .control-group li:first-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li:last-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li{
+    border: inherit;
+}
+#bookingList_nav .control-group li>a{
+    color: #333333;
+}
+#bookingList_nav .control-group li.active{
+    background: #fff;
+}
+#bookingList_nav .control-group li.active a, .control-group li.active .icon{
+    color: #06c1ae;
+}
+
+/*预约详情*/
+#patientBookingView_article .list>li{
+    padding:10px;
+}

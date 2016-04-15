@@ -15,12 +15,7 @@ $urlAjaxLogin = $this->createUrl('doctor/ajaxLogin');
 $authActionType = AuthSmsVerify::ACTION_USER_LOGIN;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    header .control-group{
-        width:180px;
-    }
-</style>
-<header class="bg-green">
+<header id="login_header" class="bg-green">
     <?php
     if ($loginType == 'sms') {
         $smsActive = 'active';

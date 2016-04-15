@@ -40,19 +40,9 @@ if (isset($output['id'])) {
 
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    .progressName{word-break: break-all; word-wrap:break-word;}
-    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
-    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
-    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
-    #container{margin-bottom: 0px;}
-    .btn-default{background-color: #19aea5!important;}
-    .body .btn-default{border: inherit;color: #fff;}
-    .btn{padding:3px 10px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section class="active">
-        <article class="active pad1" data-scroll="true">
+        <article id="" class="active pad1 android_article" data-scroll="true">
             <div class="form-wrapper">
                 <!-- file uploader -->
                 <div class="">
@@ -75,7 +65,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             <div class="container">
                                 <div class="text-left wrapper">
                                     <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-url-sendEmail="<?php echo $urlSendEmailForCert; ?>">
-                                        <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id'];  ?>" />
+                                        <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id']; ?>" />
                                         <input type="hidden" id="domain" value="http://7xq939.com2.z0.glb.qiniucdn.com">
                                         <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxDrToken; ?>">
                                     </form>

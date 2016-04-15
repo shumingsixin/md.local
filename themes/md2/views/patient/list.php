@@ -16,11 +16,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 $this->show_header = false;
 ?>
-<style>
-    .header-secondary{top: 0px;height: 40px;display: inline;}
-    .header-secondary~article{top:40px;}
-    .header-secondary{background-color: #e1e1e1;}
-</style>
 <header class="bg-green">
     <nav class="left">
         <a href="" data-target="back">
@@ -55,7 +50,7 @@ $this->show_header = false;
                 </a>
             </div>
         </nav>
-        <article id="a1" class="active" data-scroll="true">
+        <article id="patientList_article" class="active" data-scroll="true">
             <div class="">
                 <div class="hasBookingList mt10">
                     <?php
@@ -178,9 +173,11 @@ $this->show_header = false;
             if (dataBooking == 'yes') {
                 $('.noBookingList').addClass('hide');
                 $('.hasBookingList').removeClass('hide');
+                $('#patientList_article').scrollTop(0);
             } else {
                 $('.hasBookingList').addClass('hide');
                 $('.noBookingList').removeClass('hide');
+                $('#patientList_article').scrollTop(0);
             }
         });
     });

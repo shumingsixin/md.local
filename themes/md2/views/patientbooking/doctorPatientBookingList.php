@@ -26,8 +26,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     </nav>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
-    <section id="getRequest_section" class="active" data-init="true">
-        <article id="a1" class="active" data-scroll="true">
+    <section id="" class="active" data-init="true">
+        <article id="doctorPatientBookingList_article" class="active" data-scroll="true">
             <div class="pb20">
                 <div class="processingList">
                     <?php
@@ -154,9 +154,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             if (dataBooking == 'processing') {
                 $('.doneList').addClass('hide');
                 $('.processingList').removeClass('hide');
+                $('#doctorPatientBookingList_article').scrollTop(0);
             } else {
                 $('.processingList').addClass('hide');
                 $('.doneList').removeClass('hide');
+                $('#doctorPatientBookingList_article').scrollTop(0);
             }
         });
     });

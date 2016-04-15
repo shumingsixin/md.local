@@ -7,6 +7,7 @@ $urlPatientBooking = $this->createUrl('booking/patientBooking', array('id' => ''
 $urlPatientBookingList = $this->createUrl('booking/patientBookingList');
 $urlPatientBookingView = $this->createUrl('patientBooking/view', array('id' => ''));
 $status = Yii::app()->request->getQuery('status', 0);
+$patientBookingList = $this->createUrl('patientBooking/list', array('status' => $status, 'addBackBtn' => 1));
 $payUrl = $this->createUrl('/payment/doPingxxPay');
 $refUrl = $this->createAbsoluteUrl('order/view');
 $urlDoctorView = $this->createUrl('doctor/view');
@@ -23,15 +24,6 @@ $notPays = $data->results->notPays;
 $pays = $data->results->pays;
 $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
 ?>
-<style>
-    .popup-title{color: #333333;}
-    #payOrder_article{
-        background-color: #EAEFF1;
-    }
-    #payOrder_article ul.list{
-        box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-    }
-</style>
 <header class="bg-green">
     <nav class="left">
         <?php
@@ -217,7 +209,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
                     '<div class="mb10">确定暂不支付手术预约金?</div><div class="font-s12">（稍后可在"订单-待支付"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
                     '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = history.go(-1);
+                        location.href = '<?php echo $patientBookingList; ?>';
                     }, function () {
                 J.hideMask();
             });
@@ -229,7 +221,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
                     '<div class="mb10">确定暂不支付手术咨询费?</div><div class="font-s12">（稍后可在"订单-待确认"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
                     '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = history.go(-1);
+                        location.href = '<?php echo $patientBookingList; ?>';
                     }, function () {
                 J.hideMask();
             });
