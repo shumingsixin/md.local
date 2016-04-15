@@ -108,11 +108,13 @@ $(function () {
                 if (data.status == 'ok') {
                     returnUrl += '/addBackBtn/1?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
                     if (type == 'update') {
-                        J.showToast('修改成功', '', '2000');
+                        J.showToast('修改成功', '', '1000');
+                    }else{
+                        J.showToast('创建成功', '', '1000');
                     }
                     setTimeout(function () {
                         location.href = returnUrl;
-                    }, 2000);
+                    }, 1000);
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {

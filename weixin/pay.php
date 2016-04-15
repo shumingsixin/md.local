@@ -39,11 +39,11 @@ $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
         <script type="text/javascript" src="http://myzd.oss-cn-hangzhou.aliyuncs.com/static/web/js/jquery-1.9.1.min.js"></script>
     </head>
     <body>
-        <header>
+        <header class="bg-green">
             <!--<nav class="left"><a href="#" class="color-000" data-target="back" data-icon="previous"><i class="icon previous"></i></a></nav>    -->
-            <h1 class="title color-000">订单</h1>
+            <h1 class="title color-white">订单</h1>
             <nav class="right">
-                <a class="header-user" data-target="link" data-icon="user" href="mobiledoctor/doctor/view"><i class="icon user"></i></a>
+                <a class="header-user" data-target="link" data-icon="user" href="<?php echo $cancelUrl; ?>"><i class="icon user"></i></a>
             </nav>
         </header>
         <div id="section_container">
