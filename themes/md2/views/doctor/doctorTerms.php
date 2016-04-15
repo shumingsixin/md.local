@@ -9,7 +9,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
 $urlAjaxDoctorTerms = $this->createUrl('doctor/ajaxDoctorTerms');
 $urlReturn = $returnUrl;
 ?>
-<div id="section_container">
+<div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="createPatinal_section" class="active" data-init="true">
         <article id="terms_article" class="active" data-scroll="true">
             <div id="terms" class="terms">

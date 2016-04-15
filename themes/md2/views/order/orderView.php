@@ -22,7 +22,7 @@ $this->show_footer = false;
 $booking = $data->results->booking;
 $notPays = $data->results->notPays;
 $pays = $data->results->pays;
-$urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+$urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
 ?>
 <header class="bg-green">
     <nav class="left">

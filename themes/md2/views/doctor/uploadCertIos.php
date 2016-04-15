@@ -19,8 +19,8 @@ $urlSendEmailForCert = $this->createUrl('doctor/sendEmailForCert');
 $urlReturn = $this->createUrl('doctor/view');
 
 if (isset($output['id'])) {
-    $urlDoctorCerts = 'http://192.168.31.119/file.myzd.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
-    $urlDelectDoctorCert = 'http://192.168.31.119/file.myzd.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
+    $urlDoctorCerts = 'http://file.mingyizhudao.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
+    $urlDelectDoctorCert = 'http://file.mingyizhudao.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
 } else {
     $urlDoctorCerts = "";
     $urlDelectDoctorCert = "";
