@@ -31,9 +31,9 @@ $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
         <meta http-equiv="pragma" content="no-cache">
         <title>订单</title>
         <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/Jingle.min.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/formNew.css?ts=' . time(); ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/form.css?ts=' . time(); ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/app.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/mdNew.css?ts=' . time(); ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/md.css?ts=' . time(); ?>">
         <script type="text/javascript" src="<?php echo $baseUrl; ?>/themes/md2/js/lib/zepto.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://md.mingyizhudao.com/themes/md2/js/pingpp-html5-master/example-wap/styles/pinus.css">
         <script type="text/javascript" src="http://myzd.oss-cn-hangzhou.aliyuncs.com/static/web/js/jquery-1.9.1.min.js"></script>
