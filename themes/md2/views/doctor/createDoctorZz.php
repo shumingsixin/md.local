@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.validate.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/createDoctorZz.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/createDoctorZz.js?ts=' . time(), CClientScript::POS_END);
 /*
  * $model UserDoctorMobileLoginForm.
  */
