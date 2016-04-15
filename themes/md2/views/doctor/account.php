@@ -42,17 +42,6 @@ $userDoctorCerts = $doctorCerts;
                             </div>
                         </a>
                     </li>
-                    <li class="hide">
-                        <a id="checkInf" class="color-000 text-center" data-target="link">
-                            <div class="grid font-type">
-                                <div class="col-0 w20 color-000 text-center" data-icon="quill"></div>
-                                <div class="col-0 w40 text-left">
-                                    医生顾问协议
-                                </div>
-                                <div class="col-0 ml20"></div>
-                            </div>
-                        </a>
-                    </li>
                 </ul>
                 <div class="mt50 pl10 pr10">
                     <div id="btn_out" class="br5 bg-red pad10 text-center color-white">退出登录</div>
@@ -63,54 +52,6 @@ $userDoctorCerts = $doctorCerts;
 </div>
 <script>
     $(document).ready(function () {
-        $('#checkInf').tap(function (e) {
-            e.preventDefault();
-            if ('<?php echo $userProfile; ?>' == 0) {
-                J.hideMask();
-                J.customConfirm('',
-                        '<div class="mt10 mb10">您尚未完善个人信息</div>',
-                        '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a data="ok" class="color-green w50">完善信息</a>',
-                        function () {
-                            location.href = '<?php echo $urlDoctorProfile; ?>';
-                        },
-                        function () {
-                        });
-                $('#closeLogout').click(function () {
-                    J.closePopup();
-                });
-            } else if ('<?php echo $userDoctorCerts; ?>' == 0) {
-                J.hideMask();
-                J.customConfirm('',
-                        '<div class="mt10 mb10">您尚未上传实名认证证件</div>',
-                        '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a data="ok" class="color-green w50">上传证件</a>',
-                        function () {
-                            location.href = '<?php echo $urlDoctorUploadCert; ?>';
-                        },
-                        function () {
-                        });
-                $('#closeLogout').click(function () {
-                    J.closePopup();
-                });
-            } else if ('<?php echo $userVerified; ?>' == 0) {
-                J.hideMask();
-                J.customConfirm('',
-                        '<div class="mt10 mb10">请等待信息审核</div>',
-                        '<a id="closeLogout" class="">确定</a>',
-                        '',
-                        function () {
-                        },
-                        function () {
-                        });
-                $('#closeLogout').click(function () {
-                    J.closePopup();
-                });
-            } else {
-                location.href = '<?php echo $urlDoctorTerms; ?>';
-            }
-        });
-        
         //退出登录
         $("#btn_out").tap(function (e) {
             e.preventDefault();

@@ -12,9 +12,9 @@ $urlDoctorAccount = $this->createUrl('doctor/account', array('addBackBtn' => 1))
 $urlDoctorInfo = $this->createUrl('doctor/doctorInfo', array('addBackBtn' => 1));
 $urlDoctorContract = $this->createUrl('doctor/contract', array('addBackBtn' => 1));
 $urlDoctorDrView = $this->createUrl('doctor/drView', array('addBackBtn' => 1));
-$urlDoctorProfile = $this->createUrl('doctor/profile');
-$urlDoctorTerms = $this->createUrl('doctor/doctorTerms');
-$urlDoctorUploadCert = $this->createUrl('doctor/uploadCert');
+$urlDoctorProfile = $this->createUrl('doctor/profile', array('addBackBtn' => 1));
+$urlDoctorTerms = $this->createUrl('doctor/doctorTerms', array('addBackBtn' => 1));
+$urlDoctorUploadCert = $this->createUrl('doctor/uploadCert', array('addBackBtn' => 1));
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $verified = $user->verified;
 $teamDoctor = $user->teamDoctor;
@@ -146,9 +146,8 @@ $teamDoctor = $user->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a data="ok" class="color-green w50">签署协议</a>',
+                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
                             function () {
-                                location.href = "<?php echo $urlDoctorTerms; ?>";
                             },
                             function () {
                             });
@@ -173,9 +172,8 @@ $teamDoctor = $user->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a data="ok" class="color-green w50">签署协议</a>',
+                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
                             function () {
-                                location.href = "<?php echo $urlDoctorTerms; ?>";
                             },
                             function () {
                             });
@@ -200,9 +198,8 @@ $teamDoctor = $user->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a data="ok" class="color-green w50">签署协议</a>',
+                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
                             function () {
-                                location.href = "<?php echo $urlDoctorTerms; ?>";
                             },
                             function () {
                             });
@@ -226,9 +223,8 @@ $teamDoctor = $user->teamDoctor;
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未完善个人信息</div>',
                         '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a data="ok" class="color-green w50">完善信息</a>',
+                        '<a href="<?php echo $urlDoctorProfile; ?>" class="color-green w50">完善信息</a>',
                         function () {
-                            location.href = '<?php echo $urlDoctorProfile; ?>';
                         },
                         function () {
                         });
@@ -240,9 +236,8 @@ $teamDoctor = $user->teamDoctor;
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未上传实名认证证件</div>',
                         '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a data="ok" class="color-green w50">上传证件</a>',
+                        '<a href="<?php echo $urlDoctorUploadCert; ?>" class="color-green w50">上传证件</a>',
                         function () {
-                            location.href = '<?php echo $urlDoctorUploadCert; ?>';
                         },
                         function () {
                         });

@@ -208,11 +208,12 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
             J.customConfirm('提示',
                     '<div class="mb10">确定暂不支付手术预约金?</div><div class="font-s12">（稍后可在"订单-待支付"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
-                    '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = '<?php echo $patientBookingList; ?>';
-                    }, function () {
-                J.hideMask();
-            });
+                    '<a href="<?php echo $patientBookingList; ?>" class="w50 color-green">确定</a>',
+                    function () {
+                    },
+                    function () {
+                        J.hideMask();
+                    });
         });
 
         //待确定返回
@@ -220,11 +221,12 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
             J.customConfirm('提示',
                     '<div class="mb10">确定暂不支付手术咨询费?</div><div class="font-s12">（稍后可在"订单-待确认"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
-                    '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = '<?php echo $patientBookingList; ?>';
-                    }, function () {
-                J.hideMask();
-            });
+                    '<a href="<?php echo $patientBookingList; ?>" class="w50 color-green">确定</a>',
+                    function () {
+                    },
+                    function () {
+                        J.hideMask();
+                    });
         });
 
         $('#payNow').click(function () {
