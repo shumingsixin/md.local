@@ -61,7 +61,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-wrapper mt20">
-                        <div class="">
+                        <div class="uploadFileAndroid hide">
                             <div class="container">
                                 <div class="text-left wrapper">
                                     <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-url-sendEmail="<?php echo $urlSendEmailForCert; ?>">
@@ -156,8 +156,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 <script type="text/javascript">
     $(document).ready(function () {
         var isVerified = '<?php echo $output['isVerified']; ?>';
-        if (isVerified) {
-            $(".uploadfile").hide();
+        if (!isVerified) {
+            $(".uploadFileAndroid").removeClass('hide');
         }
         $("#imgConfirm #tag_close_popup").click(function () {
             $(this).parents(".confirm").hide();
