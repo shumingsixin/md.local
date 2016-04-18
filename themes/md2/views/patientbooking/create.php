@@ -12,7 +12,7 @@ $this->setPageID('pCreateBooking');
 $this->setPageTitle('就诊信息');
 $urlSubmit = $this->createUrl('patientbooking/ajaxCreate');
 $urlProfile = $this->createUrl('doctor/profile', array('addBackBtn' => 1));
-$urlReturn = $this->createUrl('order/view');
+$urlReturn = $this->createUrl('order/orderView');
 $urlRealName = $this->createUrl('doctor/profile');
 $urlDoctorUploadCert = $this->createUrl('doctor/uploadCert');
 $real = $userDoctorProfile;

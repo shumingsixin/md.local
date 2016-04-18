@@ -84,7 +84,7 @@ $(function () {
                                     location.href = $urlRealName;
                                 },
                                 function () {
-                                    returnUrl += '?refNo=' + data.salesOrderRefNo + "&bookingId=" + data.booking.id;
+                                    returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
                                     window.location.href = returnUrl;
                                 });
                     } else if ($userDoctorCerts == 0) {

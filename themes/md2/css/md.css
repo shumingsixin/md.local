@@ -570,9 +570,6 @@ header{
 #payOrder_article{
     background-color: #EAEFF1;
 }
-#payOrder_article ul.list{
-    box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-}
 
 /*协议*/
 #terms_article #terms{
