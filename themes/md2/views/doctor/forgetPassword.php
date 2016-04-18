@@ -76,7 +76,7 @@ $this->show_footer = false;
                     <?php echo $form->error($model, 'verify_code'); ?>
                 </div>
                 <div class="mt40">
-                    <a id="btnSubmit" class="btn btn-yes btn-block">确认重置密码</a>
+                    <a id="btnSubmit" class="btn btn-yes btn-full">确认重置密码</a>
                 </div>
                 <?php $this->endWidget(); ?>
             </div>

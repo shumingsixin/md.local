@@ -80,7 +80,7 @@ $this->show_footer = false;
                     <?php echo $form->error($model, 'password'); ?>
                 </div>
                 <div class="mt40">
-                    <a id="btnSubmit" class="btn btn-yes btn-block">注册</a>
+                    <a id="btnSubmit" class="btn btn-yes btn-full">注册</a>
                 </div>
                 <?php $this->endWidget(); ?>
             </div>

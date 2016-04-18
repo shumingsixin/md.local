@@ -18,7 +18,7 @@ $this->show_header = false;
 ?>
 <header class="bg-green">
     <nav class="left">
-        <a href="" data-target="back">
+        <a href="<?php echo $urlDoctorView; ?>" data-target="link">
             <div class="pl5">
                 <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
             </div>
@@ -58,6 +58,7 @@ $this->show_header = false;
                         for ($i = 0; $i < count($hasBookingList); $i++) {
                             $hasBookingPatient = $hasBookingList[$i];
                             $patientInfo = $hasBookingPatient['patientInfo'];
+                            $patientBooking = $hasBookingPatient['patientBooking'];
                             $yearly = $patientInfo->age;
                             $yearlyText = '';
                             $monthly = "";
@@ -76,7 +77,7 @@ $this->show_header = false;
                             ?>
                             <div class="bb5-gray">
                                 <div class="mt10 ml10 mr10 mb10">
-                                    <a href="<?php echo $this->createUrl('patient/view', array('id' => $patientInfo->id, 'addBackBtn' => 1)); ?>" class="color-000" data-target="link">
+                                    <a href="<?php echo $this->createUrl('patientBooking/view', array('id' => $patientBooking->id, 'addBackBtn' => 1)); ?>" class="color-000" data-target="link">
                                         <div class="">
                                             <div class=" mb10">
                                                 <?php echo $patientInfo->name; ?>

@@ -6,6 +6,7 @@ $this->setPageID('pBookingInfo');
 $this->setPageTitle('预约详情');
 $user = $this->loadUser();
 $booking = $data->results->booking;
+$urlUploadMRFile = $this->createUrl('patient/uploadMRFile', array('id' => $booking->patientId, 'type' => 'update', 'addBackBtn' => 1));
 $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $booking->patientId));
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
 ?>
@@ -60,7 +61,10 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                 </div>
                 <div>
                     <div class="grid middle h40 pl10 pr10">
-                        <div class="w100">影像资料</div>
+                        <div class="col-1">影像资料</div>
+                        <div class="col-0 color-green">
+                            <a href="<?php echo $urlUploadMRFile; ?>/patientBookingId/<?php echo $booking->id; ?>" class="color-green imgUrl" data-target="link">修改</a>
+                        </div>
                     </div>
                     <div class="imglist">
                     </div>

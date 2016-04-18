@@ -39,10 +39,14 @@ $teamDoctor = $user->teamDoctor;
                                 <div class="pt10">
                                     <span class="realNameIcon">
                                         <?php
-                                        if ($user->verified) {
-                                            echo '实名认证';
-                                        } else {
+                                        if ($user->isProfile == '') {
                                             echo '未实名认证';
+                                        } else if ($user->doctorCerts == '') {
+                                            echo '未实名认证';
+                                        } else if ($user->verified == '') {
+                                            echo '认证中';
+                                        } else {
+                                            echo '实名认证';
                                         }
                                         ?>
                                     </span>
@@ -217,7 +221,6 @@ $teamDoctor = $user->teamDoctor;
         //医生顾问协议
         $('#checkInf').tap(function (e) {
             e.preventDefault();
-            console.log('<?php echo $user->doctorCerts; ?>');
             if ('<?php echo $user->isProfile; ?>' == '') {
                 J.hideMask();
                 J.customConfirm('',

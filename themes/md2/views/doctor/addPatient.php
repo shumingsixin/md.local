@@ -63,7 +63,7 @@ $returnUrl = $this->createUrl('doctor/addPatient', array('id' => $id, 'addBackBt
                                 <div class="grid">
                                     <div class="col-1"><?php echo $patientInfo->gender; ?> <?php echo $age; ?> <?php echo $patientInfo->cityName; ?></div>
                                     <div class="col-0">
-                                        <a href="<?php echo $this->createUrl('patient/view', array('id' => $patientInfo->id, 'addBackBtn' => 1)); ?>" class="color-green mr10 a-underline">
+                                        <a href="<?php echo $this->createUrl('patient/view', array('id' => $patientInfo->id, 'addBooking' => '0', 'addBackBtn' => 1)); ?>" class="color-green mr10 a-underline">
                                             查看详情
                                         </a>
                                     </div>
