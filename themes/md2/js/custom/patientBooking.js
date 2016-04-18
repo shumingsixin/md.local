@@ -97,11 +97,11 @@ $(function () {
                                     location.href = $userDoctorUploadCert;
                                 },
                                 function () {
-                                    returnUrl += '?refNo=' + data.salesOrderRefNo + "&bookingId=" + data.booking.id;
+                                    returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
                                     window.location.href = returnUrl;
                                 });
                     } else {
-                        returnUrl += '?refNo=' + data.salesOrderRefNo + "&bookingId=" + data.booking.id;
+                        returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
                         window.location.href = returnUrl;
                     }
                 } else {

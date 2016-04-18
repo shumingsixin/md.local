@@ -36,7 +36,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <input id="doctorId" type="hidden" name="doctor[id]" value="<?php echo $output['id']; ?>" />                
                 </form>
                 <div class="">
-                    <h4 id="tip hide">请完成实名认证,认证后开通名医主刀账户</h4>
+                    <h4 id="tip" class="hide">请完成实名认证,认证后开通名医主刀账户</h4>
                     <div class="">
                         <label>上传医生职业证书或者手持工牌照</label>
                     </div>
