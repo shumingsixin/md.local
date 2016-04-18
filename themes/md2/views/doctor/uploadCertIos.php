@@ -19,8 +19,8 @@ $urlSendEmailForCert = $this->createUrl('doctor/sendEmailForCert');
 $urlReturn = $this->createUrl('doctor/view');
 
 if (isset($output['id'])) {
-    $urlDoctorCerts = 'http://192.168.31.119/file.myzd.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
-    $urlDelectDoctorCert = 'http://192.168.31.119/file.myzd.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
+    $urlDoctorCerts = 'http://file.mingyizhudao.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
+    $urlDelectDoctorCert = 'http://file.mingyizhudao.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
 } else {
     $urlDoctorCerts = "";
     $urlDelectDoctorCert = "";
@@ -36,7 +36,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <input id="doctorId" type="hidden" name="doctor[id]" value="<?php echo $output['id']; ?>" />                
                 </form>
                 <div class="">
-                    <h4>请完成实名认证,认证后开通名医主刀账户</h4>
+                    <h4 id="tip hide">请完成实名认证,认证后开通名医主刀账户</h4>
                     <div class="">
                         <label>上传医生职业证书或者手持工牌照</label>
                     </div>
@@ -70,7 +70,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                             </div>
                             <div class="ui-field-contain mt20">
 <!--                                <input id="btnSubmit" class="statusBar uploadBtn btn btn-yes btn-block" type="button" name="yt0" value="提交">-->
-                                <a id="btnSubmit" class="statusBar uploadBtn btn btn-yes btn-block">提交</a>
+                                <a id="btnSubmit" class="statusBar uploadBtn btn btn-yes btn-full ml0">提交</a>
                                 <!--                <button id="btnSubmit" type="button" class="statusBar state-pedding">提交</button>-->
                             </div>
                         </div>
@@ -127,6 +127,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         imgfile.absFileUrl + '"></p>' + deleteHtml + '</li>';
             }
         } else {
+            if (!'<?php echo $output['isVerified']; ?>') {
+                $('#tip').val('您已提交实名认证照片，名医助手正在审核中，请您耐心等待！');
+                $('#tip').removeClass('hide');
+            }
             innerHtml += '';
         }
         $(".imglist .filelist").html(innerHtml);

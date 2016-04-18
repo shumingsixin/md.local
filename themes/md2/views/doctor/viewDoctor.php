@@ -5,12 +5,6 @@ $doctor = $data->results->doctor;
 $honour = $doctor->honour;
 $this->show_footer = false;
 ?>
-<style>
-    .header-secondary {
-        height: auto;
-        line-height: 1.5;
-    }
-</style>
 <header class="bg-green">
     <nav class="left">
         <a href="" data-target="back">

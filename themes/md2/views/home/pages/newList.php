@@ -4,14 +4,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 $this->show_header = false;
 ?>
-<style>
-    .pt55{padding-top: 55px;}
-
-    section.active{top:0px;}
-    #newList_article .addLike{background: url('<?php echo $urlResImage; ?>event/like.png') no-repeat; height: 90px;background-size: 90px 90px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
-    <section id="" class="active" data-init="true">
+    <section id="newList_section" class="active" data-init="true">
         <article id="newList_article" class="active" data-scroll="true">
             <div class="pl10 pr10 text-justify">
                 <div class="text-indent-2 mt20">

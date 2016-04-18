@@ -31,19 +31,19 @@ $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
         <meta http-equiv="pragma" content="no-cache">
         <title>订单</title>
         <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/Jingle.min.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/formNew.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/form.css?ts=' . time(); ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/app.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl; ?>/themes/md2/css/mdNew.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $baseUrl . '/themes/md2/css/md.css?ts=' . time(); ?>">
         <script type="text/javascript" src="<?php echo $baseUrl; ?>/themes/md2/js/lib/zepto.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://md.mingyizhudao.com/themes/md2/js/pingpp-html5-master/example-wap/styles/pinus.css">
         <script type="text/javascript" src="http://myzd.oss-cn-hangzhou.aliyuncs.com/static/web/js/jquery-1.9.1.min.js"></script>
     </head>
     <body>
-        <header>
+        <header class="bg-green">
             <!--<nav class="left"><a href="#" class="color-000" data-target="back" data-icon="previous"><i class="icon previous"></i></a></nav>    -->
-            <h1 class="title color-000">订单</h1>
+            <h1 class="title color-white">订单</h1>
             <nav class="right">
-                <a class="header-user" data-target="link" data-icon="user" href="mobiledoctor/doctor/view"><i class="icon user"></i></a>
+                <a class="header-user" data-target="link" data-icon="user" href="<?php echo $cancelUrl; ?>"><i class="icon user"></i></a>
             </nav>
         </header>
         <div id="section_container">
@@ -65,7 +65,7 @@ $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
                     </div>
                     <div class="divider"></div>
                     <br/>
-                    <div class="ui-grid-a">                     
+                    <div id="payBtn" class="ui-grid-a">                     
                         <div class="ui-block-a">
                             <a id="btnCancel" href="<?php echo $cancelUrl; ?>" class="btn btn-default btn-block" data-target="link">暂不支付</a>
 
@@ -163,6 +163,7 @@ $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
                     $("#orderStatus").html("未支付");
                 } else {
                     $("#orderStatus").html("已支付");
+                    $('#payBtn').addClass('hide');
                 }
                 $("#btnCancel").attr("href", order.returnUrl);
                 pingAmount = order.finalAmount;

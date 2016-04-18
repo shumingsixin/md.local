@@ -2,6 +2,7 @@ $(function () {
 
     var domForm = $("#patient-form"), // form - html dom object.
             btnSubmit = $("#btnSubmit"),
+            type = domForm.attr('data-type'),
             returnUrl = domForm.attr("data-url-return");
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
@@ -106,7 +107,14 @@ $(function () {
                 //success.
                 if (data.status == 'ok') {
                     returnUrl += '/addBackBtn/1?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
-                    window.location.href = returnUrl;
+                    if (type == 'update') {
+                        J.showToast('修改成功', '', '1000');
+                    }else{
+                        J.showToast('创建成功', '', '1000');
+                    }
+                    setTimeout(function () {
+                        location.href = returnUrl;
+                    }, 1000);
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {
@@ -120,6 +128,9 @@ $(function () {
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                if (type == 'update') {
+                    J.showToast('网络异常，修改失败', '', '2000');
+                }
                 //enableBtn(btnSubmit);
                 console.log(XmlHttpRequest);
                 console.log(textStatus);

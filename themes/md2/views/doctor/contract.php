@@ -9,11 +9,8 @@ $urlDoctorView = $this->createUrl('doctor/view');
 $urlDoctorDrView = $this->createUrl('doctor/drView', array('addBackBtn' => 1));
 ?>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
-    <style>
-        #terms{display: block;position: relative;}
-    </style>
     <section id="createPatinal_section" class="active" data-init="true">
-        <article id="terms_section" class="active" data-scroll="true">
+        <article id="terms_article" class="active" data-scroll="true">
             <div id="terms" class="terms">
                 <div>
                     <div>

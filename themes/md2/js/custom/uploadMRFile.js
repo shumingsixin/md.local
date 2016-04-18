@@ -6,7 +6,7 @@ $(function () {
             $wrap = $('#uploader'),
             //全部成功 返回地址
             uploadReturnUrl = domForm.attr("data-url-return"),
-            patientBookingId = domForm.attr('data-aptientBookingId'),
+            patientBookingId = domForm.attr('data-patientBookingId'),
             patientAjaxTask = domForm.attr('data-patientAjaxTask'),
             //请求路径
             //actionUrl = '';
@@ -365,7 +365,7 @@ $(function () {
                     if (patientBookingId != '') {
                         $.ajax({
                             type: 'get',
-                            url: patientAjaxTask,
+                            url: patientAjaxTask + '/' + patientBookingId,
                             success: function (data) {
                                 //console.log(data);
                             }

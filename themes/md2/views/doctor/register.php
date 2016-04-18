@@ -11,11 +11,16 @@ $authActionType = AuthSmsVerify::ACTION_USER_REGISTER;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 ?>
-<style>
-    header .control-group{
-        width:160px;
-    }
-</style>
+<header class="bg-green">
+    <nav class="left">
+        <a href="" data-target="back">
+            <div class="pl5">
+                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
+            </div>
+        </a>
+    </nav>
+    <h1 class="title">用户注册</h1>
+</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
     <section id="" class="active" data-init="true">
         <article id="register_article" class="active" data-scroll="true">
@@ -75,7 +80,7 @@ $this->show_footer = false;
                     <?php echo $form->error($model, 'password'); ?>
                 </div>
                 <div class="mt40">
-                    <a id="btnSubmit" class="btn btn-yes btn-block">注册</a>
+                    <a id="btnSubmit" class="btn btn-yes btn-full">注册</a>
                 </div>
                 <?php $this->endWidget(); ?>
             </div>

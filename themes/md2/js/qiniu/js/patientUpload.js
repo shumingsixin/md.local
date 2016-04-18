@@ -9,7 +9,7 @@ $(function () {
     var domForm = $('#booking-form'),
             submitBtn = $('#submitBtn'),
             returnUrl = domForm.attr('data-url-return'),
-            patientBookingId = domForm.attr('data-aptientBookingId'),
+            patientBookingId = domForm.attr('data-patientBookingId'),
             patientAjaxTask = domForm.attr('data-patientAjaxTask'),
             returnResult = true;
     var uploader = Qiniu.uploader({
@@ -68,7 +68,7 @@ $(function () {
                     if (patientBookingId != '') {
                         $.ajax({
                             type: 'get',
-                            url: patientAjaxTask,
+                            url: patientAjaxTask + '/' + patientBookingId,
                             success: function (data) {
                                 //console.log(data);
                             }
@@ -87,7 +87,9 @@ $(function () {
                     }, 2000);
                 }
                 submitBtn.find('button').attr('disabled', false);
-                location.href = returnUrl;
+                setTimeout(function () {
+                    location.href = returnUrl;
+                }, 2000);
             },
             'FileUploaded': function (up, file, info) {
                 //单个文件上传成功所做的事情 
@@ -106,8 +108,6 @@ $(function () {
                 progress.setComplete(up, info);
                 var formdata = new FormData();
                 var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
-                console.log('文件' + info);
-                console.log();
                 formdata.append('patient[patient_id]', domForm.find('#patientId').val());
                 formdata.append('patient[report_type]', domForm.find('#reportType').val());
                 formdata.append('patient[file_size]', file.size);
@@ -124,7 +124,7 @@ $(function () {
                     contentType: false,
                     processData: false,
                     success: function (data) {
-                        console.log('保存信息返回数据:' + data);
+                        //console.log('保存信息返回数据:' + data);
                         if (data.status == 'no') {
                             returnResult = false;
                             //alert('上传失败!');
@@ -140,6 +140,7 @@ $(function () {
                 });
             },
             'Error': function (up, err, errTip) {
+                returnResult = false;
                 console.log('错误信息' + errTip);
                 $('table').show();
                 var progress = new FileProgress(err.file, 'fsUploadProgress');
@@ -148,7 +149,8 @@ $(function () {
             }
             ,
             'Key': function (up, file) {
-                var key = (new Date()).getTime() + '' + Math.floor(Math.random() * 100);
+                var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
+                var key = (new Date()).getTime() + '' + Math.floor(Math.random() * 100) + '.' + fileExtension;
                 // do something with key
                 return key;
             }
@@ -156,7 +158,7 @@ $(function () {
     });
 
     uploader.bind('FileUploaded', function () {
-        console.log('hello man,a file is uploaded');
+        //console.log('hello man,a file is uploaded');
     });
     submitBtn.click(function () {
         submitBtn.find('button').attr('disabled', true);

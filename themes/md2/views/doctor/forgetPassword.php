@@ -12,11 +12,16 @@ $authActionType = AuthSmsVerify::ACTION_USER_PASSWORD_RESET;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 ?>
-<style>
-    header .control-group{
-        width:160px;
-    }
-</style>
+<header id="forgetPassword_header" class="bg-green">
+    <nav class="left">
+        <a href="" data-target="back">
+            <div class="pl5">
+                <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
+            </div>
+        </a>
+    </nav>
+    <h1 class="title">忘记密码</h1>
+</header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
     <section id="" class="active" data-init="true">
         <article id="forgetPassword_article" class="active" data-scroll="true">
@@ -71,7 +76,7 @@ $this->show_footer = false;
                     <?php echo $form->error($model, 'verify_code'); ?>
                 </div>
                 <div class="mt40">
-                    <a id="btnSubmit" class="btn btn-yes btn-block">确认重置密码</a>
+                    <a id="btnSubmit" class="btn btn-yes btn-full">确认重置密码</a>
                 </div>
                 <?php $this->endWidget(); ?>
             </div>

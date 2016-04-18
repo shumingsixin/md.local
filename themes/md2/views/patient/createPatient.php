@@ -1,5 +1,6 @@
 <?php
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.formvalidate.min.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.form.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.validate.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/patient.js?ts=' . time(), CClientScript::POS_END);
 /*
  * $model PatientInfoForm.
@@ -24,7 +25,7 @@ $checkTeamDoctor = $teamDoctor;
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'patient-form',
-                        'htmlOptions' => array('data-url-action' => $urlSubmit, 'data-url-return' => $urlReturn),
+                        'htmlOptions' => array('data-url-action' => $urlSubmit, 'data-url-return' => $urlReturn, 'data-type' => 'create'),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,

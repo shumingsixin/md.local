@@ -195,7 +195,7 @@ class AuthManager {
             $output['status'] = EApiViewService::RESPONSE_OK;
             $output['errorCode'] = ErrorList::ERROR_NONE;
             $output['errorMsg'] = 'success';
-            $output['results'] = array('token' => $authTokenUser->getToken(), 'isProfile'=>is_object(UserDoctorProfile::model()->getByUserId($user->getId())) ? 1 : 0);
+            $output['results'] = array('token' => $authTokenUser->getToken(), 'isProfile' => is_object(UserDoctorProfile::model()->getByUserId($user->getId())) ? 1 : 0);
         }
         return $output;
     }
@@ -243,7 +243,7 @@ class AuthManager {
             $smsVerify = new AuthSmsVerify();
             $smsVerify->addError('code', AuthSmsVerify::getErrorMessage(AuthSmsVerify::ERROR_NOT_FOUND));
         } else {
-            $smsVerify->checkValidity();
+            $smsVerify->checkValidity(true, true);
         }
 
         return $smsVerify;

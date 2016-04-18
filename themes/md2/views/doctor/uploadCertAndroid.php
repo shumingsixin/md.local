@@ -31,8 +31,8 @@ $urlQiniuAjaxDrToken = $this->createUrl('qiniu/ajaxDrToken');
 $urlSendEmailForCert = $this->createUrl('doctor/sendEmailForCert');
 $urlReturn = $this->createUrl('doctor/view');
 if (isset($output['id'])) {
-    $urlDoctorCerts = 'http://192.168.31.119/file.myzd.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
-    $urlDelectDoctorCert = 'http://192.168.31.119/file.myzd.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
+    $urlDoctorCerts = 'http://file.mingyizhudao.com/api/loaddrcert?userId=' . $output['id']; //$this->createUrl('doctor/doctorCerts', array('id' => $output['id']));
+    $urlDelectDoctorCert = 'http://file.mingyizhudao.com/api/deletedrcert?userId=' . $output['id'] . '&id='; //$this->createUrl('doctor/delectDoctorCert');
 } else {
     $urlDoctorCerts = "";
     $urlDelectDoctorCert = "";
@@ -40,23 +40,13 @@ if (isset($output['id'])) {
 
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    .progressName{word-break: break-all; word-wrap:break-word;}
-    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
-    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
-    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
-    #container{margin-bottom: 0px;}
-    .btn-default{background-color: #19aea5!important;}
-    .body .btn-default{border: inherit;color: #fff;}
-    .btn{padding:3px 10px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section class="active">
-        <article class="active pad1" data-scroll="true">
+        <article id="" class="active pad1 android_article" data-scroll="true">
             <div class="form-wrapper">
                 <!-- file uploader -->
                 <div class="">
-                    <h4>请完成实名认证,认证后开通名医主刀账户</h4>
+                    <h4 id="tip hide">请完成实名认证,认证后开通名医主刀账户</h4>
                     <div class="">
                         <label>上传医生职业证书或者手持工牌照</label>
                     </div>
@@ -71,11 +61,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="clearfix"></div>
                     <div class="form-wrapper mt20">
-                        <div class="">
+                        <div class="uploadFileAndroid hide">
                             <div class="container">
                                 <div class="text-left wrapper">
                                     <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-url-sendEmail="<?php echo $urlSendEmailForCert; ?>">
-                                        <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id'];  ?>" />
+                                        <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id']; ?>" />
                                         <input type="hidden" id="domain" value="http://7xq939.com2.z0.glb.qiniucdn.com">
                                         <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxDrToken; ?>">
                                     </form>
@@ -152,7 +142,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                 <div id="tag_close_popup" data-target="closePopup" class="icon cancel-circle"></div>
             </div>
 
-            <div id="jingle_toast" class="toast"><a href="#">取消!</a></div>
+            <div id="jingle_toast" class="toast"><a href="#" class="font-s18">取消!</a></div>
             <div id="jingle_popup_mask" style="opacity: 0.3;"></div>
         </article>
         <div id="imgConfirm" class="confirm" style="left: 0px; right: 0px;min-height: 50em;">
@@ -166,15 +156,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 <script type="text/javascript">
     $(document).ready(function () {
         var isVerified = '<?php echo $output['isVerified']; ?>';
-        if (isVerified) {
-            $(".uploadfile").hide();
+        if (!isVerified) {
+            $(".uploadFileAndroid").removeClass('hide');
         }
         $("#imgConfirm #tag_close_popup").click(function () {
             $(this).parents(".confirm").hide();
-        });
-        $("#btnSubmit").hide();
-        $("#btnSubmit").click(function () {
-            ajaxUploadFile();
         });
         $("#deleteConfirm .cancel").click(function () {
             $("#deleteConfirm").hide();
@@ -201,60 +187,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             }
         });
     });
-    function ajaxUploadFile() {
-        var btnSubmit = $("#btnSubmit");
-        disabledBtn(btnSubmit);
-        //循环input
-        var successCount = 0, inputCount = 0, backCount = 0;
-        inputCount = $(".MultiFile-applied").length - 1;
-        var data = {'doctor[id]': $("#doctor_id").val(), 'plugin': 'ajaxFileUpload'};
-        $(".MultiFile-applied").attr("name", 'file');
-        $(".MultiFile-applied").each(function () {
-            if ($(this).val()) {
-                var fileId = $(this).attr("id");
-                $.ajaxFileUpload({
-                    url: '<?php echo $urlUploadFile; ?>',
-                    secureuri: false, //是否安全提交
-                    data: data, //提交时带上的参数
-                    fileElementId: fileId, //input file 的id
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data, status) {
-                        if (status == 'success') {
-                            successCount++;
-                        } else {
-                            $("#errorConfirm .confirmcontent").text(data.error);
-                            $("#errorConfirm").show();
-                            $("#jingle_popup_mask").addClass("active");
-                        }
-                    },
-                    error: function (data, status, e) {
-                        //错误处理
-                        //successCount++;
-                        if (status == 'error') {
-                            alert('上传失败!');
-                        }
-                    },
-                    complete: function () {
-                        backCount++;
-                        if (inputCount == backCount) {
-                            if (successCount == inputCount) {
-                                J.hideMask();
-                                sendEmailForCert();
-                                $("#successConfirm").show();
-                                $("#jingle_popup_mask").addClass("active");
-                            } else {
-                                $("#reloadConfirm").show();
-                            }
-                            $(this).attr('disabled', false);
-                            J.hideMask();
-                        }
-                        enableBtn(btnSubmit);
-                    }
-                });
-            }
-        });
-    }
     function setImgHtml(imgfiles, isVerified) {
         var innerHtml = '';
         if (imgfiles && imgfiles.length > 0) {
@@ -271,6 +203,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         imgfile.absFileUrl + '"></p>' + deleteHtml + '</li>';
             }
         } else {
+            if (!'<?php echo $output['isVerified']; ?>') {
+                $('#tip').val('您已提交实名认证照片，名医助手正在审核中，请您耐心等待！');
+                $('#tip').removeClass('hide');
+            }
             innerHtml += '';
         }
         $(".imglist .filelist").html(innerHtml);

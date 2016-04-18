@@ -105,6 +105,7 @@ button [disabled]{
 .mb30{margin-bottom:30px;}
 .mb40{margin-bottom:40px;}
 .mb50{margin-bottom:50px;}
+.ml0{margin-left:0px;}
 .ml3{margin-left:3px;}
 .ml5{margin-left:5px;}
 .ml6{margin-left:6px;}
@@ -142,6 +143,8 @@ button [disabled]{
 .pt30{padding-top:30px;}
 .pt40{padding-top:40px;}
 .pt50{padding-top:50px;}
+.pt55{padding-top:55px;}
+.pb2{padding-bottom:2px;}
 .pb5{padding-bottom:5px;}
 .pb8{padding-bottom:8px;}
 .pb10{padding-bottom:10px;}

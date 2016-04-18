@@ -55,9 +55,10 @@ class PatientController extends MobiledoctorController {
         return array(
             'accessControl', // perform access control for CRUD operations
             'postOnly + delete', // we only allow deletion via POST request
+            'userContext + create',
             'userDoctorContext + create ajaxCreate createPatientMR ajaxCreatePatientMR',
             'patientContext + createPatientMR updatePatientMR',
-            'userContext + list create'
+            'userContext + list'
         );
     }
 

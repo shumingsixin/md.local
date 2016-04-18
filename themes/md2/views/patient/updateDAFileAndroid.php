@@ -26,8 +26,8 @@ $urlQiniuAjaxToken = $this->createUrl('qiniu/ajaxPatientToken');
 $bookingId = Yii::app()->request->getQuery('bookingid', '');
 $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
 if (isset($output['id'])) {
-    $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
-    $urldelectPatientMRFile = 'http://192.168.31.119/file.myzd.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
+    $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+    $urldelectPatientMRFile = 'http://file.mingyizhudao.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
 } else {
     $urlPatientMRFiles = "";
     $urldelectPatientMRFile = "";
@@ -35,19 +35,9 @@ if (isset($output['id'])) {
 
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    .progressName{word-break: break-all; word-wrap:break-word;}
-    .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fff;}
-    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: inherit;padding:0px;}
-    tr .progressCancel{font-size: 30px;color: #FF1818;line-height: 22px;}
-    #container{margin-bottom: 0px;}
-    .btn-default{background-color: #19aea5!important;}
-    .body .btn-default{border: inherit;color: #fff;}
-    .btn{padding:3px 10px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="uploadMRFile_section" class="active">
-        <article id="a1" class="active" data-scroll="true">
+        <article id="" class="active android_article" data-scroll="true">
             <div class="mt20 pl10 pr10">
                 <div>
                     上传影像资料
@@ -103,10 +93,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#btnSubmit").hide();
-        $("#btnSubmit").click(function () {
-            ajaxUploadFile();
-        });
         $("#deleteConfirm .cancel").click(function () {
             $("#deleteConfirm").hide();
             $("#jingle_toast").show();
@@ -133,50 +119,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             }
         });
     });
-    function ajaxUploadFile() {
-        var btnSubmit = $("#btnSubmit");
-        disabledBtn(btnSubmit);
-        $(".MultiFile-applied").attr("name", 'file');
-        var successCount = 0, inputCount = 0, backCount = 0;
-        inputCount = $(".MultiFile-applied").length - 1;
-        var data = {'patient[id]': $("#patient_id").val(), 'patient[report_type]': 'da', 'plugin': 'ajaxFileUpload'};
-        $(".MultiFile-applied").each(function () {
-            if ($(this).val()) {
-                var doctorId = $("#doctor_id").val();
-                var fileId = $(this).attr("id");
-                $.ajaxFileUpload({
-                    url: '<?php echo $urlUploadFile; ?>',
-                    secureuri: false, //是否安全提交
-                    data: data, //提交时带上的参数
-                    fileElementId: fileId, //input file 的id
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (data, status) {
-                        if (status == 'success') {
-                            successCount++;
-                        }
-                    },
-                    error: function (data, status, e) {
-                        //错误处理
-                        if (status == 'error') {
-                            alert('上传失败!');
-                        }
-                    },
-                    complete: function () {
-                        backCount++;
-                        if (inputCount == backCount) {
-                            if (successCount == inputCount) {
-                                window.location.href = '<?php echo $urlReturn; ?>';
-                            } else {
-                                $("#reloadConfirm").show();
-                            }
-                            enableBtn(btnSubmit);
-                        }
-                    }
-                });
-            }
-        });
-    }
     function setImgHtml(imgfiles) {
         var innerHtml = '';
         if (imgfiles && imgfiles.length > 0) {

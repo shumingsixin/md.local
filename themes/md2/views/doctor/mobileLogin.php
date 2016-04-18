@@ -15,19 +15,25 @@ $urlAjaxLogin = $this->createUrl('doctor/ajaxLogin');
 $authActionType = AuthSmsVerify::ACTION_USER_LOGIN;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 ?>
-<style>
-    header .control-group{
-        width:180px;
-    }
-</style>
-<header class="bg-green">
+<header id="login_header" class="bg-green">
     <?php
+    if ($loginType == 'sms') {
+        $smsActive = 'active';
+        $smsHide = '';
+        $pawActive = '';
+        $pawHide = 'hide';
+    } else {
+        $smsActive = '';
+        $smsHide = 'hide';
+        $pawActive = 'active';
+        $pawHide = '';
+    }
     ?>
     <ul class="control-group">
-        <li data-page="smsLogin" class="pageSwitch active">
+        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive;?>">
             快速登录
         </li>
-        <li data-apge="pawLogin" class="pageSwitch">
+        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive;?>">
             密码登录
         </li>
     </ul>
@@ -37,7 +43,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <article id="login_article" class="active bg-gary" data-scroll="true">
             <div>
                 <?php //var_dump($pawModel); ?>
-                <div id="smsLogin" class="mt30 ml10 mr10">
+                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide;?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
@@ -81,7 +87,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
-                        <a id="btnSubmitSms" class="btn btn-yes btn-block">登录</a>
+                        <a id="btnSubmitSms" class="btn btn-yes btn-full" data-target="link">登录</a>
                     </div>
                     <div class="">                
                         <div class="mt20 text-right">
@@ -90,7 +96,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <?php $this->endWidget(); ?>
                 </div>
-                <div id="pawLogin" class="mt30 ml10 mr10 hide">
+                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide;?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
@@ -133,7 +139,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
-                        <a id="btnSubmitPaw" class="btn btn-yes btn-block">登录</a>
+                        <a id="btnSubmitPaw" class="btn btn-yes btn-full">登录</a>
                     </div>
                     <div class="">                
                         <div class="mt20 text-right">

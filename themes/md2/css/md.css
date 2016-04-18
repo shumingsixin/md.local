@@ -37,8 +37,8 @@ form span.required{display: none;}
 #jingle_toast{position: fixed;z-index: 999;}
 /**** header ****/
 header{border-bottom:1px solid #A9A9A9!important;background-color:#fff;}
-header nav.right{background-color: #19aea5;border-radius: 50%;width: 1.7em;height: 1.7em;padding: 0;line-height: 1.5em;margin-top: 8px;margin-right: 5px;}
-header nav.right a>.icon{font-size: 1.3em;color: #fff!important;line-height: 1.3em;}
+header nav.right{background-color: #fff;border-radius: 50%;width: 1.7em;height: 1.7em;padding: 0;line-height: 1.5em;margin-top: 8px;margin-right: 5px;}
+header nav.right a>.icon{font-size: 1.3em;color: #19aea5!important;line-height: 1.3em;}
 header nav.right .header-user{height: 28px;}
 /**** doctor view ****/
 #main_section .list a,#account_section .list a{display: block!important;}
@@ -312,6 +312,7 @@ header nav.right .header-user{height: 28px;}
     width: auto;
     margin-top: 12px;
     padding: 0px 5px;
+    background-color: inherit;
 }
 #addPatient_article{
     font-size: 14px;
@@ -455,7 +456,7 @@ header{
 }
 #login_article .btn-sendSmsCode{
     background-color: #fff!important;
-    color: #888!important;
+    color: #19aea6!important;
     height: 40px;
     border-radius: 5px;
 }
@@ -491,7 +492,7 @@ header{
 }
 #register_article .btn-sendSmsCode {
     background-color: #fff!important;
-    color: #888!important;
+    color: #19aea6!important;
     height: 40px;
     border-radius: 5px;
 }
@@ -525,7 +526,7 @@ header{
 }
 #forgetPassword_article .btn-sendSmsCode {
     background-color: #fff!important;
-    color: #888!important;
+    color: #19aea6!important;
     height: 40px;
     border-radius: 5px;
 }
@@ -562,4 +563,206 @@ header{
 /*支付详情*/
 #payOrder_article .imglist li{
     height: inherit;
+}
+#payOrder_article .popup-title{
+    color: #333333;
+}
+#payOrder_article{
+    background-color: #EAEFF1;
+}
+
+/*协议*/
+#terms_article #terms{
+    display: block;
+    position: relative;
+}
+
+/*登录*/
+#login_header .control-group{
+    width:180px;
+}
+
+/*医生详情*/
+#viewDoctor_nav.header-secondary {
+    height: auto;
+    line-height: 1.5;
+}
+
+/*安卓七牛上传*/
+.android_article .progressName{
+    word-break: break-all;
+    word-wrap:break-word;
+}
+.android_article .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{
+    background-color: #fff;
+}
+.android_article .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+    border-top: inherit;
+    padding:0px;
+}
+.android_article tr .progressCancel{
+    font-size: 30px;
+    color: #FF1818;
+    line-height: 22px;
+}
+.android_article #container{
+    margin-bottom: 0px;
+}
+.android_article .btn-default{
+    background-color: #19aea5!important;
+}
+.android_article .body .btn-default{
+    border: inherit;
+    color: #fff;
+}
+.android_article .btn{
+    padding:3px 10px;
+}
+
+/*我的患者*/
+#patientList_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+    display: inline;
+}
+#patientList_nav.header-secondary~article{
+    top:40px;
+}
+#patientList_nav.header-secondary{
+    background-color: #e1e1e1;
+}
+
+/*搜索患者*/
+#patientSearchView_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+    display: inline;
+}
+#patientSearchView_nav.header-secondary input[type=text]{
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+#patientSearchView_nav.header-secondary{
+    background-color: #e1e1e1;
+}
+#patientSearchView_nav.header-secondary~article{
+    top:40px;
+}
+
+/*我的订单*/
+#bookingList_nav.header-secondary{
+    top: 0px;
+    height: 40px;
+}
+#bookingList_nav.header-secondary~article{
+    top: 40px;
+}
+#bookingList_nav .control-group li:first-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li:last-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li{
+    border: inherit;
+}
+#bookingList_nav .control-group li>a{
+    color: #333333;
+}
+#bookingList_nav .control-group li.active{
+    background: #fff;
+}
+#bookingList_nav .control-group li.active a, .control-group li.active .icon{
+    color: #06c1ae;
+}
+
+/*预约详情*/
+#patientBookingView_article .list>li{
+    padding:10px;
+}
+
+/*滴滴医生专题*/
+#diDoctor_section{
+    top: 0px;
+}
+#diDoctor_article .placeIcon{
+    background: url('../images/event/didi/placeIcon.png') no-repeat;
+    background-size: 15px 21px;
+    padding-left: 20px;
+}
+#diDoctor_article .titleIcon{
+    background: url('../images/event/didi/titleIcon.png') no-repeat;
+    background-size: 15px 16px;
+    padding-left: 20px;
+    background-position-y: 2px;
+}
+#diDoctor_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*福布斯专题*/
+#forbes_section{
+    top:0px;
+}
+#forbes_article .greenLine{
+    width: 5px;
+    height: 18px;
+    background-color: #06C1AE;
+    border-radius: 3px;
+}
+#forbes_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*名医主刀*/
+#myzd_section{
+    top:0px;
+}
+#myzd_article .resourcesIcon{
+    background: url('../images/event/resources.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+#myzd_article .serviceIcon{
+    background: url('../images/event/service.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+#myzd_article .circularIcon{
+    background: url('../images/event/circular.png') no-repeat;
+    background-size: 21px 21px;
+    padding-left: 25px;
+    background-position-y: 1px;
+}
+
+/*新芽榜*/
+#newList_section{
+    top:0px;
+}
+#newList_article .addLike{
+    background: url('../images/event/like.png') no-repeat;
+    height: 90px;
+    background-size: 90px 90px;
+}
+
+/*机器人*/
+#robot_section{
+    top:0px;
+}
+#robot_article .lineGreen{
+    width:5px;
+    background-color: #06C1AE;
+    border-radius: 4px;
+    height: 1em;
 }

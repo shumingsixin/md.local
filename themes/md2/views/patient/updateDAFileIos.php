@@ -12,12 +12,12 @@ $this->setPageID('pCreatePatientMR');
 $this->setPageTitle('上传出院小结');
 $patientId = $output['id'];
 $user = $this->loadUser();
-$urlUploadFile = 'http://192.168.31.119/file.myzd.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
+$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
 $bookingId = Yii::app()->request->getQuery('bookingid', '');
 $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
 if (isset($output['id'])) {
-    $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
-    $urldelectPatientMRFile = 'http://192.168.31.119/file.myzd.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
+    $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+    $urldelectPatientMRFile = 'http://file.mingyizhudao.com/api/deletepatientmr?userId=' . $user->id . '&id='; //$this->createUrl('patient/delectPatientMRFile');
 } else {
     $urlPatientMRFiles = "";
     $urldelectPatientMRFile = "";

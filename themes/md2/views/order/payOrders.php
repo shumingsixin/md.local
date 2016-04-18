@@ -20,7 +20,7 @@ $orders = $data->results->orders;
                                     </div>
                                     <?php
                                     if ($order->isPaid == '待支付') {
-                                        echo '<div id="pay" data-refNo="' . $order->refNo . '" class="col-1 w50p br5 bg-yellow color-white text-center pt7 pb5">支付</div>';
+                                        echo '<div data-refNo="' . $order->refNo . '" class="pay col-1 w50p br5 bg-yellow color-white text-center pt7 pb5">支付</div>';
                                     } else {
                                         echo '<div class="col-1 w50p br5 bg-gray color-white text-center pt7 pb5">已支付</div>';
                                     }
@@ -38,7 +38,7 @@ $orders = $data->results->orders;
 </div>
 <script>
     $(document).ready(function () {
-        $('#pay').click(function () {
+        $('.pay').click(function () {
             var refNo = $(this).attr('data-refNo');
             location.href = '<?php echo $this->createUrl('order/view', array('bookingId' => $bookingId, 'refNo' => '')); ?>/' + refNo;
         });

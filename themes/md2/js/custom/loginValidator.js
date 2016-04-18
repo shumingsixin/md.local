@@ -71,9 +71,12 @@ $(function () {
                     }
                 }
             },
-            error: function () {
-
-            }
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                //enableBtn(btnSubmit);
+                console.log(XmlHttpRequest);
+                console.log(textStatus);
+                console.log(errorThrown);
+            },
         });
     }
 
@@ -91,9 +94,12 @@ $(function () {
     }, "请填写正确的手机号码");
 
     btnSubmitPaw.click(function () {
+        J.showMask('加载中...');
         var bool = validator.form();
         if (bool) {
             ajaxSubmitPawForm();
+        } else {
+            J.hideMask();
         }
     });
     //登陆页面表单验证模块
@@ -146,9 +152,12 @@ $(function () {
                     }
                 }
             },
-            error: function () {
-
-            }
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                //enableBtn(btnSubmit);
+                console.log(XmlHttpRequest);
+                console.log(textStatus);
+                console.log(errorThrown);
+            },
         });
     }
 

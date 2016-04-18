@@ -7,8 +7,10 @@ $urlPatientBooking = $this->createUrl('booking/patientBooking', array('id' => ''
 $urlPatientBookingList = $this->createUrl('booking/patientBookingList');
 $urlPatientBookingView = $this->createUrl('patientBooking/view', array('id' => ''));
 $status = Yii::app()->request->getQuery('status', 0);
+$patientBookingList = $this->createUrl('patientBooking/list', array('status' => $status, 'addBackBtn' => 1));
 $payUrl = $this->createUrl('/payment/doPingxxPay');
 $refUrl = $this->createAbsoluteUrl('order/view');
+$urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
@@ -20,17 +22,8 @@ $this->show_footer = false;
 $booking = $data->results->booking;
 $notPays = $data->results->notPays;
 $pays = $data->results->pays;
-$urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
+$urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . $user->id . '&patientId=' . $booking->patientId . '&reportType=da'; //$this->createUrl('patient/patientMRFiles', array('id' => $patientId));
 ?>
-<style>
-    .popup-title{color: #333333;}
-    #payOrder_article{
-        background-color: #EAEFF1;
-    }
-    #payOrder_article ul.list{
-        box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-    }
-</style>
 <header class="bg-green">
     <nav class="left">
         <?php
@@ -62,6 +55,11 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         ?>
     </nav>
     <h1 class="title">支付订单</h1>
+    <nav class="right">
+        <a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDoctorView ?>">
+            <i class="icon user"></i>
+        </a>
+    </nav>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="" class="active" data-init="true">
@@ -181,7 +179,7 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         $.ajax({
             url: urlPatientMRFiles,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 setImgHtml(data.results.files);
             }
         });
@@ -208,25 +206,27 @@ $urlPatientMRFiles = 'http://192.168.31.119/file.myzd.com/api/loadpatientmr?user
         //待处理返回
         $('#noPayNew').tap(function () {
             J.customConfirm('提示',
-                    '<div class="mb10">确定暂不支付手术预约金?</div><div class="font-s12">（稍后可在"订单-待处理"里完成）</div>',
+                    '<div class="mb10">确定暂不支付手术预约金?</div><div class="font-s12">（稍后可在"订单-待支付"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
-                    '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = history.go(-1);
-                    }, function () {
-                J.hideMask();
-            });
+                    '<a href="<?php echo $patientBookingList; ?>" class="w50 color-green">确定</a>',
+                    function () {
+                    },
+                    function () {
+                        J.hideMask();
+                    });
         });
 
         //待确定返回
         $('#noPayService').tap(function () {
             J.customConfirm('提示',
-                    '<div class="mb10">确定暂不支付手术咨询费?</div><div class="font-s12">（稍后可在"订单-待支付"里完成）</div>',
+                    '<div class="mb10">确定暂不支付手术咨询费?</div><div class="font-s12">（稍后可在"订单-待确认"里完成）</div>',
                     '<a data="cancel" class="w50">取消</a>',
-                    '<a data="ok" class="w50 color-green">确定</a>', function () {
-                        location.href = history.go(-1);
-                    }, function () {
-                J.hideMask();
-            });
+                    '<a href="<?php echo $patientBookingList; ?>" class="w50 color-green">确定</a>',
+                    function () {
+                    },
+                    function () {
+                        J.hideMask();
+                    });
         });
 
         $('#payNow').click(function () {

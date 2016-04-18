@@ -9,31 +9,24 @@ $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
 $urlPatientBookingList = $this->createUrl('patientBooking/list', array('addBackBtn' => 1, 'status' => ''));
 $urlDoctorTerms.='?returnUrl=' . $currentUrl;
-$urlDoctorView = $this->createUrl('doctor/');
+$urlDoctorView = $this->createUrl('doctor/view');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 ?>
-<style>
-    .header-secondary{top: 0px;height: 40px;}
-    .header-secondary~article{top: 40px;}
-    .control-group li:first-child{border-radius: 0px;}
-    .control-group{border-radius: 0px;}
-    .control-group li:last-child{border-radius: 0px;}
-    .control-group li{border: inherit;}
-    .control-group li>a{color: #333333;}
-    .control-group li.active{background: #fff;}
-    .control-group li.active a, .control-group li.active .icon{color: #06c1ae;}
-
-</style>
 <header class="bg-green">
     <nav class="left">
-        <a href="<?php echo $urlDoctorView; ?>">
+        <a href="<?php echo $urlDoctorView; ?>" data-target="link">
             <div class="pl5">
                 <img src="<?php echo $urlResImage; ?>back.png" class="w11p">
             </div>
         </a>
     </nav>
     <h1 class="title">我的订单</h1>
+    <nav class="right">
+        <a class="header-user" data-target="link" data-icon="user" href="<?php echo $urlDoctorView ?>">
+            <i class="icon user"></i>
+        </a>
+    </nav>
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="bookingList_section" class="active" data-init="true">
@@ -46,7 +39,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/0" id="zhuanti">全部</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/0" id="zhuanti" data-target="link">全部</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -55,7 +48,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story">待处理</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">待支付</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -64,7 +57,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/2" id="story">安排中</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/2" id="story" data-target="link">安排中</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -73,7 +66,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story">待支付</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">待确认</a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -82,7 +75,7 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/6" id="story">传小结</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/6" id="story" data-target="link">传小结</a>
                 </li>
             </ul>
         </nav>
@@ -95,7 +88,7 @@ $checkTeamDoctor = $teamDoctor;
                         for ($i = 0; $i < count($bookings); $i++) {
                             $booking = $bookings[$i];
                             ?>
-                            <a href="<?php echo $this->createUrl('order/orderView', array('bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                            <a href="<?php echo $this->createUrl('order/orderView', array('bookingid' => $booking->id, 'status' => $status, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray">
                                     <div class="grid mt10">
                                         <div class="col-0">患者姓名:</div>

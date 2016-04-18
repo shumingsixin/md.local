@@ -84,7 +84,7 @@ $(function () {
                                     location.href = $urlRealName;
                                 },
                                 function () {
-                                    returnUrl += '?refNo=' + data.salesOrderRefNo + "&bookingId=" + data.booking.id;
+                                    returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
                                     window.location.href = returnUrl;
                                 });
                     } else if ($userDoctorCerts == 0) {
@@ -114,9 +114,11 @@ $(function () {
                     }
                     //error.
                     enableBtn(btnSubmit);
+                    J.showToast('网络异常，请稍后预约', '', '2000');
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                J.showToast('网络异常，请稍后预约', '', '2000');
                 enableBtn(btnSubmit);
                 console.log(XmlHttpRequest);
                 console.log(textStatus);

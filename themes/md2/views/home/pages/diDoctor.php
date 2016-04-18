@@ -4,25 +4,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 $this->show_header = false;
 ?>
-<style>
-    .pt55{padding-top: 55px;}
-    
-    section.active{top: 0px;}
-    #diDoctor_article .placeIcon{
-        background: url('<?php echo $urlResImage; ?>event/didi/placeIcon.png') no-repeat;
-        background-size: 15px 21px;
-        padding-left: 20px;
-    }
-    #diDoctor_article .titleIcon{
-        background: url('<?php echo $urlResImage; ?>event/didi/titleIcon.png') no-repeat;
-        background-size: 15px 16px;
-        padding-left: 20px;
-        background-position-y: 2px;
-    }
-    #diDoctor_article .addLike{background: url('<?php echo $urlResImage; ?>event/like.png') no-repeat; height: 90px;background-size: 90px 90px;}
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
-    <section id="" class="active" data-init="true">
+    <section id="diDoctor_section" class="active" data-init="true">
         <article id="diDoctor_article" class="active" data-scroll="true">
             <div class="pl10 pr10 text-justify">
                 <div class="mt20 text-indent-2 mb10">

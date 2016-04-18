@@ -4,29 +4,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
 $this->show_header = false;
 ?>
-<style>
-    section.active{top:0px;}
-    #myzd_article .resourcesIcon{
-        background: url('<?php echo $urlResImage; ?>event/resources.png') no-repeat;
-        background-size: 21px 21px;
-        padding-left: 25px;
-        background-position-y: 1px;
-    }
-    #myzd_article .serviceIcon{
-        background: url('<?php echo $urlResImage; ?>event/service.png') no-repeat;
-        background-size: 21px 21px;
-        padding-left: 25px;
-        background-position-y: 1px;
-    }
-    #myzd_article .circularIcon{
-        background: url('<?php echo $urlResImage; ?>event/circular.png') no-repeat;
-        background-size: 21px 21px;
-        padding-left: 25px;
-        background-position-y: 1px;
-    }
-</style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
-    <section id="" class="active" data-init="true">
+    <section id="myzd_section" class="active" data-init="true">
         <article id="myzd_article" class="active" data-scroll="true">
             <div class="text-justify">
                 <div class="pl10 pr10">

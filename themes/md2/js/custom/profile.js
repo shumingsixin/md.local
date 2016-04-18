@@ -145,6 +145,8 @@ $(function () {
                 }
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                J.hideMask();
+                J.showToast('网络异常，修改失败', '', '2000');
                 console.log(XmlHttpRequest);
                 console.log(textStatus);
                 console.log(errorThrown);
