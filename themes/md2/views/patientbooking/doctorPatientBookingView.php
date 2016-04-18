@@ -113,10 +113,10 @@ $urlDoctorView = $this->createUrl('doctor/view');
                     }
                     ?>
                     <div class="font-s12 color-red mt20">
-                        *如有疑问，请拨打客服热线：400-119-7900
+                        *如有疑问，请拨打客服热线：400-6277-120
                     </div>
                     <div class="text-center mb20">
-                        <a href="tel:4001197900" class="btn-red pl10 pr10">点击拨号</a>
+                        <a href="tel://4006277120" class="btn-red pl10 pr10">点击拨号</a>
                     </div>
                 </div>
                 <?php //var_dump($booking); ?>
