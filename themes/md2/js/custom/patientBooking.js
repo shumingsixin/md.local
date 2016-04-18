@@ -84,7 +84,7 @@ $(function () {
                                     location.href = $urlRealName;
                                 },
                                 function () {
-                                    returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
+                                    returnUrl += '?bookingid=' + data.booking.id + '&status=1&addBackBtn=1';
                                     window.location.href = returnUrl;
                                 });
                     } else if ($userDoctorCerts == 0) {
@@ -97,11 +97,11 @@ $(function () {
                                     location.href = $userDoctorUploadCert;
                                 },
                                 function () {
-                                    returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
+                                    returnUrl += '?bookingid=' + data.booking.id + '&status=1&addBackBtn=1';
                                     window.location.href = returnUrl;
                                 });
                     } else {
-                        returnUrl += '?bookingId=' + data.booking.id + '&status=1&addBackBtn=1';
+                        returnUrl += '?bookingid=' + data.booking.id + '&status=1&addBackBtn=1';
                         window.location.href = returnUrl;
                     }
                 } else {

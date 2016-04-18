@@ -126,11 +126,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         imgfile.thumbnailUrl + '" data-src="' +
                         imgfile.absFileUrl + '"></p>' + deleteHtml + '</li>';
             }
-        } else {
             if (!'<?php echo $output['isVerified']; ?>') {
                 $('#tip').val('您已提交实名认证照片，名医助手正在审核中，请您耐心等待！');
                 $('#tip').removeClass('hide');
             }
+        } else {
             innerHtml += '';
         }
         $(".imglist .filelist").html(innerHtml);
