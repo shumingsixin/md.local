@@ -30,10 +30,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     }
     ?>
     <ul class="control-group">
-        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive;?>">
+        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive; ?>">
             快速登录
         </li>
-        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive;?>">
+        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive; ?>">
             密码登录
         </li>
     </ul>
@@ -43,7 +43,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <article id="login_article" class="active bg-gary" data-scroll="true">
             <div>
                 <?php //var_dump($pawModel); ?>
-                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide;?>">
+                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide; ?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
@@ -75,6 +75,20 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <div class="input mt30">
                         <div class="grid inputBorder mb10">
                             <div class="col-1">
+                                <input type="text" id="UserDoctorMobileLoginForm_captcha_code" class="noPaddingInput" name="UserDoctorMobileLoginForm[captcha_code]" placeholder="请输入图形验证码">
+                            </div>
+                            <div class="col-0 w2p mt5 mb5 br-gray">
+                            </div>
+                            <div class="col-0 w95p text-center">
+                                <div class="input-group-addon">
+                                    <a href="javascript:void(0);"><img src="<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha" class="h40" onclick="this.src = '<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha/' + Math.random()"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input mt30">
+                        <div class="grid inputBorder mb10">
+                            <div class="col-1">
                                 <?php echo $form->textField($model, 'verify_code', array('placeholder' => '请输入验证码', 'class' => 'noPaddingInput')); ?>
                             </div>
                             <div class="col-0 w2p mt5 mb5 br-gray">
@@ -96,7 +110,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <?php $this->endWidget(); ?>
                 </div>
-                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide;?>">
+                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide; ?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
@@ -165,6 +179,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     <!-- /panel -->
     <script>
         $(document).ready(function () {
+            vailcode();
             $('.pageSwitch').click(function () {
                 var page = $(this).attr('data-page');
                 if (page == 'smsLogin') {
@@ -180,6 +195,9 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                 sendSmsVerifyCode($(this));
             });
         });
+        function vailcode() {
+            $("#vailcode").attr("src", "<?php echo $this->createUrl('user/getCaptcha'); ?>/" + Math.random());
+        }
         function sendSmsVerifyCode(domBtn) {
             var domForm = $("#smsLogin-form");
             var domMobile = domForm.find("#UserDoctorMobileLoginForm_username");

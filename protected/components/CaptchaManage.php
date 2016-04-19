@@ -8,7 +8,7 @@ class CaptchaManage
     private $code;
     private $im;
 
-    function __construct($width=105, $height=36, $codeNum=6)
+    function __construct($width=125, $height=30, $codeNum=6)
     {
         $this->width = $width;
         $this->height = $height;

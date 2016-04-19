@@ -125,7 +125,7 @@ class DoctorController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'viewContractDoctors', 'ajaxLogin'),
+                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'getCaptcha','valiCaptcha','viewContractDoctors', 'ajaxLogin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
