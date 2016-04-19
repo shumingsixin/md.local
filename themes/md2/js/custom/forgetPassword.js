@@ -13,7 +13,7 @@ $(function () {
     btnSubmit.click(function () {
         var bool = validator.form();
         if (bool) {
-            var captchaCode = $('#UserDoctorMobileLoginForm_captcha_code').val();
+            var captchaCode = $('#ForgetPasswordForm_captcha_code').val();
             var formdata = domForm.serializeArray();
             $.ajax({
                 type: 'post',
