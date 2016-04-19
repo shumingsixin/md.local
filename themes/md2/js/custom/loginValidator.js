@@ -2,6 +2,7 @@ $(function () {
     //验证码登录
     var domSmsForm = $("#smsLogin-form"), // form - html dom object.;
             btnSubmitSms = $("#btnSubmitSms"),
+            urlCheckCode = domSmsForm.attr('data-url-checkCode'),
             actionSmsUrl = domSmsForm.attr('data-url-action'),
             returnSmsUrl = domSmsForm.attr('data-url-return');
     // 手机号码验证
@@ -12,18 +13,41 @@ $(function () {
     }, "请填写正确的手机号码");
 
     btnSubmitSms.click(function () {
-        var bool = validator.form();
+        J.showMask('加载中...');
+        var bool = validatorSms.form();
         if (bool) {
-            ajaxSubmitSmsForm();
+            var captchaCode = $('#UserDoctorMobileLoginForm_captcha_code').val();
+            var formdata = domSmsForm.serializeArray();
+            $.ajax({
+                type: 'post',
+                url: urlCheckCode + '?co_code=' + captchaCode,
+                data: formdata,
+                success: function (data) {
+                    //console.log(data);
+                    if (data.status == 'ok') {
+                        ajaxSubmitSmsForm();
+                    } else {
+                        J.hideMask();
+                        $('#UserDoctorMobileLoginForm_captcha_code-error').remove();
+                        $('#captchaCode').after('<div id="UserDoctorMobileLoginForm_captcha_code-error" class="error">' + data.error + '</div>');
+                        $('#UserDoctorMobileLoginForm_captcha_code').focus();
+                    }
+                }
+            });
+        } else {
+            J.hideMask();
         }
     });
     //登陆页面表单验证模块
-    var validator = domSmsForm.validate({
+    var validatorSms = domSmsForm.validate({
         //focusInvalid: true,
         rules: {
             'UserDoctorMobileLoginForm[username]': {
                 required: true,
                 isMobile: true
+            },
+            'UserDoctorMobileLoginForm[captcha_code]': {
+                required: true
             },
             'UserDoctorMobileLoginForm[verify_code]': {
                 required: true,
@@ -36,6 +60,9 @@ $(function () {
             'UserDoctorMobileLoginForm[username]': {
                 required: "请输入手机号码",
                 isMobile: '请输入正确的中国手机号码!'
+            },
+            'UserDoctorMobileLoginForm[captcha_code]': {
+                required: "请输入图形验证码"
             },
             'UserDoctorMobileLoginForm[verify_code]': {
                 required: "请输入短信验证码",
