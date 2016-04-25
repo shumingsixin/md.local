@@ -2,7 +2,7 @@
 
 class ApiRequestUrl {
 
-    public $hostInfoProd = 'http://admin.mingyizd.com';
+    public $hostInfoProd = 'http://crm.mingyizd.com';
     private $admin_salesbooking_create = 'api/adminbooking';
     private $doctor_task = 'api/taskuserdoctor';
     private $patientMr_task = 'api/taskpatientmr';

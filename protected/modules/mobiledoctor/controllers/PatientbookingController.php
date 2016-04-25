@@ -110,7 +110,7 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     //查询创建者的签约信息
-    public function actionList($page = 1) {
+    public function actionList($page = 1, $status = 0) {
         $user = $this->loadUser();
         $userId = $user->getId();
         $doctorProfile = $user->getUserDoctorProfile();
@@ -124,8 +124,7 @@ class PatientbookingController extends MobiledoctorController {
         }
         $pagesize = 200;
         //service层
-        $requestValue = $this->filterRequestParams(array('addBackBtn', 'status'));
-        $apisvc = new ApiViewDoctorPatientBookingList($userId, $requestValue['status'], $pagesize, $page);
+        $apisvc = new ApiViewDoctorPatientBookingList($userId, $status, $pagesize, $page);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
         $dataCount = $apisvc->loadCount();

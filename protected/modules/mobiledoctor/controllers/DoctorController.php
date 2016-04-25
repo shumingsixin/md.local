@@ -169,7 +169,7 @@ class DoctorController extends MobiledoctorController {
     public function actionViewDoctor($id) {
         $apiService = new ApiViewDoctor($id);
         $output = $apiService->loadApiViewData();
-        $this->render("ViewDoctor", array(
+        $this->render("viewDoctor", array(
             'data' => $output
         ));
     }
