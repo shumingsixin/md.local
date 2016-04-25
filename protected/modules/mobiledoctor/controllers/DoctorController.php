@@ -125,7 +125,7 @@ class DoctorController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('register', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'getCaptcha','valiCaptcha','viewContractDoctors', 'ajaxLogin'),
+                'actions' => array('register', 'ajaxRegister', 'mobileLogin', 'forgetPassword', 'ajaxForgetPassword', 'getCaptcha', 'valiCaptcha', 'viewContractDoctors', 'ajaxLogin'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -684,21 +684,28 @@ class DoctorController extends MobiledoctorController {
         $form = new UserRegisterForm();
         $form->role = $userRole;
         $form->terms = 1;
-        $this->performAjaxValidation($form);
-        if (isset($_POST['UserRegisterForm'])) {
-            $form->attributes = $_POST['UserRegisterForm'];
-            $userMgr = new UserManager();
-            $userMgr->registerNewUser($form);
-            if ($form->hasErrors() === false) {
-                // success                
-                $loginForm = $userMgr->autoLoginUser($form->username, $form->password, $userRole, 1);
-                $this->redirect(array('profile', 'register' => 1));
-            }
-        }
-
         $this->render('register', array(
             'model' => $form,
         ));
+    }
+
+    public function actionAjaxRegister() {
+        $userRole = User::ROLE_DOCTOR;
+        $output = array('status' => 'no');
+        if (isset($_POST['RegisterForm'])) {
+            $form = new UserRegisterForm();
+            $form->attributes = $_POST['RegisterForm'];
+            $userMgr = new UserManager();
+            $userMgr->registerNewUser($form);
+            if ($form->hasErrors() === false) {
+                $userMgr->autoLoginUser($form->username, $form->password, $userRole, 1);
+                $output['status'] = 'ok';
+                $output['register'] = '1';
+            } else {
+                $output['errors'] = $form->getErrors();
+            }
+        }
+        $this->renderJsonOutput($output);
     }
 
     //进入忘记密码页面
