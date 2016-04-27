@@ -624,6 +624,7 @@ class DoctorController extends MobiledoctorController {
             $values = $_POST['UserLoginForm'];
             $pawform->setAttributes($values, true);
             $pawform->role = StatCode::USER_ROLE_DOCTOR;
+            $pawform->rememberMe = true;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->doLogin($pawform);
         } else {
