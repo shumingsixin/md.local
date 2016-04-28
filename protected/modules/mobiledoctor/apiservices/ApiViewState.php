@@ -31,7 +31,7 @@ class ApiViewState extends EApiViewService {
         $criteria->distinct = true;
         $criteria->compare('t.is_contracted', '1');
         $criteria->addCondition('t.`date_deleted` IS NULL');
-        $criteria->addCondition('t.`user_id` IS NOT NULL');
+        //$criteria->addCondition('t.`user_id` IS NOT NULL');
         $criteria->group = 's.id';
         $criteria->having = 's.id IS NOT NULL';
         $states = CHtml::listData(Doctor::model()->findAll($criteria), 'id', 'name');
