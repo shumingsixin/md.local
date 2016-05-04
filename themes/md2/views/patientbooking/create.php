@@ -67,9 +67,9 @@ $userDoctorCerts = $doctorCerts;
                     </div>
                     <?php echo $form->hiddenField($model, 'travel_type', array('name' => 'booking[travel_type]')); ?>
                     <div class="mt20">
-                        <label for="booking_expected_doctor">请填写您想要预约的主刀医生</label>     
-                        <?php echo $form->textField($model, 'expected_doctor', array('name' => 'booking[expected_doctor]', 'placeholder' => '如没有指定专家，可不填写，由名医助手匹配。', 'class' => 'mt10')); ?>
-                        <div class="font-s12">示例：北京协和医院普外科刘跃武</div>
+                        <label for="booking_expected_doctor">请填写您想要预约的医生信息</label>     
+                        <?php echo $form->textField($model, 'expected_doctor', array('name' => 'booking[expected_doctor]', 'placeholder' => '请填写医生姓名、所在科室及医院名称', 'class' => 'mt10')); ?>
+                        <div class="font-s12 text-right">如不填，将由名医助手为您推荐</div>
                         <?php echo $form->error($model, 'expected_doctor'); ?>
                     </div>
                     <div class="mt20">
