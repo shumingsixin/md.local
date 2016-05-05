@@ -11,6 +11,7 @@ $urlRegister = $this->createUrl("doctor/register", array('addBackBtn' => 1));
 $urlForgetPassword = $this->createUrl('doctor/forgetPassword', array('addBackBtn' => 1));
 $urlPage = Yii::app()->request->getQuery('page', '0');
 $urlGetSmsVerifyCode = $this->createAbsoluteUrl('/auth/sendSmsVerifyCode');
+$urlDoctorValiCaptcha = $this->createUrl("doctor/valiCaptcha");
 $urlAjaxLogin = $this->createUrl('doctor/ajaxLogin');
 $authActionType = AuthSmsVerify::ACTION_USER_LOGIN;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
@@ -30,10 +31,10 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     }
     ?>
     <ul class="control-group">
-        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive;?>">
+        <li data-page="smsLogin" class="pageSwitch <?php echo $smsActive; ?>">
             快速登录
         </li>
-        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive;?>">
+        <li data-apge="pawLogin" class="pageSwitch <?php echo $pawActive; ?>">
             密码登录
         </li>
     </ul>
@@ -43,7 +44,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         <article id="login_article" class="active bg-gary" data-scroll="true">
             <div>
                 <?php //var_dump($pawModel); ?>
-                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide;?>">
+                <div id="smsLogin" class="mt30 ml10 mr10 <?php echo $smsHide; ?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'smsLogin-form',
@@ -51,7 +52,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         // controller action is handling ajax validation correctly.
                         // There is a call to performAjaxValidation() commented in generated controller code.
                         // See class documentation of CActiveForm for details on this.
-                        'htmlOptions' => array('data-url-action' => $urlAjaxLogin, 'data-url-return' => $returnUrl),
+                        'htmlOptions' => array('data-url-action' => $urlAjaxLogin, 'data-url-return' => $returnUrl, 'data-url-checkCode' => $urlDoctorValiCaptcha),
                         'enableClientValidation' => false,
                         'clientOptions' => array(
                             'validateOnSubmit' => true,
@@ -73,6 +74,20 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         </div>
                     </div>
                     <div class="input mt30">
+                        <div id="captchaCode" class="grid inputBorder mb10">
+                            <div class="col-1">
+                                <input type="text" id="UserDoctorMobileLoginForm_captcha_code" class="noPaddingInput" name="UserDoctorMobileLoginForm[captcha_code]" placeholder="请输入图形验证码">
+                            </div>
+                            <div class="col-0 w2p mt5 mb5 br-gray">
+                            </div>
+                            <div class="col-0 w95p text-center">
+                                <div class="input-group-addon">
+                                    <a href="javascript:void(0);"><img src="<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha" class="h40" onclick="this.src = '<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha/' + Math.random()"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input mt30">
                         <div class="grid inputBorder mb10">
                             <div class="col-1">
                                 <?php echo $form->textField($model, 'verify_code', array('placeholder' => '请输入验证码', 'class' => 'noPaddingInput')); ?>
@@ -87,7 +102,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <div class="mt40">
     <!--                            <input id="btnSubmit" class="btn btn-yes btn-block" type="button" data-ajax="false"  name="yt0" value="登录/注册"> -->
-                        <a id="btnSubmitSms" class="btn btn-yes btn-full" data-target="link">登录</a>
+                        <a id="btnSubmitSms" class="btn btn-yes btn-full">登录</a>
                     </div>
                     <div class="">                
                         <div class="mt20 text-right">
@@ -96,7 +111,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     </div>
                     <?php $this->endWidget(); ?>
                 </div>
-                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide;?>">
+                <div id="pawLogin" class="mt30 ml10 mr10 <?php echo $pawHide; ?>">
                     <?php
                     $form = $this->beginWidget('CActiveForm', array(
                         'id' => 'pawLogin-form',
@@ -165,6 +180,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     <!-- /panel -->
     <script>
         $(document).ready(function () {
+            vailcode();
             $('.pageSwitch').click(function () {
                 var page = $(this).attr('data-page');
                 if (page == 'smsLogin') {
@@ -177,12 +193,16 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             });
             $("#btn-sendSmsCode").click(function (e) {
                 e.preventDefault();
-                sendSmsVerifyCode($(this));
+                checkForm($(this));
             });
         });
-        function sendSmsVerifyCode(domBtn) {
+        function vailcode() {
+            $("#vailcode").attr("src", "<?php echo $this->createUrl('user/getCaptcha'); ?>/" + Math.random());
+        }
+        function checkForm(domBtn) {
             var domForm = $("#smsLogin-form");
             var domMobile = domForm.find("#UserDoctorMobileLoginForm_username");
+            var captchaCode = $('#UserDoctorMobileLoginForm_captcha_code').val();
             var mobile = domMobile.val();
             if (mobile.length === 0) {
                 $("#UserDoctorMobileLoginForm_username-error").remove();
@@ -191,36 +211,60 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             } else if (!validatorMobile(mobile)) {
                 $("#UserDoctorMobileLoginForm_username-error").remove();
                 $("#UserDoctorMobileLoginForm_username").parents('div.input').append("<div id='UserDoctorMobileLoginForm_username-error' class='error'>请输入正确的中国手机号码!</div>");
+            } else if (captchaCode == '') {
+                $('#UserDoctorMobileLoginForm_captcha_code-error').remove();
+                $('#captchaCode').after('<div id="UserDoctorMobileLoginForm_captcha_code-error" class="error">请输入图形验证码</div>');
             } else {
-                $(".error").html("");//删除错误信息
-                buttonTimerStart(domBtn, 60000);
-                var actionUrl = domForm.find("input[name='smsverify[actionUrl]']").val();
-                var actionType = domForm.find("input[name='smsverify[actionType]']").val();
-                var formData = new FormData();
-                formData.append("AuthSmsVerify[mobile]", mobile);
-                formData.append("AuthSmsVerify[actionType]", actionType);
+                $('#UserDoctorMobileLoginForm_captcha_code-error').remove();
+                var formdata = domForm.serializeArray();
+                //check图形验证码
                 $.ajax({
                     type: 'post',
-                    url: actionUrl,
-                    data: formData,
-                    dataType: "json",
-                    processData: false,
-                    contentType: false,
-                    'success': function (data) {
-                        if (data.status === true || data.status === 'ok') {
-                            //domForm[0].reset();
+                    url: '<?php echo $urlDoctorValiCaptcha; ?>?co_code=' + captchaCode,
+                    data: formdata,
+                    success: function (data) {
+                        //console.log(data);
+                        if (data.status == 'ok') {
+                            sendSmsVerifyCode(domBtn, domForm, mobile, captchaCode);
+                        } else {
+                            $('#captchaCode').after('<div id="UserDoctorMobileLoginForm_captcha_code-error" class="error">' + data.error + '</div>');
                         }
-                        else {
-                            console.log(data);
-                        }
-                    },
-                    'error': function (data) {
-                        console.log(data);
-                    },
-                    'complete': function () {
                     }
                 });
             }
+        }
+        function sendSmsVerifyCode(domBtn, domForm, mobile, captchaCode) {
+            $(".error").html(""); //删除错误信息
+            var actionUrl = domForm.find("input[name='smsverify[actionUrl]']").val();
+            var actionType = domForm.find("input[name='smsverify[actionType]']").val();
+            var formData = new FormData();
+            formData.append("AuthSmsVerify[mobile]", mobile);
+            formData.append("AuthSmsVerify[actionType]", actionType);
+            $.ajax({
+                type: 'post',
+                url: actionUrl + '?captcha_code=' + captchaCode,
+                data: formData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                'success': function (data) {
+                    if (data.status === true || data.status === 'ok') {
+                        //domForm[0].reset();
+                        buttonTimerStart(domBtn, 60000);
+                    }
+                    else {
+                        console.log(data);
+                        if (data.errors.captcha_code != undefined) {
+                            $('#captchaCode').after('<div id="UserDoctorMobileLoginForm_captcha_code-error" class="error">' + data.errors.captcha_code + '</div>');
+                        }
+                    }
+                },
+                'error': function (data) {
+                    console.log(data);
+                },
+                'complete': function () {
+                }
+            });
         }
         function buttonTimerStart(domBtn, timer) {
             timer = timer / 1000 //convert to second.
@@ -228,7 +272,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             var timerTitle = '秒后重发';
             domBtn.attr("disabled", true);
             domBtn.html(timer + timerTitle);
-
             timerId = setInterval(function () {
                 timer--;
                 if (timer > 0) {

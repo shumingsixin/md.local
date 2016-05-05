@@ -2,10 +2,11 @@
 
 class ApiRequestUrl {
 
-    public $hostInfoProd = 'http://admin.mingyizd.com';
+    public $hostInfoProd = 'http://crm.mingyizd.com';
     private $admin_salesbooking_create = 'api/adminbooking';
     private $doctor_task = 'api/taskuserdoctor';
     private $patientMr_task = 'api/taskpatientmr';
+    private $doctor_accept = 'api/doctoraccept';
 
     public function getHostInfo() {
         $hostInfo = strtolower(Yii::app()->request->hostInfo);
@@ -29,6 +30,10 @@ class ApiRequestUrl {
 
     public function getUrlPatientMrTask() {
         return $this->getUrl($this->patientMr_task);
+    }
+
+    public function getUrlDoctorAccept() {
+        return $this->getUrl($this->doctor_accept);
     }
 
 }

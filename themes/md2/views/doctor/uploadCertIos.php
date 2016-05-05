@@ -36,7 +36,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <input id="doctorId" type="hidden" name="doctor[id]" value="<?php echo $output['id']; ?>" />                
                 </form>
                 <div class="">
-                    <h4 id="tip hide">请完成实名认证,认证后开通名医主刀账户</h4>
+                    <h4 id="tip" class="hide">请完成实名认证,认证后开通名医主刀账户</h4>
                     <div class="">
                         <label>上传医生职业证书或者手持工牌照</label>
                     </div>
@@ -126,11 +126,11 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         imgfile.thumbnailUrl + '" data-src="' +
                         imgfile.absFileUrl + '"></p>' + deleteHtml + '</li>';
             }
-        } else {
             if (!'<?php echo $output['isVerified']; ?>') {
-                $('#tip').val('您已提交实名认证照片，名医助手正在审核中，请您耐心等待！');
+                $('#tip').html('您已提交实名认证照片，名医助手正在审核中，请您耐心等待！');
                 $('#tip').removeClass('hide');
             }
+        } else {
             innerHtml += '';
         }
         $(".imglist .filelist").html(innerHtml);

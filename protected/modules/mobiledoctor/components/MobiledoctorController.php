@@ -105,4 +105,21 @@ class MobiledoctorController extends WebsiteController {
         }
     }
 
+    public function actionValiCaptcha() {
+        $output = array('status' => 'no');
+        if (strcmp($_REQUEST['co_code'], Yii::app()->session['code']) != 0) {
+            $output['status'] = 'no';
+            $output['error'] = '图形验证码错误';
+        } else {
+            $output['status'] = 'ok';
+        }
+        $this->renderJsonOutput($output);
+    }
+
+    //获取验证码
+    public function actionGetCaptcha() {
+        $captcha = new CaptchaManage;
+        $captcha->showImg();
+    }
+
 }

@@ -120,7 +120,7 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
             }
         } else {
             var url = $('.imgUrl').attr('href');
-            innerHtml += '<div class="mt10 color-red1">暂未上传该患者的影像资料</div><div class="text-center mt20"><a href="' + url + '"><span class="bg-green color-white br5 pl10 pr10 pt5 pb5">立即上传</span></a></div>';
+            innerHtml += '<div class="pad10 color-red1">暂未上传该患者的影像资料</div><div class="text-center mt20"><a href="' + url + '"><span class="bg-green color-white br5 pl10 pr10 pt5 pb5">立即上传</span></a></div>';
         }
         $(".imglist").html(innerHtml);
         $('.btn_alert').tap(function () {

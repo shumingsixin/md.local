@@ -23,6 +23,10 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
     protected function loadData() {
         // load PatientBooking by doctorId.
         $this->loadPatientBookings();
+        $this->loadBookings();
+        $this->listorder();
+        $this->results->processingList = $this->processingList;
+        $this->results->doneList = $this->doneList;
     }
 
     //返回的参数
@@ -46,12 +50,13 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
         if (arrayNotEmpty($models)) {
             $this->setPatientBookings($models);
         }
-        $this->results->processingList = $this->processingList;
-        $this->results->doneList = $this->doneList;
     }
 
-    public function loadCount() {
-        return $this->patientMgr->loadPatientBookingNumberByDoctorId($this->doctorId);
+    private function loadBookings() {
+        $models = Booking::model()->getAllByDoctorUserId($this->doctorId);
+        if (arrayNotEmpty($models)) {
+            $this->setBookings($models);
+        }
     }
 
     //查询到的数据过滤
@@ -59,29 +64,19 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
         foreach ($models as $model) {
             $data = new stdClass();
             $data->id = $model->getId();
-            $data->refNo = $model->getRefNo();
-            $data->status = $model->getStatus();
+            $data->bkType = StatCode::TRANS_TYPE_PB;
             $data->dateUpdated = $model->getDateUpdated('Y-m-d');
-            $data->dateCreated = $model->getDateCreated('Y-m-d');
             $data->travelType = $model->getTravelType();
-            $data->doctorAccept = $model->getDoctorAccept();
+            $data->doctorOpinion = $model->getDoctorOpinion();
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
-                $data->patientId = $patientInfo->getId();
                 $data->name = $patientInfo->getName();
-                $data->dataCreate = $patientInfo->getDateCreated();
                 $data->diseaseName = $patientInfo->getDiseaseName();
                 $data->diseaseDetail = $patientInfo->getDiseaseDetail();
-                $data->age = $patientInfo->getAge();
-                $data->ageMonth = $patientInfo->getAgeMonth();
             } else {
-                $data->patientId = '';
                 $data->name = '';
-                $data->dataCreate = '';
                 $data->diseaseName = '';
                 $data->diseaseDetail = '';
-                $data->age = '';
-                $data->ageMonth = '';
             }
             if (strIsEmpty($model->getDoctorAccept())) {
                 $this->processingList[] = $data;
@@ -89,6 +84,39 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
                 $this->doneList[] = $data;
             }
         }
+    }
+
+    private function setBookings(array $models) {
+        foreach ($models as $model) {
+            $data = new stdClass();
+            $data->id = $model->getId();
+            $data->bkType = StatCode::TRANS_TYPE_BK;
+            $data->dateUpdated = $model->getDateUpdated('Y-m-d');
+            $data->travelType = '';
+            $data->name = $model->getContactName();
+            $data->dataCreate = $model->getDateCreated();
+            $data->diseaseName = $model->getDiseaseName();
+            $data->diseaseDetail = $model->getDiseaseDetail();
+            $data->doctorOpinion = $model->getDoctorOpinion();
+            if (strIsEmpty($model->getDoctorAccept())) {
+                $this->processingList[] = $data;
+            } else {
+                $this->doneList[] = $data;
+            }
+        }
+    }
+
+    private function listorder() {
+        $processing = array();
+        foreach ($this->processingList as $v) {
+            $processing[] = $v->dateUpdated;
+        }
+        $done = array();
+        foreach ($this->doneList as $v) {
+            $done[] = $v->dateUpdated;
+        }
+        array_multisort($processing, SORT_DESC, $this->processingList);
+        array_multisort($done, SORT_DESC, $this->doneList);
     }
 
 }

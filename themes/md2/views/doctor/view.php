@@ -266,7 +266,7 @@ $teamDoctor = $user->teamDoctor;
         });
 
         $('#phoneService').tap(function () {
-            J.customAlert('<div><a href="tel://4001197900" class="color-green"><div class="pad10 bb-gray">立即拨打免费客服电话</div></a></div><div id="closeContract" class="color-red2 pad10">取消</div>');
+            J.customAlert('<div><a href="tel://4006277120" class="color-green"><div class="pad10 bb-gray">立即拨打免费客服电话</div></a></div><div id="closeContract" class="color-red2 pad10">取消</div>');
             $('#closeContract').click(function () {
                 J.closePopup();
             });

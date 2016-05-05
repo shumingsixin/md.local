@@ -1,6 +1,7 @@
 $(function () {
     //验证码登录
     var domForm = $("#forgetPassword-form"), // form - html dom object.;
+            urlCheckCode = domForm.attr('data-url-checkCode'),
             btnSubmit = $("#btnSubmit");
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
@@ -12,7 +13,24 @@ $(function () {
     btnSubmit.click(function () {
         var bool = validator.form();
         if (bool) {
-            formAjaxSubmit();
+            var captchaCode = $('#ForgetPasswordForm_captcha_code').val();
+            var formdata = domForm.serializeArray();
+            $.ajax({
+                type: 'post',
+                url: urlCheckCode + '?co_code=' + captchaCode,
+                data: formdata,
+                success: function (data) {
+                    //console.log(data);
+                    if (data.status == 'ok') {
+                        formAjaxSubmit();
+                    } else {
+                        J.hideMask();
+                        $('#ForgetPasswordForm_captcha_code-error').remove();
+                        $('#captchaCode').after('<div id="ForgetPasswordForm_captcha_code-error" class="error">' + data.error + '</div>');
+                        $('#ForgetPasswordForm_captcha_code').focus();
+                    }
+                }
+            });
         }
     });
     //登陆页面表单验证模块
@@ -28,6 +46,9 @@ $(function () {
                 digits: true,
                 maxlength: 6,
                 minlength: 6
+            },
+            'ForgetPasswordForm[captcha_code]': {
+                required: true
             },
             'ForgetPasswordForm[password_new]': {
                 required: true,
@@ -45,6 +66,9 @@ $(function () {
                 digits: "请输入正确的验证码",
                 maxlength: "请输入正确的验证码",
                 minlength: "请输入正确的验证码"
+            },
+            'ForgetPasswordForm[captcha_code]': {
+                required: "请输入图形验证码"
             },
             'ForgetPasswordForm[password_new]': {
                 required: "请输入新密码",

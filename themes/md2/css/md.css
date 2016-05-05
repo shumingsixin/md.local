@@ -1,5 +1,5 @@
 /****  ****/
-body,p,h1,h4{color: #333;letter-spacing: 2px;line-height: 1.5em;font-weight:200;font-family: 'Microsoft YaHei', 微软雅黑, 'Microsoft Yahei', 黑体, 宋体, Arial, Simsun, Helvetica, sans-serif !important;}
+body,p,h1,h4{color: #333;letter-spacing: 1px;line-height: 1.5;font-weight:200;font-family: 'Microsoft YaHei', 微软雅黑, 'Microsoft Yahei', 黑体, 宋体, Arial, Simsun, Helvetica, sans-serif !important;}
 .label{padding: 5px;}
 a{color:#333;display: inline!important;}
 .pad1{padding: 1em;}
@@ -691,12 +691,12 @@ header{
     top: 0px;
 }
 #diDoctor_article .placeIcon{
-    background: url('../images/event/didi/placeIcon.png') no-repeat;
+    background: url('../images/event/diDoctor/placeIcon.png') no-repeat;
     background-size: 15px 21px;
     padding-left: 20px;
 }
 #diDoctor_article .titleIcon{
-    background: url('../images/event/didi/titleIcon.png') no-repeat;
+    background: url('../images/event/diDoctor/titleIcon.png') no-repeat;
     background-size: 15px 16px;
     padding-left: 20px;
     background-position-y: 2px;
@@ -765,4 +765,58 @@ header{
     background-color: #06C1AE;
     border-radius: 4px;
     height: 1em;
+}
+
+/*陆劲松*/
+#lujinsong_article .askTitle {
+    background: url('../images/event/lujinsong/askTitle.png') no-repeat;
+    background-size: 110px 40px;
+    height: 40px;
+}
+
+/*任善成*/
+#renshancheng_article .askTitle {
+    background: url('../images/event/renshancheng/askTitle.png') no-repeat;
+    background-size: 110px 40px;
+    height: 40px;
+}
+
+/*百万公益*/
+#millionWelfare_article .yellowTitle {
+    background-color: #fe8c08;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+}
+#millionWelfare_article .redTable {
+    padding: 2px;
+    color: #fff;
+    background-color: #f56c6c;
+    font-size: 12px;
+}
+#millionWelfare_article .stepImg {
+    background: url('../images/event/millionWelfare/step.png') no-repeat;
+    background-size: 100% 100%;
+    height: 115px;
+}
+@media screen and (min-width: 300px){
+    #millionWelfare_article .plStep {
+        padding-left: 5px;
+    }
+}
+@media screen and (min-width: 360px){
+    #millionWelfare_article .plStep {
+        padding-left: 10px;
+    }
+}
+@media screen and (min-width: 300px){
+    #millionWelfare_article .prStep {
+        padding-right: 5px;
+    }
+}
+@media screen and (min-width: 360px){
+    #millionWelfare_article .prStep {
+        padding-right: 10px;
+    }
 }

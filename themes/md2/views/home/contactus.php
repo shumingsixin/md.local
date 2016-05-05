@@ -7,7 +7,7 @@ $this->setPageTitle('联系我们');
         <section class="m-panel sect-info">
             <div>
                 <div class="ui-field-contain noborder tip">您可以通过以下方式联系我们：</div>
-                <div class="ui-field-contain noborder"><span class="label inline">电话：</span><span class="color-green">400-119-7900</span></div>
+                <div class="ui-field-contain noborder"><span class="label inline">电话：</span><span class="color-green">400-6277-120</span></div>
                 <div class="ui-field-contain noborder"><span  class="label inline">邮箱：</span><span class="">service@mingyizhudao.com</span></div>
             </div>
         </section>

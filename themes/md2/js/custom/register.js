@@ -1,6 +1,7 @@
 $(function () {
     //验证码登录
     var domForm = $("#register-form"), // form - html dom object.;
+            urlCheckCode = domForm.attr('data-url-checkCode'),
             btnSubmit = $("#btnSubmit");
     // 手机号码验证
     $.validator.addMethod("isMobile", function (value, element) {
@@ -8,11 +9,28 @@ $(function () {
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
-    
-    btnSubmit.click(function(){
+
+    btnSubmit.click(function () {
         var bool = validator.form();
-        if(bool){
-            domForm.submit();
+        if (bool) {
+            var captchaCode = $('#UserRegisterForm_captcha_code').val();
+            var formdata = domForm.serializeArray();
+            $.ajax({
+                type: 'post',
+                url: urlCheckCode + '?co_code=' + captchaCode,
+                data: formdata,
+                success: function (data) {
+                    //console.log(data);
+                    if (data.status == 'ok') {
+                        domForm.submit();
+                    } else {
+                        J.hideMask();
+                        $('#UserRegisterForm_captcha_code-error').remove();
+                        $('#captchaCode').after('<div id="UserRegisterForm_captcha_code-error" class="error">' + data.error + '</div>');
+                        $('#UserRegisterForm_captcha_code').focus();
+                    }
+                }
+            });
         }
     });
     //登陆页面表单验证模块
@@ -22,6 +40,9 @@ $(function () {
             'UserRegisterForm[username]': {
                 required: true,
                 isMobile: true
+            },
+            'UserRegisterForm[captcha_code]': {
+                required: true
             },
             'UserRegisterForm[verify_code]': {
                 required: true,
@@ -39,6 +60,9 @@ $(function () {
             'UserRegisterForm[username]': {
                 required: "请输入手机号码",
                 isMobile: '请输入正确的中国手机号码!'
+            },
+            'UserRegisterForm[captcha_code]': {
+                required: "请输入图形验证码"
             },
             'UserRegisterForm[verify_code]': {
                 required: "请输入验证码",

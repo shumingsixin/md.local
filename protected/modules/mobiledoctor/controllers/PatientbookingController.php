@@ -80,15 +80,24 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     //异步提交上级医生反馈
-    public function actionAjaxDoctorOpinion($id, $accept = StatCode::DOCTOR_ACCPET_AGREE, $option) {
+    public function actionAjaxDoctorOpinion($id, $type, $accept, $opinion) {
         $output = array('status' => 'no');
         $userId = $this->getCurrentUserId();
-        $patientMgr = new PatientManager();
-        $booking = $patientMgr->loadPatientBookingByIdAndCreatorId($id, $userId);
+        if ($type == StatCode::TRANS_TYPE_PB) {
+            $patientMgr = new PatientManager();
+            $booking = $patientMgr->loadPatientBookingByIdAndCreatorId($id, $userId);
+        } else {
+            $booking = Booking::model()->getByIdAndDoctorUserId($id, $userId);
+        }
         if (isset($booking)) {
             $booking->setDoctorAccept($accept);
-            $booking->setDoctorOpinion($option);
+            $booking->setDoctorOpinion($opinion);
             if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
+                //医生评价成功 调用crm接口修改admin_booking的接口
+                $urlMgr = new ApiRequestUrl();
+                // $url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&option={$option}";
+                $url = "http://192.168.31.119/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                $this->send_get($url);
                 $output['status'] = 'ok';
                 $output['id'] = $booking->getId();
             } else {
@@ -110,7 +119,7 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     //查询创建者的签约信息
-    public function actionList($page = 1) {
+    public function actionList($page = 1, $status = 0) {
         $user = $this->loadUser();
         $userId = $user->getId();
         $doctorProfile = $user->getUserDoctorProfile();
@@ -124,8 +133,7 @@ class PatientbookingController extends MobiledoctorController {
         }
         $pagesize = 200;
         //service层
-        $requestValue = $this->filterRequestParams(array('addBackBtn', 'status'));
-        $apisvc = new ApiViewDoctorPatientBookingList($userId, $requestValue['status'], $pagesize, $page);
+        $apisvc = new ApiViewDoctorPatientBookingList($userId, $status, $pagesize, $page);
         //调用父类方法将数据返回
         $output = $apisvc->loadApiViewData();
         $dataCount = $apisvc->loadCount();
@@ -147,9 +155,9 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     //查询该医生的预约详情
-    public function actionDoctorPatientBooking($id) {
+    public function actionDoctorPatientBooking($id, $type = StatCode::TRANS_TYPE_PB) {
         $doctorId = $this->getCurrentUserId();
-        $apiSvc = new ApiViewPatientBookingForDoctor($id, $doctorId);
+        $apiSvc = new ApiViewPatientBookingForDoctor($id, $doctorId, $type);
         $output = $apiSvc->loadApiViewData();
         $this->render('doctorPatientBookingView', array(
             'data' => $output

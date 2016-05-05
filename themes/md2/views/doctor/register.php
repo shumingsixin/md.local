@@ -7,6 +7,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/c
 $this->setPageTitle('用户注册');
 $urlRegister = $this->createUrl("doctor/register");
 $urlGetSmsVerifyCode = $this->createAbsoluteUrl('/auth/sendSmsVerifyCode');
+$urlDoctorValiCaptcha = $this->createUrl("doctor/valiCaptcha");
 $authActionType = AuthSmsVerify::ACTION_USER_REGISTER;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
@@ -33,7 +34,7 @@ $this->show_footer = false;
                     // controller action is handling ajax validation correctly.
                     // There is a call to performAjaxValidation() commented in generated controller code.
                     // See class documentation of CActiveForm for details on this.
-                    'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false'),
+                    'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false', 'data-url-checkCode' => $urlDoctorValiCaptcha),
                     'enableClientValidation' => false,
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
@@ -52,6 +53,20 @@ $this->show_footer = false;
                             <?php echo $form->textField($model, 'username', array('placeholder' => '请输入您的手机号', 'class' => 'noPaddingInput')); ?>
                         </div>
                         <?php echo $form->error($model, 'username'); ?>
+                    </div>
+                </div>
+                <div class="input mt30">
+                    <div id="captchaCode" class="grid inputBorder mb10">
+                        <div class="col-1">
+                            <input type="text" id="UserRegisterForm_captcha_code" class="noPaddingInput" name="UserRegisterForm[captcha_code]" placeholder="请输入图形验证码">
+                        </div>
+                        <div class="col-0 w2p mt5 mb5 br-gray">
+                        </div>
+                        <div class="col-0 w95p text-center">
+                            <div class="input-group-addon">
+                                <a href="javascript:void(0);"><img src="<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha" class="h40" onclick="this.src = '<?php echo Yii::app()->request->baseUrl; ?>/mobiledoctor/doctor/getCaptcha/' + Math.random()"></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="input mt30">
@@ -89,6 +104,7 @@ $this->show_footer = false;
 </div>
 <script>
     $(document).ready(function () {
+        vailcode();
         //密码可见切换
         $('.smsSwitch').click(function () {
             if ($(this).hasClass('smsHide')) {
@@ -104,12 +120,16 @@ $this->show_footer = false;
 
         $("#btn-sendSmsCode").click(function (e) {
             e.preventDefault();
-            sendSmsVerifyCode($(this));
+            checkForm($(this));
         });
     });
-    function sendSmsVerifyCode(domBtn) {
+    function vailcode() {
+        $("#vailcode").attr("src", "<?php echo $this->createUrl('user/getCaptcha'); ?>/" + Math.random());
+    }
+    function checkForm(domBtn) {
         var domForm = $("#register-form");
         var domMobile = domForm.find("#UserRegisterForm_username");
+        var captchaCode = $('#UserRegisterForm_captcha_code').val();
         var mobile = domMobile.val();
         if (mobile.length === 0) {
             $("#UserRegisterForm_username-error").remove();
@@ -118,36 +138,60 @@ $this->show_footer = false;
         } else if (!validatorMobile(mobile)) {
             $("#UserRegisterForm_username-error").remove();
             $("#UserRegisterForm_username").parents('div.input').append("<div id='UserRegisterForm_username-error' class='error'>请输入正确的中国手机号码!</div>");
+        } else if (captchaCode == '') {
+            $('#UserRegisterForm_captcha_code-error').remove();
+            $('#captchaCode').after('<div id="UserRegisterForm_captcha_code-error" class="error">请输入图形验证码</div>');
         } else {
-            $(".error").html("");//删除错误信息
-            buttonTimerStart(domBtn, 60000);
-            var actionUrl = domForm.find("input[name='smsverify[actionUrl]']").val();
-            var actionType = domForm.find("input[name='smsverify[actionType]']").val();
-            var formData = new FormData();
-            formData.append("AuthSmsVerify[mobile]", mobile);
-            formData.append("AuthSmsVerify[actionType]", actionType);
+            $('#UserRegisterForm_captcha_code-error').remove();
+            var formdata = domForm.serializeArray();
+            //check图形验证码
             $.ajax({
                 type: 'post',
-                url: actionUrl,
-                data: formData,
-                dataType: "json",
-                processData: false,
-                contentType: false,
-                'success': function (data) {
-                    if (data.status === true || data.status === 'ok') {
-                        //domForm[0].reset();
+                url: '<?php echo $urlDoctorValiCaptcha; ?>?co_code=' + captchaCode,
+                data: formdata,
+                success: function (data) {
+                    //console.log(data);
+                    if (data.status == 'ok') {
+                        sendSmsVerifyCode(domBtn, domForm, mobile, captchaCode);
+                    } else {
+                        $('#captchaCode').after('<div id="UserRegisterForm_captcha_code-error" class="error">' + data.error + '</div>');
                     }
-                    else {
-                        console.log(data);
-                    }
-                },
-                'error': function (data) {
-                    console.log(data);
-                },
-                'complete': function () {
                 }
             });
         }
+    }
+    function sendSmsVerifyCode(domBtn, domForm, mobile, captchaCode) {
+        $(".error").html("");//删除错误信息
+        var actionUrl = domForm.find("input[name='smsverify[actionUrl]']").val();
+        var actionType = domForm.find("input[name='smsverify[actionType]']").val();
+        var formData = new FormData();
+        formData.append("AuthSmsVerify[mobile]", mobile);
+        formData.append("AuthSmsVerify[actionType]", actionType);
+        $.ajax({
+            type: 'post',
+            url: actionUrl + '?captcha_code=' + captchaCode,
+            data: formData,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            'success': function (data) {
+                if (data.status === true || data.status === 'ok') {
+                    //domForm[0].reset();
+                    buttonTimerStart(domBtn, 60000);
+                }
+                else {
+                    console.log(data);
+                    if (data.errors.captcha_code != undefined) {
+                        $('#captchaCode').after('<div id="UserRegisterForm_captcha_code-error" class="error">' + data.errors.captcha_code + '</div>');
+                    }
+                }
+            },
+            'error': function (data) {
+                console.log(data);
+            },
+            'complete': function () {
+            }
+        });
     }
     function buttonTimerStart(domBtn, timer) {
         timer = timer / 1000 //convert to second.

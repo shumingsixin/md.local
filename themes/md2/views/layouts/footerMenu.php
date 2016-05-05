@@ -2,7 +2,7 @@
     <div class="footerMenu">
         <a href="<?php echo Yii::app()->params['baseUrl']; ?>" class="pc mode-pc edition">浏览电脑版</a>
         <!--<a href="#" class="mobile mode-mobile edition">手机版</a>-->
-        <span class="pull-right tel"><span class="phone-img"></span>400-119-7900</span>
+        <span class="pull-right tel"><span class="phone-img"></span>400-6277-120</span>
     </div>
 </div>
 <script>

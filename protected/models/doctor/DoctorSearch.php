@@ -16,9 +16,8 @@ class DoctorSearch extends ESearchModel {
     }
 
     public function addQueryConditions() {
-        $this->criteria->addCondition('t.date_deleted is NULL');
         $this->criteria->compare('t.is_contracted', '1');
-        $this->criteria->addCondition('t.user_id is not null');
+        //$this->criteria->addCondition('t.user_id is not null');
         if ($this->hasQueryParams()) {
             // Doctor.Name
             if (isset($this->queryParams['name'])) {
