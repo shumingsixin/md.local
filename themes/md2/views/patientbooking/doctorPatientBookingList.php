@@ -35,23 +35,12 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     if ($processingList) {
                         for ($i = 0; $i < count($processingList); $i++) {
                             $processingBooking = $processingList[$i];
-                            $yearly = $processingBooking->age;
-                            $monthly = "";
-                            if ($yearly <= 5 && $processingBooking->ageMonth > 0) {
-                                $monthly = $processingBooking->ageMonth . '个月';
-                            } else if ($yearly > 5 && $processingBooking->ageMonth > 0) {
-                                $yearly++;
-                            }
                             ?>
                             <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $processingBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray">
                                     <div class="text-right font-s12 color-green">发送时间：
                                         <?php
-                                        if (isset($processingBooking->dateUpdated)) {
-                                            echo $processingBooking->dateUpdated;
-                                        } else {
-                                            echo $processingBooking->dateCreated;
-                                        }
+                                        echo $processingBooking->dateUpdated;
                                         ?>
                                     </div>
                                     <div class="grid">
@@ -86,13 +75,6 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     if ($doneList) {
                         for ($i = 0; $i < count($doneList); $i++) {
                             $doneBooking = $doneList[$i];
-                            $yearly = $doneBooking->age;
-                            $monthly = "";
-                            if ($yearly <= 5 && $doneBooking->ageMonth > 0) {
-                                $monthly = $doneBooking->ageMonth . '个月';
-                            } else if ($yearly > 5 && $doneBooking->ageMonth > 0) {
-                                $yearly++;
-                            }
                             ?>
                             <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $doneBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray grid">
