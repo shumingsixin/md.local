@@ -1,7 +1,7 @@
 <?php
 
 class TopicController extends MobiledoctorController {
-
+    
     //页面加载数据
     public function actionAjaxView() {
         $values = $_GET;

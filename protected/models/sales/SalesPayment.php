@@ -183,7 +183,63 @@ class SalesPayment extends EActiveRecord {
     public function getBuyerAccount() {
         return $this->buyer_account;
     }
-
+    
+    public function getOrderId(){
+        return $this->order_id;
+    }
+    
+    public function getPingChargeId(){
+        return $this->ping_charge_id;
+    }
+    
+    public function getPayChannel(){
+        return $this->pay_channel;
+    }
+    
+    public function getChannelTradeNo(){
+        return $this->channel_trade_no;
+    }
+    
+    public function getPaymentStatus(){
+        return $this->payment_status;
+    }
+    
+    public function getBillCurrency(){
+        return $this->bill_currency;
+    }
+    
+    public function getBillDate(){
+        return $this->bill_date;
+    }
+    
+    public function getPaidAmount(){
+        return $this->paid_amount;
+    }
+    
+    public function getPaidDate(){
+        return $this->paid_date;
+    }
+    
+    public function getSubject(){
+        return $this->subject;
+    }
+    
+    public function getDescription(){
+        return $this->description;
+    }
+    
+    public function getUserHostIp(){
+        return $this->user_host_ip;
+    }
+    
+    public function getDateStart($format = null) {
+        return $this->getDateAttribute($this->date_start, $format);
+    }
+    
+    public function getDateEnd($format = null) {
+        return $this->getDateAttribute($this->date_end, $format);
+    }
+    
     public function setPingChargeId($v) {
         $this->ping_charge_id = $v;
     }
