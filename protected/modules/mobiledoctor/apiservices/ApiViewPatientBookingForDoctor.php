@@ -59,6 +59,7 @@ class ApiViewPatientBookingForDoctor extends EApiViewService {
         $data->csExplain = $model->getCsExplain();
         $data->doctorOpinion = $model->getDoctorOpinion();
         $data->doctorAccept = $model->getDoctorAccept();
+        $data->detail = $model->detail;
         $patient = $model->getPatient();
         if (isset($patient)) {
             $data->patientId = $patient->getId();
