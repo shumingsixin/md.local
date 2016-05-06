@@ -113,7 +113,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         名医助手补充说明：
                     </div>
                     <div>
-                        <?php echo $booking->csExplain; ?>
+                        <?php echo $booking->csExplain == '' ? '暂无' : $booking->csExplain; ?>
                     </div>
                     <?php
                     if (!isset($booking->doctorAccept)) {
@@ -136,7 +136,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         <?php
                     }
                     ?>
-                    <div class="font-s12 color-red mt20">
+                    <div class="font-s12 color-red pt50">
                         *如有疑问，请拨打客服热线：400-6277-120
                     </div>
                     <div class="text-center mb20">
