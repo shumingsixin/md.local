@@ -48,7 +48,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                     ?>
                     <div class="pad10">
                         <div>诊疗意见</div>
-                        <div class="mt5"><?php //echo $booking->detail;           ?></div>
+                        <div class="mt5"><?php echo $booking->detail; ?></div>
                     </div>
                     <?php
                     $noBorderTop = '';
@@ -179,7 +179,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
             $.ajax({
                 url: requestUrl,
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     J.customConfirm('',
                             '<div class="mb10 text-left">感谢您的爱心和辛勤付出，名医助手将尽快和您联系</div>',
                             '<a id="backCenter" class="color-green">返回个人中心</a>',
