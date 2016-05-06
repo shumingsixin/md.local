@@ -67,6 +67,7 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
             $data->bkType = StatCode::TRANS_TYPE_PB;
             $data->dateUpdated = $model->getDateUpdated('Y-m-d');
             $data->travelType = $model->getTravelType();
+            $data->doctorAccept = $model->getDoctorAccept();
             $data->doctorOpinion = $model->getDoctorOpinion();
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
@@ -97,6 +98,7 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
             $data->dataCreate = $model->getDateCreated();
             $data->diseaseName = $model->getDiseaseName();
             $data->diseaseDetail = $model->getDiseaseDetail();
+            $data->doctorAccept = $model->getDoctorAccept();
             $data->doctorOpinion = $model->getDoctorOpinion();
             if (strIsEmpty($model->getDoctorAccept())) {
                 $this->processingList[] = $data;

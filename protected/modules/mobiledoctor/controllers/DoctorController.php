@@ -693,9 +693,9 @@ class DoctorController extends MobiledoctorController {
     public function actionAjaxRegister() {
         $userRole = User::ROLE_DOCTOR;
         $output = array('status' => 'no');
-        if (isset($_POST['RegisterForm'])) {
+        if (isset($_POST['UserRegisterForm'])) {
             $form = new UserRegisterForm();
-            $form->attributes = $_POST['RegisterForm'];
+            $form->attributes = $_POST['UserRegisterForm'];
             $userMgr = new UserManager();
             $userMgr->registerNewUser($form);
             if ($form->hasErrors() === false) {

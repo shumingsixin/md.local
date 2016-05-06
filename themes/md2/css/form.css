@@ -67,6 +67,7 @@ button [disabled]{
         color:#fff;
 }
 */
+body {-webkit-overflow-scrolling: touch;overflow-scrolling: touch;}
 
 /*边距*/
 .mt-12 {margin-top: -12px;}
