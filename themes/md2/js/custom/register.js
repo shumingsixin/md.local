@@ -104,7 +104,7 @@ $(function () {
                 //console.log(data);
                 //success.
                 if (data.status == 'ok') {
-                    //window.location.href = returnUrl + '?loginType=paw';
+                    window.location.href = returnUrl;
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {
