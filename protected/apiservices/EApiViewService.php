@@ -40,7 +40,8 @@ abstract class EApiViewService {
             $rasConfig = CoreRasConfig::model()->getByClient("app");
             $stroutput = json_encode($this->output);
             $encrypet = new RsaEncrypter($rasConfig->public_key, $rasConfig->private_key);
-            $encrypet->sign($stroutput); //base64 字符串加密
+            $sign = $encrypet->sign($stroutput); //base64 字符串加密
+            $encrypet->verify($stroutput, $sign);
             $this->output = $encrypet->encrypt($stroutput);
         }
         return $this->output;
