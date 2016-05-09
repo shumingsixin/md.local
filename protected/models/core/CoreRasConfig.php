@@ -1,16 +1,18 @@
 <?php
+
 class CoreRasConfig extends EActiveRecord {
+
     /**
      * @return string the associated database table name
      */
     public function tableName() {
         return 'core_rsa_config';
     }
-    
-    public static function model($className=__CLASS__){
+
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     public function attributeLabels() {
         return array(
             'id' => 'ID',
@@ -22,40 +24,37 @@ class CoreRasConfig extends EActiveRecord {
             'date_deleted' => '删除日期'
         );
     }
-    
-    public function getByClient($client){
-        $criteria = new CDbCriteria;
-        $criteria->addCondition("t.client ='".$client."'");
-        return $this->find($criteria);
+
+    public function getByClient($client) {
+        return $this->getByAttributes(array('client' => $client));
     }
-    
+
     public function getId() {
         return $this->id;
     }
-    
+
     public function getClient() {
         return $this->client;
     }
-    
+
     public function getPublicKey() {
         return $this->public_key;
     }
-    
+
     public function getPrivateKey() {
         return $this->private_key;
     }
-    
+
     public function getDateStart($format = null) {
         return $this->getDateAttribute($this->date_start, $format);
     }
-    
+
     public function getDateEnd($format = null) {
         return $this->getDateAttribute($this->date_end, $format);
     }
-    
+
     public function getApptDate($format = null) {
         return $this->getDatetimeAttribute($this->appt_date, $format);
     }
-    
-    
+
 }
