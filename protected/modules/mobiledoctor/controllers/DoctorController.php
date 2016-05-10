@@ -610,21 +610,21 @@ class DoctorController extends MobiledoctorController {
      * 异步登陆
      */
     public function actionAjaxLogin() {
-        //var_dump($_POST);die;
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
-        if (isset($_POST['UserDoctorMobileLoginForm'])) {
+        if (isset($post['UserDoctorMobileLoginForm'])) {
             $loginType = 'sms';
             $smsform = new UserDoctorMobileLoginForm();
-            $values = $_POST['UserDoctorMobileLoginForm'];
+            $values = $post['UserDoctorMobileLoginForm'];
             $smsform->setAttributes($values, true);
             $smsform->role = StatCode::USER_ROLE_DOCTOR;
             $smsform->autoRegister = false;
             $userMgr = new UserManager();
             $isSuccess = $userMgr->mobileLogin($smsform);
-        } else if (isset($_POST['UserLoginForm'])) {
+        } else if (isset($post['UserLoginForm'])) {
             $loginType = 'paw';
             $pawform = new UserLoginForm();
-            $values = $_POST['UserLoginForm'];
+            $values = $post['UserLoginForm'];
             $pawform->setAttributes($values, true);
             $pawform->role = StatCode::USER_ROLE_DOCTOR;
             $pawform->rememberMe = true;
