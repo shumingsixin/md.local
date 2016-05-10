@@ -160,39 +160,17 @@ $(function () {
         }
     });
     function ajaxSubmitPawForm() {
-        var formdata = domPawForm.serialize();
-//        console.log(formdata);
-//        var dataList = formdata.split('&');
-//        var formdata = structure_data('UserLoginForm', dataList);
-//        formdata = do_encrypt(formdata);
-//        var formdataarray = new Array();
-//        formdataarray['UserLoginForm']=formdata;
-//        console.log(formdataarray);
-//        var formdatajson = JSON.stringify(formdataarray);
-//        console.log(formdatajson);
-//        var formdataencrypt = do_encrypt(formdatajson);
-//        //alert())
-//        //console.log(formdataencrypt);
-//        return;
-
-//        var dataList = formdata.split('&');
-//        formdata = structure_data('UserLoginForm', dataList);
-//        console.log('' + formdata);
-//        formdata = do_encrypt('' + formdata);
-//        console.log(formdata);
-//        return;
-        var context = '{"param":"' + formdata + '"}';
-        var encryptContext = do_encrypt(context);
+        var formdata = domPawForm.serializeArray();
+        var dataArray = structure_formdata('UserLoginForm', formdata);
+        var encryptContext = do_encrypt(dataArray);
         console.log(encryptContext);
+        var param = {param: encryptContext};
         $.ajax({
             type: 'post',
             url: actionPawUrl,
-            data: 'param:' + encryptContext,
+            data: param,
             success: function (data) {
-                console.log(data);
-                J.hideMask();
-                return;
-
+                //console.log(data);
                 if (data.status == 'ok') {
                     location.href = returnPawUrl;
                 } else {

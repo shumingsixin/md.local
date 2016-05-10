@@ -28,6 +28,19 @@ function enableBtn(btnSubmit) {
     btnSubmit.attr("disabled", false);
 }
 
+/*构造formdata*/
+function structure_formdata(formName, data) {
+    //array('user'=>array('name'=>'15212789819','paw'=>'123456'))
+    var dataArray = '{"' + formName + '":{';
+    for (var i = 0; i < data.length; i++) {
+        var name = data[i].name.substring((data[i].name.indexOf('[') + 1), data[i].name.indexOf(']'));
+        dataArray += '"' + name + '":"' + data[i].value + '",';
+    }
+    dataArray = dataArray.substring(0, dataArray.length - 1);
+    dataArray += '}}';
+    return dataArray;
+}
+
 /*构造数据*/
 function structure_data(data) {
     var structureData = '[';
