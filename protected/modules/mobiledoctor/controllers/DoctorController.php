@@ -608,6 +608,7 @@ class DoctorController extends MobiledoctorController {
      * 异步登陆
      */
     public function actionAjaxLogin() {
+        var_dump($_POST);die;
         $output = array('status' => 'no');
         if (isset($_POST['UserDoctorMobileLoginForm'])) {
             $loginType = 'sms';
