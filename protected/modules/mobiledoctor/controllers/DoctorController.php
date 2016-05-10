@@ -585,6 +585,8 @@ class DoctorController extends MobiledoctorController {
      * 手机用户登录
      */
     public function actionMobileLogin($loginType = 'sms') {
+//         $res = Encryption::model()->findAll();
+//         print_r(CJSON::decode(CJSON::encode($res)));exit;
         $user = $this->getCurrentUser();
         //已登陆 跳转至主页
         if (isset($user)) {
@@ -608,6 +610,7 @@ class DoctorController extends MobiledoctorController {
      * 异步登陆
      */
     public function actionAjaxLogin() {
+        var_dump($_POST);die;
         $output = array('status' => 'no');
         if (isset($_POST['UserDoctorMobileLoginForm'])) {
             $loginType = 'sms';
@@ -693,9 +696,9 @@ class DoctorController extends MobiledoctorController {
     public function actionAjaxRegister() {
         $userRole = User::ROLE_DOCTOR;
         $output = array('status' => 'no');
-        if (isset($_POST['RegisterForm'])) {
+        if (isset($_POST['UserRegisterForm'])) {
             $form = new UserRegisterForm();
-            $form->attributes = $_POST['RegisterForm'];
+            $form->attributes = $_POST['UserRegisterForm'];
             $userMgr = new UserManager();
             $userMgr->registerNewUser($form);
             if ($form->hasErrors() === false) {
