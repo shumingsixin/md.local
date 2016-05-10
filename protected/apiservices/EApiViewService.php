@@ -38,7 +38,7 @@ abstract class EApiViewService {
         //数据加密
         if ($pwd) {
             $rasConfig = CoreRasConfig::model()->getByClient("app");
-            $stroutput = json_encode($this->output);
+            $stroutput = CJSON::encode($this->output);
             $encrypet = new RsaEncrypter($rasConfig->public_key, $rasConfig->private_key);
             $sign = $encrypet->sign($stroutput); //base64 字符串加密
             $encrypet->verify($stroutput, $sign);

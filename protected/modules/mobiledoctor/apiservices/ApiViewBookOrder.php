@@ -74,11 +74,11 @@ class ApiViewBookOrder extends EApiViewService {
         $data->statusCode = $model->getStatus(false);
         $data->travelType = $model->getTravelType();
         $data->detail = $model->getDetail(false);
-        $data->dateCreated = $model->getDateCreated('Y-m-d h:i:s');
+        $data->dateCreated = $model->getDateCreated('Y-m-d H:i:s');
         $this->bookingInfo = $data;
         $this->status = $model->getStatus(false);
     }
-
+    
     private function setOrder($models) {
         $needPay = 0; //剩余支付
         $payed = 0;
