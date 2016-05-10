@@ -181,13 +181,13 @@ $(function () {
 //        formdata = do_encrypt('' + formdata);
 //        console.log(formdata);
 //        return;
-        var context = '{"formdata":"' + formdata + '"}';
+        var context = '{"param":"' + formdata + '"}';
         var encryptContext = do_encrypt(context);
         console.log(encryptContext);
         $.ajax({
             type: 'post',
             url: actionPawUrl,
-            data: 'parameter:' + encryptContext,
+            data: 'param:' + encryptContext,
             success: function (data) {
                 console.log(data);
                 J.hideMask();
