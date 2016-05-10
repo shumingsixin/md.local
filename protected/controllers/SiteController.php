@@ -27,6 +27,7 @@ class SiteController extends WebsiteController {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
+    
         $this->handleMobileBrowserRedirect();
 
         $this->layout = 'layoutHome';

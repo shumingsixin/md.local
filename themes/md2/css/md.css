@@ -820,3 +820,8 @@ header{
         padding-right: 10px;
     }
 }
+
+/*收到预约详情*/
+#patientBookingView .list>li.noBorderTop:first-child {
+    border-top: inherit;
+}

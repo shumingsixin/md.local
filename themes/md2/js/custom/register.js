@@ -9,6 +9,11 @@ $(function () {
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
+    // 密码验证
+    $.validator.addMethod("isPassword", function (value, element) {
+        var mobile = /^[a-zA-Z0-9_]+$/;
+        return this.optional(element) || (mobile.test(value));
+    }, "请填写字母、数字或下划线");
 
     btnSubmit.click(function () {
         var bool = validator.form();
@@ -22,7 +27,7 @@ $(function () {
                 success: function (data) {
                     //console.log(data);
                     if (data.status == 'ok') {
-                        domForm.submit();
+                        formAjaxSubmit();
                     } else {
                         J.hideMask();
                         $('#UserRegisterForm_captcha_code-error').remove();
@@ -52,6 +57,7 @@ $(function () {
             },
             'UserRegisterForm[password]': {
                 required: true,
+                isPassword: true,
                 maxlength: 40,
                 minlength: 4
             }
@@ -83,5 +89,40 @@ $(function () {
             error.appendTo(element.parents('div.input'));                        //这里的element是录入数据的对象  
         }
     });
+
+    function formAjaxSubmit() {
+        //form插件的异步无刷新提交
+        disabledBtn(btnSubmit);
+        var formdata = domForm.serialize();
+        var requestUrl = domForm.attr("data-url-action");
+        var returnUrl = domForm.attr('data-url-return');
+        $.ajax({
+            type: 'post',
+            url: requestUrl,
+            data: formdata,
+            success: function (data) {
+                //console.log(data);
+                //success.
+                if (data.status == 'ok') {
+                    window.location.href = returnUrl;
+                } else {
+                    domForm.find("div.error").remove();
+                    for (error in data.errors) {
+                        errerMsg = data.errors[error];
+                        inputKey = '#UserRegisterForm_' + error;
+                        $(inputKey).focus();
+                        $(inputKey).parents('.inputBorder').after("<div class='error'>" + errerMsg + "</div> ");
+                    }
+                    enableBtn(btnSubmit);
+                }
+            },
+            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                enableBtn(btnSmsSubmit);
+                console.log(XmlHttpRequest);
+                console.log(textStatus);
+                console.log(errorThrown);
+            },
+        });
+    }
 });
 

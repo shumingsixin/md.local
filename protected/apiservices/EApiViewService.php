@@ -15,7 +15,7 @@ abstract class EApiViewService {
         $this->results = new stdClass();
     }
 
-    public function loadApiViewData() {
+    public function loadApiViewData($pwd = false) {
         try {
             $this->loadData();
             $this->createOutput();
@@ -23,19 +23,27 @@ abstract class EApiViewService {
             //var_dump($cdbex->getMessage());
             //@TODO log.
             Yii::log($cdbex->getMessage(), CLogger::LEVEL_ERROR, __METHOD__);
-            $this->output = array('status' => self::RESPONSE_NO, 'error' => '数据错误', 'errorCode' => ErrorList::BAD_REQUEST, 'errorMsg' => '数据错误', 'results'=>null);
+            $this->output = array('status' => self::RESPONSE_NO, 'error' => '数据错误', 'errorCode' => ErrorList::BAD_REQUEST, 'errorMsg' => '数据错误', 'results' => null);
         } catch (CException $cex) {
             //var_dump($cex->getMessage());
             //@TODO log.
             Yii::log($cex->getMessage(), CLogger::LEVEL_ERROR, __METHOD__);
-            $this->output = array('status' => self::RESPONSE_NO, 'error' => $cex->getMessage(), 'errorCode' => ErrorList::BAD_REQUEST, 'errorMsg' => $cex->getMessage(), 'results'=>null);
+            $this->output = array('status' => self::RESPONSE_NO, 'error' => $cex->getMessage(), 'errorCode' => ErrorList::BAD_REQUEST, 'errorMsg' => $cex->getMessage(), 'results' => null);
         }
 
         // Converts array to stdClass object.
         if (is_array($this->output)) {
             $this->output = (object) $this->output;
         }
-
+        //数据加密
+        if ($pwd) {
+            $rasConfig = CoreRasConfig::model()->getByClient("app");
+            $stroutput = json_encode($this->output);
+            $encrypet = new RsaEncrypter($rasConfig->public_key, $rasConfig->private_key);
+            $sign = $encrypet->sign($stroutput); //base64 字符串加密
+            $encrypet->verify($stroutput, $sign);
+            $this->output = $encrypet->encrypt($stroutput);
+        }
         return $this->output;
     }
 

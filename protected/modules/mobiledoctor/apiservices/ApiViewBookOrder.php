@@ -68,6 +68,7 @@ class ApiViewBookOrder extends EApiViewService {
         $data->refNo = $model->getRefNo();
         $data->doctorName = $model->getDoctorName();
         $data->expectedDoctor = $model->getExpectedDoctor();
+        $data->patientId = $model->getPatientId();
         $data->patientName = $model->getPatientName();
         $data->statusTitle = $model->getStatusTitle();
         $data->statusCode = $model->getStatus(false);
@@ -88,6 +89,7 @@ class ApiViewBookOrder extends EApiViewService {
             $data->orderTypeText = $model->getOrderType();
             $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
+            $data->dateClosed = $model->getDateClose();
             $data->needPay = 0;
             $data->payed = 0;
             $data->isPaid = $model->getIsPaid();

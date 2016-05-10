@@ -200,4 +200,52 @@ abstract class Controller extends CController {
         }
         return $i;
     }
+    
+    /**
+     * 加密输出
+     */
+    public function encryptOutput($output){
+        $client='app';
+        $rasConfig = CoreRasConfig::model()->getByClient($client);
+        print_r($rasConfig);exit;
+        //         print_r(CJSON::decode(CJSON::encode($res)));exit;
+        //$rasConfig= CoreRasConfig::model()->getByClient($client);
+        $publicKey = $rasConfig->public_key;
+        //echo "</br>";
+        $privateKey=$rasConfig->private_key;
+        //exit;
+        $a='测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试';
+        
+        
+        $m = new RsaEncrypter($publicKey, $privateKey);
+        $x = $m->sign($a);
+        
+        $y = $m->verify($a, $x);
+        
+        //var_dump($x, $y);
+        
+        $x = $m->encrypt($a);
+        $data=new stdClass();
+        foreach($x as $key=>$value){
+            $data->$key=$value;
+        }
+        //var_dump($x);
+        //echo json_encode($x);
+        return CJSON::encode($data);
+        exit;
+    }
+    
+    /**
+     * 请求参数解密
+     */
+    public function decryptInput($json){
+        $x=json_decode($json,true);
+        $client='app';
+        $rasConfig = Encryption::model()->getByClient($client);
+        $publicKey = $rasConfig->public_key;
+        $privateKey=$rasConfig->private_key;
+        $m = new RsaEncrypter($publicKey, $privateKey);
+        $y = $m->decrypt($x);
+        return $y;
+    }
 }

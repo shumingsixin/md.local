@@ -59,17 +59,18 @@ class ApiViewPatientBookingForDoctor extends EApiViewService {
         $data->csExplain = $model->getCsExplain();
         $data->doctorOpinion = $model->getDoctorOpinion();
         $data->doctorAccept = $model->getDoctorAccept();
+        $data->detail = $model->detail;
         $patient = $model->getPatient();
         if (isset($patient)) {
-            $data->patientId = $model->getId();
-            $data->patientName = $model->getName();
-            $data->age = $model->getAge();
-            $data->ageMonth = $model->getAgeMonth();
-            $data->gender = $model->getGender();
-            $data->placeState = $model->getStateName();
-            $data->placeCity = $model->getCityName();
-            $data->diseaseName = $model->getDiseaseName();
-            $data->diseaseDetail = $model->getDiseaseDetail(true);
+            $data->patientId = $patient->getId();
+            $data->patientName = $patient->getName();
+            $data->age = $patient->getAge();
+            $data->ageMonth = $patient->getAgeMonth();
+            $data->gender = $patient->getGender();
+            $data->placeState = $patient->getStateName();
+            $data->placeCity = $patient->getCityName();
+            $data->diseaseName = $patient->getDiseaseName();
+            $data->diseaseDetail = $patient->getDiseaseDetail(true);
         }
         $this->booking = $data;
     }

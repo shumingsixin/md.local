@@ -4,8 +4,7 @@
  */
 $this->setPageID('pBookingInfo');
 $this->setPageTitle('预约详情');
-$booking = $data->results['patientBooking'];
-$patient = $data->results['patientInfo'];
+$booking = $data->results->booking;
 $user = $this->loadUser();
 $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId=' . $user->id . '&pbId=' . $booking->id . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
@@ -29,53 +28,78 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 }
                 ?>
                 <ul class="list">
-                    <li class="grid">
-                        <div class="col-1 w30">就诊意向</div>
-                        <div class="col-1 w70 text-right"><?php echo $booking->travelType; ?></div>
-                    </li>
+                    <?php
+                    if ($booking->bkType == 2) {
+                        ?>
+                        <li class="grid">
+                            <div class="col-1 w30">就诊意向</div>
+                            <div class="col-1 w70 text-right"><?php echo $booking->travelType; ?></div>
+                        </li>
+                        <?php
+                    }
+                    ?>
                     <li class="grid">
                         <div class="col-1 w30">意向专家</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->expected_doctor; ?></div>
                     </li>
                 </ul>
-                <div class="pad10">
-                    <div>诊疗意见</div>
-                    <div class="mt5"><?php echo $booking->detail; ?></div>
-                </div>
+                <?php
+                if ($booking->bkType == 2) {
+                    ?>
+                    <div class="pad10">
+                        <div>诊疗意见</div>
+                        <div class="mt5"><?php echo $booking->detail; ?></div>
+                    </div>
+                    <?php
+                    $noBorderTop = '';
+                } else {
+                    $noBorderTop = 'noBorderTop';
+                }
+                ?>
                 <ul class="list">
-                    <li class="grid">
+                    <li class="grid <?php echo $noBorderTop; ?>">
                         <div class="col-1 w30">患者姓名</div>
-                        <div class="col-1 w70 text-right"><?php echo $patient->name; ?></div>
-                    </li>
-                    <li class="grid">
-                        <div class="col-1 w30">患者性别</div>
-                        <div class="col-1 w70 text-right"><?php echo $patient->gender; ?></div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->patientName; ?></div>
                     </li>
                     <?php
-                    $yearly = $patient->age;
-                    $monthly = "";
-                    if ($yearly <= 5 && $patient->ageMonth > 0) {
-                        $monthly = $patient->ageMonth . '个月';
-                    } else if ($yearly > 5 && $patient->ageMonth > 0) {
-                        $yearly++;
+                    if ($booking->bkType == 2) {
+                        ?>
+                        <li class="grid">
+                            <div class="col-1 w30">患者性别</div>
+                            <div class="col-1 w70 text-right"><?php echo $booking->gender; ?></div>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                    <?php
+                    if ($booking->bkType == 2) {
+                        $yearly = $booking->age;
+                        $monthly = "";
+                        if ($yearly <= 5 && $booking->ageMonth > 0) {
+                            $monthly = $booking->ageMonth . '个月';
+                        } else if ($yearly > 5 && $booking->ageMonth > 0) {
+                            $yearly++;
+                        }
+                        ?>
+                        <li class="grid">
+                            <div class="col-1 w30">患者年龄</div>
+                            <div class="col-1 w70 text-right"><?php echo $yearly; ?>岁<?php echo $monthly; ?></div>
+                        </li>
+                        <li class="grid">
+                            <div class="col-1 w30">所在城市</div>
+                            <div class="col-1 w70 text-right"><?php echo $booking->placeCity; ?></div>
+                        </li>
+                        <?php
                     }
                     ?>
                     <li class="grid">
-                        <div class="col-1 w30">患者年龄</div>
-                        <div class="col-1 w70 text-right"><?php echo $yearly; ?>岁<?php echo $monthly; ?></div>
-                    </li>
-                    <li class="grid">
-                        <div class="col-1 w30">所在城市</div>
-                        <div class="col-1 w70 text-right"><?php echo $patient->placeCity; ?></div>
-                    </li>
-                    <li class="grid">
                         <div class="col-1 w30">疾病诊断</div>
-                        <div class="col-1 w70 text-right"><?php echo $patient->diseaseName; ?></div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->diseaseName; ?></div>
                     </li>
                 </ul>
                 <div class="pad10 bb-gray">
                     <div>疾病描述</div>
-                    <div class="mt5"><?php echo $patient->diseaseDetail; ?></div>
+                    <div class="mt5"><?php echo $booking->diseaseDetail; ?></div>
                 </div>
                 <div>
                     <div class="grid middle h40 pl10 pr10">
@@ -89,7 +113,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         名医助手补充说明：
                     </div>
                     <div>
-                        <?php echo $booking->csExplain; ?>
+                        <?php echo $booking->csExplain == '' ? '暂无' : $booking->csExplain; ?>
                     </div>
                     <?php
                     if (!isset($booking->doctorAccept)) {
@@ -112,14 +136,14 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         <?php
                     }
                     ?>
-                    <div class="font-s12 color-red mt20">
+                    <div class="font-s12 color-red pt50">
                         *如有疑问，请拨打客服热线：400-6277-120
                     </div>
                     <div class="text-center mb20">
                         <a href="tel://4006277120" class="btn-red pl10 pr10">点击拨号</a>
                     </div>
                 </div>
-                <?php //var_dump($booking); ?>
+                <?php //var_dump($booking);  ?>
             </div>
         </article>
     </section>
@@ -141,15 +165,21 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 $(this).attr("disabled", true);
             });
             var requestUrl = '<?php echo $urlAjaxDoctorOpinion; ?>';
-            if ($(this).attr('id') == 'disAgree') {
-                requestUrl += '/id/<?php echo $booking->id; ?>/accept/0/option/' + option;
+            var type = '';
+            if ('<?php echo $booking->bkType; ?>' == 1) {
+                type = 1;
             } else {
-                requestUrl += '/id/<?php echo $booking->id; ?>/option/' + option;
+                type = 2;
+            }
+            if ($(this).attr('id') == 'disAgree') {
+                requestUrl += '/id/<?php echo $booking->id; ?>/accept/0/type/' + type + '/opinion/' + option;
+            } else {
+                requestUrl += '/id/<?php echo $booking->id; ?>/accept/1/type/' + type + '/opinion/' + option;
             }
             $.ajax({
                 url: requestUrl,
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     J.customConfirm('',
                             '<div class="mb10 text-left">感谢您的爱心和辛勤付出，名医助手将尽快和您联系</div>',
                             '<a id="backCenter" class="color-green">返回个人中心</a>',

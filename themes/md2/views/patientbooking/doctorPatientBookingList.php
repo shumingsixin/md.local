@@ -36,7 +36,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         for ($i = 0; $i < count($processingList); $i++) {
                             $processingBooking = $processingList[$i];
                             ?>
-                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $processingBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $processingBooking->id, 'type' => $processingBooking->bkType, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray">
                                     <div class="text-right font-s12 color-green">发送时间：
                                         <?php
@@ -76,7 +76,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                         for ($i = 0; $i < count($doneList); $i++) {
                             $doneBooking = $doneList[$i];
                             ?>
-                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $doneBooking->id, 'addBackBtn' => 1)); ?>" data-target="link">
+                            <a href="<?php echo $this->createUrl('patientbooking/doctorPatientBooking', array('id' => $doneBooking->id, 'type' => $doneBooking->bkType, 'addBackBtn' => 1)); ?>" data-target="link">
                                 <div class="p10 bt5-gray grid">
                                     <div class="col-0 grid middle mr10">
                                         <?php
