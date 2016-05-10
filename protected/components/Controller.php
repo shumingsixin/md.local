@@ -167,85 +167,50 @@ abstract class Controller extends CController {
         $result = file_get_contents($url, false);
         return json_decode($result, true);
     }
-    
+
     /**
      * http请求参数过滤
      * @param unknown $attrs
      * @return multitype:Ambigous <>
      */
-    public function filterRequestParams($attrs=array()){
+    public function filterRequestParams($attrs = array()) {
         $requestType = strtolower($_SERVER['REQUEST_METHOD']);
-        $inputs=array();
-        switch($requestType){
+        $inputs = array();
+        switch ($requestType) {
             case 'get':
                 $inputs = $_GET;
                 break;
             case 'post':
-                $inputs = json_decode($this->getPostData(),true);
+                $inputs = json_decode($this->getPostData(), true);
                 break;
             case 'put':
-                $inputs = json_decode($this->getPostData(),true);
+                $inputs = json_decode($this->getPostData(), true);
                 break;
         }
-        $i=array();
-        if(arrayNotEmpty($inputs)){
-            foreach($attrs as $attr){
-                if(isset($inputs[$attr])){
-                    if($requestType=='get'){
-                        $inputs[$attr]=urldecode($inputs[$attr]);
+        $i = array();
+        if (arrayNotEmpty($inputs)) {
+            foreach ($attrs as $attr) {
+                if (isset($inputs[$attr])) {
+                    if ($requestType == 'get') {
+                        $inputs[$attr] = urldecode($inputs[$attr]);
                     }
-                    $i[$attr]=stripslashes($inputs[$attr]);
+                    $i[$attr] = stripslashes($inputs[$attr]);
                 }
             }
         }
         return $i;
     }
-    
-    /**
-     * 加密输出
-     */
-    public function encryptOutput($output){
-        $client='app';
-        $rasConfig = CoreRasConfig::model()->getByClient($client);
-        print_r($rasConfig);exit;
-        //         print_r(CJSON::decode(CJSON::encode($res)));exit;
-        //$rasConfig= CoreRasConfig::model()->getByClient($client);
-        $publicKey = $rasConfig->public_key;
-        //echo "</br>";
-        $privateKey=$rasConfig->private_key;
-        //exit;
-        $a='测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试';
-        
-        
-        $m = new RsaEncrypter($publicKey, $privateKey);
-        $x = $m->sign($a);
-        
-        $y = $m->verify($a, $x);
-        
-        //var_dump($x, $y);
-        
-        $x = $m->encrypt($a);
-        $data=new stdClass();
-        foreach($x as $key=>$value){
-            $data->$key=$value;
-        }
-        //var_dump($x);
-        //echo json_encode($x);
-        return CJSON::encode($data);
-        exit;
-    }
-    
+
     /**
      * 请求参数解密
      */
-    public function decryptInput($json){
-        $x=json_decode($json,true);
-        $client='app';
-        $rasConfig = Encryption::model()->getByClient($client);
-        $publicKey = $rasConfig->public_key;
-        $privateKey=$rasConfig->private_key;
-        $m = new RsaEncrypter($publicKey, $privateKey);
-        $y = $m->decrypt($x);
-        return $y;
+    public function decryptInput() {
+        $param = $_POST['param'];
+        $inputs = CJSON::decode($param, true);
+        $rasConfig = CoreRasConfig::model()->getByClient('app');
+        $encrypter = new RsaEncrypter($rasConfig->public_key, $rasConfig->private_key);
+        $str = $encrypter->newDecrypt($inputs);
+        return CJSON::decode($str, true);
     }
+
 }
