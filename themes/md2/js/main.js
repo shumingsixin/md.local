@@ -28,16 +28,22 @@ function enableBtn(btnSubmit) {
     btnSubmit.attr("disabled", false);
 }
 
-function structure_data(formName, dataList) {
-    var data = '{"' + formName + '"=>array(';
-    for (var i = 0; i < dataList.length; i++) {
-        var key = dataList[i].substring(dataList[i].indexOf('%5B') + 3, dataList[i].indexOf('%5D'));
-        var value = dataList[i].substring(dataList[i].indexOf('=') + 1);
-        data += '"' + key + '"=>"' + value + '",';
+/*构造数据*/
+function structure_data(data) {
+    var structureData = '[';
+    for (var i = 0; i < data.length; i++) {
+        structureData += '"' + data[i] + '",';
     }
-    data = data.substring(0, data.length - 2);
-    data += '")}';
-    return data;
+    structureData = structureData.substring(0, structureData.length - 1);
+    structureData += ']';
+    return structureData;
+}
+
+/*数据解析*/
+function analysis_data(data) {
+    var returnData = unescape(data.replace(/\\u/g, "%u"));
+    returnData = $.parseJSON(returnData);
+    return returnData;
 }
 
 //加密
@@ -98,7 +104,6 @@ function do_decrypt(context) {
     for (var i = 0; i < obj.length; i++) {
         uncrypted += decrypt.decrypt(obj[i]);//私钥解密
     }
-    console.log(uncrypted);
     uncrypted = uncrypted.replace("undefined", "");
     return uncrypted;
 }

@@ -154,14 +154,14 @@ class DoctorController extends MobiledoctorController {
     //获取城市列表
     public function actionAjaxStateList() {
         $city = new ApiViewState();
-        $output = $city->loadApiViewData();
+        $output = $city->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 
     //获取科室分类
     public function actionAjaxDeptList() {
         $apiService = new ApiViewDiseaseCategory();
-        $output = $apiService->loadApiViewData();
+        $output = $apiService->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 
