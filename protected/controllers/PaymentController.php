@@ -98,10 +98,10 @@ class PaymentController extends WebsiteController {
             } else {
                 throw new CException('invalid parameters - missing ref_url.');
             }
-            if(isset($post['open_id'])){
-                $openid=$post['open_id'];
-            }else{
-                $openid='';
+            if (isset($post['open_id'])) {
+                $openid = $post['open_id'];
+            } else {
+                $openid = '';
             }
             $payMgr = new PayManager();
             $output->pingCharge = $payMgr->doPingxxPay($refno, $channel, $refurl, $openid);
@@ -147,27 +147,27 @@ class PaymentController extends WebsiteController {
         $payment = SalesPayment::model()->getByAttributes(array('uid' => $orderNo, 'ping_charge_id' => $pingChargeId), array('paymentOrder'));
         $order = $payment->paymentOrder;
         if (isset($payment) && $post['type'] == 'charge.succeeded') {
-			if ($payment->payment_status == StatCode::PAY_UNPAID) {
-				//交易成功
-				$payMgr->updateDataAfterTradeSuccess($payment, $post);
-				//短信通知
-				if (isset($payment->user_id)) {
-					$user = User::model()->getById($payment->user_id);
-					if (isset($user->username)) {
-						$sendMsg = new SmsManager();
-						$data = new stdClass();
-						$data->amount = $payment->paid_amount;
-						$data->refno = $order->ref_no;
-						$sendMsg->sendSmsBookingDepositPaid($user->username, $data);
-					}
-				}
-				//电邮提醒
-				$apiSvc = new ApiViewSalesOrder($order->getRefNo());
-				$output = $apiSvc->loadApiViewData();
-				$data = $output->results;
-				$emailMgr = new EmailManager();
-				$emailMgr->sendEmailSalesOrderPaid($data);
-			}
+            if ($payment->payment_status == StatCode::PAY_UNPAID) {
+                //交易成功
+                $payMgr->updateDataAfterTradeSuccess($payment, $post);
+                //短信通知
+                if (isset($payment->user_id)) {
+                    $user = User::model()->getById($payment->user_id);
+                    if (isset($user->username)) {
+                        $sendMsg = new SmsManager();
+                        $data = new stdClass();
+                        $data->amount = $payment->paid_amount;
+                        $data->refno = $order->ref_no;
+                        $sendMsg->sendSmsBookingDepositPaid($user->username, $data);
+                    }
+                }
+                //电邮提醒
+                $apiSvc = new ApiViewSalesOrder($order->getRefNo());
+                $output = $apiSvc->loadApiViewData();
+                $data = $output->results;
+                $emailMgr = new EmailManager();
+                $emailMgr->sendEmailSalesOrderPaid($data);
+            }
         } else if (isset($payment) && $post['type'] != 'charge.succeeded') {
             //交易失败
             $payMgr->updateDataAfterTradeFail($payment, $post);
@@ -180,41 +180,12 @@ class PaymentController extends WebsiteController {
         CoreLogPayment::log('AlipayReturnJson: ' . CJSON::encode($_GET), CoreLogPayment::LEVEL_INFO, Yii::app()->request->url, __METHOD__);
         $outTradeNo = $_GET['out_trade_no'];
         $payment = SalesPayment::model()->getByAttributes(array('uid' => $outTradeNo), array('paymentOrder'));
-
         $this->redirect(array('payResult', 'paymentcode' => $payment->uid));
-
-        /*
-          $paymentMgr = new PaymentManager();
-          $payment = $paymentMgr->updateAlipayReturn();
-          //$uid = $_GET['out_trade_no'];
-          //$payment = $paymentMgr->loadPaymentByUID($uid);
-
-          if (isset($payment) === false) {
-          $error = new stdClass();
-          $error->code = '';
-          $error->msg = '请求链接不正确。';
-          $this->render("error", array(
-          'error' => $error
-          ));
-          } else {
-          //TODO: redirect to payment/result instead.
-          // reload payment from db.
-          $payment = $paymentMgr->loadPaymentByUID($payment->getUID(), array('mrbpUser', 'mrbpBooking'));
-          $ipayment = new IMrBookingPayment();
-          $ipayment->initModel($payment);
-          $ipayment->setBuyer($payment->getUser());
-          $ipayment->setBooking($payment->getBooking());
-          $this->render('return2', array(
-          'payment' => $ipayment
-          ));
-          }
-         */
     }
 
     public function actionYeepayReturn($outno) {
         CoreLogPayment::log('YeepayReturnJson: ' . CJSON::encode($_GET), CoreLogPayment::LEVEL_INFO, Yii::app()->request->url, __METHOD__);
         $payment = SalesPayment::model()->getByAttributes(array('uid' => $outno), array('paymentOrder'));
-
         $this->redirect(array('payResult', 'paymentcode' => $payment->uid));
     }
 
@@ -228,7 +199,7 @@ class PaymentController extends WebsiteController {
         $this->show_footer = false;
         $this->show_baidushangqiao = false;
 
-        $this->render('result', array('model' => $order));
+        $this->render('order/payResult', array('orderType' => $order->getOrderType()));
     }
 
     /*
