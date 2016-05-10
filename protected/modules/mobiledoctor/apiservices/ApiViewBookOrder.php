@@ -89,6 +89,7 @@ class ApiViewBookOrder extends EApiViewService {
             $data->orderTypeText = $model->getOrderType();
             $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
+            $data->dateClosed = $model->getDateClose();
             $data->needPay = 0;
             $data->payed = 0;
             $data->isPaid = $model->getIsPaid();
