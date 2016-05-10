@@ -184,7 +184,6 @@ $(function () {
         var context = '{"formdata":"' + formdata + '"}';
         var encryptContext = do_encrypt(context);
         console.log(encryptContext);
-        //return;
         $.ajax({
             type: 'post',
             url: actionPawUrl,
