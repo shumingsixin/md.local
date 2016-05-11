@@ -9,6 +9,11 @@ $(function () {
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
+    // 密码验证
+    $.validator.addMethod("isPassword", function (value, element) {
+        var mobile = /^[a-zA-Z0-9_]+$/;
+        return this.optional(element) || (mobile.test(value));
+    }, "请填写字母、数字或下划线");
 
     btnSubmit.click(function () {
         var bool = validator.form();
@@ -52,6 +57,7 @@ $(function () {
             },
             'ForgetPasswordForm[password_new]': {
                 required: true,
+                isPassword: true,
                 maxlength: 40,
                 minlength: 4
             }

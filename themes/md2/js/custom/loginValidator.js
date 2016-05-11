@@ -122,6 +122,11 @@ $(function () {
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
+    // 密码验证
+    $.validator.addMethod("isPassword", function (value, element) {
+        var mobile = /^[a-zA-Z0-9_]+$/;
+        return this.optional(element) || (mobile.test(value));
+    }, "请填写字母、数字或下划线");
 
     btnSubmitPaw.click(function () {
         J.showMask('加载中...');
@@ -142,7 +147,8 @@ $(function () {
             },
             'UserLoginForm[password]': {
                 required: true,
-                minlength: 1
+                isPassword: true,
+                minlength: 4
             }
         },
         messages: {
@@ -152,7 +158,7 @@ $(function () {
             },
             'UserLoginForm[password]': {
                 required: "请输入密码",
-                minlength: "请输入正确的密码"
+                minlength: "密码至少4位"
             }
         },
         errorElement: "div",
