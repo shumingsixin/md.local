@@ -94,7 +94,7 @@ class PatientbookingController extends MobiledoctorController {
             if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
                 //医生评价成功 调用crm接口修改admin_booking的接口
                 //$urlMgr = new ApiRequestUrl();
-                // $url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&option={$option}";
+                //$url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
                 $url = "http://192.168.31.119/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
                 $this->send_get($url);
                 $output['status'] = 'ok';
@@ -194,10 +194,11 @@ class PatientbookingController extends MobiledoctorController {
     }
 
     public function actionAjaxCreate() {
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
         $bookingDB = null;
-        if (isset($_POST['booking'])) {
-            $values = $_POST['booking'];
+        if (isset($post['booking'])) {
+            $values = $post['booking'];
             $patientId = null;
             $patientName = null;
             $patientMgr = new PatientManager();
@@ -266,8 +267,6 @@ class PatientbookingController extends MobiledoctorController {
         $model->refNo = $book->getRefNo();
         $model->id = $book->getId();
         $model->bk_type = StatCode::TRANS_TYPE_PB;
-        //$model->bkType = 'PatientBooking';
-
         $model->user_id = $book->creator_id;
         if ($book->getTravelType(false) == StatCode::BK_TRAVELTYPE_PATIENT_GO) {
             $model->subject = '预约金';

@@ -108,6 +108,7 @@ class OrderController extends MobiledoctorController {
             'data' => $output
         ));
     }
+
     //分批支付订单
     public function actionPayOrders($bookingId, $orderType) {
         $apiSvc = new ApiViewPayOrders($bookingId, $orderType);

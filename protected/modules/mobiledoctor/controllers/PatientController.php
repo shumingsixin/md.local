@@ -84,9 +84,10 @@ class PatientController extends MobiledoctorController {
     }
 
     public function actionAjaxCreate() {
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
-        if (isset($_POST['patient'])) {
-            $values = $_POST['patient'];
+        if (isset($post['patient'])) {
+            $values = $post['patient'];
             $form = new PatientInfoForm();
             $form->setAttributes($values, true);
             $form->creator_id = $this->getCurrentUserId();
@@ -103,7 +104,6 @@ class PatientController extends MobiledoctorController {
                 $patient->state_name = $regionState->getName();
                 $regionCity = RegionCity::model()->getById($patient->city_id);
                 $patient->city_name = $regionCity->getName();
-
                 if ($patient->save()) {
                     $output['status'] = 'ok';
                     $output['patient']['id'] = $patient->getId();
@@ -113,6 +113,8 @@ class PatientController extends MobiledoctorController {
             } else {
                 $output['errors'] = $form->getErrors();
             }
+        } else {
+            $output['error'] = 'data errors';
         }
         $this->renderJsonOutput($output);
     }
@@ -212,7 +214,7 @@ class PatientController extends MobiledoctorController {
     public function actionPatientMRFiles($id) {
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewFilesOfPatient($id, $userId);
-        $output = $apisvc->loadApiViewData();
+        $output = $apisvc->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 
@@ -250,7 +252,7 @@ class PatientController extends MobiledoctorController {
     public function actionAjaxSearch($name) {
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewPatientSearch($userId, $name);
-        $output = $apisvc->loadApiViewData();
+        $output = $apisvc->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 

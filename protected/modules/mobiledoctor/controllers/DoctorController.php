@@ -147,7 +147,7 @@ class DoctorController extends MobiledoctorController {
     public function actionAjaxContractDoctor() {
         $values = $_GET;
         $apiService = new ApiViewDoctorSearch($values);
-        $output = $apiService->loadApiViewData();
+        $output = $apiService->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 
@@ -257,7 +257,7 @@ class DoctorController extends MobiledoctorController {
     public function actionAjaxViewDoctorZz() {
         $userId = $this->getCurrentUserId();
         $apiSvc = new ApiViewDoctorZz($userId);
-        $output = $apiSvc->loadApiViewData();
+        $output = $apiSvc->loadApiViewData(true);
         $this->renderJsonOutput($output);
     }
 
@@ -275,10 +275,11 @@ class DoctorController extends MobiledoctorController {
 
     //保存或修改医生接受病人转诊信息
     public function actionAjaxDoctorZz() {
+        $post = $this->$this->decryptInput();
         $output = array('status' => 'no');
         $userId = $this->getCurrentUserId();
-        if (isset($_POST['DoctorZhuanzhenForm'])) {
-            $values = $_POST['DoctorZhuanzhenForm'];
+        if (isset($post['DoctorZhuanzhenForm'])) {
+            $values = $post['DoctorZhuanzhenForm'];
             $values['user_id'] = $userId;
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->createOrUpdateDoctorZhuanzhen($values);
@@ -286,7 +287,7 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
-        } elseif (isset($_POST['disjoin']) && $_POST['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
+        } elseif (isset($post['disjoin']) && $post['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->disJoinZhuanzhen($userId);
         }
@@ -297,7 +298,7 @@ class DoctorController extends MobiledoctorController {
     public function actionAjaxViewDoctorHz() {
         $userId = $this->getCurrentUserId();
         $apiSvc = new ApiViewDoctorHz($userId);
-        $output = $apiSvc->loadApiViewData();
+        $output = $apiSvc->loadApiViewData(true);
         //若该用户未填写则进入填写页面
         $this->renderJsonOutput($output);
     }
@@ -316,10 +317,11 @@ class DoctorController extends MobiledoctorController {
 
     //保存或修改医生会诊信息
     public function actionAjaxDoctorHz() {
+        $post = $this->$this->decryptInput();
         $userId = $this->getCurrentUserId();
         $output = array('status' => 'no');
-        if (isset($_POST['DoctorHuizhenForm'])) {
-            $values = $_POST['DoctorHuizhenForm'];
+        if (isset($post['DoctorHuizhenForm'])) {
+            $values = $post['DoctorHuizhenForm'];
             $values['user_id'] = $userId;
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->createOrUpdateDoctorHuizhen($values);
@@ -327,7 +329,7 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
-        } elseif (isset($_POST['disjoin']) && $_POST['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
+        } elseif (isset($post['disjoin']) && $post['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->disJoinHuizhen($userId);
         }
@@ -373,12 +375,13 @@ class DoctorController extends MobiledoctorController {
 
     //修改密码
     public function actionChangePassword() {
+        $post = $this->$this->decryptInput();
         $user = $this->getCurrentUser();
         $form = new UserPasswordForm('new');
         $form->initModel($user);
         $this->performAjaxValidation($form);
-        if (isset($_POST['UserPasswordForm'])) {
-            $form->attributes = $_POST['UserPasswordForm'];
+        if (isset($post['UserPasswordForm'])) {
+            $form->attributes = $post['UserPasswordForm'];
             $userMgr = new UserManager();
             $success = $userMgr->doChangePassword($form);
             if ($this->isAjaxRequest()) {
@@ -440,6 +443,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     public function actionAjaxContract() {
+        $post = $this->$this->decryptInput();
         //需要发送电邮的数据
         $data = new stdClass();
         $user = $this->loadUser();
@@ -449,8 +453,8 @@ class DoctorController extends MobiledoctorController {
         $form = new DoctorContractForm();
         $form->initModel($doctorProfile);
         $data->scenario = $form->scenario;
-        if (isset($_POST['DoctorContractForm'])) {
-            $values = $_POST['DoctorContractForm'];
+        if (isset($post['DoctorContractForm'])) {
+            $values = $post['DoctorContractForm'];
             $form->setAttributes($values);
             if ($form->validate()) {
                 $doctorProfile->setAttributes($form->attributes);
@@ -492,9 +496,10 @@ class DoctorController extends MobiledoctorController {
     }
 
     public function actionAjaxProfile() {
+        $post = $this->$this->decryptInput();
         $output = array('status' => 'no');
-        if (isset($_POST['doctor'])) {
-            $values = $_POST['doctor'];
+        if (isset($post['doctor'])) {
+            $values = $post['doctor'];
             $form = new UserDoctorProfileForm();
             $form->setAttributes($values, true);
             $form->initModel();
@@ -694,11 +699,12 @@ class DoctorController extends MobiledoctorController {
     }
 
     public function actionAjaxRegister() {
+        $post = $this->decryptInput();
         $userRole = User::ROLE_DOCTOR;
         $output = array('status' => 'no');
-        if (isset($_POST['UserRegisterForm'])) {
+        if (isset($post['UserRegisterForm'])) {
             $form = new UserRegisterForm();
-            $form->attributes = $_POST['UserRegisterForm'];
+            $form->attributes = $post['UserRegisterForm'];
             $userMgr = new UserManager();
             $userMgr->registerNewUser($form);
             if ($form->hasErrors() === false) {
@@ -722,10 +728,11 @@ class DoctorController extends MobiledoctorController {
 
     //忘记密码功能
     public function actionAjaxForgetPassword() {
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
         $form = new ForgetPasswordForm();
-        if (isset($_POST['ForgetPasswordForm'])) {
-            $form->attributes = $_POST['ForgetPasswordForm'];
+        if (isset($post['ForgetPasswordForm'])) {
+            $form->attributes = $post['ForgetPasswordForm'];
             if ($form->validate()) {
                 $userMgr = new UserManager();
                 $user = $userMgr->loadUserByUsername($form->username, StatCode::USER_ROLE_DOCTOR);
