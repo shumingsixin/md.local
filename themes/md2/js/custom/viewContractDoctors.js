@@ -46,8 +46,13 @@ $('#stateSelect').tap(function () {
         $.ajax({
             url: requestUrl,
             success: function (data) {
-                //console.log(data);
-                readyDoc(data);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                readyDoc(returnData);
                 $('#stateTitle').html($stateName);
                 $('#stateTitle').attr('data-state', $stateId);
                 $('#deptTitle').html('科室');
@@ -125,8 +130,13 @@ function deptSelect() {
         $.ajax({
             url: requestUrl,
             success: function (data) {
-                //console.log(data);
-                readyDoc(data);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                readyDoc(returnData);
                 $deptName = $deptName.length > 4 ? $deptName.substr(0, 3) + '...' : $deptName;
                 $('#deptTitle').html($deptName);
                 $('#deptTitle').attr('data-dept', $deptId);
@@ -206,7 +216,7 @@ function readyDoc(data) {
         innerHtml += '<div class="grid pl15 pr15 pt10 pb10 bb-gray2">暂无信息</div>';
     }
     if (data.dataNum != null) {
-        var dataPage = Math.ceil(data.dataNum / 10);
+        var dataPage = Math.ceil(data.dataNum / 12);
         if (dataPage > 1) {
             innerHtml += '<div class="grid pl15 pr15 pt10 bb-gray3 bt-gray2"><div class="grid w100">' +
                     '<div class="col-1 w40">' +
@@ -242,8 +252,13 @@ function initPage(dataPage) {
             $.ajax({
                 url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
                 success: function (data) {
-                    //console.log(data);
-                    readyDoc(data);
+                    //构造json
+                    var structureData = structure_data(data);
+                    //解密
+                    var returnData = do_decrypt(structureData);
+                    //解析数据
+                    returnData = analysis_data(returnData);
+                    readyDoc(returnData);
                     setLocationUrl();
                     $('#contractDoctors_article').scrollTop(0);
                 }
@@ -259,8 +274,13 @@ function initPage(dataPage) {
             $.ajax({
                 url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
                 success: function (data) {
-                    //console.log(data);
-                    readyDoc(data);
+                    //构造json
+                    var structureData = structure_data(data);
+                    //解密
+                    var returnData = do_decrypt(structureData);
+                    //解析数据
+                    returnData = analysis_data(returnData);
+                    readyDoc(returnData);
                     setLocationUrl();
                     $('#contractDoctors_article').scrollTop(0);
                 }
@@ -277,8 +297,13 @@ function changePage() {
     $.ajax({
         url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
         success: function (data) {
-            //console.log(data);
-            readyDoc(data);
+            //构造json
+            var structureData = structure_data(data);
+            //解密
+            var returnData = do_decrypt(structureData);
+            //解析数据
+            returnData = analysis_data(returnData);
+            readyDoc(returnData);
             setLocationUrl();
             $('#contractDoctors_article').scrollTop(0);
         }

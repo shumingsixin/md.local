@@ -66,12 +66,15 @@ $(function () {
     function formAjaxSubmit() {
         //form插件的异步无刷新提交
         disabledBtn(btnSubmit);
-        var formdata = domForm.serialize();
+        var formdata = domForm.serializeArray();
+        var dataArray = structure_formdata('booking', formdata);
+        var encryptContext = do_encrypt(dataArray);
+        var param = {param: encryptContext};
         requestUrl = domForm.attr('action');
         $.ajax({
             type: 'post',
             url: requestUrl,
-            data: formdata,
+            data: param,
             success: function (data) {
                 //success.
                 if (data.status == 'ok') {
