@@ -143,7 +143,11 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                     <?php
                     if (isset($pays)) {
                         for ($i = 0; $i < count($pays); $i++) {
-                            echo '<div>提交时间:已支付' . $pays[$i]->orderTypeText . $pays[$i]->finalAmount . '元</div>';
+                            if ($pays[$i]->orderType == 'deposit') {
+                                echo '<div>确认时间:' . $pays[$i]->dateClosed . '</div><div>已支付' . $pays[$i]->orderTypeText . $pays[$i]->finalAmount . '元</div>';
+                            } else {
+                                echo '<div>提交时间:' . $pays[$i]->dateClosed . '</div><div>已支付' . $pays[$i]->orderTypeText . $pays[$i]->finalAmount . '元</div>';
+                            }
                         }
                     }
                     ?>
