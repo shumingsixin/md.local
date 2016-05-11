@@ -107,7 +107,7 @@ $(function () {
                 //console.log(data);
                 //success.
                 if (data.status == 'ok') {
-                    window.location.href = returnUrl;
+                    window.location.href = returnUrl + '?register=' + data.register;
                 } else {
                     domForm.find("div.error").remove();
                     for (error in data.errors) {

@@ -103,7 +103,15 @@ $urlDoctorView = $this->createUrl('doctor/view');
             url: '<?php echo $urlAjaxViewDoctorHz; ?>',
             async: false,
             success: function (data) {
-                setDoctorHzInfo(data.results.userDoctorHz);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                if (returnData.results.userDoctorHz != null) {
+                    setDoctorHzInfo(returnData.results.userDoctorHz);
+                }
             }
         });
     }
@@ -113,7 +121,15 @@ $urlDoctorView = $this->createUrl('doctor/view');
             url: '<?php echo $urlAjaxViewDoctorZz; ?>',
             async: false,
             success: function (data) {
-                setDoctorZzInfo(data.results.userDoctorZz);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                if (returnData.results.userDoctorZz != null) {
+                    setDoctorZzInfo(returnData.results.userDoctorZz);
+                }
             }
         });
     }

@@ -181,6 +181,8 @@ $(function () {
         disabledBtn($("#btnSubmit"));
         var domForm = $("#docHz-form");
         var formData = toFormData(domForm);
+        var encryptContext = do_encrypt(formData);
+        var param = {param: encryptContext};
         var min_no_surgery = checkSurgery();
         if ((isNaN(min_no_surgery)) || (min_no_surgery < 1)) {
             $('.surgeryNum').after('<div id="surgery-error" class="error">请输入正确台数</div>');
@@ -192,10 +194,8 @@ $(function () {
         $.ajax({
             type: 'post',
             url: actionUrl,
-            data: formData,
+            data: param,
             dataType: "json",
-            processData: false,
-            contentType: false,
             'success': function (data) {
                 if (data.status) {
                     location.href = returnUrl;
@@ -240,16 +240,16 @@ $(function () {
         var patients_prefer = $("#DoctorHuizhenForm_patients_prefer").val();
         var freq_destination = $("#DoctorHuizhenForm_freq_destination").val();
         var destination_req = $("#DoctorHuizhenForm_destination_req").val();
-        var formData = new FormData();
-        formData.append('DoctorHuizhenForm[is_join]', is_join);
-        formData.append('DoctorHuizhenForm[fee_min]', fee_min);
-        formData.append('DoctorHuizhenForm[fee_max]', fee_max);
-        formData.append('DoctorHuizhenForm[week_days]', weeks);
-        formData.append('DoctorHuizhenForm[patients_prefer]', patients_prefer);
-        formData.append('DoctorHuizhenForm[freq_destination]', freq_destination);
-        formData.append('DoctorHuizhenForm[destination_req]', destination_req);
-        formData.append('DoctorHuizhenForm[travel_duration]', travel_duration);
-        formData.append('DoctorHuizhenForm[min_no_surgery]', min_no_surgery);
+        var formData = '{"DoctorHuizhenForm":{"is_join":"' + is_join +
+                '","fee_min":"' + fee_min +
+                '","fee_max":"' + fee_max +
+                '","weeks":"' + weeks +
+                '","patients_prefer":"' + patients_prefer +
+                '","freq_destination":"' + freq_destination +
+                '","destination_req":"' + destination_req +
+                '","travel_duration":"' + travel_duration +
+                '","min_no_surgery":"' + min_no_surgery +
+                '"}}';
         return formData;
     }
     function checkSurgery() {

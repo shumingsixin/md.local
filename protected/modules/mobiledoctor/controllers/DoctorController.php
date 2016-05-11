@@ -275,7 +275,7 @@ class DoctorController extends MobiledoctorController {
 
     //保存或修改医生接受病人转诊信息
     public function actionAjaxDoctorZz() {
-        $post = $this->$this->decryptInput();
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
         $userId = $this->getCurrentUserId();
         if (isset($post['DoctorZhuanzhenForm'])) {
@@ -317,7 +317,7 @@ class DoctorController extends MobiledoctorController {
 
     //保存或修改医生会诊信息
     public function actionAjaxDoctorHz() {
-        $post = $this->$this->decryptInput();
+        $post = $this->decryptInput();
         $userId = $this->getCurrentUserId();
         $output = array('status' => 'no');
         if (isset($post['DoctorHuizhenForm'])) {
@@ -496,7 +496,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     public function actionAjaxProfile() {
-        $post = $this->$this->decryptInput();
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
         if (isset($post['doctor'])) {
             $values = $post['doctor'];
