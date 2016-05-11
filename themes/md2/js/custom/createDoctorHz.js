@@ -243,7 +243,7 @@ $(function () {
         var formData = '{"DoctorHuizhenForm":{"is_join":"' + is_join +
                 '","fee_min":"' + fee_min +
                 '","fee_max":"' + fee_max +
-                '","weeks":"' + weeks +
+                '","week_days":"' + weeks +
                 '","patients_prefer":"' + patients_prefer +
                 '","freq_destination":"' + freq_destination +
                 '","destination_req":"' + destination_req +
