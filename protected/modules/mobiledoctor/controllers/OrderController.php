@@ -118,4 +118,17 @@ class OrderController extends MobiledoctorController {
         ));
     }
 
+    public function actionPayResult($paymentcode) {
+        $payment = SalesPayment::model()->getByAttributes(array('uid' => $paymentcode), array('paymentOrder'));
+        $order = $payment->paymentOrder;
+        if ($order === NULL) {
+            throw new CHttpException(404, 'The requested page does not exist.');
+        }
+        $this->show_header = true;
+        $this->show_footer = false;
+        $this->show_baidushangqiao = false;
+
+        $this->render('payResult', array('order' => $order));
+    }
+
 }

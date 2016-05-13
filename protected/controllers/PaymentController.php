@@ -180,26 +180,13 @@ class PaymentController extends WebsiteController {
         CoreLogPayment::log('AlipayReturnJson: ' . CJSON::encode($_GET), CoreLogPayment::LEVEL_INFO, Yii::app()->request->url, __METHOD__);
         $outTradeNo = $_GET['out_trade_no'];
         $payment = SalesPayment::model()->getByAttributes(array('uid' => $outTradeNo), array('paymentOrder'));
-        $this->redirect(array('payResult', 'paymentcode' => $payment->uid));
+        $this->redirect(array('order/payResult', 'paymentcode' => $payment->uid));
     }
 
     public function actionYeepayReturn($outno) {
         CoreLogPayment::log('YeepayReturnJson: ' . CJSON::encode($_GET), CoreLogPayment::LEVEL_INFO, Yii::app()->request->url, __METHOD__);
         $payment = SalesPayment::model()->getByAttributes(array('uid' => $outno), array('paymentOrder'));
-        $this->redirect(array('payResult', 'paymentcode' => $payment->uid));
-    }
-
-    public function actionPayResult($paymentcode) {
-        $payment = SalesPayment::model()->getByAttributes(array('uid' => $paymentcode), array('paymentOrder'));
-        $order = $payment->paymentOrder;
-        if ($order === NULL) {
-            throw new CHttpException(404, 'The requested page does not exist.');
-        }
-        $this->show_header = true;
-        $this->show_footer = false;
-        $this->show_baidushangqiao = false;
-
-        $this->render('order/payResult', array('order' => $order));
+        $this->redirect(array('order/payResult', 'paymentcode' => $payment->uid));
     }
 
     /*
