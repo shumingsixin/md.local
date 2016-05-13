@@ -27,7 +27,11 @@ $this->show_footer = false;
                     if ($order->order_type == 'deposit') {
                         echo '手术预约金支付成功！';
                     } else {
-                        echo '您已成功预约' . $order->final_doctor_name . '专家！';
+                        if ($order->final_doctor_name == '') {
+                            echo '您已成功预约' . $order->creator_doctor_name . '专家！';
+                        } else {
+                            echo '您已成功预约' . $order->final_doctor_name . '专家！';
+                        }
                     }
                     ?>
                 </div>
