@@ -199,7 +199,7 @@ class PaymentController extends WebsiteController {
         $this->show_footer = false;
         $this->show_baidushangqiao = false;
 
-        $this->render('order/payResult', array('orderType' => $order->getOrderType()));
+        $this->render('order/payResult', array('order' => $order));
     }
 
     /*
