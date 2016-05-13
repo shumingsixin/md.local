@@ -825,3 +825,14 @@ header{
 #patientBookingView .list>li.noBorderTop:first-child {
     border-top: inherit;
 }
+
+/*支付成功*/
+#payResult_header nav.right {
+    width: auto;
+    margin-top: 12px;
+    padding: 0px 5px;
+    background-color: inherit;
+}
+#payResult_article{
+    background-color: #F1F1F1;
+}
