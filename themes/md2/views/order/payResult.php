@@ -7,7 +7,7 @@ $this->show_footer = false;
     <h1 class="title">支付成功</h1>
     <nav class="right">
         <?php
-        if ($order->order_type = 'deposit') {
+        if ($order->order_type == 'deposit') {
             echo '<a href="' . $orderView . '/bookingid/' . $order->bk_id . '/status/1">确认</a>';
         } else {
             echo '<a href="' . $orderView . '/bookingid/' . $order->bk_id . '/status/5">确认</a>';
@@ -24,7 +24,7 @@ $this->show_footer = false;
                 </div>
                 <div class="font-s16 text-center color-orange pt20 pb20">
                     <?php
-                    if ($order->order_type = 'deposit') {
+                    if ($order->order_type == 'deposit') {
                         echo '手术预约金支付成功！';
                     } else {
                         echo '您已成功预约' . $order->final_doctor_name . '专家！';
@@ -33,7 +33,7 @@ $this->show_footer = false;
                 </div>
                 <div class="pt20 bt-gray pl10 pr10 color-gray">
                     <?php
-                    if ($order->order_type = 'deposit') {
+                    if ($order->order_type == 'deposit') {
                         echo '名医助手已开始为您联系专家，并会在8小时内与您回访确认，请保持手机畅通，谢谢！';
                     } else {
                         echo '名医助手会协助安排您尽快手术，感谢您对名医主刀的信任。';
