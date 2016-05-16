@@ -50,6 +50,9 @@ $this->show_header = false;
                 </a>
             </div>
         </nav>
+        <footer class='bg-white'>
+            <button id='patientCreate' class="btn btn-block bg-green">创建新患者</button>
+        </footer>
         <article id="patientList_article" class="active" data-scroll="true">
             <div class="">
                 <div class="hasBookingList mt10">
@@ -148,9 +151,6 @@ $this->show_header = false;
                     }
                     ?>
                 </div>
-                <div class="mt20 mb20 text-center">
-                    <a href="<?php echo $urlCreatePatient; ?>" class="btn-green p10"><span data-icon="plus"></span>创建新患者</a>
-                </div>
             </div>
         </article>
     </section>
@@ -180,6 +180,9 @@ $this->show_header = false;
                 $('.noBookingList').removeClass('hide');
                 $('#patientList_article').scrollTop(0);
             }
+        });
+        $('#patientCreate').click(function () {
+            location.href = '<?php echo $urlCreatePatient; ?>';
         });
     });
 </script>

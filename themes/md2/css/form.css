@@ -357,6 +357,7 @@ a .none{text-decoration:none;}
 .br3{border-radius:3px;}
 
 /*button*/
+.btn-block{width: 80%;display: block;margin: 5px auto;}
 .btn-green{background-color:#19aea5;color:#fff!important;border-radius:5px}
 .btn-green2{background-color:#18aea5;color:#fff!important;border-radius:5px;padding:8px 10px;}
 .btn-gray{background-color:#dfdfdf;color:#333!important;border-radius:5px;padding:8px 10px;}
