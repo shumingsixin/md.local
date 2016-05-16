@@ -210,6 +210,11 @@ abstract class Controller extends CController {
         $rasConfig = CoreRasConfig::model()->getByClient('app');
         $encrypter = new RsaEncrypter($rasConfig->public_key, $rasConfig->private_key);
         $str = $encrypter->newDecrypt($inputs);
+        $str = base64_decode($str);
+        $str = CJSON::decode($str, true);
+        $str = $str['DoctorHuizhenForm']['patients_prefer'];
+        var_dump(urldecode($str));
+        die;
         return CJSON::decode($str, true);
     }
 

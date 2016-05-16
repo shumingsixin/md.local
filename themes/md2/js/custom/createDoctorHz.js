@@ -240,15 +240,15 @@ $(function () {
         var patients_prefer = $("#DoctorHuizhenForm_patients_prefer").val();
         var freq_destination = $("#DoctorHuizhenForm_freq_destination").val();
         var destination_req = $("#DoctorHuizhenForm_destination_req").val();
-        var formData = '{"DoctorHuizhenForm":{"is_join":"' + is_join +
-                '","fee_min":"' + fee_min +
-                '","fee_max":"' + fee_max +
-                '","week_days":"' + weeks +
-                '","patients_prefer":"' + patients_prefer +
-                '","freq_destination":"' + freq_destination +
-                '","destination_req":"' + destination_req +
-                '","travel_duration":"' + travel_duration +
-                '","min_no_surgery":"' + min_no_surgery +
+        var formData = '{"DoctorHuizhenForm":{"is_join":"' + encodeURIComponent(is_join) +
+                '","fee_min":"' + encodeURIComponent(fee_min) +
+                '","fee_max":"' + encodeURIComponent(fee_max) +
+                '","week_days":"' + encodeURIComponent(weeks) +
+                '","patients_prefer":"' + encodeURIComponent(patients_prefer) +
+                '","freq_destination":"' + encodeURIComponent(freq_destination) +
+                '","destination_req":"' + encodeURIComponent(destination_req) +
+                '","travel_duration":"' + encodeURIComponent(travel_duration) +
+                '","min_no_surgery":"' + encodeURIComponent(min_no_surgery) +
                 '"}}';
         return formData;
     }
