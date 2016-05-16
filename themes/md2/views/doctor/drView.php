@@ -190,7 +190,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
 
     //选择不参与异步修改会诊信息
     function ajaxRemoveDoctorHz() {
-        var formdata = '{"disjoin":"0"}';
+        var formdata = '{"form":{"disjoin":"0"}}';
         var encryptContext = do_encrypt(formdata);
         var param = {param: encryptContext};
         $.ajax({
@@ -214,7 +214,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
     }
     //选择不参与异步修改转诊信息
     function ajaxRemoveDoctorZz() {
-        var formdata = '{"disjoin":"0"}';
+        var formdata = '{"form":{"disjoin":"0"}}';
         var encryptContext = do_encrypt(formdata);
         var param = {param: encryptContext};
         $.ajax({

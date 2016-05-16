@@ -107,15 +107,15 @@ $(function () {
                 var infoJson = eval('(' + info + ')');
                 progress.setComplete(up, info);
                 var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
-                var formdata = '{"patient":{"patient_id":"' + domForm.find('#patientId').val() +
-                        '","report_type":"' + domForm.find('#reportType').val() +
-                        '","file_size":"' + file.size +
-                        '","mime_type":"' + file.type +
-                        '","file_name":"' + file.name +
-                        '","file_url":"' + file.name +
-                        '","file_ext":"' + fileExtension +
-                        '","remote_domain":"' + domForm.find('#domain').val() +
-                        '","remote_file_key":"' + infoJson.key +
+                var formdata = '{"patient":{"patient_id":"' + encodeURIComponent(domForm.find('#patientId').val()) +
+                        '","report_type":"' + encodeURIComponent(domForm.find('#reportType').val()) +
+                        '","file_size":"' + encodeURIComponent(file.size) +
+                        '","mime_type":"' + encodeURIComponent(file.type) +
+                        '","file_name":"' + encodeURIComponent(file.name) +
+                        '","file_url":"' + encodeURIComponent(file.name) +
+                        '","file_ext":"' + encodeURIComponent(fileExtension) +
+                        '","remote_domain":"' + encodeURIComponent(domForm.find('#domain').val()) +
+                        '","remote_file_key":"' + encodeURIComponent(infoJson.key) +
                         '"}}';
                 var encryptContext = do_encrypt(formdata);
                 var param = {param: encryptContext};

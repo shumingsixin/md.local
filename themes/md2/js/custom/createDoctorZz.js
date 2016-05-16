@@ -157,10 +157,10 @@ $(function () {
         }
         var id = $("#DoctorZhuanzhenForm_id").val();
         var is_join = $("#DoctorZhuanzhenForm_is_join").val();
-        var formData = '{"DoctorZhuanzhenForm":{"is_join":"' + is_join +
-                '","preferred_patient":"' + preferred_patient +
-                '","fee":"' + fee +
-                '","prep_days":"' + prep_days +
+        var formData = '{"DoctorZhuanzhenForm":{"is_join":"' + encodeURIComponent(is_join) +
+                '","preferred_patient":"' + encodeURIComponent(preferred_patient) +
+                '","fee":"' + encodeURIComponent(fee) +
+                '","prep_days":"' + encodeURIComponent(prep_days) +
                 '"}}';
         return formData;
     }

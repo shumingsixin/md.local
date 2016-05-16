@@ -104,14 +104,14 @@ $(function () {
                 var infoJson = eval('(' + info + ')');
                 progress.setComplete(up, info);
                 var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
-                var formdata = '{"cert":{"user_id":"' + domForm.find('#userId').val() +
-                        '","file_size":"' + file.size +
-                        '","mime_type":"' + file.type +
-                        '","file_name":"' + file.name +
-                        '","file_url":"' + file.name +
-                        '","file_ext":"' + fileExtension +
-                        '","remote_domain":"' + domForm.find('#domain').val() +
-                        '","remote_file_key":"' + infoJson.key +
+                var formdata = '{"cert":{"user_id":"' + encodeURIComponent(domForm.find('#userId').val()) +
+                        '","file_size":"' + encodeURIComponent(file.size) +
+                        '","mime_type":"' + encodeURIComponent(file.type) +
+                        '","file_name":"' + encodeURIComponent(file.name) +
+                        '","file_url":"' + encodeURIComponent(file.name) +
+                        '","file_ext":"' + encodeURIComponent(fileExtension) +
+                        '","remote_domain":"' + encodeURIComponent(domForm.find('#domain').val()) +
+                        '","remote_file_key":"' + encodeURIComponent(infoJson.key) +
                         '"}}';
                 var encryptContext = do_encrypt(formdata);
                 var param = {param: encryptContext};

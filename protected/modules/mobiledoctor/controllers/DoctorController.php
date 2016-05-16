@@ -287,7 +287,7 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
-        } elseif (isset($post['form']['disjoin']) && $_POST['form']['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
+        } elseif (isset($post['form']['disjoin']) && $post['form']['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->disJoinZhuanzhen($userId);
         }

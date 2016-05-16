@@ -34,7 +34,7 @@ function structure_formdata(formName, data) {
     var dataArray = '{"' + formName + '":{';
     for (var i = 0; i < data.length; i++) {
         var name = data[i].name.substring((data[i].name.indexOf('[') + 1), data[i].name.indexOf(']'));
-        dataArray += '"' + name + '":"' + data[i].value + '",';
+        dataArray += '"' + name + '":"' + encodeURIComponent(data[i].value) + '",';
     }
     dataArray = dataArray.substring(0, dataArray.length - 1);
     dataArray += '}}';
