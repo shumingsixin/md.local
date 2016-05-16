@@ -317,7 +317,7 @@ class DoctorController extends MobiledoctorController {
 
     //保存或修改医生会诊信息
     public function actionAjaxDoctorHz() {
-        $post = $this->decryptInput();
+        $post = $this->decryptInput(false);
         $userId = $this->getCurrentUserId();
         $output = array('status' => 'no');
         if (isset($post['DoctorHuizhenForm'])) {
@@ -329,7 +329,7 @@ class DoctorController extends MobiledoctorController {
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
-        } elseif (isset($_POST['disjoin']) && $_POST['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
+        } elseif (isset($post['disjoin']) && $post['disjoin'] == UserDoctorZhuanzhen::ISNOT_JOIN) {
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->disJoinHuizhen($userId);
         }

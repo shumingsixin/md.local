@@ -204,7 +204,7 @@ abstract class Controller extends CController {
     /**
      * 请求参数解密
      */
-    public function decryptInput() {
+    public function decryptInput($disfor = true) {
         $param = $_POST['param'];
         $inputs = CJSON::decode($param, true);
         $rasConfig = CoreRasConfig::model()->getByClient('app');
@@ -212,11 +212,13 @@ abstract class Controller extends CController {
         $str = $encrypter->newDecrypt($inputs);
         $str = base64_decode($str);
         $str = CJSON::decode($str, true);
-        foreach ($str as $k => $values) {
-            foreach ($values as $key => $value) {
-                $values[$key] = urldecode($value);
+        if ($disfor) {
+            foreach ($str as $k => $values) {
+                foreach ($values as $key => $value) {
+                    $values[$key] = urldecode($value);
+                }
+                $str[$k] = $values;
             }
-            $str[$k] = $values;
         }
         return $str;
     }
