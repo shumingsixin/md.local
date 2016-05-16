@@ -212,10 +212,13 @@ abstract class Controller extends CController {
         $str = $encrypter->newDecrypt($inputs);
         $str = base64_decode($str);
         $str = CJSON::decode($str, true);
-        $str = $str['DoctorHuizhenForm']['patients_prefer'];
-        var_dump(urldecode($str));
-        die;
-        return CJSON::decode($str, true);
+        foreach ($str as $k => $values) {
+            foreach ($values as $key => $value) {
+                $values[$key] = urldecode($value);
+            }
+            $str[$k] = $values;
+        }
+        return $str;
     }
 
 }

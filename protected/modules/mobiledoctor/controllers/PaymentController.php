@@ -1,6 +1,6 @@
 <?php
 
-class PaymentController extends WebsiteController {
+class PaymentController extends MobiledoctorController {
 
     private $booking;
 
