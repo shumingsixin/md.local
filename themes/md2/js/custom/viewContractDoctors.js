@@ -36,9 +36,7 @@ $('#stateSelect').tap(function () {
         $condition["disease_sub_category"] = '';
         $condition["state"] = $stateId;
         $condition["page"] = 1;
-        setTimeout(function () {
-            J.closePopup();
-        }, 100);
+        J.closePopup();
         var requestUrl = $requestDoc + '?' + setUrlCondition() + '&getcount=1';
         //console.log(requestUrl);
         //alert(requestUrl);
@@ -121,9 +119,7 @@ function deptSelect() {
         $condition["disease_sub_category"] = $deptId;
         $condition["state"] = stateId;
         $condition["page"] = 1;
-        setTimeout(function () {
-            J.closePopup();
-        }, 100);
+        J.closePopup();
         var requestUrl = $requestDoc + '?' + setUrlCondition() + '&getcount=1';
         //alert(requestUrl);
         J.showMask();
@@ -294,6 +290,7 @@ function initPage(dataPage) {
 //跳页
 function changePage() {
     $condition["page"] = $('#selectPage').val();
+    J.showMask();
     $.ajax({
         url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
         success: function (data) {

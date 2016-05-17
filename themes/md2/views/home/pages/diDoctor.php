@@ -88,8 +88,8 @@ $this->show_header = false;
                         滴滴医生的此次试水活动是名医主刀、滴滴打车和阿里健康对于移动医疗未来的一次创新的探索，一次大胆的尝试。也许在不久的未来，滴滴医生真的会出现在我们的日常生活中。
                     </div>
                 </div>
-
-                <div class="mt20 mb50 text-center">
+                <div class='pb50'></div>
+                <div class="mt20 mb50 text-center hide">
                     <div class="grid color-white">
                         <div class="col-1"></div>
                         <div id="like" class="col-0 w90p addLike pt55">

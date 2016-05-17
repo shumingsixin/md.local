@@ -43,6 +43,7 @@ $this->show_footer = false;
 </div>
 <script>
     $(document).ready(function () {
+        J.showMask();
 
         //请求医生
         $requestDoc = '<?php echo $urlAjaxContractDoctor; ?>';

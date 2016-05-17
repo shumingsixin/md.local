@@ -63,37 +63,75 @@ $this->show_header = false;
                             <div class="grid mt10">
                                 <div class="col-1"></div>
                                 <div class="col-0 imgDiv">
-                                    <img src="http://mingyizhudao.com/resource/doctor/avatar/03022.jpg" class="">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/60E4CB6914FEC60539366533DA8E64DA" class="">
                                 </div>
                                 <div class="col-1"></div>
                             </div>
-                            <div>史占军</div>
-                            <div class="font-s12">创伤骨科</div>
-                            <div class="font-s12 line-h13e">男方医科大学男方医院</div>
+                            <div>陈欣欣</div>
+                            <div class="font-s12">心脏中心</div>
+                            <div class="font-s12 line-h13e">广州市妇女儿童医疗中心</div>
                         </div>
                         <div class="col-1 w33 b-gray1 ml3 mr3 pb10">
                             <div class="grid mt10">
                                 <div class="col-1"></div>
                                 <div class="col-0 imgDiv">
-                                    <img src="http://mingyizhudao.com/resource/doctor/avatar/03022.jpg" class="">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/2287A85971D58C0DE7E038E904A13ECB" class="">
                                 </div>
                                 <div class="col-1"></div>
                             </div>
-                            <div>史占军</div>
-                            <div class="font-s12">创伤骨科</div>
-                            <div class="font-s12 line-h13e">男方医科大学男方医院</div>
+                            <div>唐家广</div>
+                            <div class="font-s12">脊柱外科</div>
+                            <div class="font-s12 line-h13e">北京304医院</div>
                         </div>
                         <div class="col-1 w33 b-gray1 ml6 pb10">
                             <div class="grid mt10">
                                 <div class="col-1"></div>
                                 <div class="col-0 imgDiv">
-                                    <img src="http://mingyizhudao.com/resource/doctor/avatar/03022.jpg" class="">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/F1060759BAAB7A08A1317DFB19151DC9" class="">
                                 </div>
                                 <div class="col-1"></div>
                             </div>
-                            <div>史占军</div>
-                            <div class="font-s12">创伤骨科</div>
-                            <div class="font-s12 line-h13e">男方医科大学男方医院</div>
+                            <div>梁益建</div>
+                            <div class="font-s12">骨科</div>
+                            <div class="font-s12 line-h13e">成都市第三人民医院</div>
+                        </div>
+                    </div>
+                    <div class="grid text-center mt10">
+                        <div class="col-1 w33 b-gray1 mr6 pb10">
+                            <div class="grid mt10">
+                                <div class="col-1"></div>
+                                <div class="col-0 imgDiv">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/0EC486B26D0327DFC88933D4FA2D505A" class="">
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div>王明刚</div>
+                            <div class="font-s12">普外科</div>
+                            <div class="font-s12 line-h13e">北京朝阳医院</div>
+                        </div>
+                        <div class="col-1 w33 b-gray1 ml3 mr3 pb10">
+                            <div class="grid mt10">
+                                <div class="col-1"></div>
+                                <div class="col-0 imgDiv">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/7D946D135ECEFA3EFFFC409C5EC806B2" class="">
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div>张旭</div>
+                            <div class="font-s12">泌尿外科</div>
+                            <div class="font-s12 line-h13e">北京301医院</div>
+                        </div>
+                        <div class="col-1 w33 b-gray1 ml6 pb10">
+                            <div class="grid mt10">
+                                <div class="col-1"></div>
+                                <div class="col-0 imgDiv">
+                                    <img src="http://7xtetc.com1.z0.glb.clouddn.com/7CCF23013A2B6456AF4AB2F599DC3D2F" class="">
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div>余新光</div>
+                            <div class="font-s12">神经外科</div>
+                            <div class="font-s12 line-h13e">北京301医院</div>
                         </div>
                     </div>
                 </div>
@@ -245,13 +283,13 @@ $this->show_header = false;
 </div>
 <script>
     $(document).ready(function () {
-        $('#joinMygy_article').scroll(function () {
-            if ($('#joinMygy_article').scrollTop() > 0) {
-                $('#joinMygy_header').removeClass('hide');
-            } else {
-                $('#joinMygy_header').addClass('hide');
-            }
-
-        });
+//        $('#joinMygy_article').scroll(function () {
+//            if ($('#joinMygy_article').scrollTop() > 0) {
+//                $('#joinMygy_header').removeClass('hide');
+//            } else {
+//                $('#joinMygy_header').addClass('hide');
+//            }
+//
+//        });
     });
 </script>
