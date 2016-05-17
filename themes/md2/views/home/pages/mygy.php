@@ -56,7 +56,7 @@ $this->show_header = false;
                     <div class="grid">
                         <div class="col-0 pt2"><div class="greenLine"></div></div>
                         <div class="col-1 pl10">名医君</div>
-                        <div class="col-0 grayTriangle">全部</div>
+                        <div class="col-0 grayTriangle hide">全部</div>
                     </div>
                     <div class="grid text-center mt10">
                         <div class="col-1 w33 b-gray1 mr6 pb10">

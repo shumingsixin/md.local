@@ -13,7 +13,7 @@ $this->show_header = false;
             <div class="font-s14">
                 <div class="pl15 pr15 mt26">
                     <div>
-                        <img src="<?php echo $urlResImage; ?>/event/millionWelfare/gongyi.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345400264715" class="w100">
                     </div>
                     <div class=" mt16 font-s21 color-black5">名医主刀--百万公益金</div>
                     <div class="mt21 font-s12">2015-12-09<span class="color-blue ml7">来源:名医主刀</span></div>
@@ -50,7 +50,7 @@ $this->show_header = false;
                             <div class="col-1"></div>
                         </div>
                         <div class="pl20 pr20">
-                            <img src="<?php echo $urlResImage; ?>/event/millionWelfare/lineFour.png" class="w100">
+                            <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345400340873" class="w100">
                         </div>
                         <div class="grid">
                             <div class="col-1 w24">

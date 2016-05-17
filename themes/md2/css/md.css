@@ -691,12 +691,12 @@ header{
     top: 0px;
 }
 #diDoctor_article .placeIcon{
-    background: url('../images/event/diDoctor/placeIcon.png') no-repeat;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146345690030643') no-repeat;
     background-size: 15px 21px;
     padding-left: 20px;
 }
 #diDoctor_article .titleIcon{
-    background: url('../images/event/diDoctor/titleIcon.png') no-repeat;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146345689976835') no-repeat;
     background-size: 15px 16px;
     padding-left: 20px;
     background-position-y: 2px;
@@ -769,14 +769,14 @@ header{
 
 /*陆劲松*/
 #lujinsong_article .askTitle {
-    background: url('../images/event/lujinsong/askTitle.png') no-repeat;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146345357856612') no-repeat;
     background-size: 110px 40px;
     height: 40px;
 }
 
 /*任善成*/
 #renshancheng_article .askTitle {
-    background: url('../images/event/renshancheng/askTitle.png') no-repeat;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146345357856612') no-repeat;
     background-size: 110px 40px;
     height: 40px;
 }
@@ -796,7 +796,7 @@ header{
     font-size: 12px;
 }
 #millionWelfare_article .stepImg {
-    background: url('../images/event/millionWelfare/step.png') no-repeat;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146345400349095') no-repeat;
     background-size: 100% 100%;
     height: 115px;
 }
@@ -819,6 +819,31 @@ header{
     #millionWelfare_article .prStep {
         padding-right: 10px;
     }
+}
+
+/*大事记*/
+#bigEvent_article{
+    background-color: #F0EFF4;
+}
+#bigEvent_article .january{
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146346313425554') no-repeat;
+    background-size: 14px;
+}
+#bigEvent_article .februaryStepOne{
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146346313404230') no-repeat;
+    background-size: 14px;
+}
+#bigEvent_article .februaryStepTwo{
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146346313419932') no-repeat;
+    background-size: 14px;
+}
+#bigEvent_article .februaryStepThree{
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146346313411912') no-repeat;
+    background-size: 14px;
+}
+#bigEvent_article .march{
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146346313429555') no-repeat;
+    background-size: 14px;
 }
 
 /*收到预约详情*/

@@ -15,7 +15,7 @@ $this->show_header = false;
                     2015年10月18日，上午9点，滴滴出行APP面向北京、上海、杭州和南京开放一键叫医生上门的预约服务，用户打开滴滴出行APP后，就能在顺风车、快车右侧看见“叫医生”的选项。
                 </div>
                 <div class="mt10">
-                    <img src="<?php echo $urlResImage; ?>event/diDoctor/didi.png" class="w100">
+                    <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345690035645" class="w100">
                 </div>
                 <div class="mt20">
                     <div class="placeIcon">
@@ -26,7 +26,7 @@ $this->show_header = false;
                         上午10点左右，接到了滴滴医生活动的北京第一单，滴滴医生专车带着由名医主刀提供的和睦家家庭医疗的刘力松主任，前往用户家中。滴滴接单后，刘主任通过电话，先与患者做了初步的沟通。经了解，预约用户陈女士（化名）年近70岁，居住在朝阳区姚家园地区。陈女士的身体存在高血压、高血脂等方面的问题，本该定期到医院检查，却在近日不小心跌倒骨折，因此不能及时到医院就诊。刘医生初步了解情况后，携带血压仪、心电图机、听诊器等医疗检测设备，与护士乘坐滴滴专车从和睦家医院出发，于20分钟后到达陈女士家中。刘医生和护士在上门服务时严格遵守上门流程，进门前更换鞋套，进门后用消毒液清洁双手，并将检测设备置于一次性台布上。刘医生坐在床边，向卧床的陈女士详细询问身体情况和日常生活习惯，并为她测量了血压，记录了心电图。经检查，通过以前的治疗，陈女士高血压的问题得到了一定控制，但仍然存在胆固醇偏高的问题，刘主任向患者普及胆固醇防护知识。11点36分，本次医生上门服务结束，整个诊询过程持续40分钟。临走前，陈女士执意起身送走刘大夫和护士，并非常开心的和二人合影，她说非常感谢名医主刀，阿里健康，滴滴为患者想患者所想，急患者所急。在自己行动不便时，有专业医生上门诊疗。
                     </div>
                     <div class="mt5 mb10">
-                        <img src="<?php echo $urlResImage; ?>event/diDoctor/beijing.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345689862569" class="w100">
                     </div>
                 </div>
                 <div class="bt-gray2 pt20">
@@ -38,7 +38,7 @@ $this->show_header = false;
                         几乎同一时间，上午11时，上海的第一个患者成功接受滴滴医生的诊疗。据了解这位患者脚骨骨折患者，在点击一键叫医生之后，滴滴医生立刻启动，由名医主刀提供的上海德济医院的刘医生对这位患者进行了详细的分析和诊询。认真的提出了诊疗建议。据参与活动的工作人员介绍，刘医生今天工作到凌晨4点，上午10点又赶来参与滴滴医生的活动，获得了患者的好评。
                     </div>
                     <div class="mt5 mb10">
-                        <img src="<?php echo $urlResImage; ?>event/diDoctor/shanghai.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345690013262" class="w100">
                     </div>
                 </div>
                 <div class="bt-gray2 pt20">
@@ -50,7 +50,7 @@ $this->show_header = false;
                         18日下午，杭州浙江绿城心血管医院全科医生孙成勇接到了视障人士李先生（化名）的预约。30岁出头的李先生住在拱墅区双荡弄，据他说身体并无大碍，但对滴滴医生十分有兴趣，认为其对不便出行的人士就医起到了帮助。孙医生上门后，为李先生介绍了医生上门服务的检查项目，并为他测量了血压，结果也显示李先生的身体状况不错。
                     </div>
                     <div class="mt5 mb10">
-                        <img src="<?php echo $urlResImage; ?>event/diDoctor/hangzhou.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345689959810" class="w100">
                     </div>
                 </div>
                 <div class="bt-gray2 pt20">
@@ -62,7 +62,7 @@ $this->show_header = false;
                         18日下午，名医主刀的合作医院南京医科大学二附院的林富春医生接到了张先生（化名）的预约，据张先生介绍他作为某汽车租赁公司的老总，未加入滴滴专车的行列，这次却对滴滴医生的活动很感兴趣，就呼叫了滴滴医生，林医生到了现场为张先生做了常规检查，测量血压及简单的诊询。检查结果是血压偏高，林医生给张先生提了一些建议，在饮食习惯上，要控制饮食，多吃蔬菜，比如芹菜降血压，生活工作方面，建议多锻炼身体，注意减肥，控制血脂。张先生对于滴滴医生的服务非常满意，原本以为只是简单的走个形式，没想到却获得了医生细致的诊询服务。
                     </div>
                     <div class="mt5 mb10">
-                        <img src="<?php echo $urlResImage; ?>event/diDoctor/nanjing.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345689987767" class="w100">
                     </div>
                 </div>
                 <div class="bt-gray2 pt20">
