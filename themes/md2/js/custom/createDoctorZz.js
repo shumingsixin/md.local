@@ -110,6 +110,8 @@ $(function () {
     function ajaxSubmitForm() {
         var domForm = $("#docHz-form");
         var formData = toFormData(domForm);
+        var encryptContext = do_encrypt(formData);
+        var param = {param: encryptContext};
         var fee = checkFee();
         if ((fee == "") || (isNaN(fee)) || (fee < 0)) {
             $('.feeNum').after('<div id="fee-error" class="error">请输入金额</div>');
@@ -121,10 +123,8 @@ $(function () {
         $.ajax({
             type: 'post',
             url: actionUrl,
-            data: formData,
+            data: param,
             dataType: "json",
-            processData: false,
-            contentType: false,
             'success': function (data) {
                 if (data.status) {
                     location.href = returnUrl;
@@ -157,11 +157,11 @@ $(function () {
         }
         var id = $("#DoctorZhuanzhenForm_id").val();
         var is_join = $("#DoctorZhuanzhenForm_is_join").val();
-        var formData = new FormData();
-        formData.append('DoctorZhuanzhenForm[is_join]', is_join);
-        formData.append('DoctorZhuanzhenForm[preferred_patient]', preferred_patient);
-        formData.append('DoctorZhuanzhenForm[fee]', fee);
-        formData.append('DoctorZhuanzhenForm[prep_days]', prep_days);
+        var formData = '{"DoctorZhuanzhenForm":{"is_join":"' + encodeURIComponent(is_join) +
+                '","preferred_patient":"' + encodeURIComponent(preferred_patient) +
+                '","fee":"' + encodeURIComponent(fee) +
+                '","prep_days":"' + encodeURIComponent(prep_days) +
+                '"}}';
         return formData;
     }
     function checkFee() {

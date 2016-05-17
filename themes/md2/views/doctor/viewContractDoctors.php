@@ -43,6 +43,7 @@ $this->show_footer = false;
 </div>
 <script>
     $(document).ready(function () {
+        J.showMask();
 
         //请求医生
         $requestDoc = '<?php echo $urlAjaxContractDoctor; ?>';
@@ -63,24 +64,29 @@ $this->show_footer = false;
         $.ajax({
             url: urlAjaxLoadDoctor,
             success: function (data) {
-                //console.log(data);
-                readyDoc(data);
-                //setLocationUrl();
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                readyDoc(returnData);
             }
         });
-//
-//        $deptId = '';
-//        $deptName = '科室';
-//
-//
+
         //ajax异步加载科室
         $deptHtml = '';
         var urlloadDiseaseCategory = '<?php echo $urlDept; ?>';
         $.ajax({
             url: urlloadDiseaseCategory,
             success: function (data) {
-                //console.log(data);
-                $deptHtml = readyDept(data);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                $deptHtml = readyDept(returnData);
             }
         });
 
@@ -90,8 +96,16 @@ $this->show_footer = false;
         $.ajax({
             url: requestState,
             success: function (data) {
-                //console.log(data);
-                $stateHtml = readyState(data);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                $stateHtml = readyState(returnData);
+            },
+            error: function (data) {
+                console.log(data);
             }
         });
 

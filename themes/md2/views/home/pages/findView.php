@@ -20,7 +20,7 @@ $this->show_header = false;
             <div>
                 <div>
                     <a href="<?php echo $urlKaTeEr; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/kataer/kataerwangzi.jpg" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345307724930" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">
@@ -28,7 +28,7 @@ $this->show_header = false;
                 </div>
                 <div class="mt10">
                     <a href="<?php echo $urlLuJinsong; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/lujinsong/lujinsong.jpg" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345357860329" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">
@@ -36,7 +36,7 @@ $this->show_header = false;
                 </div>
                 <div class="mt10">
                     <a href="<?php echo $urlRenShancheng; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/renshancheng/renshancheng.jpg" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345375303173" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">
@@ -44,7 +44,7 @@ $this->show_header = false;
                 </div>
                 <div class="mt10">
                     <a href="<?php echo $urlMillionWelfare; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/millionWelfare/millionWelfare.jpg" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345400344854" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">
@@ -52,7 +52,7 @@ $this->show_header = false;
                 </div>
                 <div class="mt10">
                     <a href="<?php echo $urlForbes; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/forbes/forbes.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146345567301652" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">

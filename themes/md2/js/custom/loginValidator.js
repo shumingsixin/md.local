@@ -79,13 +79,16 @@ $(function () {
         }
     });
     function ajaxSubmitSmsForm() {
-        var formdata = domSmsForm.serialize();
+        var formdata = domSmsForm.serializeArray();
+        var dataArray = structure_formdata('UserDoctorMobileLoginForm', formdata);
+        var encryptContext = do_encrypt(dataArray);
+        var param = {param: encryptContext};
         $.ajax({
             type: 'post',
             url: actionSmsUrl,
-            data: formdata,
+            data: param,
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 if (data.status == 'ok') {
                     location.href = returnSmsUrl;
                 } else {
@@ -119,6 +122,11 @@ $(function () {
         var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请填写正确的手机号码");
+    // 密码验证
+    $.validator.addMethod("isPassword", function (value, element) {
+        var mobile = /^[a-zA-Z0-9_]+$/;
+        return this.optional(element) || (mobile.test(value));
+    }, "请填写字母、数字或下划线");
 
     btnSubmitPaw.click(function () {
         J.showMask('加载中...');
@@ -139,7 +147,8 @@ $(function () {
             },
             'UserLoginForm[password]': {
                 required: true,
-                minlength: 1
+                isPassword: true,
+                minlength: 4
             }
         },
         messages: {
@@ -149,7 +158,7 @@ $(function () {
             },
             'UserLoginForm[password]': {
                 required: "请输入密码",
-                minlength: "请输入正确的密码"
+                minlength: "密码至少4位"
             }
         },
         errorElement: "div",
@@ -160,40 +169,16 @@ $(function () {
         }
     });
     function ajaxSubmitPawForm() {
-        var formdata = domPawForm.serialize();
-//        console.log(formdata);
-//        var dataList = formdata.split('&');
-//        var formdata = structure_data('UserLoginForm', dataList);
-//        formdata = do_encrypt(formdata);
-//        var formdataarray = new Array();
-//        formdataarray['UserLoginForm']=formdata;
-//        console.log(formdataarray);
-//        var formdatajson = JSON.stringify(formdataarray);
-//        console.log(formdatajson);
-//        var formdataencrypt = do_encrypt(formdatajson);
-//        //alert())
-//        //console.log(formdataencrypt);
-//        return;
-
-//        var dataList = formdata.split('&');
-//        formdata = structure_data('UserLoginForm', dataList);
-//        console.log('' + formdata);
-//        formdata = do_encrypt('' + formdata);
-//        console.log(formdata);
-//        return;
-        var context = '{"formdata":"' + formdata + '"}';
-        var encryptContext = do_encrypt(context);
-        console.log(encryptContext);
-        //return;
+        var formdata = domPawForm.serializeArray();
+        var dataArray = structure_formdata('UserLoginForm', formdata);
+        var encryptContext = do_encrypt(dataArray);
+        var param = {param: encryptContext};
         $.ajax({
             type: 'post',
             url: actionPawUrl,
-            data: 'parameter:' + encryptContext,
+            data: param,
             success: function (data) {
-                console.log(data);
-                J.hideMask();
-                return;
-
+                //console.log(data);
                 if (data.status == 'ok') {
                     location.href = returnPawUrl;
                 } else {

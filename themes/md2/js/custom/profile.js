@@ -120,11 +120,14 @@ $(function () {
         //form插件的异步无刷新提交
         requestUrl = domForm.attr('data-url-action');
         var formdata = domForm.serializeArray();
+        var dataArray = structure_formdata('doctor', formdata);
+        var encryptContext = do_encrypt(dataArray);
+        var param = {param: encryptContext};
         disabledBtn(btnSubmit);
         domForm.ajaxSubmit({
             type: 'post',
             url: requestUrl,
-            data: formdata,
+            data: param,
             success: function (data) {
                 //success.
                 if (data.status == 'ok') {
@@ -146,7 +149,7 @@ $(function () {
             },
             error: function (XmlHttpRequest, textStatus, errorThrown) {
                 J.hideMask();
-                J.showToast('网络异常，修改失败', '', '2000');
+                J.showToast('网络异常，操作失败', '', '2000');
                 console.log(XmlHttpRequest);
                 console.log(textStatus);
                 console.log(errorThrown);

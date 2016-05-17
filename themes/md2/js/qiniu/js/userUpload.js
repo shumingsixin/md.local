@@ -103,29 +103,29 @@ $(function () {
                 var progress = new FileProgress(file, 'fsUploadProgress');
                 var infoJson = eval('(' + info + ')');
                 progress.setComplete(up, info);
-                var formdata = new FormData();
                 var fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
-                formdata.append('cert[user_id]', domForm.find('#userId').val());
-                formdata.append('cert[file_size]', file.size);
-                formdata.append('cert[mime_type]', file.type);
-                formdata.append('cert[file_name]', file.name);
-                formdata.append('cert[file_url]', file.name);
-                formdata.append('cert[file_ext]', fileExtension);
-                formdata.append('cert[remote_domain]', domForm.find('#domain').val());
-                formdata.append('cert[remote_file_key]', infoJson.key);
+                var formdata = '{"cert":{"user_id":"' + encodeURIComponent(domForm.find('#userId').val()) +
+                        '","file_size":"' + encodeURIComponent(file.size) +
+                        '","mime_type":"' + encodeURIComponent(file.type) +
+                        '","file_name":"' + encodeURIComponent(file.name) +
+                        '","file_url":"' + encodeURIComponent(file.name) +
+                        '","file_ext":"' + encodeURIComponent(fileExtension) +
+                        '","remote_domain":"' + encodeURIComponent(domForm.find('#domain').val()) +
+                        '","remote_file_key":"' + encodeURIComponent(infoJson.key) +
+                        '"}}';
+                var encryptContext = do_encrypt(formdata);
+                var param = {param: encryptContext};
                 $.ajax({
                     url: domForm.attr('data-url-uploadfile'),
-                    data: formdata,
+                    data: param,
                     type: 'post',
-                    contentType: false,
-                    processData: false,
                     success: function (data) {
                         //console.log('保存信息返回数据:' + data);
-                        if (data.status == 'no') {
+                        if (data.status == 'ok') {
+                            //alert('上传成功');
+                        } else {
                             returnResult = false;
                             //alert('上传失败!');
-                        } else {
-                            //alert('上传成功');
                         }
                     },
                     error: function (data) {

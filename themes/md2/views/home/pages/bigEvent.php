@@ -6,30 +6,6 @@ $this->show_header = false;
 ?>
 <style>
     section.active{top:0px;}
-
-    #bigEvent_article{
-        background-color: #F0EFF4;
-    }
-    #bigEvent_article .january{
-        background: url('<?php echo $urlResImage; ?>/event/bigEvent/january.png') no-repeat;
-        background-size: 14px;
-    }
-    #bigEvent_article .februaryStepOne{
-        background: url('<?php echo $urlResImage; ?>/event/bigEvent/februaryStepOne.png') no-repeat;
-        background-size: 14px;
-    }
-    #bigEvent_article .februaryStepTwo{
-        background: url('<?php echo $urlResImage; ?>/event/bigEvent/februaryStepTwo.png') no-repeat;
-        background-size: 14px;
-    }
-    #bigEvent_article .februaryStepThree{
-        background: url('<?php echo $urlResImage; ?>/event/bigEvent/februaryStepThree.png') no-repeat;
-        background-size: 14px;
-    }
-    #bigEvent_article .march{
-        background: url('<?php echo $urlResImage; ?>/event/bigEvent/march.png') no-repeat;
-        background-size: 14px;
-    }
 </style>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?> >
     <section id="" class="active" data-init="true">

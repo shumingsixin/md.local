@@ -17,6 +17,7 @@ class QiniuController extends MobiledoctorController {
      */
     public function actionAjaxPatientToken() {
         $url = 'http://file.mingyizhudao.com/api/tokenpatientmr';
+        // $url = 'http://192.168.31.119/file.myzd.com/api/tokenpatientmr';
         $data = $this->send_get($url);
         $output = array('uptoken' => $data['results']['uploadToken']);
         $this->renderJsonOutput($output);
@@ -24,9 +25,10 @@ class QiniuController extends MobiledoctorController {
 
     //保存医生证明信息
     public function actionAjaxDrCert() {
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
-        if (isset($_POST['cert'])) {
-            $values = $_POST['cert'];
+        if (isset($post['cert'])) {
+            $values = $post['cert'];
             $form = new UserDoctorCertForm();
             $form->setAttributes($values, true);
             $form->user_id = $this->getCurrentUserId();
@@ -49,9 +51,10 @@ class QiniuController extends MobiledoctorController {
 
     //保存医生证明信息
     public function actionAjaxPatienMr() {
+        $post = $this->decryptInput();
         $output = array('status' => 'no');
-        if (isset($_POST['patient'])) {
-            $values = $_POST['patient'];
+        if (isset($post['patient'])) {
+            $values = $post['patient'];
             $form = new PatientMRFileForm();
             $form->setAttributes($values, true);
             $form->creator_id = $this->getCurrentUserId();

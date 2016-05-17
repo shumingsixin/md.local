@@ -7,11 +7,11 @@
  */
 class PayManager {
 
-    public function doPingxxPay($refNo, $channel, $refurl, $openid='') {
+    public function doPingxxPay($refNo, $channel, $refurl, $openid = '') {
         $pingCharge = null;
         $apisvs = new ApiViewSalesOrder($refNo);
         $output = $apisvs->loadApiViewData();
-        
+
         $order = $output->results->salesOrder;
         $booking = $output->results->booking;
         if ($order === NULL) {
@@ -64,14 +64,14 @@ class PayManager {
         return $pingCharge;
     }
 
-    public function createPingxxExtra(SalesPayment $payment, $channel, $refurl, $yeepayIndentity, $openid='') {
+    public function createPingxxExtra(SalesPayment $payment, $channel, $refurl, $yeepayIndentity, $openid = '') {
         //$extra 在使用某些渠道的时候，需要填入相应的参数，其它渠道则是 array() .具体见以下代码或者官网中的文档。其他渠道时可以传空值也可以不传。
         $extra = array();
         switch ($channel) {
             case 'alipay_pc_direct':
                 $extra = array(
 //                    'success_url' => 'http://test.mingyizd.com/payment/alipayReturn'  //test
-                    'success_url' => 'http://www.mingyizhudao.com/payment/alipayReturn' //prod
+                    'success_url' => 'http://md.mingyizhudao.com/payment/alipayReturn' //prod
                 );
                 break;
             case 'alipay_wap':
@@ -115,7 +115,7 @@ class PayManager {
                     'terminal_type' => 3,
                     'terminal_id' => 'chuangxian10012471338',
                     'user_ua' => Yii::app()->request->getUserAgent(),
-                    'result_url' => 'http://mingyizhudao.com/payment/yeepayReturn?outno=' . $payment->getUid()
+                    'result_url' => 'http://md.mingyizhudao.com/payment/yeepayReturn?outno=' . $payment->getUid()
                 );
                 break;
             case 'jdpay_wap':

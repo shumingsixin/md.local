@@ -28,7 +28,7 @@
         Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/Jingle.custom.js?ts=' . time(), CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/jsencrypt.js?ts=' . time(), CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/app/app.js', CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/main.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/main.js?ts=' . time(), CClientScript::POS_END);
 //        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/common.min.js?ts=' . time(), CClientScript::POS_END);
         ?>
     </head>

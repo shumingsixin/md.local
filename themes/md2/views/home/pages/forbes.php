@@ -17,7 +17,7 @@ $this->show_header = false;
                     </div>
                 </div>
                 <div class="mt20">
-                    <img src="<?php echo $urlResImage; ?>event/forbes/list.png" class="w100">
+                    <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146346289424458" class="w100">
                 </div>
                 <div class="pl10 pr10">
                     <div class="mt20 text-indent-2">
@@ -40,7 +40,7 @@ $this->show_header = false;
                     </div>
                 </div>
                 <div class="mt20">
-                    <img src="<?php echo $urlResImage; ?>event/forbes/forbesPersonal.png" class="w100">
+                    <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146346289451016" class="w100">
                 </div>
                 <div class="pl10 pr10">
                     <div class="grid color-green mt20">
@@ -73,7 +73,8 @@ $this->show_header = false;
                         在实现手术全流程的整合后，名医主刀的第三步战略是实现线上、线下的打通，搭建自己的线下手术室，让全天下的医生都能在这里自由行医，让更多的患者都可以获得更好、更及时的手术治疗，这将是一个超过1000亿美元的市场。
                     </div>
                 </div>
-                <div class="mt20 mb50 text-center">
+                <div class='pb50'></div>
+                <div class="mt20 mb50 text-center hide">
                     <div class="grid color-white">
                         <div class="col-1"></div>
                         <div id="like" class="col-0 w90p addLike pt55">

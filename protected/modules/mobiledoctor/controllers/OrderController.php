@@ -17,7 +17,7 @@ class OrderController extends MobiledoctorController {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('view', 'loadOrderPay'),
+                'actions' => array('view', 'loadOrderPay', 'payResult'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -108,6 +108,7 @@ class OrderController extends MobiledoctorController {
             'data' => $output
         ));
     }
+
     //分批支付订单
     public function actionPayOrders($bookingId, $orderType) {
         $apiSvc = new ApiViewPayOrders($bookingId, $orderType);
@@ -115,6 +116,19 @@ class OrderController extends MobiledoctorController {
         $this->render('payOrders', array(
             'data' => $output
         ));
+    }
+
+    public function actionPayResult($paymentcode) {
+        $payment = SalesPayment::model()->getByAttributes(array('uid' => $paymentcode), array('paymentOrder'));
+        $order = $payment->paymentOrder;
+        if ($order === NULL) {
+            throw new CHttpException(404, 'The requested page does not exist.');
+        }
+        $this->show_header = true;
+        $this->show_footer = false;
+        $this->show_baidushangqiao = false;
+
+        $this->render('payResult', array('order' => $order));
     }
 
 }

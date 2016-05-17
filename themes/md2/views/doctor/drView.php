@@ -103,7 +103,15 @@ $urlDoctorView = $this->createUrl('doctor/view');
             url: '<?php echo $urlAjaxViewDoctorHz; ?>',
             async: false,
             success: function (data) {
-                setDoctorHzInfo(data.results.userDoctorHz);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                if (returnData.results.userDoctorHz != null) {
+                    setDoctorHzInfo(returnData.results.userDoctorHz);
+                }
             }
         });
     }
@@ -113,7 +121,15 @@ $urlDoctorView = $this->createUrl('doctor/view');
             url: '<?php echo $urlAjaxViewDoctorZz; ?>',
             async: false,
             success: function (data) {
-                setDoctorZzInfo(data.results.userDoctorZz);
+                //构造json
+                var structureData = structure_data(data);
+                //解密
+                var returnData = do_decrypt(structureData);
+                //解析数据
+                returnData = analysis_data(returnData);
+                if (returnData.results.userDoctorZz != null) {
+                    setDoctorZzInfo(returnData.results.userDoctorZz);
+                }
             }
         });
     }
@@ -174,14 +190,13 @@ $urlDoctorView = $this->createUrl('doctor/view');
 
     //选择不参与异步修改会诊信息
     function ajaxRemoveDoctorHz() {
-        var formData = new FormData();
-        formData.append('disjoin', 0);
+        var formdata = '{"form":{"disjoin":"0"}}';
+        var encryptContext = do_encrypt(formdata);
+        var param = {param: encryptContext};
         $.ajax({
             type: 'post',
             url: '<?php echo $urlDoctorHzSubmit ?>',
-            data: formData,
-            processData: false,
-            contentType: false,
+            data: param,
             'success': function (data) {
                 if (data.status == 'ok') {
                     $('.huizhenInfo').remove();
@@ -199,14 +214,13 @@ $urlDoctorView = $this->createUrl('doctor/view');
     }
     //选择不参与异步修改转诊信息
     function ajaxRemoveDoctorZz() {
-        var formData = new FormData();
-        formData.append('disjoin', 0);
+        var formdata = '{"form":{"disjoin":"0"}}';
+        var encryptContext = do_encrypt(formdata);
+        var param = {param: encryptContext};
         $.ajax({
             type: 'post',
             url: '<?php echo $urlDoctorZzSubmit ?>',
-            data: formData,
-            processData: false,
-            contentType: false,
+            data: param,
             'success': function (data) {
                 if (data.status == 'ok') {
                     $('.zhuanzhenInfo').remove();

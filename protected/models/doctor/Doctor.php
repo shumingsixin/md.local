@@ -560,6 +560,7 @@ class Doctor extends EActiveRecord {
         isset($this->reason_one) && $data[] = $this->reason_one;
         isset($this->reason_two) && $data[] = $this->reason_two;
         isset($this->reason_three) && $data[] = $this->reason_three;
+        isset($this->reason_four) && $data[] = $this->reason_four;
         return $data;
     }
 

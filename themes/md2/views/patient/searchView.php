@@ -31,8 +31,10 @@ $urlPatientView = $this->createUrl('patient/view', array('id' => ''));
                 $.ajax({
                     url: '<?php echo $urlAjaxSearch; ?>?name=' + searchName,
                     success: function (data) {
-                        //console.log(data);
-                        readyPage(data);
+                        var structureData = structure_data(data);
+                        var returnData = do_decrypt(structureData);
+                        returnData = analysis_data(returnData);
+                        readyPage(returnData);
                     }
                 });
             }

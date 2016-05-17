@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.form.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/jquery.validate.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/register.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/register.js?ts=' . time(), CClientScript::POS_END);
 ?>
 <?php
 $this->setPageTitle('用户注册');
@@ -9,7 +9,7 @@ $urlRegister = $this->createUrl("doctor/register");
 $urlGetSmsVerifyCode = $this->createAbsoluteUrl('/auth/sendSmsVerifyCode');
 $urlDoctorValiCaptcha = $this->createUrl("doctor/valiCaptcha");
 $urlDoctorAjaxRegister = $this->createUrl('doctor/ajaxRegister');
-$urlDoctorView = $this->createUrl('doctor/view');
+$urlDoctorProfile = $this->createUrl('doctor/profile');
 $authActionType = AuthSmsVerify::ACTION_USER_REGISTER;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $this->show_footer = false;
@@ -36,7 +36,7 @@ $this->show_footer = false;
                     // controller action is handling ajax validation correctly.
                     // There is a call to performAjaxValidation() commented in generated controller code.
                     // See class documentation of CActiveForm for details on this.
-                    'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false', 'data-url-checkCode' => $urlDoctorValiCaptcha, 'data-url-action' => $urlDoctorAjaxRegister, 'data-url-return' => $urlDoctorView),
+                    'htmlOptions' => array('role' => 'form', 'autocomplete' => 'off', 'data-ajax' => 'false', 'data-url-checkCode' => $urlDoctorValiCaptcha, 'data-url-action' => $urlDoctorAjaxRegister, 'data-url-return' => $urlDoctorProfile),
                     'enableClientValidation' => false,
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
