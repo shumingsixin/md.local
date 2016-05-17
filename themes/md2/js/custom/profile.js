@@ -121,7 +121,7 @@ $(function () {
         requestUrl = domForm.attr('data-url-action');
         var formdata = domForm.serializeArray();
         var dataArray = structure_formdata('doctor', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         disabledBtn(btnSubmit);
         domForm.ajaxSubmit({

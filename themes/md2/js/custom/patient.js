@@ -100,7 +100,7 @@ $(function () {
         requestUrl = domForm.attr('data-url-action');
         var formdata = domForm.serializeArray();
         var dataArray = structure_formdata('patient', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         console.log(param);
         $.ajax({
@@ -113,7 +113,7 @@ $(function () {
                     returnUrl += '/addBackBtn/1?id=' + data.patient.id + '&returnUrl=' + $returnUrl;
                     if (type == 'update') {
                         J.showToast('修改成功', '', '1000');
-                    }else{
+                    } else {
                         J.showToast('创建成功', '', '1000');
                     }
                     setTimeout(function () {

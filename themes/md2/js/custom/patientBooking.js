@@ -68,7 +68,7 @@ $(function () {
         disabledBtn(btnSubmit);
         var formdata = domForm.serializeArray();
         var dataArray = structure_formdata('booking', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         requestUrl = domForm.attr('action');
         $.ajax({

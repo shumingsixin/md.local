@@ -95,7 +95,7 @@ $(function () {
         disabledBtn(btnSubmit);
         var formdata = domForm.serializeArray();
         var dataArray = structure_formdata('UserRegisterForm', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         var requestUrl = domForm.attr("data-url-action");
         var returnUrl = domForm.attr('data-url-return');

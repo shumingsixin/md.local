@@ -106,7 +106,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 if (returnData.results.userDoctorHz != null) {
@@ -124,7 +124,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 if (returnData.results.userDoctorZz != null) {
@@ -191,7 +191,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
     //选择不参与异步修改会诊信息
     function ajaxRemoveDoctorHz() {
         var formdata = '{"form":{"disjoin":"0"}}';
-        var encryptContext = do_encrypt(formdata);
+        var encryptContext = do_encrypt(formdata, pubkey);
         var param = {param: encryptContext};
         $.ajax({
             type: 'post',
@@ -215,7 +215,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
     //选择不参与异步修改转诊信息
     function ajaxRemoveDoctorZz() {
         var formdata = '{"form":{"disjoin":"0"}}';
-        var encryptContext = do_encrypt(formdata);
+        var encryptContext = do_encrypt(formdata, pubkey);
         var param = {param: encryptContext};
         $.ajax({
             type: 'post',

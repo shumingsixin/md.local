@@ -67,7 +67,7 @@ $this->show_footer = false;
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 readyDoc(returnData);
@@ -83,7 +83,7 @@ $this->show_footer = false;
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 $deptHtml = readyDept(returnData);
@@ -99,7 +99,7 @@ $this->show_footer = false;
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 $stateHtml = readyState(returnData);

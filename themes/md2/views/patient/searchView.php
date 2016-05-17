@@ -32,7 +32,7 @@ $urlPatientView = $this->createUrl('patient/view', array('id' => ''));
                     url: '<?php echo $urlAjaxSearch; ?>?name=' + searchName,
                     success: function (data) {
                         var structureData = structure_data(data);
-                        var returnData = do_decrypt(structureData);
+                        var returnData = do_decrypt(structureData, privkey);
                         returnData = analysis_data(returnData);
                         readyPage(returnData);
                     }

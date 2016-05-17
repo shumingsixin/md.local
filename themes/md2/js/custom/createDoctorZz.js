@@ -110,7 +110,7 @@ $(function () {
     function ajaxSubmitForm() {
         var domForm = $("#docHz-form");
         var formData = toFormData(domForm);
-        var encryptContext = do_encrypt(formData);
+        var encryptContext = do_encrypt(formData, pubkey);
         var param = {param: encryptContext};
         var fee = checkFee();
         if ((fee == "") || (isNaN(fee)) || (fee < 0)) {

@@ -47,7 +47,7 @@ $('#stateSelect').tap(function () {
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 readyDoc(returnData);
@@ -129,7 +129,7 @@ function deptSelect() {
                 //构造json
                 var structureData = structure_data(data);
                 //解密
-                var returnData = do_decrypt(structureData);
+                var returnData = do_decrypt(structureData, privkey);
                 //解析数据
                 returnData = analysis_data(returnData);
                 readyDoc(returnData);
@@ -251,7 +251,7 @@ function initPage(dataPage) {
                     //构造json
                     var structureData = structure_data(data);
                     //解密
-                    var returnData = do_decrypt(structureData);
+                    var returnData = do_decrypt(structureData, privkey);
                     //解析数据
                     returnData = analysis_data(returnData);
                     readyDoc(returnData);
@@ -273,7 +273,7 @@ function initPage(dataPage) {
                     //构造json
                     var structureData = structure_data(data);
                     //解密
-                    var returnData = do_decrypt(structureData);
+                    var returnData = do_decrypt(structureData, privkey);
                     //解析数据
                     returnData = analysis_data(returnData);
                     readyDoc(returnData);
@@ -297,7 +297,7 @@ function changePage() {
             //构造json
             var structureData = structure_data(data);
             //解密
-            var returnData = do_decrypt(structureData);
+            var returnData = do_decrypt(structureData, privkey);
             //解析数据
             returnData = analysis_data(returnData);
             readyDoc(returnData);

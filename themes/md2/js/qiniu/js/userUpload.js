@@ -113,7 +113,7 @@ $(function () {
                         '","remote_domain":"' + encodeURIComponent(domForm.find('#domain').val()) +
                         '","remote_file_key":"' + encodeURIComponent(infoJson.key) +
                         '"}}';
-                var encryptContext = do_encrypt(formdata);
+                var encryptContext = do_encrypt(formdata, pubkey);
                 var param = {param: encryptContext};
                 $.ajax({
                     url: domForm.attr('data-url-uploadfile'),

@@ -181,7 +181,7 @@ $(function () {
         disabledBtn($("#btnSubmit"));
         var domForm = $("#docHz-form");
         var formData = toFormData(domForm);
-        var encryptContext = do_encrypt(formData);
+        var encryptContext = do_encrypt(formData, pubkey);
         var param = {param: encryptContext};
         var min_no_surgery = checkSurgery();
         if ((isNaN(min_no_surgery)) || (min_no_surgery < 1)) {

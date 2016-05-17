@@ -81,7 +81,7 @@ $(function () {
     function ajaxSubmitSmsForm() {
         var formdata = domSmsForm.serializeArray();
         var dataArray = structure_formdata('UserDoctorMobileLoginForm', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         $.ajax({
             type: 'post',
@@ -171,7 +171,7 @@ $(function () {
     function ajaxSubmitPawForm() {
         var formdata = domPawForm.serializeArray();
         var dataArray = structure_formdata('UserLoginForm', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         $.ajax({
             type: 'post',

@@ -96,7 +96,7 @@ $(function () {
         disabledBtn(btnSubmit);
         var formdata = domForm.serializeArray();
         var dataArray = structure_formdata('ForgetPasswordForm', formdata);
-        var encryptContext = do_encrypt(dataArray);
+        var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
         requestUrl = domForm.attr("data-url-action");
         returnUrl = domForm.attr('data-url-return');
