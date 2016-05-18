@@ -40,15 +40,36 @@ $patientInfo = $patientInfo->results->patientInfo;
                 ));
                 ?>
                 <?php echo $form->hiddenField($model, 'patient_id', array('name' => 'booking[patient_id]', 'value' => $patientInfo->id)); ?>
+                <?php echo $form->hiddenField($model, 'expected_doctor', array('name' => 'booking[expected_doctor]', 'value' => $doctor->name)); ?>
+                <?php echo $form->hiddenField($model, 'expected_hospital', array('name' => 'booking[expected_hospital]', 'value' => $doctor->hospitalName)); ?>
+                <?php echo $form->hiddenField($model, 'expected_dept', array('name' => 'booking[expected_dept]', 'value' => $doctor->hpDeptName)); ?>
+                <div id="travel_type" class="mt20 triangleGreen">
+                    <div class="font-s16">
+                        <span class="">请选择就诊意向：</span>
+                    </div>
+                    <div class="grid mt5">
+                        <div data-travel="1" class="col-1 w50 intention mr10">
+                            邀请医生过来
+                        </div>
+                        <div data-travel="2" class="col-1 w50 intention ml10">
+                            希望转诊治疗
+                        </div>
+                    </div>
+                </div>
                 <div class="mt20 triangleGreen">
                     <div class="font-s16">
-                        <span class="">您的意向主刀专家：</span>
+                        <span class="">您期望预约的主刀专家：</span>
+                    </div>
+                    <div class="mt5 grid">
+                        <div class="col-1 w50">
+                            姓名：<?php echo $doctor->name; ?>
+                        </div>
+                        <div class="col-1 w50">
+                            科室：<?php echo $doctor->hpDeptName; ?>
+                        </div>
                     </div>
                     <div class="mt5">
-                        <?php echo $doctor->name; ?>
-                    </div>
-                    <div class="mt5">
-                        <?php echo $doctor->hospitalName; ?> <?php echo $doctor->hpDeptName; ?>
+                        医院：<?php echo $doctor->hospitalName; ?>
                     </div>
                 </div>
                 <?php
@@ -64,19 +85,6 @@ $patientInfo = $patientInfo->results->patientInfo;
                     </div>
                     <div class="mt5">
                         <?php echo $patientInfo->name; ?> <?php echo $age; ?> <?php echo $patientInfo->gender; ?>
-                    </div>
-                </div>
-                <div id="travel_type" class="mt20 triangleGreen">
-                    <div class="font-s16">
-                        <span class="">请选择就诊意向：</span>
-                    </div>
-                    <div class="grid mt5">
-                        <div data-travel="1" class="col-1 w50 intention mr10">
-                            邀请医生过来
-                        </div>
-                        <div data-travel="2" class="col-1 w50 intention ml10">
-                            希望转诊治疗
-                        </div>
                     </div>
                 </div>
                 <?php echo $form->hiddenField($model, 'travel_type', array('name' => 'booking[travel_type]')); ?>

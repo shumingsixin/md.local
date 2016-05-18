@@ -420,6 +420,9 @@ header{
     background-position-x: 20px;
 }
 /*就诊意向*/
+#patientBookingCreate_article{
+    background-color: #EAEFF1;
+}
 #patientBookingCreate_article .intention {
     border: 1px solid #E7E7E7;
     padding: 5px;
@@ -439,6 +442,13 @@ header{
 #patientBookingCreate_article .noTravelType {
     color: #E21E1A;
     font-size: 12px;
+}
+#patientBookingCreate_article .noPadding{
+    padding: 10px 0px 10px 0px;
+    margin-bottom: 0px;
+    border: none!important;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
 }
 
 /*登录*/

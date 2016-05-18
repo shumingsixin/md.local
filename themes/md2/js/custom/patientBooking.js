@@ -28,6 +28,13 @@ $(function () {
         }
         var bool = validator.form();
         if (bool) {
+            if ($('input[name="booking[expected_doctor]"]').val() != '' || $('input[name="booking[expected_hospital]"]').val() != '' || $('input[name="booking[expected_dept]"]').val() != '') {
+                if (!($('input[name="booking[expected_doctor]"]').val() != '' && $('input[name="booking[expected_hospital]"]').val() != '' && $('input[name="booking[expected_dept]"]').val() != '')) {
+                    $('#expectedError.error').remove();
+                    $('#expectedInfo').after('<div id="expectedError" class="error">请补全信息</div> ');
+                    return;
+                }
+            }
             formAjaxSubmit();
         }
     });
