@@ -64,6 +64,7 @@ class PatientInfo extends EActiveRecord {
         return array(
             //'patientMR' => array(self::HAS_ONE, 'PatientMR', 'patient_id'), // @DELETE
             'patientMRFiles' => array(self::HAS_MANY, 'PatientMRFile', 'patient_id'),
+            'patientDAFiles' => array(self::HAS_MANY, 'PatientMRFile', '', 'on' => 't.id = patientDAFiles.patient_id AND patientDAFiles.report_type = "da"'),
             'patientBookings' => array(self::HAS_MANY, 'PatientBooking', 'patient_id'),
             'patientCreator' => array(self::BELONGS_TO, 'User', 'creator_id'),
             'patientCountry' => array(self::BELONGS_TO, 'RegionCountry', 'country_id'),
@@ -100,7 +101,7 @@ class PatientInfo extends EActiveRecord {
         );
     }
 
-    protected function trimAttributes(){
+    protected function trimAttributes() {
         return array('name', 'disease_name');
     }
 
@@ -266,7 +267,7 @@ class PatientInfo extends EActiveRecord {
         }
     }
 
-    public function getMobile(){
+    public function getMobile() {
         return $this->mobile;
     }
 
@@ -281,6 +282,5 @@ class PatientInfo extends EActiveRecord {
     public function getRemark($ntext = true) {
         return $this->getTextAttribute($this->remark, $ntext);
     }
-
 
 }

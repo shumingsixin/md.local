@@ -2,7 +2,7 @@
 
 class UserRegisterForm extends EFormModel {
 
-    public $role;
+    public $role = User::ROLE_DOCTOR;
     public $username;
     public $password;
     public $password_repeat;
@@ -20,10 +20,10 @@ class UserRegisterForm extends EFormModel {
             array('username, password', 'required', 'message' => '请输入{attribute}', 'except' => 'getSmsCode'),
             array('username', 'length', 'is' => 11, 'message' => '请输入正确的11位中国手机号码', 'except' => 'getSmsCode'),
             array('username', 'numerical', 'integerOnly' => true, 'message' => '请输入正确的11位中国手机号码', 'except' => 'getSmsCode'),
-            array('role, terms','safe'),
+            array('role, terms', 'safe'),
             array('username', 'checkUnique'),
             array('password', 'length', 'min' => 4, 'max' => 40, 'tooShort' => '最短为4个字母或数字', 'except' => 'getSmsCode'),
-           // array('password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => '{attribute}不正确', 'except' => 'getSmsCode'),
+            // array('password_repeat', 'compare', 'compareAttribute' => 'password', 'message' => '{attribute}不正确', 'except' => 'getSmsCode'),
 //            array('terms', 'compare', 'compareValue' => 1, 'message' => '请同意{attribute}', 'except' => 'getSmsCode'),
             array('username', 'required', 'message' => '请输入{attribute}', 'on' => 'getSmsCode'),
             array('verify_code', 'required', 'message' => '请输入{attribute}'),

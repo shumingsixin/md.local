@@ -39,16 +39,16 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
     //调用model层方法
     private function loadPatientBookings() {
         $attributes = null;
-        $with = array('pbPatient');
+        $with = array('pbPatient' => array('patientDAFiles'));
         $options = array('limit' => $this->pagesize, 'offset' => (($this->page - 1) * $this->pagesize), 'order' => 't.date_updated DESC');
-        $models = $this->patientMgr->loadAllPatientBookingByCreatorId($this->creatorId,$this->status, $attributes, $with, $options);
+        $models = $this->patientMgr->loadAllPatientBookingByCreatorId($this->creatorId, $this->status, $attributes, $with, $options);
         if (arrayNotEmpty($models)) {
             $this->setPatientBookings($models);
         }
     }
 
     public function loadCount() {
-        return $this->patientMgr->loadPatientBookingNumberByCreatorId($this->creatorId,$this->status);
+        return $this->patientMgr->loadPatientBookingNumberByCreatorId($this->creatorId, $this->status);
     }
 
     //查询到的数据过滤
@@ -58,10 +58,17 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
             $data->id = $model->getId();
             $data->refNo = $model->getRefNo();
             $data->status = $model->getStatus();
-            $data->isDepositPaid =  $model->getIsDepositPaid();
+            $data->isDepositPaid = $model->getIsDepositPaid();
             $data->dateUpdated = $model->getDateUpdated('m月d日');
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
+                if ($this->status == PatientBooking::BK_STATUS_SERVICE_PAIDED) {
+                    $files = $patientInfo->patientDAFiles;
+                    $data->daType = "待上传";
+                    if (arrayNotEmpty($files)) {
+                        $data->daType = "待审核";
+                    }
+                }
                 $data->patientId = $patientInfo->getId();
                 $data->name = $patientInfo->getName();
                 $data->dataCreate = $patientInfo->getDateCreated();
