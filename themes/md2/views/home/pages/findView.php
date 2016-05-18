@@ -60,7 +60,7 @@ $this->show_header = false;
                 </div>
                 <div class="mt10">
                     <a href="<?php echo $urlDiDoctor; ?>">
-                        <img src="<?php echo $urlResImage; ?>event/diDoctor/diDoctor.png" class="w100">
+                        <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146349221777345" class="w100">
                     </a>
                 </div>
                 <div class="pad10 text-center bg-white">
