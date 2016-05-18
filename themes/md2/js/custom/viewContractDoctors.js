@@ -44,13 +44,7 @@ $('#stateSelect').tap(function () {
         $.ajax({
             url: requestUrl,
             success: function (data) {
-                //构造json
-                var structureData = structure_data(data);
-                //解密
-                var returnData = do_decrypt(structureData, privkey);
-                //解析数据
-                returnData = analysis_data(returnData);
-                readyDoc(returnData);
+                readyDoc(data);
                 $('#stateTitle').html($stateName);
                 $('#stateTitle').attr('data-state', $stateId);
                 $('#deptTitle').html('科室');
@@ -126,13 +120,7 @@ function deptSelect() {
         $.ajax({
             url: requestUrl,
             success: function (data) {
-                //构造json
-                var structureData = structure_data(data);
-                //解密
-                var returnData = do_decrypt(structureData, privkey);
-                //解析数据
-                returnData = analysis_data(returnData);
-                readyDoc(returnData);
+                readyDoc(data);
                 $deptName = $deptName.length > 4 ? $deptName.substr(0, 3) + '...' : $deptName;
                 $('#deptTitle').html($deptName);
                 $('#deptTitle').attr('data-dept', $deptId);
@@ -248,13 +236,7 @@ function initPage(dataPage) {
             $.ajax({
                 url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
                 success: function (data) {
-                    //构造json
-                    var structureData = structure_data(data);
-                    //解密
-                    var returnData = do_decrypt(structureData, privkey);
-                    //解析数据
-                    returnData = analysis_data(returnData);
-                    readyDoc(returnData);
+                    readyDoc(data);
                     setLocationUrl();
                     $('#contractDoctors_article').scrollTop(0);
                 }
@@ -270,13 +252,7 @@ function initPage(dataPage) {
             $.ajax({
                 url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
                 success: function (data) {
-                    //构造json
-                    var structureData = structure_data(data);
-                    //解密
-                    var returnData = do_decrypt(structureData, privkey);
-                    //解析数据
-                    returnData = analysis_data(returnData);
-                    readyDoc(returnData);
+                    readyDoc(data);
                     setLocationUrl();
                     $('#contractDoctors_article').scrollTop(0);
                 }
@@ -294,13 +270,7 @@ function changePage() {
     $.ajax({
         url: $requestDoc + '?' + setUrlCondition() + '&getcount=1',
         success: function (data) {
-            //构造json
-            var structureData = structure_data(data);
-            //解密
-            var returnData = do_decrypt(structureData, privkey);
-            //解析数据
-            returnData = analysis_data(returnData);
-            readyDoc(returnData);
+            readyDoc(data);
             setLocationUrl();
             $('#contractDoctors_article').scrollTop(0);
         }

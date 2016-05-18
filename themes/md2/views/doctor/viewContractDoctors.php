@@ -64,13 +64,7 @@ $this->show_footer = false;
         $.ajax({
             url: urlAjaxLoadDoctor,
             success: function (data) {
-                //构造json
-                var structureData = structure_data(data);
-                //解密
-                var returnData = do_decrypt(structureData, privkey);
-                //解析数据
-                returnData = analysis_data(returnData);
-                readyDoc(returnData);
+                readyDoc(data);
             }
         });
 
@@ -80,13 +74,7 @@ $this->show_footer = false;
         $.ajax({
             url: urlloadDiseaseCategory,
             success: function (data) {
-                //构造json
-                var structureData = structure_data(data);
-                //解密
-                var returnData = do_decrypt(structureData, privkey);
-                //解析数据
-                returnData = analysis_data(returnData);
-                $deptHtml = readyDept(returnData);
+                $deptHtml = readyDept(data);
             }
         });
 
@@ -96,13 +84,7 @@ $this->show_footer = false;
         $.ajax({
             url: requestState,
             success: function (data) {
-                //构造json
-                var structureData = structure_data(data);
-                //解密
-                var returnData = do_decrypt(structureData, privkey);
-                //解析数据
-                returnData = analysis_data(returnData);
-                $stateHtml = readyState(returnData);
+                $stateHtml = readyState(data);
             },
             error: function (data) {
                 console.log(data);
