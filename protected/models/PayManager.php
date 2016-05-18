@@ -12,8 +12,8 @@ class PayManager {
         $apisvs = new ApiViewSalesOrder($refNo);
         $output = $apisvs->loadApiViewData();
 
-        $order = $output->results->salesOrder;
-        $booking = $output->results->booking;
+        $subject = empty($order->subject) ? '1' : $order->subject;
+        $body = empty($order->description) ? '1' : $order->description;
         if ($order === NULL) {
             //exception
             throw new CException('该订单-' . $refNo . ' 不存在');
