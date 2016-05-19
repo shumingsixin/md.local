@@ -115,6 +115,9 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                 pos: 'top-second',
                 showCloseBtn: true
             });
+            $('.imgpopup').click(function () {
+                J.closePopup()
+            });
         });
     }
 </script>

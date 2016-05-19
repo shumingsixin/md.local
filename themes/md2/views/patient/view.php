@@ -130,6 +130,9 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                 pos: 'top-second',
                 showCloseBtn: true
             });
+            $('.imgpopup').click(function () {
+                J.closePopup()
+            });
         });
     }
 </script>

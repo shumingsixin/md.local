@@ -205,6 +205,18 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                 innerHtml += '';
             }
             $(".imglist .filelist").html(innerHtml);
+
+            $('.imgWrap').tap(function () {
+                var imgUrl = $(this).find("img").attr("data-src");
+                J.popup({
+                    html: '<div class="imgpopup"><img src="' + imgUrl + '"></div>',
+                    pos: 'top-second',
+                    showCloseBtn: true
+                });
+                $('.imgpopup').click(function () {
+                    J.closePopup()
+                });
+            });
         }
 
         //待处理返回

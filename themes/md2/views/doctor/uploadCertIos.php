@@ -135,12 +135,15 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
         }
         $(".imglist .filelist").html(innerHtml);
         initDelete();
-        $('.imgWrap img').click(function () {
+        $('.imgWrap img').tap(function () {
             var imgUrl = $(this).attr("data-src");
             J.popup({
                 html: '<div class="imgpopup"><img src="' + imgUrl + '"></div>',
                 pos: 'top-second',
                 showCloseBtn: true
+            });
+            $('.imgpopup').click(function () {
+                J.closePopup();
             });
         });
     }

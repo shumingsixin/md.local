@@ -66,7 +66,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                                 <div class="text-left wrapper">
                                     <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-url-sendEmail="<?php echo $urlSendEmailForCert; ?>">
                                         <input id="userId" type="hidden" name="cert[user_id]" value="<?php echo $output['id']; ?>" />
-                                        <input type="hidden" id="domain" value="http://7xq939.com2.z0.glb.qiniucdn.com">
+                                        <input type="hidden" id="domain" value="http://drcert.file.mingyizhudao.com">
                                         <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxDrToken; ?>">
                                     </form>
                                 </div>
@@ -145,8 +145,8 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             <div id="jingle_toast" class="toast"><a href="#" class="font-s18">取消!</a></div>
             <div id="jingle_popup_mask" style="opacity: 0.3;"></div>
         </article>
-        <div id="imgConfirm" class="confirm" style="left: 0px; right: 0px;min-height: 50em;">
-            <div class="pad2">
+        <div id="imgConfirm" class="confirm" style="left: 0px; right: 0px;">
+            <div class="imgpopup">
                 <img src="">
             </div>
             <div id="tag_close_popup" class="icon cancel-circle"></div>
@@ -215,6 +215,9 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             var imgUrl = $(this).attr("data-src");
             $("#imgConfirm img").attr('src', imgUrl);
             $("#imgConfirm").show();
+        });
+        $('.imgpopup').click(function () {
+            $("#imgConfirm").hide();
         });
     }
     function initDelete() {

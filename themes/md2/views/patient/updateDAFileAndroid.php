@@ -53,7 +53,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                                 <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
                                     <input id="patientId" type="hidden" name="Booking[patient_id]" value="<?php echo $patientId; ?>" />
                                     <input id="reportType" type="hidden" name="Booking[report_type]" value="da" />
-                                    <input type="hidden" id="domain" value="http://7xq93p.com2.z0.glb.qiniucdn.com">
+                                    <input type="hidden" id="domain" value="http://mr.file.mingyizhudao.com">
                                     <input type="hidden" id="uptoken_url" value="<?php echo $urlQiniuAjaxToken; ?>">
                                 </form>
                             </div>
