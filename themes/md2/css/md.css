@@ -687,14 +687,15 @@ header{
 }
 #bookingList_nav .control-group li.active{
     background: #fff;
+    border-bottom: 1px solid #06c1ae;
 }
 #bookingList_nav .control-group li.active a, .control-group li.active .icon{
     color: #06c1ae;
 }
 
 /*预约详情*/
-#patientBookingView_article .list>li{
-    padding:10px;
+#patientBookingView_article{
+    background-color: #EEEEEE;
 }
 
 /*滴滴医生专题*/
@@ -860,6 +861,11 @@ header{
 /*收到预约详情*/
 #patientBookingView .list>li.noBorderTop:first-child {
     border-top: inherit;
+}
+
+/*patientView*/
+#patientView_article{
+    background-color: #EEEEEE;
 }
 
 /*支付成功*/

@@ -11,32 +11,44 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
 ?>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
-    <section id="yy_section" class="active" data-init="true">
+    <section class="active" data-init="true">
         <article id="patientBookingView_article" class="active" data-scroll="true">
-            <div class="">
-                <ul class="list">
-                    <li class="grid">
+            <div class="pad10">
+                <div class="border-gray bg-white br8">
+                    <div class="grid pl10 pr10 pt5 pb5 color-green bb-gray">
+                        <div class="col-1">基本信息</div>
+                        <div class="col-0">
+                            <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146364029000449" class="w22p">
+                        </div>
+                    </div>
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">就诊意向</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->travelType; ?></div>
-                    </li>
-                    <li class="grid">
+                    </div>
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">意向专家</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->expected_doctor; ?></div>
-                    </li>
-                </ul>
-                <div class="pad10">
-                    <div>诊疗意见</div>
-                    <div class="mt5"><?php echo $booking->detail; ?></div>
+                    </div>
+                    <div class="pad10">
+                        <div>诊疗意见</div>
+                        <div class="mt5"><?php echo $booking->detail; ?></div>
+                    </div>
                 </div>
-                <ul class="list">
-                    <li class="grid">
+                <div class="border-gray bg-white br8 mt10 mb20">
+                    <div class="grid pl10 pr10 pt5 pb5 color-green bb-gray">
+                        <div class="col-1">患者资料</div>
+                        <div class="col-0">
+                            <img src="http://7xsq2z.com2.z0.glb.qiniucdn.com/146364052256387" class="w24p">
+                        </div>
+                    </div>
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">患者姓名</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->patientName; ?></div>
-                    </li>
-                    <li class="grid">
+                    </div>
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">患者性别</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->gender; ?></div>
-                    </li>
+                    </div>
                     <?php
                     $yearly = $booking->age;
                     $monthly = "";
@@ -46,27 +58,33 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                         $yearly++;
                     }
                     ?>
-                    <li class="grid">
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">患者年龄</div>
                         <div class="col-1 w70 text-right"><?php echo $yearly; ?>岁<?php echo $monthly; ?></div>
-                    </li>
-                    <li class="grid">
+                    </div>
+                    <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">所在城市</div>
                         <div class="col-1 w70 text-right"><?php echo $booking->cityName; ?></div>
-                    </li>
-                </ul>
-                <div class="pad10 bb-gray">
-                    <div>疾病描述</div>
-                    <div class="mt5"><?php echo $booking->diseaseDetail; ?></div>
-                </div>
-                <div>
-                    <div class="grid middle h40 pl10 pr10">
-                        <div class="col-1">影像资料</div>
-                        <div class="col-0 color-green">
-                            <a href="<?php echo $urlUploadMRFile; ?>/patientBookingId/<?php echo $booking->id; ?>" class="color-green imgUrl" data-target="link">修改</a>
+                    </div>
+                    <div class="grid pad10 bb-gray">
+                        <div class="col-1 w30">疾病名称</div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->diseaseName; ?></div>
+                    </div>
+                    <div class="pad10 bb-gray">
+                        <div>疾病描述</div>
+                        <div class="mt5"><?php echo $booking->diseaseDetail; ?></div>
+                    </div>
+                    <div class="pad10 bb-gray">
+                        <div>
+                            影像资料
+                        </div>
+                        <div class="imglist">
                         </div>
                     </div>
-                    <div class="imglist">
+                    <div>
+                        <a href="<?php echo $urlUploadMRFile; ?>/patientBookingId/<?php echo $booking->id; ?>" data-target="link">
+                            <div class="color-green pad5 text-center">点击编辑</div>
+                        </a>
                     </div>
                 </div>
             </div>

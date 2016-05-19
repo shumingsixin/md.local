@@ -64,7 +64,7 @@ class PatientInfo extends EActiveRecord {
         return array(
             //'patientMR' => array(self::HAS_ONE, 'PatientMR', 'patient_id'), // @DELETE
             'patientMRFiles' => array(self::HAS_MANY, 'PatientMRFile', 'patient_id'),
-            'patientDAFiles' => array(self::HAS_MANY, 'PatientMRFile', '', 'on' => 't.id = patientDAFiles.patient_id AND patientDAFiles.report_type = "da"'),
+            'patientDAFiles' => array(self::HAS_MANY, 'PatientMRFile', 'patient_id', 'on' => "patientDAFiles.report_type =  'da'"),
             'patientBookings' => array(self::HAS_MANY, 'PatientBooking', 'patient_id'),
             'patientCreator' => array(self::BELONGS_TO, 'User', 'creator_id'),
             'patientCountry' => array(self::BELONGS_TO, 'RegionCountry', 'country_id'),

@@ -58,15 +58,16 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
             $data->id = $model->getId();
             $data->refNo = $model->getRefNo();
             $data->status = $model->getStatus();
+            $data->statusText = $model->getStatus(true);
             $data->isDepositPaid = $model->getIsDepositPaid();
             $data->dateUpdated = $model->getDateUpdated('m月d日');
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
-                if ($this->status == PatientBooking::BK_STATUS_SERVICE_PAIDED) {
+                if ($model->status == PatientBooking::BK_STATUS_SERVICE_PAIDED) {
                     $files = $patientInfo->patientDAFiles;
-                    $data->daType = "待上传";
+                    $data->statusText = "待上传";
                     if (arrayNotEmpty($files)) {
-                        $data->daType = "待审核";
+                        $data->statusText = "待审核";
                     }
                 }
                 $data->patientId = $patientInfo->getId();
@@ -76,16 +77,7 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
                 $data->diseaseDetail = $patientInfo->getDiseaseDetail();
                 $data->age = $patientInfo->getAge();
                 $data->ageMonth = $patientInfo->getAgeMonth();
-            } else {
-                $data->patientId = '';
-                $data->name = '';
-                $data->dataCreate = '';
-                $data->diseaseName = '';
-                $data->diseaseDetail = '';
-                $data->age = '';
-                $data->ageMonth = '';
             }
-
             $this->patientBookings[] = $data;
         }
     }

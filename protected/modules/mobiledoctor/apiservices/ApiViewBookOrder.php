@@ -46,7 +46,8 @@ class ApiViewBookOrder extends EApiViewService {
     }
 
     private function loadBooking() {
-        $booking = $this->patientMgr->loadPatientBookingById($this->bookingId);
+        $with = array('pbPatient' => array('patientDAFiles'));
+        $booking = $this->patientMgr->loadPatientBookingById($this->bookingId, $with);
         if (isset($booking)) {
             $this->setBooking($booking);
         }
@@ -71,6 +72,13 @@ class ApiViewBookOrder extends EApiViewService {
         $data->patientId = $model->getPatientId();
         $data->patientName = $model->getPatientName();
         $data->statusTitle = $model->getStatusTitle();
+        $patientInfo = $model->getPatient();
+        if ($model->status == PatientBooking::BK_STATUS_SERVICE_PAIDED) {
+            $files = $patientInfo->patientDAFiles;
+            if (arrayNotEmpty($files)) {
+                $data->statusTitle = "当前状态:出院小结审核中";
+            }
+        }
         $data->statusCode = $model->getStatus(false);
         $data->travelType = $model->getTravelType();
         $data->detail = $model->getDetail(false);
@@ -78,7 +86,7 @@ class ApiViewBookOrder extends EApiViewService {
         $this->bookingInfo = $data;
         $this->status = $model->getStatus(false);
     }
-    
+
     private function setOrder($models) {
         $needPay = 0; //剩余支付
         $payed = 0;

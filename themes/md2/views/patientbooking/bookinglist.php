@@ -5,6 +5,7 @@
 $this->setPageID('pMyBooking');
 $this->setPageTitle('我的订单');
 $status = Yii::app()->request->getQuery('status', 0);
+$BK_STATUS_SERVICE_PAIDED = StatCode::BK_STATUS_SERVICE_PAIDED;
 $currentUrl = $this->getCurrentRequestUrl();
 $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
 $urlPatientBookingList = $this->createUrl('patientBooking/list', array('addBackBtn' => 1, 'status' => ''));
@@ -30,7 +31,7 @@ $checkTeamDoctor = $teamDoctor;
 </header>
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="bookingList_section" class="active" data-init="true">
-        <nav id="bookingList_nav" class="header-secondary bg-white color-black3">
+        <nav id="bookingList_nav" class="header-secondary bg-white color-black3 font-s16">
             <ul class="control-group w100">
                 <?php
                 $statusActive = '';
@@ -93,6 +94,25 @@ $checkTeamDoctor = $teamDoctor;
                                     <div class="grid mt10">
                                         <div class="col-0">患者姓名:</div>
                                         <div class="col-1 pl5"><?php echo $booking->name; ?></div>
+                                        <?php
+                                        if ($status == 0 || $status == $BK_STATUS_SERVICE_PAIDED) {
+                                            if ($booking->statusText == '待支付') {
+                                                echo '<div class="col-0 color-red4">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '安排中') {
+                                                echo '<div class="col-0 color-green6">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '待确认') {
+                                                echo '<div class="col-0 color-green7">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '待上传') {
+                                                echo '<div class="col-0 color-blue4">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '待审核') {
+                                                echo '<div class="col-0 color-blue5">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '已完成') {
+                                                echo '<div class="col-0 color-green5">' . $booking->statusText . '</div>';
+                                            } else if ($booking->statusText == '已取消') {
+                                                echo '<div class="col-0 color-red3">' . $booking->statusText . '</div>';
+                                            }
+                                        }
+                                        ?>
                                     </div>
                                     <div class="grid mt10">
                                         <div class="col-0">疾病名称:</div>
