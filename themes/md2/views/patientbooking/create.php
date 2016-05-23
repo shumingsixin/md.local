@@ -90,14 +90,14 @@ $userDoctorCerts = $doctorCerts;
                                 <div class="col-1 w50 grid pl10">
                                     <div class="col-0 pt8">科室：</div>
                                     <div class="col-1">
-                                        <?php echo $form->textField($model, 'expected_hospital', array('name' => 'booking[expected_hospital]', 'class' => 'noPadding expected')); ?>
+                                        <?php echo $form->textField($model, 'expected_dept', array('name' => 'booking[expected_dept]', 'class' => 'noPadding expected')); ?>
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid">
+                            <div class="grid bb-gray3">
                                 <div class="col-0 pt8">医院：</div>
                                 <div class="col-1">
-                                    <?php echo $form->textField($model, 'expected_dept', array('name' => 'booking[expected_dept]', 'class' => 'noPadding expected')); ?>
+                                    <?php echo $form->textField($model, 'expected_hospital', array('name' => 'booking[expected_hospital]', 'class' => 'noPadding expected')); ?>
                                 </div>
                             </div>
                             <div class="font-s12 text-right pb5">如不填，将由名医助手为您推荐</div>

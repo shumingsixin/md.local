@@ -142,7 +142,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                 pos: 'top-second',
                 showCloseBtn: true
             });
-            $('.imgpopup').click(function () {
+            $('.imgpopup').tap(function () {
                 J.closePopup();
             });
         });
