@@ -101,15 +101,6 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                     </div>
                     <div class="col-1 pt3 grid">
                         <div class="col-0"><?php echo $booking->statusTitle; ?></div>
-                        <?php
-                        if ($booking->statusCode == $BK_STATUS_DONE) {
-                            ?>
-                            <div class="col-0 ml5 font-s12 bg-yellow color-white pl3 pr2">
-                                审核中
-                            </div>
-                            <?php
-                        }
-                        ?>
                     </div>
                 </div>
                 <div class="mt20 ml10 mr10 bbb">
@@ -120,7 +111,7 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                         </li>
                         <li class="grid">
                             <div class="col-0">意向专家</div>
-                            <div class="col-1 text-right"><?php echo $booking->doctorName; ?></div>
+                            <div class="col-1 text-right"><?php echo $booking->expectedDoctor; ?></div>
                         </li>
                         <li>
                             <div>诊疗意见</div>
