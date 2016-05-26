@@ -59,9 +59,7 @@ $this->show_header = false;
                     <?php
                     if ($hasBookingList) {
                         for ($i = 0; $i < count($hasBookingList); $i++) {
-                            $hasBookingPatient = $hasBookingList[$i];
-                            $patientInfo = $hasBookingPatient['patientInfo'];
-                            $patientBooking = $hasBookingPatient['patientBooking'];
+                            $patientInfo = $hasBookingList[$i];
                             $yearly = $patientInfo->age;
                             $yearlyText = '';
                             $monthly = "";
@@ -80,7 +78,7 @@ $this->show_header = false;
                             ?>
                             <div class="bb5-gray">
                                 <div class="mt10 ml10 mr10 mb10">
-                                    <a href="<?php echo $this->createUrl('patientBooking/view', array('id' => $patientBooking->id, 'addBackBtn' => 1)); ?>" class="color-000" data-target="link">
+                                    <a href="<?php echo $this->createUrl('patientBooking/view', array('id' => $patientInfo->bookingId, 'addBackBtn' => 1)); ?>" class="color-000" data-target="link">
                                         <div class="">
                                             <div class=" mb10">
                                                 <?php echo $patientInfo->name; ?>
@@ -109,8 +107,7 @@ $this->show_header = false;
                     <?php
                     if ($noBookingList) {
                         for ($i = 0; $i < count($noBookingList); $i++) {
-                            $noBookingPatient = $noBookingList[$i];
-                            $patientInfo = $noBookingPatient['patientInfo'];
+                            $patientInfo = $noBookingList[$i];
                             $yearly = $patientInfo->age;
                             $yearlyText = '';
                             $monthly = "";

@@ -159,6 +159,26 @@ abstract class Controller extends CController {
         return $request->hostInfo . $request->url;
     }
 
+    public function domainWhiteList() {
+        return array();
+    }
+
+    public function getHttpOrigin() {
+        return isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+    }
+
+    public function setHeaderSafeDomain($whiteList, $domain = null) {
+        if (is_null($domain)) {
+            $domain = $this->getHttpOrigin();
+        }
+        $domain = strtolower($domain);
+        if (arrayNotEmpty($whiteList)) {
+            if (in_array($domain, $whiteList)) {
+                header('Access-Control-Allow-Origin:' . $domain);
+            }
+        }
+    }
+
     /**
      * 模拟get进行url请求
      * @param string $url

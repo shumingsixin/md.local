@@ -21,6 +21,7 @@ class ApiViewDoctorInfo extends EApiViewService {
     public function __construct($userId) {
         parent::__construct();
         $this->userId = $userId;
+        $this->doctorInfo = null;
         $this->userMgr = new UserManager();
     }
 
@@ -36,20 +37,17 @@ class ApiViewDoctorInfo extends EApiViewService {
                 'status' => self::RESPONSE_OK,
                 'errorCode' => 0,
                 'errorMsg' => 'success',
-                'results' => $this->doctorInfo,
+                'results' => $this->results,
             );
         }
     }
 
     private function loadDoctorInfoById() {
-        if (is_null($this->doctorInfo)) {
-            $attributes = null;
-            $with = null;
-            $model = $this->userMgr->loadUserDoctorProflieByUserId($this->userId, $attributes, $with);
-            if (isset($model)) {
-                $this->setDoctorInfo($model);
-            }
+        $model = $this->userMgr->loadUserDoctorProflieByUserId($this->userId);
+        if (isset($model)) {
+            $this->setDoctorInfo($model);
         }
+        $this->results->doctorInfo = $this->doctorInfo;
     }
 
     private function setDoctorInfo(UserDoctorProfile $model) {
@@ -57,9 +55,15 @@ class ApiViewDoctorInfo extends EApiViewService {
         $data->id = $model->getId();
         $data->name = $model->getName();
         if ($model->isVerified()) {
-            $data->isVerified = '已认证';
+            $data->isVerified = 1;
         } else {
-            $data->isVerified = '未认证';
+            $data->isVerified = 0;
+            $certs = $this->userMgr->loadUserDoctorFilesByUserId($this->userId);
+            $hasCerts = 0;
+            if (arrayNotEmpty($certs)) {
+                $hasCerts = 1;
+            }
+            $data->hasCerts = $hasCerts;
         }
         $data->stateName = $model->getStateName();    //省会
         $data->cityName = $model->getCityName();
@@ -67,9 +71,6 @@ class ApiViewDoctorInfo extends EApiViewService {
         $data->hpDeptName = $model->getHpDeptName();    //科室
         $data->cTitle = $model->getClinicalTitle();
         $data->aTitle = $model->getAcademictitle();
-        $data->clinical_title = $model->getClinicalTitle();
-        $data->academic_title = $model->getAcademictitle();
-        $data->preferred_patient = $model->getPreferredPatient();
         $this->doctorInfo = $data;
     }
 

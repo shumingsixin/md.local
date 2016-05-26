@@ -13,10 +13,6 @@ class MobiledoctorModule extends CWebModule {
 
         $this->setImport(array(
             'mobiledoctor.components.*',
-            'mobiledoctor.models.*',
-            'mobiledoctor.models.doctor.*',
-            'mobiledoctor.models.patient.*',
-            'mobiledoctor.apiservices.*',
             'weixinpub.components.*',
             'weixinpub.models.*',
         ));

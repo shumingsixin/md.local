@@ -35,17 +35,6 @@ class UserDoctorProfileForm extends EFormModel {
         if (isset($doctor)) {
             $this->model = $doctor;
             $attributes = $doctor->attributes;
-
-            unset($attributes['date_created']);
-            unset($attributes['date_updated']);
-            unset($attributes['date_deleted']);
-            unset($attributes['password']);
-            unset($attributes['password_raw']);
-            unset($attributes['salt']);
-            unset($attributes['date_activated']);
-            unset($attributes['date_verified']);
-            unset($attributes['last_login_time']);
-
             //$this->attributes = $attributes;
             $this->setAttributes($attributes, true);
 

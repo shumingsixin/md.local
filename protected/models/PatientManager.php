@@ -30,10 +30,10 @@ class PatientManager {
     }
 
     //查询该创建者所有预约患者的总数
-    public function loadPatientBookingNumberByCreatorId($creator_id,$status) {
+    public function loadPatientBookingNumberByCreatorId($creator_id, $status) {
         $criteria = new CDbCriteria();
         $criteria->compare('t.creator_id', $creator_id);
-        if($status!='0'){
+        if ($status != '0') {
             $criteria->compare('t.status', $status);
         }
         $criteria->addCondition('t.date_deleted is NULL');
@@ -78,11 +78,11 @@ class PatientManager {
     }
 
     //查询创建者预约列表
-    public function loadAllPatientBookingByCreatorId($creatorId,$status, $attributes = null, $with = null, $options = null) {
+    public function loadAllPatientBookingByCreatorId($creatorId, $status, $attributes = null, $with = null, $options = null) {
         if (is_null($attributes)) {
             $attributes = '*';
         }
-        return PatientBooking::model()->getAllByCreatorId($creatorId,$status, $attributes, $with, $options);
+        return PatientBooking::model()->getAllByCreatorId($creatorId, $status, $attributes, $with, $options);
     }
 
     //查询创建者的预约详情
@@ -141,15 +141,155 @@ class PatientManager {
         return $pFile;
     }
 
-    public function sendSmsToCreator(User $user, $patientBooking) {
+    public function sendSmsToCreator($patientBooking, $user) {
         $mobile = $user->getUsername();
         $smsMgr = new SmsManager();
         $data = new stdClass();
         $data->refno = $patientBooking->getRefNo();
         $doctor = $patientBooking->getDoctor();
-        $data->expertBooked = isset($doctor) ? $doctor->name : '';
+        if (isset($doctor)) {
+            $name = $doctor->name;
+        } else {
+            $name = '';
+        }
+        $data->expertBooked = $name;
         //发送提示的信息
         $smsMgr->sendSmsBookingSubmit($mobile, $data);
+    }
+
+    /*     * ************************************************app专用方法***************************************** */
+
+    public function apiSavePatient($values, $userId) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND);
+        $form = new PatientInfoForm();
+        $form->setAttributes($values, true);
+        $form->creator_id = $userId;
+        $form->country_id = 1;  // default country is China.
+        if ($form->validate()) {
+            $patient = $this->loadPatientInfoById($form->id);
+            if (isset($patient) === false) {
+                $patient = new PatientInfo();
+            }
+            $patient->setAttributes($form->attributes, true);
+            $patient->setAge();
+            $regionState = RegionState::model()->getById($patient->state_id);
+            $patient->state_name = $regionState->getName();
+            $regionCity = RegionCity::model()->getById($patient->city_id);
+            $patient->city_name = $regionCity->getName();
+            if ($patient->save()) {
+                $output['status'] = 'ok';
+                $output['errorMsg'] = 'success';
+                $output['results'] = array('id' => $patient->getId());
+            } else {
+                $output['errorMsg'] = $patient->getFirstErrors();
+            }
+        } else {
+            $output['errorMsg'] = $form->getFirstErrors();
+        }
+        return $output;
+    }
+
+    public function apiSavePatientBooking($values, $user) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND, 'errorMsg' => '网络异常,请稍后尝试!');
+        $bookingDB = null;
+        $patientId = null;
+        $patientName = null;
+        $patientMgr = new PatientManager();
+        if (isset($values['patient_id'])) {
+            $patientId = $values['patient_id'];
+            $model = $patientMgr->loadPatientInfoById($patientId);
+            if (isset($model)) {
+                $patientName = $model->getName();
+            } else {
+                $output['errorMsg'] = '您还未创建此患者';
+                return $output;
+            }
+        }
+        $userId = $user->getId();
+        $createName = $user->getUsername();
+        $userDoctorProfile = $user->getUserDoctorProfile();
+        if (isset($userDoctorProfile)) {
+            if (strIsEmpty($userDoctorProfile->getName()) === false) {
+                $createName = $userDoctorProfile->getName();
+            }
+        }
+        $form = new PatientBookingForm();
+        $form->setAttributes($values, true);
+        $form->setPatientId($patientId);
+        $form->patient_name = $patientName;
+        $form->setCreatorId($userId);
+        $form->creator_name = $createName;
+        $form->setStatusNew();
+        try {
+            if ($form->validate() === false) {
+                $output['errorMsg'] = $form->getFirstErrors();
+                throw new CException('error saving data.');
+            }
+            $patientBooking = new PatientBooking();
+            $patientBooking->setAttributes($form->attributes, true);
+            if ($patientBooking->save() === false) {
+                $output['errorMsg'] = $patientBooking->getFirstErrors();
+                throw new CException('error saving data.');
+            }
+            $bookingDB = $patientBooking;
+            $apiRequest = new ApiRequestUrl();
+            //$remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type = ' . StatCode::TRANS_TYPE_PB . '&id = ' . $patientBooking->id;
+            $remote_url = 'http://192.168.1.216/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+            $data = $apiRequest->send_get($remote_url);
+            if ($data['status'] == "ok") {
+                $output['status'] = EApiViewService::RESPONSE_OK;
+                $output['errorCode'] = ErrorList::ERROR_NONE;
+                $output['errorMsg'] = 'success';
+                $output['results'] = array(
+                    'refNo' => $data['salesOrderRefNo'],
+                    'actionUrl' => Yii::app()->createAbsoluteUrl('/apimd/orderview/refno/' . $data['salesOrderRefNo']),
+                );
+                //发送提示短信
+                $this->sendSmsToCreator($patientBooking, $user);
+            } else {
+                throw new CException('error saving data.');
+            }
+        } catch (CException $cex) {
+            $output['errorCode'] = ErrorList::BAD_REQUEST;
+            $output['errorMsg'] = '网络异常,请稍后尝试!';
+            if (isset($bookingDB)) {
+                $bookingDB->delete(true);
+            }
+        }
+        return $output;
+    }
+
+    public function apiSaveDoctorOpinion($values) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND, 'errorMsg' => '网络异常,请稍后尝试!');
+        $userId = $values['userId'];
+        $id = $values['id'];
+        $type = $values['type'];
+        $accept = $values['accept'];
+        $opinion = $values['opinion'];
+        if ($type == StatCode::TRANS_TYPE_PB) {
+            $booking = PatientBooking::model()->getByAttributes(array('doctor_id' => $userId, 'id' => $id));
+        } else {
+            $booking = Booking::model()->getByIdAndDoctorUserId($id, $userId);
+        }
+        if (isset($booking)) {
+            $booking->setDoctorAccept($accept);
+            $booking->setDoctorOpinion($opinion);
+            if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
+                //医生评价成功 调用crm接口修改admin_booking的接口
+                $urlMgr = new ApiRequestUrl();
+                //$url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                $url = "http://192.168.1.216/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                $urlMgr->send_get($url);
+                $output['status'] = 'ok';
+                $output['errorCode'] = ErrorList::ERROR_NONE;
+                $output['errorMsg'] = 'success';
+            } else {
+                $output['errorMsg'] = $booking->getFirstErrors();
+            }
+        } else {
+            $output['errorMsg'] = '暂未填写预约信息!';
+        }
+        return $output;
     }
 
 }

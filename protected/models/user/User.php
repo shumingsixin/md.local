@@ -256,6 +256,10 @@ class User extends EActiveRecord {
         $this->username = $v;
     }
 
+    public function getUid() {
+        return $this->uid;
+    }
+
     public function getMobile() {
         return $this->username;
     }

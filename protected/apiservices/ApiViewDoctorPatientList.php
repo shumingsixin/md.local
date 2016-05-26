@@ -6,11 +6,11 @@ class ApiViewDoctorPatientList extends EApiViewService {
     private $patientMgr;
     private $hasBookingList;  // array
     private $noBookingList;  //array
-    private $pagesize = 10;
-    private $page = 1;
+    private $pagesize;
+    private $page;
 
     //初始化类的时候将参数注入
-    public function __construct($creatorId, $pagesize = 10, $page = 1) {
+    public function __construct($creatorId, $pagesize = 100, $page = 1) {
         parent::__construct();
         $this->creatorId = $creatorId;
         $this->pagesize = $pagesize;
@@ -73,10 +73,11 @@ class ApiViewDoctorPatientList extends EApiViewService {
             $data->dateUpdated = $model->getDateUpdated('m月d日');
             $booking = $model->getBookings();
             if (arrayNotEmpty($booking)) {
-                $bookData = $this->setPatientBooking($booking[0]);
-                $this->hasBookingList[] = array('patientInfo' => $data, 'patientBooking' => $bookData);
+                //$bookData = $this->setPatientBooking($booking[0]);
+                $data->bookingId = $booking[0]->getId();
+                $this->hasBookingList[] = $data; //array('patientInfo' => $data, 'patientBooking' => $bookData);
             } else {
-                $this->noBookingList[] = array('patientInfo' => $data, 'patientBooking' => null);
+                $this->noBookingList[] = $data; //array('patientInfo' => $data, 'patientBooking' => null);
             }
         }
     }

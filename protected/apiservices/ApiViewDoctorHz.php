@@ -48,7 +48,6 @@ class ApiViewDoctorHz extends EApiViewService {
     private function setUserDoctorHz(UserDoctorHuizhen $model) {
         $data = new stdClass();
         $data->id = $model->id;
-        $data->user_id = $model->user_id;
         $data->is_join = $model->getIsJoin(false);
         $data->min_no_surgery = $model->min_no_surgery;
         $data->travel_duration = $model->getTravelDuration();

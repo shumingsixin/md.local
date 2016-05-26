@@ -36,4 +36,9 @@ class ApiRequestUrl {
         return $this->getUrl($this->doctor_accept);
     }
 
+    public function send_get($url) {
+        $result = file_get_contents($url, false);
+        return json_decode($result, true);
+    }
+
 }

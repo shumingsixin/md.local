@@ -5,11 +5,11 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
     private $creatorId;  // User.id
     private $patientMgr;
     private $patientBookings;  // array
-    private $pagesize = 10;
-    private $page = 1;
+    private $pagesize;
+    private $page;
 
     //初始化类的时候将参数注入
-    public function __construct($creatorId, $status, $pagesize = 10, $page = 1) {
+    public function __construct($creatorId, $status, $pagesize = 100, $page = 1) {
         parent::__construct();
         $this->creatorId = $creatorId;
         $this->pagesize = $pagesize;

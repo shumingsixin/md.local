@@ -19,7 +19,7 @@ class ForgetPasswordForm extends EFormModel {
     }
 
     public function checkVerifyCode() {
-        if (isset($this->verify_code) && isset($this->username)) { 
+        if (isset($this->verify_code) && isset($this->username)) {
             $authMgr = new AuthManager();
             $authSmsVerify = $authMgr->verifyCodeForPasswordReset($this->username, $this->verify_code, null);
             if ($authSmsVerify->isValid() === false) {

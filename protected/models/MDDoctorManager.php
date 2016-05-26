@@ -131,4 +131,103 @@ class MDDoctorManager {
         }
     }
 
+    /*     * ***************************************app所用方法******************************************************************** */
+
+    /**
+     * 会诊选择不参与
+     * @param type $userId
+     */
+    public function apiDisJoinHuizhen($userId) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND);
+        $model = $this->loadUserDoctorHuizhenByUserId($userId);
+        if (isset($model)) {
+            $model->is_join = UserDoctorHuizhen::ISNOT_JOIN;
+            if ($model->update(array('is_join'))) {
+                $output['status'] = 'ok';
+                $output['errorCode'] = ErrorList::ERROR_NONE;
+                $output['errorMsg'] = 'success';
+            } else {
+                $output['errorMsg'] = $model->getFirstEorrors();
+            }
+        } else {
+            $output['errorMsg'] = '暂未填写会诊信息!';
+        }
+        return $output;
+    }
+
+    /**
+     * 转诊选择不参与
+     * @param type $userId
+     */
+    public function apiDisJoinZhuanzhen($userId) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND);
+        $model = $this->loadUserDoctorZhuanzhenByUserId($userId);
+        if (isset($model)) {
+            $model->is_join = UserDoctorZhuanzhen::ISNOT_JOIN;
+            if ($model->update(array('is_join'))) {
+                $output['status'] = 'ok';
+                $output['errorCode'] = ErrorList::ERROR_NONE;
+                $output['errorMsg'] = 'success';
+            } else {
+                $output['errorMsg'] = $model->getFirstEorrors();
+            }
+        } else {
+            $output['errorMsg'] = '暂未填写转诊信息!';
+        }
+        return $output;
+    }
+
+    //保存或者修改医生会诊信息
+    public function apiCreateOrUpdateDoctorHuizhen($values) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND);
+        $userId = $values['user_id'];
+        $form = new DoctorHuizhenForm();
+        $form->setAttributes($values, true);
+        if ($form->validate() === false) {
+            $output['errorMsg'] = $form->getFirstErrors();
+            return $output;
+        }
+        $doctorHz = new UserDoctorHuizhen();
+        $model = $this->loadUserDoctorHuizhenByUserId($userId);
+        if (isset($model)) {
+            $doctorHz = $model;
+        }
+        $attributes = $form->getSafeAttributes();
+        $doctorHz->setAttributes($attributes, true);
+        if ($doctorHz->save()) {
+            $output['status'] = 'ok';
+            $output['errorCode'] = ErrorList::ERROR_NONE;
+            $output['errorMsg'] = 'success';
+        } else {
+            $output['errorMsg'] = $doctorHz->getFirstErrors();
+        }
+        return $output;
+    }
+
+    public function apiCreateOrUpdateDoctorZhuanzhen($values) {
+        $output = array('status' => 'no', 'errorCode' => ErrorList::NOT_FOUND);
+        $userId = $values['user_id'];
+        $form = new DoctorZhuanzhenForm();
+        $form->setAttributes($values, true);
+        if ($form->validate() === false) {
+            $output['errorMsg'] = $form->getFirstErrors();
+            return $output;
+        }
+        $doctorZz = new UserDoctorZhuanzhen();
+        $model = $this->loadUserDoctorZhuanzhenByUserId($userId);
+        if (isset($model)) {
+            $doctorZz = $model;
+        }
+        $attributes = $form->getSafeAttributes();
+        $doctorZz->setAttributes($attributes, true);
+        if ($doctorZz->save()) {
+            $output['status'] = 'ok';
+            $output['errorCode'] = ErrorList::ERROR_NONE;
+            $output['errorMsg'] = 'success';
+        } else {
+            $output['errorMsg'] = $doctorZz->getFirstErrors();
+        }
+        return $output;
+    }
+
 }

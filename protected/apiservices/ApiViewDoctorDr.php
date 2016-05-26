@@ -7,13 +7,14 @@
  */
 
 /**
- * Description of apiViewDoctorHz
+ * Description of ApiViewDoctorDr
  *
  * @author shuming
  */
-class ApiViewDoctorZz extends EApiViewService {
+class ApiViewDoctorDr extends EApiViewService {
 
     private $userId;
+    private $userDoctorHz;
     private $userDoctorZz;
     private $doctorMgr;
 
@@ -21,6 +22,7 @@ class ApiViewDoctorZz extends EApiViewService {
         parent::__construct();
         $this->userId = $userId;
         $this->doctorMgr = new MDDoctorManager();
+        $this->userDoctorHz = null;
         $this->userDoctorZz = null;
     }
 
@@ -34,7 +36,31 @@ class ApiViewDoctorZz extends EApiViewService {
     }
 
     protected function loadData() {
+        $this->loadDoctorHz();
         $this->loadDoctorZz();
+    }
+
+    private function loadDoctorHz() {
+        $model = $this->doctorMgr->loadUserDoctorHuizhenByUserId($this->userId);
+        if (isset($model)) {
+            $this->setUserDoctorHz($model);
+        }
+        $this->results->userDoctorHz = $this->userDoctorHz;
+    }
+
+    private function setUserDoctorHz(UserDoctorHuizhen $model) {
+        $data = new stdClass();
+        $data->id = $model->id;
+        $data->is_join = $model->getIsJoin(false);
+        $data->min_no_surgery = $model->min_no_surgery;
+        $data->travel_duration = $model->getTravelDuration();
+        $data->fee_min = $model->fee_min;
+        $data->fee_max = $model->fee_max;
+        $data->week_days = $model->getWeekDays();
+        $data->patients_prefer = $model->patients_prefer;
+        $data->freq_destination = $model->freq_destination;
+        $data->destination_req = $model->destination_req;
+        $this->userDoctorHz = $data;
     }
 
     private function loadDoctorZz() {
@@ -48,7 +74,6 @@ class ApiViewDoctorZz extends EApiViewService {
     private function setUserDoctorZz(UserDoctorZhuanzhen $model) {
         $data = new stdClass();
         $data->id = $model->getId();
-        $data->user_id = $model->user_id;
         $data->is_join = $model->getIsJoin(false);
         $data->fee = $model->fee;
         $data->preferredPatient = $model->preferred_patient;

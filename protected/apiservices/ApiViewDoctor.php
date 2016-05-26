@@ -3,10 +3,12 @@
 class ApiViewDoctor extends EApiViewService {
 
     private $doctor_id;
+    private $doctor;
 
     public function __construct($id) {
         parent::__construct();
         $this->doctor_id = $id;
+        $this->doctor = null;
     }
 
     protected function loadData() {
@@ -26,7 +28,10 @@ class ApiViewDoctor extends EApiViewService {
 
     private function loadDoctor() {
         $doctor = Doctor::model()->getById($this->doctor_id);
-        $this->setDoctor($doctor);
+        if (isset($doctor)) {
+            $this->setDoctor($doctor);
+        }
+        $this->results->doctor = $this->doctor;
     }
 
     private function setDoctor(Doctor $model) {
@@ -46,7 +51,7 @@ class ApiViewDoctor extends EApiViewService {
         $data->careerExp = $model->getCareerExp();
         $data->honour = $model->getHonourList();
         $data->reasons = $model->getReasons();
-        $this->results->doctor = $data;
+        $this->doctor = $data;
     }
 
 }

@@ -70,7 +70,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * ÐÞ¸ÄÒ½ÉúÐÅÏ¢
+     * ä¿®æ”¹åŒ»ç”Ÿä¿¡æ¯
      * @param type $filterChain
      */
     public function filterUserDoctorVerified($filterChain) {
@@ -78,10 +78,10 @@ class DoctorController extends MobiledoctorController {
         $doctorProfile = $user->getUserDoctorProfile();
         if (isset($doctorProfile)) {
             if ($doctorProfile->isVerified()) {
-                $output = array('status' => 'no', 'error' => 'ÄúÒÑÍ¨¹ýÊµÃûÈÏÖ¤,ÐÅÏ¢²»¿ÉÒÔÔÙÐÞ¸Ä¡£');
+                $output = array('status' => 'no', 'error' => 'æ‚¨å·²é€šè¿‡å®žåè®¤è¯,ä¿¡æ¯ä¸å¯ä»¥å†ä¿®æ”¹ã€‚');
                 if (isset($_POST['plugin'])) {
                     echo CJSON::encode($output);
-                    Yii::app()->end(200, true); //½áÊø ·µ»Ø200
+                    Yii::app()->end(200, true); //ç»“æŸ è¿”å›ž200
                 } else {
                     $this->renderJsonOutput($output);
                 }
@@ -138,34 +138,34 @@ class DoctorController extends MobiledoctorController {
         );
     }
 
-    //½øÈë²é¿´Ç©Ô¼Ò½ÉúµÄ½çÃæ
+    //è¿›å…¥æŸ¥çœ‹ç­¾çº¦åŒ»ç”Ÿçš„ç•Œé¢
     public function actionViewContractDoctors() {
         $this->render("viewContractDoctors");
     }
 
-    //»ñÈ¡Ç©Ô¼Ò½Éú
+    //èŽ·å–ç­¾çº¦åŒ»ç”Ÿ
     public function actionAjaxContractDoctor() {
         $values = $_GET;
         $apiService = new ApiViewDoctorSearch($values);
-        $output = $apiService->loadApiViewData(true);
+        $output = $apiService->loadApiViewData();
         $this->renderJsonOutput($output);
     }
 
-    //»ñÈ¡³ÇÊÐÁÐ±í
+    //èŽ·å–åŸŽå¸‚åˆ—è¡¨
     public function actionAjaxStateList() {
         $city = new ApiViewState();
-        $output = $city->loadApiViewData(true);
+        $output = $city->loadApiViewData();
         $this->renderJsonOutput($output);
     }
 
-    //»ñÈ¡¿ÆÊÒ·ÖÀà
+    //èŽ·å–ç§‘å®¤åˆ†ç±»
     public function actionAjaxDeptList() {
         $apiService = new ApiViewDiseaseCategory();
-        $output = $apiService->loadApiViewData(true);
+        $output = $apiService->loadApiViewData();
         $this->renderJsonOutput($output);
     }
 
-    //»ñÈ¡Ò½ÉúÐÅÏ¢
+    //èŽ·å–åŒ»ç”Ÿä¿¡æ¯
     public function actionViewDoctor($id) {
         $apiService = new ApiViewDoctor($id);
         $output = $apiService->loadApiViewData();
@@ -174,14 +174,14 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //Ìí¼Ó»¼Õß
+    //æ·»åŠ æ‚£è€…
     public function actionAddPatient($id) {
         $apiService = new ApiViewDoctor($id);
         $doctor = $apiService->loadApiViewData();
-        //²é¿´»¼ÕßÁÐ±í
+        //æŸ¥çœ‹æ‚£è€…åˆ—è¡¨
         $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewDoctorPatientList($userId, 100, 1);
-        //µ÷ÓÃ¸¸Àà·½·¨½«Êý¾Ý·µ»Ø
+        //è°ƒç”¨çˆ¶ç±»æ–¹æ³•å°†æ•°æ®è¿”å›ž
         $patientList = $apisvc->loadApiViewData();
         $this->render("addPatient", array(
             'doctorInfo' => $doctor,
@@ -189,23 +189,20 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //Ìø×ªÖÁ¾ÍÕïÒâÏòÒ³Ãæ
+    //è·³è½¬è‡³å°±è¯Šæ„å‘é¡µé¢
     public function actionCreatePatientBooking($doctorId, $patientId) {
-        $apiService = new ApiViewDoctor($doctorId);
-        $doctor = $apiService->loadApiViewData();
         $userId = $this->getCurrentUserId();
-        $apisvc = new ApiViewDoctorPatientInfo($patientId, $userId);
-        $patient = $apisvc->loadApiViewData();
+        $apiService = new ApiViewBookingContractDoctor($patientId, $userId, $doctorId);
+        $output = $apiService->loadApiViewData();
         $form = new PatientBookingForm();
         $this->render("addPatientBooking", array(
             'model' => $form,
-            'doctorInfo' => $doctor,
-            'patientInfo' => $patient
+            'data' => $output,
         ));
     }
 
     /**
-     * ½øÈë×¨¼ÒÐ­ÒéÒ³Ãæ
+     * è¿›å…¥ä¸“å®¶åè®®é¡µé¢
      */
     public function actionDoctorTerms() {
         $user = $this->getCurrentUser();
@@ -224,7 +221,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * ×¨¼ÒÐ­ÒéÍ¬Òâ
+     * ä¸“å®¶åè®®åŒæ„
      */
     public function actionAjaxDoctorTerms() {
         $output = array('status' => 'no');
@@ -244,7 +241,7 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //½øÈëÒ½ÉúÎÊ¾íµ÷²éÒ³Ãæ
+    //è¿›å…¥åŒ»ç”Ÿé—®å·è°ƒæŸ¥é¡µé¢
     public function actionContract() {
         $this->render("contract");
     }
@@ -253,7 +250,7 @@ class DoctorController extends MobiledoctorController {
         $this->render("drView");
     }
 
-    //Ò½Éú²é¿´×Ô¼ºÄÜ½ÓÊÜ²¡ÈËµÄ×ªÕïÐÅÏ¢
+    //åŒ»ç”ŸæŸ¥çœ‹è‡ªå·±èƒ½æŽ¥å—ç—…äººçš„è½¬è¯Šä¿¡æ¯
     public function actionAjaxViewDoctorZz() {
         $userId = $this->getCurrentUserId();
         $apiSvc = new ApiViewDoctorZz($userId);
@@ -261,7 +258,7 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //½øÈë±£´æ»òÐÞ¸ÄÒ½Éú×ªÕïÐÅÏ¢µÄÒ³Ãæ
+    //è¿›å…¥ä¿å­˜æˆ–ä¿®æ”¹åŒ»ç”Ÿè½¬è¯Šä¿¡æ¯çš„é¡µé¢
     public function actionCreateDoctorZz() {
         $userId = $this->getCurrentUserId();
         $doctorMgr = new MDDoctorManager();
@@ -273,7 +270,7 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //±£´æ»òÐÞ¸ÄÒ½Éú½ÓÊÜ²¡ÈË×ªÕïÐÅÏ¢
+    //ä¿å­˜æˆ–ä¿®æ”¹åŒ»ç”ŸæŽ¥å—ç—…äººè½¬è¯Šä¿¡æ¯
     public function actionAjaxDoctorZz() {
         $post = $this->decryptInput();
         $output = array('status' => 'no');
@@ -283,7 +280,7 @@ class DoctorController extends MobiledoctorController {
             $values['user_id'] = $userId;
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->createOrUpdateDoctorZhuanzhen($values);
-            //×¨¼ÒÇ©Ô¼
+            //ä¸“å®¶ç­¾çº¦
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
@@ -294,16 +291,16 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //Ò½Éú²é¿´×Ô¼º½ÓÊÜµÄ»áÕïÐÅÏ¢
+    //åŒ»ç”ŸæŸ¥çœ‹è‡ªå·±æŽ¥å—çš„ä¼šè¯Šä¿¡æ¯
     public function actionAjaxViewDoctorHz() {
         $userId = $this->getCurrentUserId();
         $apiSvc = new ApiViewDoctorHz($userId);
         $output = $apiSvc->loadApiViewData(true);
-        //Èô¸ÃÓÃ»§Î´ÌîÐ´Ôò½øÈëÌîÐ´Ò³Ãæ
+        //è‹¥è¯¥ç”¨æˆ·æœªå¡«å†™åˆ™è¿›å…¥å¡«å†™é¡µé¢
         $this->renderJsonOutput($output);
     }
 
-    //½øÈë±£´æ»òÐÞ¸ÄÒ½Éú»áÕï ÐÅÏ¢µÄÒ³Ãæ
+    //è¿›å…¥ä¿å­˜æˆ–ä¿®æ”¹åŒ»ç”Ÿä¼šè¯Š ä¿¡æ¯çš„é¡µé¢
     public function actionCreateDoctorHz() {
         $userId = $this->getCurrentUserId();
         $doctorMgr = new MDDoctorManager();
@@ -315,7 +312,7 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //±£´æ»òÐÞ¸ÄÒ½Éú»áÕïÐÅÏ¢
+    //ä¿å­˜æˆ–ä¿®æ”¹åŒ»ç”Ÿä¼šè¯Šä¿¡æ¯
     public function actionAjaxDoctorHz() {
         $post = $this->decryptInput();
         $userId = $this->getCurrentUserId();
@@ -325,7 +322,7 @@ class DoctorController extends MobiledoctorController {
             $values['user_id'] = $userId;
             $doctorMgr = new MDDoctorManager();
             $output = $doctorMgr->createOrUpdateDoctorHuizhen($values);
-            //×¨¼ÒÇ©Ô¼
+            //ä¸“å®¶ç­¾çº¦
             $user = $this->loadUser();
             $doctorProfile = $user->getUserDoctorProfile();
             $doctorMgr->doctorContract($doctorProfile);
@@ -356,24 +353,17 @@ class DoctorController extends MobiledoctorController {
         $this->render('account', array('userDoctorProfile' => $userDoctorProfile, 'verified' => $verified, 'doctorCerts' => $doctorCerts));
     }
 
-    //Ò½ÉúÐÅÏ¢²éÑ¯
+    //åŒ»ç”Ÿä¿¡æ¯æŸ¥è¯¢
     public function actionDoctorInfo() {
-        $user = $this->loadUser();
-        $doctorProfile = $user->getUserDoctorProfile();
-        $isVerified = false;
-        if (isset($doctorProfile)) {
-            $isVerified = $doctorProfile->isVerified();
-        }
-        $userId = $user->getId();
+        $userId = $this->getCurrentUserId();
         $apisvc = new ApiViewDoctorInfo($userId);
         $output = $apisvc->loadApiViewData();
-
         $this->render('doctorInfo', array(
-            'data' => $output, 'isVerified' => $isVerified,
+            'data' => $output
         ));
     }
 
-    //ÐÞ¸ÄÃÜÂë
+    //ä¿®æ”¹å¯†ç 
     public function actionChangePassword() {
         $post = $this->$this->decryptInput();
         $user = $this->getCurrentUser();
@@ -401,7 +391,7 @@ class DoctorController extends MobiledoctorController {
             } else {
                 if ($success) {
                     // $this->redirect(array('user/account'));
-                    $this->setFlashMessage('user.password', 'ÃÜÂëÐÞ¸Ä³É¹¦£¡');
+                    $this->setFlashMessage('user.password', 'å¯†ç ä¿®æ”¹æˆåŠŸï¼');
                 }
             }
         }
@@ -410,41 +400,20 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //¸öÈËÖÐÐÄ
+    //ä¸ªäººä¸­å¿ƒ
     public function actionView() {
         // var_dump(Yii::app()->user->id);exit;
         $user = $this->loadUser();  // User model
-        $profile = $user->getUserDoctorProfile();   // UserDoctorProfile model
-        $data = new stdClass();
-        $data->id = $user->getId();
-        $data->mobile = $user->getMobile();
-        $userMgr = new UserManager();
-        $models = $userMgr->loadUserDoctorFilesByUserId($user->id);
-        $doctorCerts = false;
-        if (arrayNotEmpty($models)) {
-            $doctorCerts = true;
-        }
-        $data->doctorCerts = $doctorCerts;
-        if (isset($profile)) {
-            $data->isProfile = true;
-            $data->name = $profile->getName();
-            //ÊÇ·ñÊÇÇ©Ô¼Ò½Éú
-            $data->verified = $profile->isVerified();
-            $data->teamDoctor = $profile->isTermsDoctor();
-        } else {
-            $data->isProfile = false;
-            $data->name = $user->getMobile();
-            $data->verified = false;
-            $data->teamDoctor = false;
-        }
+        $svc = new ApiViewUserInfo($user);
+        $output = $svc->loadApiViewData();
         $this->render('view', array(
-            'user' => $data
+            'user' => $output
         ));
     }
 
     public function actionAjaxContract() {
         $post = $this->$this->decryptInput();
-        //ÐèÒª·¢ËÍµçÓÊµÄÊý¾Ý
+        //éœ€è¦å‘é€ç”µé‚®çš„æ•°æ®
         $data = new stdClass();
         $user = $this->loadUser();
         $doctorProfile = $user->getUserDoctorProfile();
@@ -461,7 +430,7 @@ class DoctorController extends MobiledoctorController {
                 if ($doctorProfile->save(true, array('preferred_patient', 'date_contracted', 'date_updated'))) {
                     $data->dateUpdated = date('Y-m-d H:i:s');
                     $data->doctorProfile = $doctorProfile;
-                    //ÅÐ¶ÏÐÅÏ¢ÊÇÐÞ¸Ä»¹ÊÇ±£´æ ·¢ËÍµçÓÊ
+                    //åˆ¤æ–­ä¿¡æ¯æ˜¯ä¿®æ”¹è¿˜æ˜¯ä¿å­˜ å‘é€ç”µé‚®
                     $emailMgr = new EmailManager();
                     $emailMgr->sendEmailDoctorUpateContract($data);
                     $output['status'] = 'ok';
@@ -478,20 +447,20 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //ÉÏ´«³É¹¦Ò³ÃæÌø×ª
+    //ä¸Šä¼ æˆåŠŸé¡µé¢è·³è½¬
     public function actionToSuccess() {
         $this->render('_success');
     }
 
     /**
-     * Ò½ÉúÉÏ´«ÈÏÖ¤È«²¿³É¹¦ Ìí¼ÓÈÎÎñ
+     * åŒ»ç”Ÿä¸Šä¼ è®¤è¯å…¨éƒ¨æˆåŠŸ æ·»åŠ ä»»åŠ¡
      */
     public function actionSendEmailForCert() {
         $userId = $this->getCurrentUserId();
         $type = StatCode::TASK_DOCTOR_CERT;
         $apiUrl = new ApiRequestUrl();
         $url = $apiUrl->getUrlDoctorInfoTask() . "?userid={$userId}&type={$type}";
-        //±¾µØ²âÊÔÇëÓÃ $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        //æœ¬åœ°æµ‹è¯•è¯·ç”¨ $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
         $this->send_get($url);
     }
 
@@ -546,12 +515,12 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //ÐÞ¸ÄÒ½ÉúÈÏÖ¤ÐÅÏ¢Ìí¼Ótask
+    //ä¿®æ”¹åŒ»ç”Ÿè®¤è¯ä¿¡æ¯æ·»åŠ task
     public function createTaskProfile($userId) {
         $type = StatCode::TASK_DOCTOR_PROFILE_UPDATE;
         $apiRequest = new ApiRequestUrl();
         $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . "?userid={$userId}&type={$type}";
-        //±¾µØ²âÊÔÇëÓÃ $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
+        //æœ¬åœ°æµ‹è¯•è¯·ç”¨ $remote_url="http://192.168.31.119/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
         $this->send_get($remote_url);
     }
 
@@ -587,13 +556,13 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * ÊÖ»úÓÃ»§µÇÂ¼
+     * æ‰‹æœºç”¨æˆ·ç™»å½•
      */
     public function actionMobileLogin($loginType = 'sms') {
 //         $res = Encryption::model()->findAll();
 //         print_r(CJSON::decode(CJSON::encode($res)));exit;
         $user = $this->getCurrentUser();
-        //ÒÑµÇÂ½ Ìø×ªÖÁÖ÷Ò³
+        //å·²ç™»é™† è·³è½¬è‡³ä¸»é¡µ
         if (isset($user)) {
             $this->redirect(array('view'));
         }
@@ -602,7 +571,7 @@ class DoctorController extends MobiledoctorController {
         $smsform->role = StatCode::USER_ROLE_DOCTOR;
         $pawform->role = StatCode::USER_ROLE_DOCTOR;
         $returnUrl = $this->getReturnUrl($this->createUrl('doctor/view'));
-        //Ê§°Ü Ôò·µ»ØµÇÂ¼Ò³Ãæ
+        //å¤±è´¥ åˆ™è¿”å›žç™»å½•é¡µé¢
         $this->render("mobileLogin", array(
             'model' => $smsform,
             'pawModel' => $pawform,
@@ -612,7 +581,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * Òì²½µÇÂ½
+     * å¼‚æ­¥ç™»é™†
      */
     public function actionAjaxLogin() {
         $post = $this->decryptInput();
@@ -652,7 +621,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * Ò½Éú²¹È«Í¼Æ¬
+     * åŒ»ç”Ÿè¡¥å…¨å›¾ç‰‡
      */
     public function actionUploadCert() {
 
@@ -675,7 +644,7 @@ class DoctorController extends MobiledoctorController {
     }
 
     /**
-     * Ö÷Ò³½øÈëÐÞ¸ÄÒ½ÉúÐÅÏ¢Ò³Ãæ
+     * ä¸»é¡µè¿›å…¥ä¿®æ”¹åŒ»ç”Ÿä¿¡æ¯é¡µé¢
      */
     public function actionUpdateDoctor() {
         $user = $this->loadUser();
@@ -688,7 +657,7 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //Ò½Éú×¢²á²¢×Ô¶¯µÇÂ¼
+    //åŒ»ç”Ÿæ³¨å†Œå¹¶è‡ªåŠ¨ç™»å½•
     public function actionRegister() {
         $userRole = User::ROLE_DOCTOR;
         $form = new UserRegisterForm();
@@ -719,7 +688,7 @@ class DoctorController extends MobiledoctorController {
         $this->renderJsonOutput($output);
     }
 
-    //½øÈëÍü¼ÇÃÜÂëÒ³Ãæ
+    //è¿›å…¥å¿˜è®°å¯†ç é¡µé¢
     public function actionForgetPassword() {
         $form = new ForgetPasswordForm();
         $this->render('forgetPassword', array(
@@ -727,7 +696,7 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //Íü¼ÇÃÜÂë¹¦ÄÜ
+    //å¿˜è®°å¯†ç åŠŸèƒ½
     public function actionAjaxForgetPassword() {
         $post = $this->decryptInput();
         $output = array('status' => 'no');
@@ -742,10 +711,10 @@ class DoctorController extends MobiledoctorController {
                     if ($success) {
                         $output['status'] = 'ok';
                     } else {
-                        $output['errors']['errorInfo'] = 'ÃÜÂëÐÞ¸ÄÊ§°Ü!';
+                        $output['errors']['errorInfo'] = 'å¯†ç ä¿®æ”¹å¤±è´¥!';
                     }
                 } else {
-                    $output['errors']['username'] = 'ÓÃ»§²»´æÔÚ';
+                    $output['errors']['username'] = 'ç”¨æˆ·ä¸å­˜åœ¨';
                 }
             } else {
                 $output['errors'] = $form->getErrors();
