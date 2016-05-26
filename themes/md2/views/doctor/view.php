@@ -16,8 +16,8 @@ $urlDoctorProfile = $this->createUrl('doctor/profile', array('addBackBtn' => 1))
 $urlDoctorTerms = $this->createUrl('doctor/doctorTerms', array('addBackBtn' => 1));
 $urlDoctorUploadCert = $this->createUrl('doctor/uploadCert', array('addBackBtn' => 1));
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
-$verified = $user->verified;
-$teamDoctor = $user->teamDoctor;
+$verified = $user->results->userInfo->verified;
+$teamDoctor = $user->results->userInfo->teamDoctor;
 ?>
 <header class="bg-green">
     <h1 class="title">个人中心</h1>
@@ -34,16 +34,16 @@ $teamDoctor = $user->teamDoctor;
                         <div class="col-1 color-white pl20 grid">
                             <div class="col-1">
                                 <div class="pt10">
-                                    您好!<?php echo $user->name; ?>
+                                    您好!<?php echo $user->results->userInfo->name; ?>
                                 </div>
                                 <div class="pt10">
                                     <span class="realNameIcon">
                                         <?php
-                                        if ($user->isProfile == '') {
+                                        if ($user->results->userInfo->isProfile == '') {
                                             echo '未实名认证';
-                                        } else if ($user->doctorCerts == '') {
+                                        } else if ($user->results->userInfo->doctorCerts == '') {
                                             echo '未实名认证';
-                                        } else if ($user->verified == '') {
+                                        } else if ($verified == '') {
                                             echo '认证中';
                                         } else {
                                             echo '实名认证';
@@ -221,7 +221,7 @@ $teamDoctor = $user->teamDoctor;
         //医生顾问协议
         $('#checkInf').tap(function (e) {
             e.preventDefault();
-            if ('<?php echo $user->isProfile; ?>' == '') {
+            if ('<?php echo $user->results->userInfo->isProfile; ?>' == '') {
                 J.hideMask();
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未完善个人信息</div>',
@@ -234,7 +234,7 @@ $teamDoctor = $user->teamDoctor;
                 $('#closeLogout').click(function () {
                     J.closePopup();
                 });
-            } else if ('<?php echo $user->doctorCerts; ?>' == '') {
+            } else if ('<?php echo $user->results->userInfo->doctorCerts; ?>' == '') {
                 J.hideMask();
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未上传实名认证证件</div>',
@@ -247,7 +247,7 @@ $teamDoctor = $user->teamDoctor;
                 $('#closeLogout').click(function () {
                     J.closePopup();
                 });
-            } else if ('<?php echo $user->verified; ?>' == '') {
+            } else if ('<?php echo $verified; ?>' == '') {
                 J.hideMask();
                 J.customConfirm('',
                         '<div class="mt10 mb10">请等待信息审核</div>',

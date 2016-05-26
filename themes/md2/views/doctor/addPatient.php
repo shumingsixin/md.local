@@ -47,7 +47,7 @@ $returnUrl = $this->createUrl('doctor/addPatient', array('id' => $id, 'addBackBt
                 <?php
                 if (count($noBookingList) > 0) {
                     for ($i = 0; $i < count($noBookingList); $i++) {
-                        $patientInfo = $noBookingList[$i]['patientInfo'];
+                        $patientInfo = $noBookingList[$i];
                         if ($patientInfo->age > 5) {
                             $age = $patientInfo->age . '岁';
                         } else {
