@@ -73,11 +73,12 @@ class ApiViewDoctorPatientList extends EApiViewService {
             $data->dateUpdated = $model->getDateUpdated('m月d日');
             $booking = $model->getBookings();
             if (arrayNotEmpty($booking)) {
-                //$bookData = $this->setPatientBooking($booking[0]);
                 $data->bookingId = $booking[0]->getId();
-                $this->hasBookingList[] = $data; //array('patientInfo' => $data, 'patientBooking' => $bookData);
+                $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/bookinginfo/' . $data->bookingId);
+                $this->hasBookingList[] = $data;
             } else {
-                $this->noBookingList[] = $data; //array('patientInfo' => $data, 'patientBooking' => null);
+                $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/patientinfo/' . $model->getId());
+                $this->noBookingList[] = $data;
             }
         }
     }

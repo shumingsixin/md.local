@@ -78,6 +78,7 @@ class ApiViewDoctorPatientBookingList extends EApiViewService {
                 $data->age = $patientInfo->getAge();
                 $data->ageMonth = $patientInfo->getAgeMonth();
             }
+            $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/orderinfo/' . $model->getId());
             $this->patientBookings[] = $data;
         }
     }

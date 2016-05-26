@@ -67,6 +67,7 @@ class ApiViewPatientSearch extends EApiViewService {
             $data->mobile = $model->getMobile();
             $data->diseaseName = $model->getDiseaseName();
             $data->dateUpdated = $model->getDateUpdated('m月d日');
+            $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/patientinfo/' . $model->getId());
             $this->patients[] = $data;
         }
     }

@@ -69,6 +69,7 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
             $data->travelType = $model->getTravelType();
             $data->doctorAccept = $model->getDoctorAccept();
             $data->doctorOpinion = $model->getDoctorOpinion();
+            $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/doctorbooking/' . $model->getId());
             $patientInfo = $model->getPatient();
             if (isset($patientInfo)) {
                 $data->name = $patientInfo->getName();
@@ -100,6 +101,7 @@ class ApiViewPatientBookingListForDoctor extends EApiViewService {
             $data->diseaseDetail = $model->getDiseaseDetail();
             $data->doctorAccept = $model->getDoctorAccept();
             $data->doctorOpinion = $model->getDoctorOpinion();
+            $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/doctorbooking/' . $model->getId());
             if (strIsEmpty($model->getDoctorAccept())) {
                 $this->processingList[] = $data;
             } else {

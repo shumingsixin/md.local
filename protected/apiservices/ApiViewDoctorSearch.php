@@ -60,6 +60,7 @@ class ApiViewDoctorSearch extends EApiViewService {
             $data->imageUrl = $model->getAbsUrlAvatar();
             $data->isContracted = $model->getIsContracted();
             $data->reasons = $model->getReasons();
+            $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/contractdoctor/' . $model->getId());
             $this->doctors[] = $data;
         }
     }
