@@ -124,6 +124,10 @@ class OrderController extends MobiledoctorController {
         if ($order === NULL) {
             throw new CHttpException(404, 'The requested page does not exist.');
         }
+        //支付成功 生成task提醒
+        $apiurl = new ApiRequestUrl();
+        $url = $apiurl->getUrlPay();
+        $this->send_get($url);
         $this->show_header = true;
         $this->show_footer = false;
         $this->show_baidushangqiao = false;

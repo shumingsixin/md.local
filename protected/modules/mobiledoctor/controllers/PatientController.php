@@ -74,7 +74,7 @@ class PatientController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('ajaxTask', 'view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch', 'uploadDAFile'),
+                'actions' => array('ajaxTask', 'ajaxDrTask', 'view', 'createPatientMR', 'updatePatientMR', 'createBooking', 'ajaxCreate', 'ajaxCreatePatientMR', 'ajaxUploadMRFile', 'delectPatientMRFile', 'patientMRFiles', 'uploadMRFile', 'searchView', 'ajaxSearch', 'uploadDAFile'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -273,6 +273,14 @@ class PatientController extends MobiledoctorController {
         $apiRequest = new ApiRequestUrl();
         $remote_url = $apiRequest->getUrlPatientMrTask() . "?id={$id}";
         //本地测试请用 $remote_url="192.168.31.119/admin/api/taskpatientmr?id={$id}";
+        $this->send_get($remote_url);
+    }
+
+    //上传出院小结完成生成task
+    public function actionAjaxDrTask($id) {
+        $apiRequest = new ApiRequestUrl();
+        $remote_url = $apiRequest->getUrlDaTask() . "?id={$id}";
+        //本地测试请用 $remote_url="192.168.1.216/admin/api/taskpatientda?id={$id}";
         $this->send_get($remote_url);
     }
 

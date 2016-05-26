@@ -7,6 +7,8 @@ class ApiRequestUrl {
     private $doctor_task = 'api/taskuserdoctor';
     private $patientMr_task = 'api/taskpatientmr';
     private $doctor_accept = 'api/doctoraccept';
+    private $pay = 'api/tasksalseorder';
+    private $da_task = 'api/taskpatientda';
 
     public function getHostInfo() {
         $hostInfo = strtolower(Yii::app()->request->hostInfo);
@@ -34,6 +36,14 @@ class ApiRequestUrl {
 
     public function getUrlDoctorAccept() {
         return $this->getUrl($this->doctor_accept);
+    }
+
+    public function getUrlDaTask() {
+        return $this->getUrl($this->da_task);
+    }
+
+    public function getUrlPay() {
+        return $this->getUrl($this->pay);
     }
 
     public function send_get($url) {
