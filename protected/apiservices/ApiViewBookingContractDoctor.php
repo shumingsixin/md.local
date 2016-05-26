@@ -64,7 +64,7 @@ class ApiViewBookingContractDoctor extends EApiViewService {
     private function setDoctor(Doctor $model) {
         $data = new stdClass();
         $data->name = $model->getName();
-        $data->hospitalId = $model->getHospitalId();
+        $data->deptName = $model->getHpDeptName();
         $data->hospitalName = $model->getHospitalName();
         $this->doctor = $data;
     }

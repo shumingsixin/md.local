@@ -38,10 +38,11 @@ class ApiViewLocalData extends EApiViewService {
                 'forgetpassword' => Yii::app()->createAbsoluteUrl('/apimd/forgetpassword'),
                 'userregister' => Yii::app()->createAbsoluteUrl('/apimd/userregister'),
                 'findView' => 'http://192.168.2.126/md2.myzd.com/mobiledoctor/home/page/view/findView',
-                'citylist' => Yii::app()->createAbsoluteUrl('/apimd/citylist'),
+                'citylist' => Yii::app()->createAbsoluteUrl('/apimd/citylist'), //城市列表
                 'indexannouncement' => Yii::app()->createAbsoluteUrl('/apimd/indexannouncement'),
                 'main' => Yii::app()->createAbsoluteUrl('/apimd/main'), //个人中心数据
                 'savedoctoropinion' => Yii::app()->createAbsoluteUrl('/apimd/savedoctoropinion'), //上级医生反馈
+                'contractdoctorlist' => Yii::app()->createAbsoluteUrl('/apimd/contractdoctorlist'), //签约专家列表
                 'dataversion' => Yii::app()->createAbsoluteUrl('/apimd/dataversion'),
             );
 
