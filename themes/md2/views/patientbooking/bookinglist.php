@@ -40,7 +40,13 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/0" id="zhuanti" data-target="link">全部</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/0" id="zhuanti" data-target="link">
+                        <div class="grid">
+                            <div class="col-1"></div>
+                            <div class="col-0 statusLine">全部</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -49,7 +55,13 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">待支付</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">
+                        <div class="grid">
+                            <div class="col-1"></div>
+                            <div class="col-0 statusLine">待支付</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -58,7 +70,13 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/2" id="story" data-target="link">安排中</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/2" id="story" data-target="link">
+                        <div class="grid">
+                            <div class="col-1"></div>
+                            <div class="col-0 statusLine">安排中</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -67,7 +85,13 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">待确认</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">
+                        <div class="grid">
+                            <div class="col-1"></div>
+                            <div class="col-0 statusLine">待确认</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </a>
                 </li>
                 <?php
                 $statusActive = '';
@@ -76,7 +100,13 @@ $checkTeamDoctor = $teamDoctor;
                 }
                 ?>
                 <li class="<?php echo $statusActive; ?>">
-                    <a href="<?php echo $urlPatientBookingList; ?>/6" id="story" data-target="link">传小结</a>
+                    <a href="<?php echo $urlPatientBookingList; ?>/6" id="story" data-target="link">
+                        <div class="grid">
+                            <div class="col-1"></div>
+                            <div class="col-0 statusLine">传小结</div>
+                            <div class="col-1"></div>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </nav>

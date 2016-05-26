@@ -145,7 +145,6 @@ header nav.right .header-user{height: 28px;}
 #contractDoctors_article .imgDoc{
     display: block;
     width: 100px;
-    border-radius: 5px;
     z-index: 0;
     overflow: hidden;
 }
@@ -153,12 +152,11 @@ header nav.right .header-user{height: 28px;}
     line-height: 1.5;
     font-size: 14px;
 }
-#contractDoctors_article .sign{
-    font-size:12px;
-    text-align:center;
-    background-color:#ee7635;
-    color:#fff;
-    border-radius:3px;
+#contractDoctors_article .hosIcon{
+    color: #32c9c0;
+    border: 1px solid #32c9c0;
+    border-radius: 4px;
+    padding: 0 2px;
 }
 #contractDoctors_article #highDept ul.list {
     background-color: #efefef;
@@ -171,75 +169,47 @@ header nav.right .header-user{height: 28px;}
 }
 
 /*医生详情*/
-#viewDoctor_nav{
-    font-size: 14px;
-}
-#viewDoctor_nav .doctorInf{
-    padding: 15px;
-    background-color: #ffffff;
-}
-#viewDoctor_nav .imgDiv{
-    width:70px;
-    height:70px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-#viewDoctor_nav .imgDoc{
-    display: block;
-    width: 100%;
-    border: 1px solid #ddd;
-    z-index: 0;
-}
-#viewDoctor_nav a{
-    display: inherit!important;
-}
-#viewDoctor_nav .button{
-    padding:4px 20px 0px;
-}
 #viewDoctor_article{
     background-color: #eeeeee;
 }
-#viewDoctor_article .divSC{
-    padding: 15px;
-    margin: 10px 5px 0px;
-    background-color: #ffffff!important;
-    border-radius: 7px;
+#viewDoctor_article .imgDiv {
+    width: 87px;
+    height: 87px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
 }
-@media screen and (max-width:360px){
-    #viewDoctor_article .bgSC{
-        padding-left:25px;
-        background:url('../images/shanchang.png') no-repeat;
-        background-size:16px 16px;
-        background-position: 2px 3px;
-    }
+#viewDoctor_article .hosBorder{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #34d6cc;
+    text-align: center;
+    color: #fff;
 }
-@media screen and (min-width:361px){
-    #viewDoctor_article .bgSC{
-        padding-left:25px;
-        background:url('../images/shanchang.png') no-repeat;
-        background-size:22px 22px;
-    }
+#viewDoctor_article .pageIcon div{
+    font-size: 16px;
+    padding: 10px;
+    text-align: center;
 }
-#viewDoctor_article .divCareer{
-    padding: 15px;
-    margin: 10px 5px 0px;
-    background-color: #ffffff!important;
-    border-radius: 7px;
+#viewDoctor_article .pageIcon div.active{
+    color: #32c9c0;
+    border-bottom: 1px solid #F39800;
 }
-@media screen and (max-width:360px){
-    #viewDoctor_article .bgCareer{
-        padding-left:25px;
-        background:url('../images/career.png') no-repeat;
-        background-size:16px 16px;
-        background-position: 2px 3px;
-    }
+#viewDoctor_article .bgTriangleLeft{
+    margin: 10px;
+    padding-top: 6px;
+    border-radius: 5px;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146398325471066') no-repeat;
+    background-size: 13px 6px;
+    background-position-x: 25%;
 }
-@media screen and (min-width:361px){
-    #viewDoctor_article .bgCareer{
-        padding-left:25px;
-        background:url('../images/career.png') no-repeat;
-        background-size:21px 21px;
-    }
+#viewDoctor_article .bgTriangleRight{
+    margin: 10px;
+    padding-top: 6px;
+    border-radius: 5px;
+    background: url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146398325471066') no-repeat;
+    background-size: 13px 6px;
+    background-position-x: 75%;
 }
 /*小页面字体设置*/
 @media screen and (max-width:360px){
@@ -250,58 +220,17 @@ header nav.right .header-user{height: 28px;}
         font-size: 12px;
     }
 }
-#viewDoctor_article .divHonor{
-    padding: 15px;
-    margin: 10px 5px 0px;
-    background-color: #ffffff!important;
-    border-radius: 7px;
-}
-@media screen and (max-width:360px){
-    #viewDoctor_article .bgHonor{
-        padding-left:25px;
-        background:url('../images/honor.png') no-repeat;
-        background-size:16px 16px;
-        background-position: 3px 3px;
-    }
-}
-@media screen and (min-width:361px){
-    #viewDoctor_article .bgHonor{
-        padding-left:25px;
-        background:url('../images/honor.png') no-repeat;
-        background-size:21px 17px;
-    }
-}
 #viewDoctor_article .bgStars{
     padding-left:25px;
-    background:url('../images/stars.png') no-repeat;
+    background:url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146398276822878') no-repeat;
     background-size:11px 11px;
     background-position:10px 3px;
 }
-#viewDoctor_article .divTJ{
-    margin: 10px 5px 0px 5px;
-    border-radius: 7px;
-    background-color: #ffffff!important;
-    padding: 15px;
-    background: url('../images/tuijian.png') no-repeat;
-    background-size: 37px 37px;
-    background-position-y: 0;
-    background-position-x: 100%;
-}
-@media screen and (max-width:360px){
-    #viewDoctor_article .bgReason{
-        background: url('../images/reason.png') no-repeat;
-        background-size: 20px 20px;
-        padding-left: 25px;
-        background-position-y: 0px;
-    }
-}
-@media screen and (min-width:361px){
-    #viewDoctor_article .bgReason{
-        background: url('../images/reason.png') no-repeat;
-        background-size: 22px 22px;
-        padding-left: 25px;
-        background-position-y: 2px;
-    }
+#viewDoctor_article .bgDiamond{
+    padding-left:25px;
+    background:url('http://7xsq2z.com2.z0.glb.qiniucdn.com/146398287126723') no-repeat;
+    background-size:11px 11px;
+    background-position:10px 3px;
 }
 #viewDoctor_article{
     line-height: 1.5;
@@ -681,13 +610,19 @@ header{
 }
 #bookingList_nav .control-group li{
     border: inherit;
+    padding: 0px;
+}
+#bookingList_nav .control-group li div.statusLine{
+    padding: 4px 0px;
 }
 #bookingList_nav .control-group li>a{
     color: #333333;
 }
 #bookingList_nav .control-group li.active{
     background: #fff;
-    border-bottom: 1px solid #06c1ae;
+}
+#bookingList_nav .control-group li.active div.statusLine{
+    border-bottom: 2px solid #06c1ae;
 }
 #bookingList_nav .control-group li.active a, .control-group li.active .icon{
     color: #06c1ae;

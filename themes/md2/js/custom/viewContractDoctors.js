@@ -140,60 +140,42 @@ function readyDoc(data) {
                 var btGray = i == 0 ? '' : 'bt-gray2';
                 var hp_dept_desc = (results[i].desc == '' || results[i].desc == null) ? '暂无信息' : results[i].desc;
                 hp_dept_desc = hp_dept_desc.length > 40 ? hp_dept_desc.substr(0, 40) + '...' : hp_dept_desc;
-                innerHtml += '<div>' +
+                innerHtml += '<div><div class="bb10-gray"></div>' +
                         '<a href="' + $requestDoctorView + '/' + results[i].id + '/addBackBtn/1" data-target="link">' +
-                        '<div class="grid pl15 pr15 pt10 pb10 bb-gray3 ' + btGray + '">' +
+                        '<div class="grid pl15 pr15 pt10 pb10 ' + btGray + '">' +
                         '<div class="col-1 w25">' +
-                        '<div class="w60p h60p" style="overflow:hidden;border-radius:5px;"><img class="imgDoc" src="' + results[i].imageUrl + '"></div>';
-                if (results[i].isContracted == 1) {
-                    innerHtml += '<div class="sign w60p">签约专家</div>'
-                }
+                        '<div class="w60p h60p br50 overflow-h"><img class="imgDoc" src="' + results[i].imageUrl + '"></div>';
                 var doctorAtitle = '';
                 if (results[i].aTitle != '无') {
                     doctorAtitle = results[i].aTitle;
                 }
                 innerHtml += '</div>' +
                         '<div class="ml10 col-1 w75">' +
-                        '<div class="mt10 color-black2 font-s16">' + results[i].name + '<span class="ml5">' + doctorAtitle + '</span></div>';
+                        '<div class="color-black2 font-s16">' + results[i].name + '<span class="ml5 color-black6 font-s14">' + doctorAtitle + '</span></div>';
                 //科室为空，则不显示
                 if (results[i].hpDeptName == "" || results[i].hpDeptName == null) {
                     if (results[i].mTitle == "" || results[i].mTitle == null) {
                         innerHtml += '';
                     } else {
-                        innerHtml += '<div class="mt5 color-black6">' + results[i].mTitle + '</div>';
+                        innerHtml += '<div class="color-black6">' + results[i].mTitle + '</div>';
                     }
                 } else {
                     if (results[i].mTitle == "" || results[i].mTitle == null) {
-                        innerHtml += '<div class="mt5 color-black6">' + results[i].hpDeptName + '</div>';
+                        innerHtml += '<div class="color-black6">' + results[i].hpDeptName + '</div>';
                     } else {
-                        innerHtml += '<div class="mt5 color-black6">' + results[i].hpDeptName + '<span class="ml5">' + results[i].mTitle + '</span></div>';
+                        innerHtml += '<div class="color-black6">' + results[i].hpDeptName + '<span class="ml5">' + results[i].mTitle + '</span></div>';
                     }
                 }
                 if (results[i].hpName != "" && results[i].hpName != null) {
-                    innerHtml += '<div class="mt5 color-black6">' + results[i].hpName + '</div>';
+                    innerHtml += '<div class="font-s12 pt5"><span class="hosIcon">' + results[i].hpName + '</span></div>';
                 }
                 innerHtml += '</div>' +
                         '</div>' +
                         '</a>';
-                if (results[i].reasons.length == 0) {
-                    innerHtml += '<div class="pl15 pr15 pt5 pb10 font-s12 color-black bb-gray2">' +
-                            '擅长:' + hp_dept_desc +
-                            '</div>' +
-                            '<div class="bb10-gray "></div>' +
-                            '</div>';
-                } else {
-                    innerHtml += '<div class="pl15 bb-gray2">' +
-                            '<div class="pt10 pb10 pr15 font-s12 color-black bb-gray3">' +
-                            '擅长:' + hp_dept_desc +
-                            '</div>' +
-                            '<div class="pt10 pb10 pr15 font-s12 color-black">' +
-                            '推荐理由:' + results[i].reasons[0] +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="bb10-gray "></div>' +
-                            '</div>';
-                }
-
+                innerHtml += '<div class="pl15 pr15 pt5 pb10 font-s12 color-black bb-gray2">' +
+                        '擅长:<span class="color-gray">' + hp_dept_desc +
+                        '</span></div>' +
+                        '</div>';
             }
         }
     } else {
@@ -202,7 +184,7 @@ function readyDoc(data) {
     if (data.dataNum != null) {
         var dataPage = Math.ceil(data.dataNum / 12);
         if (dataPage > 1) {
-            innerHtml += '<div class="grid pl15 pr15 pt10 bb-gray3 bt-gray2"><div class="grid w100">' +
+            innerHtml += '<div class="bb10-gray"></div><div class="grid pl15 pr15 pt10 bb-gray3 bt-gray2"><div class="grid w100">' +
                     '<div class="col-1 w40">' +
                     '<button id="previousPage" type="button" class="button btn-yellow">上一页</button>' +
                     '</div><div class="col-1 w20">' +

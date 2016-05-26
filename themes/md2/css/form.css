@@ -291,7 +291,7 @@ a .none{text-decoration:none;}
 .bg-white{background-color: #fff;}
 .bg-fff{background-color:#fff;}
 .bg-ddd{background-color:#ddd;}
-.bg-green{background-color:#19aea5;}
+.bg-green{background-color:#32c9c0;}
 .bg-red{background-color:#d9534f;}
 .bg-gray{background-color:rgba(221, 221, 221, 0.58);}
 .bg-gray2{background-color:#EAEFF1;}
@@ -367,6 +367,7 @@ a .none{text-decoration:none;}
 .br5{border-radius:5px;}
 .br8{border-radius: 8px;}
 .br3{border-radius:3px;}
+.br50{border-radius: 50%;}
 
 /*button*/
 .btn-block{width: 80%;display: block;margin: 5px auto;}
@@ -394,3 +395,4 @@ a .none{text-decoration:none;}
 
 /*a加下划线*/
 .a-underline{text-decoration:underline;  }
+.overflow-h{overflow: hidden;}
