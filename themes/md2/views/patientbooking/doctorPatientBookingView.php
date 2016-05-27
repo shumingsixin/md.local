@@ -7,7 +7,7 @@ $this->setPageTitle('预约详情');
 $booking = $data->results->booking;
 $user = $this->loadUser();
 if ($booking->bkType == 1) {
-    $urlPatientMRFiles = 'http://192.168.1.216/file.myzd.com/api/loadbookingmr?userId=' . $booking->creatorId . '&bookingId=' . $booking->id;
+    $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadbookingmr?userId=' . $booking->creatorId . '&bookingId=' . $booking->id;
 } else {
     $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId=' . $user->id . '&pbId=' . $booking->id . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
 }
@@ -147,7 +147,6 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         <a href="tel://4006277120" class="btn-red pl10 pr10">点击拨号</a>
                     </div>
                 </div>
-                <?php //var_dump($booking);   ?>
             </div>
         </article>
     </section>
