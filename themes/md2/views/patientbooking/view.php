@@ -27,7 +27,7 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                     </div>
                     <div class="grid pad10 bb-gray">
                         <div class="col-1 w30">意向专家</div>
-                        <div class="col-1 w70 text-right"><?php echo $booking->expected_doctor; ?></div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->expectedDoctor; ?></div>
                     </div>
                     <div class="pad10">
                         <div>诊疗意见</div>

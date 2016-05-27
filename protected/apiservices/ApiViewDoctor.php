@@ -37,16 +37,13 @@ class ApiViewDoctor extends EApiViewService {
     private function setDoctor(Doctor $model) {
         $data = new stdClass();
         $data->id = $model->getId();
-        $data->userId = $model->user_id;
         $data->name = $model->getName();
-        $data->hospitalId = $model->getHospitalId();
         $data->hospitalName = $model->getHospitalName();
         $data->mTitle = $model->getMedicalTitle();
         $data->aTitle = $model->getAcademicTitle();
         $data->imageUrl = $model->getAbsUrlAvatar();
-        $data->hpDeptId = $model->getHpDeptId();
         $data->hpDeptName = $model->getHpDeptName();
-        $data->isExpteam = $model->getIsExpteam();
+        $data->isContracted = $model->getIsContracted();
         $data->description = $model->getDescription();
         $data->careerExp = $model->getCareerExp();
         $data->honour = $model->getHonourList();

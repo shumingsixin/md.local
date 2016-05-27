@@ -67,7 +67,6 @@ class ApiViewBookOrder extends EApiViewService {
         $data = new stdClass();
         $data->id = $model->getId();
         $data->refNo = $model->getRefNo();
-        $data->doctorName = $model->getDoctorName();
         $data->expectedDoctor = $model->getExpectedDoctor();
         $data->patientId = $model->getPatientId();
         $data->patientName = $model->getPatientName();
@@ -83,6 +82,7 @@ class ApiViewBookOrder extends EApiViewService {
         $data->travelType = $model->getTravelType();
         $data->detail = $model->getDetail(false);
         $data->dateCreated = $model->getDateCreated('Y-m-d H:i:s');
+        $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/bookinginfo/' . $model->getId());
         $this->bookingInfo = $data;
         $this->status = $model->getStatus(false);
     }

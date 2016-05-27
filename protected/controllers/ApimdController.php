@@ -182,11 +182,16 @@ class ApimdController extends Controller {
     public function actionCreate($model) {
         $post = $_POST;
         if (empty($_POST)) {
+            // application/json
+            $post = CJSON::decode($this->getPostData());
             //$postData = urldecode($this->getPostData());
             //$post = $this->decryptInput($postData);
         } else {
+            // application/x-www-form-urlencoded
+            $post = $_POST;
             //$post = $this->decryptInput($_POST["name"]);
         }
+
         $output['status'] = EApiViewService::RESPONSE_NO;
         $output['errorCode'] = ErrorList::BAD_REQUEST;
         $output['errorMsg'] = 'Wrong parameters.';

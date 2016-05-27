@@ -184,7 +184,7 @@ class AuthManager {
         $username = $user->getUsername();
         $authTokenUser = AuthTokenUser::model()->getFirstActiveByUserId($userId);
         if (isset($authTokenUser) && $authTokenUser->checkExpiry() === false) {
-            // token is active but expired, so update it as 'inactive' (is_active=0).
+            // token is active but expired, so update it as 'inactive' (is_active=0). 
             $authTokenUser->deActivateToken();
             // unset model.
             $authTokenUser = null;

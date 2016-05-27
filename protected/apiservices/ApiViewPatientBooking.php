@@ -42,7 +42,7 @@ class ApiViewPatientBooking extends EApiViewService {
         $data->id = $model->getId();
         $data->refNo = $model->getRefNo();
         $data->travelType = $model->getTravelType();
-        $data->expected_doctor = $model->getExpectedDoctor();
+        $data->expectedDoctor = $model->getExpectedDoctor();
         $data->detail = $model->getDetail(false);
         $patient = $model->getPatient();
         $data->patientId = $patient->getId();
