@@ -54,6 +54,7 @@ class ApiViewPatientBookingForDoctor extends EApiViewService {
         $data = new stdClass();
         $data->id = $model->getId();
         $data->patientId = $model->getPatientId();
+        $data->creatorId = $model->getCreatorId();
         $data->bkType = StatCode::TRANS_TYPE_PB;
         $data->expectedDoctor = $model->getExpectedDoctor();
         $data->travelType = $model->getTravelType();
@@ -80,6 +81,7 @@ class ApiViewPatientBookingForDoctor extends EApiViewService {
         if (isset($model)) {
             $data = new stdClass();
             $data->id = $model->getId();
+            $data->creatorId = $model->getUserId();
             $data->bkType = StatCode::TRANS_TYPE_BK;
             $data->expectedDoctor = $model->doctor_user_name;
             $data->csExplain = $model->getCsExplain();

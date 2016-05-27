@@ -33,7 +33,7 @@ class ApiViewLocalData extends EApiViewService {
                 'doctorpatientinfo' => Yii::app()->createAbsoluteUrl('/apimd/view', array('model' => 'doctorpatientinfo', 'id' => '')),
                 'doctorinfo' => Yii::app()->createAbsoluteUrl('/apimd/doctorinfo'), //查看医生信息
                 'saveprofile' => Yii::app()->createAbsoluteUrl('/apimd/saveprofile'), //医生信息保存
-                'orderinfo' => Yii::app()->createAbsoluteUrl('/apimd/orderinfo'),//分批支付信息
+                'orderlist' => Yii::app()->createAbsoluteUrl('/apimd/orderlist'),//分批支付信息
                 'paymentUrl' => 'http://m.mingyizhudao.com/mobile/order/view?refNo=#&os=#&header=0&footer=0&addBackBtn=0',
                 'forgetpassword' => Yii::app()->createAbsoluteUrl('/apimd/forgetpassword'),
                 'userregister' => Yii::app()->createAbsoluteUrl('/apimd/userregister'),
