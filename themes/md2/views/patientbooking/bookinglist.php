@@ -150,7 +150,7 @@ $checkTeamDoctor = $teamDoctor;
                                     </div>
                                     <div class="grid mt10 mb10">
                                         <div class="col-0">就诊意向:</div>
-                                        <div class="col-1 pl5">邀请专家过来</div>
+                                        <div class="col-1 pl5"><?php echo $booking->travelType; ?></div>
                                     </div>
                                 </div>
                             </a>
