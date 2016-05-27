@@ -40,7 +40,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                     ?>
                     <li class="grid">
                         <div class="col-1 w30">意向专家</div>
-                        <div class="col-1 w70 text-right"><?php echo $booking->expected_doctor; ?></div>
+                        <div class="col-1 w70 text-right"><?php echo $booking->expectedDoctor; ?></div>
                     </li>
                 </ul>
                 <?php
