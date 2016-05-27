@@ -19,7 +19,7 @@ $orders = $data->results->orders;
                                         支付<span class="color-yellow"><?php echo $order->finalAmount; ?></span>元
                                     </div>
                                     <?php
-                                    if ($order->isPaid == '待支付') {
+                                    if ($order->isPaidText == '待支付') {
                                         echo '<div data-refNo="' . $order->refNo . '" class="pay col-1 w50p br5 bg-yellow color-white text-center pt7 pb5">支付</div>';
                                     } else {
                                         echo '<div class="col-1 w50p br5 bg-gray color-white text-center pt7 pb5">已支付</div>';

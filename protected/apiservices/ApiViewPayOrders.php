@@ -55,7 +55,8 @@ class ApiViewPayOrders extends EApiViewService {
             $data->orderTypeText = $model->getOrderType();
             $data->orderType = $model->getOrderType(false);
             $data->finalAmount = $model->getFinalAmount();
-            $data->isPaid = $model->getIsPaid();
+            $data->isPaidText = $model->getIsPaid();
+            $data->isPaid = $model->getIsPaid(false);
             $data->actionUrl = Yii::app()->createAbsoluteUrl('/apimd/orderview');
             $this->orderList[] = $data;
         }
