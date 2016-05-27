@@ -102,7 +102,6 @@ $(function () {
         var dataArray = structure_formdata('patient', formdata);
         var encryptContext = do_encrypt(dataArray, pubkey);
         var param = {param: encryptContext};
-        console.log(param);
         $.ajax({
             type: 'post',
             url: requestUrl,
