@@ -6,7 +6,11 @@ $this->setPageID('pBookingInfo');
 $this->setPageTitle('预约详情');
 $booking = $data->results->booking;
 $user = $this->loadUser();
-$urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId=' . $user->id . '&pbId=' . $booking->id . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
+if ($booking->bkType == 1) {
+    $urlPatientMRFiles = 'http://192.168.1.216/file.myzd.com/api/loadbookingmr?userId=' . $booking->creatorId . '&bookingId=' . $booking->id;
+} else {
+    $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientbookingmr?userId=' . $user->id . '&pbId=' . $booking->id . '&reportType=mr'; //$this->createUrl('patient/patientMRFiles', array('id' => $patient->id));
+}
 $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingId' => $booking->id, 'refNo' => ''));
 $urlAjaxDoctorOpinion = $this->createUrl('patientBooking/ajaxDoctorOpinion');
 $urlDoctorView = $this->createUrl('doctor/view');
@@ -143,7 +147,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                         <a href="tel://4006277120" class="btn-red pl10 pr10">点击拨号</a>
                     </div>
                 </div>
-                <?php //var_dump($booking);  ?>
+                <?php //var_dump($booking);   ?>
             </div>
         </article>
     </section>
@@ -231,6 +235,9 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 html: '<div class="imgpopup"><img src="' + imgUrl + '"></div>',
                 pos: 'top-second',
                 showCloseBtn: true
+            });
+            $('.imgpopup').click(function () {
+                J.closePopup();
             });
         });
     }

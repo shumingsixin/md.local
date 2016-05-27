@@ -15,7 +15,6 @@ pre .comment,pre .template_comment,pre .diff .header,pre .javadoc {
     font-style:italic
 }
 pre .keyword,pre .css .rule .keyword,pre .winutils,pre .javascript .title,pre .nginx .title,pre .subst,pre .request,pre .status {
-    //color:#333;
     color: #787878;
     font-weight:bold
 }

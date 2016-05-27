@@ -67,62 +67,74 @@ $this->show_footer = false;
                         荣誉•推荐理由
                     </div>
                 </div>
-                <div class="bgTriangleLeft pageCard" data-card="career">
-                    <div class="bg-white">
-                        <?php
-                        if (isset($doctor->description) && (trim($doctor->description) != '')) {
-                            ?>
-                            <div class="pad10 bb-gray3">
-                                <div class="font-s16 color-black">擅长</div>
-                                <div class="color-black6"><?php echo $doctor->description; ?></div>
-                            </div>
+                <?php
+                if ((isset($doctor->description) && (trim($doctor->description) != '')) || (isset($doctor->careerExp) && !is_null($doctor->careerExp))) {
+                    ?>
+                    <div class="bgTriangleLeft pageCard" data-card="career">
+                        <div class="bg-white">
                             <?php
-                        }
-                        ?>
-                        <?php if (isset($doctor->careerExp) && !is_null($doctor->careerExp)) { ?>
-                            <div class="pad10">
-                                <div class="font-s16 color-black">执业经历</div>
-                                <div class="color-black6"><?php echo $doctor->careerExp; ?></div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-                <div class="bgTriangleRight pageCard hide" data-card="honor">
-                    <div class="bg-white">
-                        <?php if (isset($honour) && !is_null($honour)) { ?>
-                            <div class="pad10 bb-gray3">
-                                <div class="font-s16 color-black">
-                                    荣誉
+                            if (isset($doctor->description) && (trim($doctor->description) != '')) {
+                                ?>
+                                <div class="pad10 bb-gray3">
+                                    <div class="font-s16 color-black">擅长</div>
+                                    <div class="color-black6"><?php echo $doctor->description; ?></div>
                                 </div>
                                 <?php
-                                for ($i = 0; $i < count($honour); $i++) {
-                                    ?>
-                                    <div class="bgStars color-black6">
-                                        <?php echo $honour[$i]; ?>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        <?php } ?>
-                        <?php if (count($doctor->reasons) != 0) { ?>
-                            <div class="pad10">
-                                <div class="font-s16 color-black">
-                                    推荐理由
+                            }
+                            ?>
+                            <?php if (isset($doctor->careerExp) && !is_null($doctor->careerExp)) { ?>
+                                <div class="pad10">
+                                    <div class="font-s16 color-black">执业经历</div>
+                                    <div class="color-black6"><?php echo $doctor->careerExp; ?></div>
                                 </div>
-                                <?php
-                                for ($i = 0; $i < count($doctor->reasons); $i++) {
-                                    ?>
-                                    <div class="bgDiamond color-black6">
-                                        <?php echo $doctor->reasons[$i]; ?>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+                <?php
+                if ((isset($honour) && !is_null($honour)) || (count($doctor->reasons) != 0)) {
+                    ?>
+                    <div class="bgTriangleRight pageCard hide" data-card="honor">
+                        <div class="bg-white">
+                            <?php if (isset($honour) && !is_null($honour)) { ?>
+                                <div class="pad10 bb-gray3">
+                                    <div class="font-s16 color-black">
+                                        荣誉
                                     </div>
                                     <?php
-                                }
-                                ?>
-                            </div>
-                        <?php } ?>
+                                    for ($i = 0; $i < count($honour); $i++) {
+                                        ?>
+                                        <div class="bgStars color-black6">
+                                            <?php echo $honour[$i]; ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            <?php } ?>
+                            <?php if (count($doctor->reasons) != 0) { ?>
+                                <div class="pad10">
+                                    <div class="font-s16 color-black">
+                                        推荐理由
+                                    </div>
+                                    <?php
+                                    for ($i = 0; $i < count($doctor->reasons); $i++) {
+                                        ?>
+                                        <div class="bgDiamond color-black6">
+                                            <?php echo $doctor->reasons[$i]; ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            <?php } ?>
+                        </div>
                     </div>
-                </div>
+                    <?php
+                }
+                ?>
                 <div class="mb10"></div>
             </div>
         </article>

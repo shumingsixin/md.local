@@ -4,7 +4,6 @@ body,p,h1,h4{color: #333;letter-spacing: 1px;line-height: 1.5;font-weight:200;fo
 a{color:#333;display: inline!important;}
 .pad1{padding: 1em;}
 section.active{top:44px;}
-//#section_container article.active{padding: 1em;}
 img{max-width: 100%;}
 div.error,div.errorMessage{color: #E21E1A;font-size: 12px;margin-top: -10px;}
 .btn{border-radius: 5px;border:none;text-align: center;padding: 3px 5px;}
@@ -87,7 +86,6 @@ header nav.right .header-user{height: 28px;}
 #order .yeepay{background-image: url(../images/icons/ic-yeepay.png);}
 #order .weixin{background-image: url(../images/icons/ic-weixin.png);}
 /**** patientBooking view ****/
-//#patientBookingView{padding: 1em;}
 #patientBookingView .title{color:#19aea5;padding: 0!important;}
 #patientBookingView .patientinfo{margin-bottom: 1em;letter-spacing: 2px;}
 #patientBookingView .patientinfo span{padding: 0px 9px;}

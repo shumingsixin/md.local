@@ -15,21 +15,21 @@
         <!--<meta http-equiv="cache-control" max-age="600" />-->
         <link rel="shortcut icon" type="image/ico" href="http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/css/icons/favicon.ico" />
         <?php
-        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/Jingle.min.css');
-        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/form.css?ts=' . time());
-        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/app.css');
-        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/md.css?ts=' . time());
-//        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/common.min.css?ts=' . time());
-
+//        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/Jingle.min.css');
+//        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/form.css?ts=' . time());
+//        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/app.css');
+//        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/md.css?ts=' . time());
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/iscroll.js', CClientScript::POS_END);
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/template.min.js', CClientScript::POS_END);
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/zepto.touch2mouse.js', CClientScript::POS_END);
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/Jingle.custom.js?ts=' . time(), CClientScript::POS_END);
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/jsencrypt.js?ts=' . time(), CClientScript::POS_END);
+//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/app/app.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/common.min.css?ts=' . time());
+        Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/css/custom.min.css?ts=' . time());
         Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/zepto.min.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/iscroll.js', CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/template.min.js', CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/zepto.touch2mouse.js', CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/Jingle.custom.js?ts=' . time(), CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/lib/jsencrypt.js?ts=' . time(), CClientScript::POS_END);
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/app/app.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/common.min.js?ts=' . time(), CClientScript::POS_END);
         Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/main.min.js?ts=' . time(), CClientScript::POS_END);
-//        Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/common.min.js?ts=' . time(), CClientScript::POS_END);
         ?>
     </head>
     <body>
