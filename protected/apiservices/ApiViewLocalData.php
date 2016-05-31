@@ -14,7 +14,7 @@ class ApiViewLocalData extends EApiViewService {
         $this->loadGender();
         $this->loadBookingTravelType();
         $this->loadCity();
-        //$this->loadDiseaseCategory();
+        $this->loadDiseaseCategory();
     }
 
     protected function createOutput() {
@@ -33,7 +33,7 @@ class ApiViewLocalData extends EApiViewService {
                 'doctorpatientinfo' => Yii::app()->createAbsoluteUrl('/apimd/view', array('model' => 'doctorpatientinfo', 'id' => '')),
                 'doctorinfo' => Yii::app()->createAbsoluteUrl('/apimd/doctorinfo'), //查看医生信息
                 'saveprofile' => Yii::app()->createAbsoluteUrl('/apimd/saveprofile'), //医生信息保存
-                'orderlist' => Yii::app()->createAbsoluteUrl('/apimd/orderlist'),//分批支付信息
+                'orderlist' => Yii::app()->createAbsoluteUrl('/apimd/orderlist'), //分批支付信息
                 'paymentUrl' => 'http://m.mingyizhudao.com/mobile/order/view?refNo=#&os=#&header=0&footer=0&addBackBtn=0',
                 'forgetpassword' => Yii::app()->createAbsoluteUrl('/apimd/forgetpassword'),
                 'userregister' => Yii::app()->createAbsoluteUrl('/apimd/userregister'),
@@ -43,6 +43,9 @@ class ApiViewLocalData extends EApiViewService {
                 'main' => Yii::app()->createAbsoluteUrl('/apimd/main'), //个人中心数据
                 'savedoctoropinion' => Yii::app()->createAbsoluteUrl('/apimd/savedoctoropinion'), //上级医生反馈
                 'contractdoctorlist' => Yii::app()->createAbsoluteUrl('/apimd/contractdoctorlist'), //签约专家列表
+                'doctordr' => Yii::app()->createAbsoluteUrl('/apimd/doctordr'), //转诊会诊信息展示
+                'doctorhzview' => Yii::app()->createAbsoluteUrl('/apimd/doctorhzview'), //会诊信息
+                'doctorzzview' => Yii::app()->createAbsoluteUrl('/apimd/doctorzzview'), //转诊信息
                 'dataversion' => Yii::app()->createAbsoluteUrl('/apimd/dataversion'),
             );
 

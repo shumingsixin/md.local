@@ -242,7 +242,7 @@ class PatientManager {
                 $output['errorMsg'] = 'success';
                 $output['results'] = array(
                     'refNo' => $data['salesOrderRefNo'],
-                    'actionUrl' => Yii::app()->createAbsoluteUrl('/apimd/orderview'),
+                    'actionUrl' => Yii::app()->createAbsoluteUrl('/apimd/orderinfo/' . $patientBooking->getId() ),
                 );
                 //发送提示短信
                 $this->sendSmsToCreator($patientBooking, $user);

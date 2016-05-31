@@ -17,7 +17,7 @@ class QiniuController extends MobiledoctorController {
      */
     public function actionAjaxPatientToken() {
         $url = 'http://file.mingyizhudao.com/api/tokenpatientmr';
-        // $url = 'http://192.168.31.119/file.myzd.com/api/tokenpatientmr';
+        //$url = 'http://192.168.31.119/file.myzd.com/api/tokenpatientmr';
         $data = $this->send_get($url);
         $output = array('uptoken' => $data['results']['uploadToken']);
         $this->renderJsonOutput($output);

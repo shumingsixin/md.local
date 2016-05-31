@@ -93,9 +93,9 @@ class PatientbookingController extends MobiledoctorController {
             $booking->setDoctorOpinion($opinion);
             if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
                 //医生评价成功 调用crm接口修改admin_booking的接口
-                //$urlMgr = new ApiRequestUrl();
-                //$url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
-                $url = "http://192.168.31.119/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                $urlMgr = new ApiRequestUrl();
+                $url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+//                $url = "http://192.168.31.119/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
                 $this->send_get($url);
                 $output['status'] = 'ok';
                 $output['id'] = $booking->getId();
@@ -237,9 +237,9 @@ class PatientbookingController extends MobiledoctorController {
                     throw new CException('error saving data.');
                 }
                 $bookingDB = $patientBooking;
-//                $apiRequest = new ApiRequestUrl();
-//                $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
-                $remote_url = 'http://localhost/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+                $apiRequest = new ApiRequestUrl();
+                $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+                //$remote_url = 'http://localhost/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
                 $data = $this->send_get($remote_url);
                 if ($data['status'] == "ok") {
                     $output['status'] = 'ok';

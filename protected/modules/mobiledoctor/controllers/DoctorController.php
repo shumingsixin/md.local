@@ -363,43 +363,6 @@ class DoctorController extends MobiledoctorController {
         ));
     }
 
-    //修改密码
-    public function actionChangePassword() {
-        $post = $this->$this->decryptInput();
-        $user = $this->getCurrentUser();
-        $form = new UserPasswordForm('new');
-        $form->initModel($user);
-        $this->performAjaxValidation($form);
-        if (isset($post['UserPasswordForm'])) {
-            $form->attributes = $post['UserPasswordForm'];
-            $userMgr = new UserManager();
-            $success = $userMgr->doChangePassword($form);
-            if ($this->isAjaxRequest()) {
-                if ($success) {
-                    //do anything here
-                    echo CJSON::encode(array(
-                        'status' => 'true'
-                    ));
-                    Yii::app()->end();
-                } else {
-                    $error = CActiveForm::validate($form);
-                    if ($error != '[]') {
-                        echo $error;
-                    }
-                    Yii::app()->end();
-                }
-            } else {
-                if ($success) {
-                    // $this->redirect(array('user/account'));
-                    $this->setFlashMessage('user.password', '密码修改成功！');
-                }
-            }
-        }
-        $this->render('changePassword', array(
-            'model' => $form
-        ));
-    }
-
     //个人中心
     public function actionView() {
         // var_dump(Yii::app()->user->id);exit;
@@ -722,6 +685,42 @@ class DoctorController extends MobiledoctorController {
         }
 
         $this->renderJsonOutput($output);
+    }
+
+    public function actionChangePassword() {
+        $post = $this->$this->decryptInput();
+        $user = $this->getCurrentUser();
+        $form = new UserPasswordForm('new');
+        $form->initModel($user);
+        $this->performAjaxValidation($form);
+        if (isset($post['UserPasswordForm'])) {
+            $form->attributes = $post['UserPasswordForm'];
+            $userMgr = new UserManager();
+            $success = $userMgr->doChangePassword($form);
+            if ($this->isAjaxRequest()) {
+                if ($success) {
+                    //do anything here
+                    echo CJSON::encode(array(
+                        'status' => 'true'
+                    ));
+                    Yii::app()->end();
+                } else {
+                    $error = CActiveForm::validate($form);
+                    if ($error != '[]') {
+                        echo $error;
+                    }
+                    Yii::app()->end();
+                }
+            } else {
+                if ($success) {
+                    // $this->redirect(array('user/account'));
+                    $this->setFlashMessage('user.password', '密码修改成功！');
+                }
+            }
+        }
+        $this->render('changePassword', array(
+            'model' => $form
+        ));
     }
 
     protected function performAjaxValidation($model) {
