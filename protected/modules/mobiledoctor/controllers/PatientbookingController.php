@@ -179,6 +179,11 @@ class PatientbookingController extends MobiledoctorController {
         if (isset($booking)) {
             $booking->operation_finished = StatCode::OPERATION_FINISHED;
             if ($booking->update(array(operation_finished))) {
+                //远程调用接口
+                $apiRequest = new ApiRequestUrl();
+                //$url = 'http://192.168.1.216/admin/api/operationfinished?id={$id}';
+                $url = $apiRequest->getUrlFinished() . "?id=" . $id;
+                $this->send_get($url);
                 $output['status'] = 'ok';
             } else {
                 $output["errors"] = $booking->getErrors();

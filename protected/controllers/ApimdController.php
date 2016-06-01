@@ -58,16 +58,16 @@ class ApimdController extends Controller {
             case 'main'://登陆成功 返回的主页信息
                 $user = $this->userLoginRequired($values);
                 $apiSvc = new ApiViewUserInfo($user);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'doctorinfo'://医生信息
                 $user = $this->userLoginRequired($values);
                 $apiSvc = new ApiViewDoctorInfo($user->id);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'orderview'://支付页面显示信息
                 $apiSvc = new ApiViewSalesOrder($values['refno']);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'bookingcontractdoctor'://预约签约专家所需信息
                 $user = $this->userLoginRequired($values);
@@ -77,28 +77,28 @@ class ApimdController extends Controller {
             case 'doctordr'://医生转诊会诊信息查询
                 $user = $this->userLoginRequired($values);
                 $apiService = new ApiViewDoctorDr($user->id);
-                $output = $apiService->loadApiViewData();
+                $output = $apiService->loadApiViewData(true);
                 break;
             case 'doctorhzview'://医生会诊页面
                 $user = $this->userLoginRequired($values);
                 $apiService = new ApiViewDoctorHz($user->id);
-                $output = $apiService->loadApiViewData();
+                $output = $apiService->loadApiViewData(true);
                 break;
             case 'doctorzzview'://医生转诊页面
                 $user = $this->userLoginRequired($values);
                 $apiService = new ApiViewDoctorZz($user->id);
-                $output = $apiService->loadApiViewData();
+                $output = $apiService->loadApiViewData(true);
                 break;
 
             case 'patientlist'://患者列表
                 $user = $this->userLoginRequired($values);
                 $apisvc = new ApiViewDoctorPatientList($user->id);
-                $output = $apisvc->loadApiViewData();
+                $output = $apisvc->loadApiViewData(true);
                 break;
             case 'serachpatients'://患者查询
                 $user = $this->userLoginRequired($values);
                 $apisvc = new ApiViewPatientSearch($user->id, $values['name']);
-                $output = $apisvc->loadApiViewData();
+                $output = $apisvc->loadApiViewData(true);
                 $this->renderJsonOutput($output);
                 break;
             case 'bookinglist'://我的订单
@@ -151,25 +151,36 @@ class ApimdController extends Controller {
             case 'patientinfo'://患者信息
                 $user = $this->userLoginRequired($values);
                 $apisvc = new ApiViewDoctorPatientInfo($id, $user->id);
-                $output = $apisvc->loadApiViewData();
+                $output = $apisvc->loadApiViewData(true);
                 break;
             case 'bookinginfo'://预约信息 
                 $user = $this->userLoginRequired($values);
                 $apiSvc = new ApiViewPatientBooking($id, $user->id);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'doctorbooking'://收到的预约详情
                 $user = $this->userLoginRequired($values);
                 $apiSvc = new ApiViewPatientBookingForDoctor($id, $user->id, $values['type']);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'orderinfo'://支付信息 id为patientbooking的id
                 $apiSvc = new ApiViewBookOrder($id);
-                $output = $apiSvc->loadApiViewData();
+                $output = $apiSvc->loadApiViewData(true);
                 break;
             case 'contractdoctor'://签约医生信息
                 $apiService = new ApiViewDoctor($values['id']);
                 $output = $apiService->loadApiViewData();
+                break;
+            case 'taskpatientda'://上传完出院小结调用
+                $output = array(
+                    'status' => EApiViewService::RESPONSE_OK,
+                    'errorCode' => ErrorList::ERROR_NONE,
+                    'errorMsg' => 'success',
+                );
+                $apiRequest = new ApiRequestUrl();
+                $remote_url = $apiRequest->getUrlDaTask() . "?id={$id}";
+                //本地测试请用 $remote_url="http://192.168.1.216/admin/api/taskpatientda?id={$id}";
+                $this->send_get($remote_url);
                 break;
             default:
                 $this->_sendResponse(501, sprintf('Error: Invalid request', $model));
@@ -187,14 +198,11 @@ class ApimdController extends Controller {
     public function actionCreate($model) {
         $post = $_POST;
         if (empty($_POST)) {
-            // application/json
-            $post = CJSON::decode($this->getPostData());
+            //$post = CJSON::decode();
             //$postData = urldecode($this->getPostData());
-            //$post = $this->decryptInput($postData);
+            $post = $this->decryptPost($this->getPostData());
         } else {
-            // application/x-www-form-urlencoded
             $post = $_POST;
-            //$post = $this->decryptInput($_POST["name"]);
         }
 
         $output['status'] = EApiViewService::RESPONSE_NO;
@@ -421,6 +429,17 @@ class ApimdController extends Controller {
         return (isset($codes[$status])) ? $codes[$status] : '
 
         ';
+    }
+
+    public function decryptPost($json) {
+        $x = CJSON::decode($json, true);
+        $client = 'app';
+        $rasConfig = CoreRasConfig::model()->getByClient($client);
+        $publicKey = $rasConfig->public_key;
+        $privateKey = $rasConfig->private_key;
+        $rsa = new RsaEncrypter($publicKey, $privateKey);
+        $decrypt = $rsa->newDecrypt($x);
+        return CJSON::decode(base64_decode($decrypt), true);
     }
 
     private function getApiVersionFromRequest() {
