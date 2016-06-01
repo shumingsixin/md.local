@@ -2,7 +2,7 @@
 Yii::app()->clientScript->registerCssFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/css/webuploader.css');
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/webuploader/css/webuploader.custom.css');
 Yii::app()->clientScript->registerScriptFile('http://myzd.oss-cn-hangzhou.aliyuncs.com/static/mobile/js/webuploader/js/webuploader.min.js', CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/uploadMRFile.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/custom/uploadDAFile.js?ts=' . time(), CClientScript::POS_END);
 ?>	
 <?php
 /*
@@ -13,6 +13,7 @@ $this->setPageTitle('上传出院小结');
 $patientId = $output['id'];
 $user = $this->loadUser();
 $urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
+$urlPatientAjaxDrTask = $this->createUrl('patient/ajaxDrTask', array('id' => ''));
 $bookingId = Yii::app()->request->getQuery('bookingid', '');
 $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
 if (isset($output['id'])) {
@@ -28,7 +29,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
     <section id="uploadMRFile_section" class="active">
         <article id="a1" class="active" data-scroll="true">
             <div class="form-wrapper mt10">
-                <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-ajaxDrTask="<?php echo $urlPatientAjaxDrTask; ?>" data-patientbookingid="<?php echo $bookingId; ?>">
                     <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $patientId; ?>" />
                     <input id="reportType" type="hidden" name="patient[report_type]" value="da" />
                 </form>

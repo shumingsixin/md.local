@@ -13,7 +13,7 @@
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl . '/js/qiniu/css/common.min.css?ts=' . time());
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/custom.min.js?ts=' . time(), CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/patientUpload.min.js?ts=' . time(), CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl . '/js/qiniu/js/summaryUpload.min.js?ts=' . time(), CClientScript::POS_END);
 ?>
 
 <?php
@@ -27,6 +27,7 @@ $user = $this->loadUser();
 //$urlUploadFile = 'http://file.mingyizhudao.com/api/uploadparientmr'; //$this->createUrl("patient/ajaxUploadMRFile");
 $urlUploadFile = $this->createUrl('qiniu/ajaxPatienMr');
 $urlQiniuAjaxToken = $this->createUrl('qiniu/ajaxPatientToken');
+$urlPatientAjaxDrTask = $this->createUrl('patient/ajaxDrTask');
 $bookingId = Yii::app()->request->getQuery('bookingid', '');
 $urlReturn = $this->createUrl('order/orderView', array('bookingid' => $bookingId, 'addBackBtn' => 1));
 if (isset($output['id'])) {
@@ -54,7 +55,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
                     <div class="">
                         <div class="container">
                             <div class="text-left wrapper">
-                                <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>">
+                                <form id="booking-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-ajaxDrTask="<?php echo $urlPatientAjaxDrTask; ?>" data-patientbookingid="<?php echo $bookingId; ?>">
                                     <input id="patientId" type="hidden" name="Booking[patient_id]" value="<?php echo $patientId; ?>" />
                                     <input id="reportType" type="hidden" name="Booking[report_type]" value="da" />
                                     <input type="hidden" id="domain" value="http://mr.file.mingyizhudao.com">
