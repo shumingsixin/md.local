@@ -40,6 +40,16 @@ class PatientManager {
         return PatientBooking::model()->count($criteria);
     }
 
+    //分组查询各个状态的预约量
+    public function loadCountByStatus($creator_id) {
+        $criteria = new CDbCriteria();
+        $criteria->select = 't.status,count(1) id';
+        $criteria->compare('t.creator_id', $creator_id);
+        $criteria->addCondition('t.date_deleted is NULL');
+        $criteria->group = 't.status';
+        return PatientBooking::model()->findAll($criteria);
+    }
+
     //查询该医生所有的预约患者总数
     public function loadPatientBookingNumberByDoctorId($doctor_id) {
         $criteria = new CDbCriteria();
@@ -242,7 +252,7 @@ class PatientManager {
                 $output['errorMsg'] = 'success';
                 $output['results'] = array(
                     'refNo' => $data['salesOrderRefNo'],
-                    'actionUrl' => Yii::app()->createAbsoluteUrl('/apimd/orderinfo/' . $patientBooking->getId() ),
+                    'actionUrl' => Yii::app()->createAbsoluteUrl('/apimd/orderinfo/' . $patientBooking->getId()),
                 );
                 //发送提示短信
                 $this->sendSmsToCreator($patientBooking, $user);

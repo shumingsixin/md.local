@@ -70,7 +70,7 @@ class PatientbookingController extends MobiledoctorController {
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking', 'ajaxDoctorOpinion'),
+                'actions' => array('view', 'create', 'ajaxCreate', 'update', 'list', 'doctorPatientBookingList', 'doctorPatientBooking', 'ajaxDoctorOpinion', 'ajaxBookingNum', 'ajaxOperation'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -117,6 +117,14 @@ class PatientbookingController extends MobiledoctorController {
         ));
     }
 
+    //各类订单数量
+    public function actionAjaxBookingNum() {
+        $userId = $this->getCurrentUserId();
+        $apisvc = new ApiViewBookingCount($userId);
+        $output = $apisvc->loadApiViewData();
+        $this->renderJsonOutput($output);
+    }
+
     //查询创建者的签约信息
     public function actionList($page = 1, $status = 0) {
         $user = $this->loadUser();
@@ -161,6 +169,23 @@ class PatientbookingController extends MobiledoctorController {
         $this->render('doctorPatientBookingView', array(
             'data' => $output
         ));
+    }
+
+    //下级医生确认手术完成
+    public function actionAjaxOperation($id) {
+        $output = array('status' => 'no');
+        $userId = $this->getCurrentUserId();
+        $booking = PatientBooking::model()->getByIdAndCreatorId($id, $userId);
+        if (isset($booking)) {
+            $booking->operation_finished = StatCode::OPERATION_FINISHED;
+            if ($booking->update(array(operation_finished))) {
+                $output['status'] = 'ok';
+            } else {
+                $output["errors"] = $booking->getErrors();
+            }
+        } else {
+            $output["errors"] = 'no data...';
+        }
     }
 
     public function actionCreate() {

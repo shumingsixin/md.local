@@ -55,7 +55,7 @@ class PatientBooking extends EActiveRecord {
         // will receive user inputs.
         return array(
             array('patient_id, creator_id, status, travel_type', 'required'),
-            array('patient_id, creator_id, doctor_id, status, travel_type', 'numerical', 'integerOnly' => true),
+            array('patient_id, creator_id, doctor_id, status, travel_type, operation_finished', 'numerical', 'integerOnly' => true),
             array('ref_no', 'length', 'is' => 14),
             array('user_agent, doctor_name, patient_name, creator_name', 'length', 'max' => 20),
             array('expected_doctor', 'length', 'max' => 200),

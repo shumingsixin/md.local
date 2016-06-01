@@ -68,14 +68,17 @@ class ApiViewBookOrder extends EApiViewService {
         $data->id = $model->getId();
         $data->refNo = $model->getRefNo();
         $data->expectedDoctor = $model->getExpectedDoctor();
+        $data->operationFinished = $model->operation_finished;
         $data->patientId = $model->getPatientId();
         $data->patientName = $model->getPatientName();
         $data->statusTitle = $model->getStatusTitle();
+        $data->hasFile = 0;
         $patientInfo = $model->getPatient();
         if ($model->status == PatientBooking::BK_STATUS_SERVICE_PAIDED) {
             $files = $patientInfo->patientDAFiles;
             if (arrayNotEmpty($files)) {
                 $data->statusTitle = "当前状态:出院小结审核中";
+                $data->hasFile = 1;
             }
         }
         $data->statusCode = $model->getStatus(false);

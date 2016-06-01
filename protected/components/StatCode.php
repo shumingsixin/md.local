@@ -61,6 +61,7 @@ class StatCode {
     const TASK_DOCTOR_CERT = 1;             //医生上传证件
     const TASK_DOCTOR_PROFILE_NEW = 2;      //医生新增个人信息
     const TASK_DOCTOR_PROFILE_UPDATE = 3;   //医生修改个人信息
+    const OPERATION_FINISHED = 1;       //下级医生确认手术已完成
 
 // gender.
 

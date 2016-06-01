@@ -106,6 +106,11 @@ class ApimdController extends Controller {
                 $apisvc = new ApiViewDoctorPatientBookingList($user->id, $values['status']);
                 $output = $apisvc->loadApiViewData();
                 break;
+            case 'bookingcount'://各类订单数量
+                $user = $this->userLoginRequired($values);
+                $apisvc = new ApiViewBookingCount($user->id);
+                $output = $apisvc->loadApiViewData();
+                break;
             case 'doctorbookinglist'://收到的预约
                 $user = $this->userLoginRequired($values);
                 $apisvc = new ApiViewPatientBookingListForDoctor($user->id);
