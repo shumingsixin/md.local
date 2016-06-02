@@ -189,6 +189,7 @@ class PaymentController extends MobiledoctorController {
         $this->redirect(array('order/payResult', 'paymentcode' => $payment->uid));
     }
 
+	
     /*
       public function actionAlipayNotify() {
       // $paymentMgr = new PaymentManager();

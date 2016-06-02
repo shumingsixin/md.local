@@ -37,7 +37,7 @@ class ApiViewLocalData extends EApiViewService {
                 'paymentUrl' => 'http://m.mingyizhudao.com/mobile/order/view?refNo=#&os=#&header=0&footer=0&addBackBtn=0',
                 'forgetpassword' => Yii::app()->createAbsoluteUrl('/apimd/forgetpassword'),
                 'userregister' => Yii::app()->createAbsoluteUrl('/apimd/userregister'),
-                'findView' => 'http://192.168.2.126/md2.myzd.com/mobiledoctor/home/page/view/findView',
+                'findView' => 'http://192.168.31.118/new.md/mobiledoctor/home/page/view/findView',
                 'citylist' => Yii::app()->createAbsoluteUrl('/apimd/citylist'), //城市列表
                 'indexannouncement' => Yii::app()->createAbsoluteUrl('/apimd/indexannouncement'),
                 'main' => Yii::app()->createAbsoluteUrl('/apimd/main'), //个人中心数据
@@ -46,6 +46,10 @@ class ApiViewLocalData extends EApiViewService {
                 'doctordr' => Yii::app()->createAbsoluteUrl('/apimd/doctordr'), //转诊会诊信息展示
                 'doctorhzview' => Yii::app()->createAbsoluteUrl('/apimd/doctorhzview'), //会诊信息
                 'doctorzzview' => Yii::app()->createAbsoluteUrl('/apimd/doctorzzview'), //转诊信息
+                'savedoctorhz' => Yii::app()->createAbsoluteUrl('/apimd/savedoctorhz'), //保存转诊信息
+                'savedoctorzz' => Yii::app()->createAbsoluteUrl('/apimd/savedoctorzz'), //保存会诊信息
+                'notjoinzz' => Yii::app()->createAbsoluteUrl('/apimd/notjoinzz'), //不参加会诊信息
+                'notjoinhz' => Yii::app()->createAbsoluteUrl('/apimd/notjoinhz'), //不参加转诊信息
                 'dataversion' => Yii::app()->createAbsoluteUrl('/apimd/dataversion'),
             );
 

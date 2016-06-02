@@ -199,8 +199,9 @@ class ApimdController extends Controller {
         $post = $_POST;
         if (empty($_POST)) {
             //$post = CJSON::decode();
-            //$postData = urldecode($this->getPostData());
             $post = $this->decryptPost($this->getPostData());
+            // var_dump($this->getPostData());
+            // exit;
         } else {
             $post = $_POST;
         }
@@ -432,6 +433,7 @@ class ApimdController extends Controller {
     }
 
     public function decryptPost($json) {
+        $json = urldecode($json);
         $x = CJSON::decode($json, true);
         $client = 'app';
         $rasConfig = CoreRasConfig::model()->getByClient($client);
