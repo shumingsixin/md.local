@@ -592,27 +592,38 @@ header{
 /*我的订单*/
 #bookingList_nav.header-secondary{
     top: 0px;
-    height: 50px;
+    height: 40px;
 }
 #bookingList_nav.header-secondary~article{
-    top: 50px;
+    top: 40px;
 }
-#bookingList_nav .statusLine .active{
+#bookingList_nav .control-group li:first-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li:last-child{
+    border-radius: 0px;
+}
+#bookingList_nav .control-group li{
+    border: inherit;
+    padding: 0px;
+}
+#bookingList_nav .control-group li div.statusLine{
+    padding: 4px 0px;
+}
+#bookingList_nav .control-group li>a{
+    color: #333333;
+}
+#bookingList_nav .control-group li.active{
     background: #fff;
 }
-#bookingList_nav .statusLine .active div.statusIcon{
+#bookingList_nav .control-group li.active div.statusLine{
     border-bottom: 2px solid #06c1ae;
 }
-#bookingList_nav .statusLine .active a{
+#bookingList_nav .control-group li.active a, .control-group li.active .icon{
     color: #06c1ae;
-}
-#bookingList_nav .statusText{
-    line-height: 28px;
-}
-#bookingList_nav .statusNum{
-    line-height: 20px;
-    height: 20px;
-    font-size: 12px;
 }
 
 /*预约详情*/

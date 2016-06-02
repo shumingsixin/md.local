@@ -154,21 +154,32 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                     }
                     ?>
                     <div id="fileCode" class="<?php echo $fileCode; ?>">
-                        <div class="imglist mt10">
-                            <ul class="filelist"></ul>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div id="reselection" class="grid hide pl10 pr10 pb20">
-                            <div class="col-1"></div>
-                            <div class="col-0">
-                                <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>">重新选择</a>
+                        <?php
+                        if ($booking->hasFile == 1) {
+                            ?>
+                            <div>
+                                <div class="imglist mt10">
+                                    <ul class="filelist"></ul>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div id="reselection" class="grid hide pl10 pr10 pb20">
+                                    <div class="col-1"></div>
+                                    <div class="col-0">
+                                        <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>">重新选择</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div id="upload" class="pl10 pr10 pt20 pb20 hide">
-                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" class="btn btn-full bg-green color-white">上传照片</a>
-                        </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div id="upload" class="pl10 pr10 pt20 pb20">
+                                <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" class="btn btn-full bg-green color-white">上传照片</a>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
-                    <div id="fileBtn" class="pl10 pr10 pt30 pb20 <?php echo $fileBtn; ?>">
+                    <div id="fileBtn" class="pl10 pr10 pt20 pb20 <?php echo $fileBtn; ?>">
                         <div>
                             <div id="completeOperation" class="btn btn-full bg-green color-white">我确认手术已完成</div>
                         </div>
@@ -187,13 +198,15 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
     $(document).ready(function () {
         //加载小结
         var urlPatientMRFiles = "<?php echo $urlPatientMRFiles; ?>";
-        $.ajax({
-            url: urlPatientMRFiles,
-            success: function (data) {
-                //console.log(data);
-                setImgHtml(data.results.files);
-            }
-        });
+        if ('<?php echo $booking->hasFile; ?>' == 1) {
+            $.ajax({
+                url: urlPatientMRFiles,
+                success: function (data) {
+                    //console.log(data);
+                    setImgHtml(data.results.files);
+                }
+            });
+        }
 
         $('#completeOperation').tap(function (e) {
             e.preventDefault();
@@ -255,7 +268,6 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                             imgfile.absFileUrl + '"></p></li>';
                 }
             } else {
-                $('#upload').removeClass('hide');
                 innerHtml += '';
             }
             $(".imglist .filelist").html(innerHtml);
