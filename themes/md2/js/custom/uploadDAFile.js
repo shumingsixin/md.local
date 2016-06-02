@@ -363,8 +363,7 @@ $(function () {
                     enableBtn(btnSubmit);
                     //电邮提醒
                     if (patientBookingId != '') {
-                        $.ajax({
-                            type: 'get',
+                        $.get({
                             url: patientAjaxDrTask + '/' + patientBookingId,
                             success: function (data) {
                                 //console.log(data);
