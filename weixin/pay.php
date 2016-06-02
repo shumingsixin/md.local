@@ -17,7 +17,7 @@ if (isset($_GET['refNo'])) {
 }
 $loadOrderDataUrl = $baseUrl . '/mobiledoctor/order/loadOrderPay?refNo=' . $refNo;
 $cancelUrl = $baseUrl . '/mobiledoctor/doctor/view';
-$payUrl = $baseUrl . '/payment/doPingxxPay';
+$payUrl = $baseUrl . '/mobiledoctor/payment/doPingxxPay';
 $refUrl = $baseUrl . '/mobiledoctor/order/view?refNo=' . $refNo;
 //$openid = 'o9D7bsrlWC5ecKJdSuyVAYLedjVc' ;                            //(可选，使用微信公众号支付时必须传入)';
 ?>
