@@ -90,7 +90,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </a>
                     </li>
                     <li class="nextImg">
-                        <a href="<?php echo $urlDoctorPatientBookingList; ?>" class="color-000" data-target="link">
+                        <a id="getBooking" class="color-000" data-target="link">
                             <div class="grid font-type">
                                 <div class="col-0 w20 receivedBooking"></div>
                                 <div class="col-0 w80">
@@ -110,7 +110,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </div>
                     </li>
                     <li class="nextImg">
-                        <a href="<?php echo $urlDoctorContract; ?>" class="color-000" data-target="link">
+                        <a id="term" class="color-000" data-target="link">
                             <div class="grid font-type">
                                 <div class="col-0 w20 signDoctor"></div>
                                 <div class="col-0 w80">
@@ -225,6 +225,14 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
             } else {
                 location.href = "<?php echo $urlPatientBookingList; ?>";
             }
+        });
+
+        $('#getBooking').tap(function () {
+            location.href = '<?php echo $urlDoctorPatientBookingList; ?>';
+        });
+        
+        $('#term').tap(function () {
+            location.href = '<?php echo $urlDoctorContract; ?>';
         });
 
         //医生顾问协议
