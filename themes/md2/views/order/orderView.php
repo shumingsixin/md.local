@@ -11,6 +11,7 @@ $patientBookingList = $this->createUrl('patientBooking/list', array('status' => 
 $payUrl = $this->createUrl('/payment/doPingxxPay');
 $refUrl = $this->createAbsoluteUrl('order/view');
 $urlDoctorView = $this->createUrl('doctor/view');
+$urlAjaxOperation = $this->createUrl('patientbooking/ajaxOperation', array('id' => ''));
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $BK_STATUS_NEW = StatCode::BK_STATUS_NEW;
 $BK_STATUS_SERVICE_UNPAID = StatCode::BK_STATUS_SERVICE_UNPAID;
@@ -145,20 +146,35 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                 </div>
                 <?php
                 if ($booking->statusCode == $BK_STATUS_SERVICE_PAIDED) {
+                    $fileCode = '';
+                    $fileBtn = 'hide';
+                    if ($booking->operationFinished == 0) {
+                        $fileCode = 'hide';
+                        $fileBtn = '';
+                    }
                     ?>
-                    <div class="imglist mt10">
-                        <ul class="filelist"></ul>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div id="reselection" class="grid hide pl10 pr10 pb20">
-                        <div class="col-1"></div>
-                        <div class="col-0">
-                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>">重新选择</a>
+                    <div id="fileCode" class="<?php echo $fileCode; ?>">
+                        <div class="imglist mt10">
+                            <ul class="filelist"></ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="reselection" class="grid hide pl10 pr10 pb20">
+                            <div class="col-1"></div>
+                            <div class="col-0">
+                                <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>">重新选择</a>
+                            </div>
+                        </div>
+                        <div id="upload" class="pl10 pr10 pt20 pb20 hide">
+                            <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>" class="btn btn-full bg-green color-white">上传照片</a>
                         </div>
                     </div>
-                    <div id="upload" class="pl10 pr10 pt20 pb20 hide">
-                        <a href="<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>"
-                           class = "btn btn-full bg-green color-white">上传照片</a>
+                    <div id="fileBtn" class="pl10 pr10 pt30 pb20 <?php echo $fileBtn; ?>">
+                        <div>
+                            <div id="completeOperation" class="btn btn-full bg-green color-white">我确认手术已完成</div>
+                        </div>
+                        <div class="text-center font-s12 pt5">
+                            （点击即为确认）
+                        </div>
                     </div>
                     <?php
                 }
@@ -177,6 +193,53 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                 //console.log(data);
                 setImgHtml(data.results.files);
             }
+        });
+
+        $('#completeOperation').tap(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '<?php echo $urlAjaxOperation; ?>/' + '<?php echo $booking->id; ?>',
+                success: function (data) {
+                    console.log(data);
+                    if (data.status == 'ok') {
+                        if ('<?php echo $booking->hasFile; ?>' == 0) {
+                            J.customConfirm('确定成功',
+                                    '<div class="mt10 mb10">感谢您协助完成该例手术！是否立即上传出院小结</div>',
+                                    '<a id="closeLogout" class="w50">暂不</a>',
+                                    '<a id="uploadFile" class="color-green w50">上传</a>',
+                                    function () {
+                                    },
+                                    function () {
+                                    });
+                            $('#closeLogout').tap(function () {
+                                J.hideMask();
+                                $('#fileBtn').addClass('hide');
+                                $('#fileCode').removeClass('hide');
+                            });
+                            $('#uploadFile').tap(function () {
+                                J.hideMask();
+                                $('#fileBtn').addClass('hide');
+                                $('#fileCode').removeClass('hide');
+                                location.href = '<?php echo $urlUpload = $this->createUrl('patient/uploadDAFile', array('id' => $booking->patientId, 'bookingid' => $booking->id, 'addBackBtn' => 1)); ?>';
+                            });
+                        } else {
+                            J.customConfirm('确定成功',
+                                    '<div class="mt10 mb10">感谢您协助完成该例手术！</div>',
+                                    '',
+                                    '<a id="closeLogout" class="color-green w50">确定</a>',
+                                    function () {
+                                    },
+                                    function () {
+                                    });
+                            $('#closeLogout').tap(function () {
+                                J.hideMask();
+                                $('#fileBtn').addClass('hide');
+                                $('#fileCode').removeClass('hide');
+                            });
+                        }
+                    }
+                }
+            });
         });
 
         function setImgHtml(imgfiles) {

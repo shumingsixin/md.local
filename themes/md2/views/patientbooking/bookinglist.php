@@ -11,6 +11,7 @@ $urlDoctorTerms = $this->createAbsoluteUrl('doctor/doctorTerms');
 $urlPatientBookingList = $this->createUrl('patientBooking/list', array('addBackBtn' => 1, 'status' => ''));
 $urlDoctorTerms.='?returnUrl=' . $currentUrl;
 $urlDoctorView = $this->createUrl('doctor/view');
+$urlAjaxBookingNum = $this->createUrl('patientbooking/ajaxBookingNum');
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 $checkTeamDoctor = $teamDoctor;
 ?>
@@ -32,83 +33,98 @@ $checkTeamDoctor = $teamDoctor;
 <div id="section_container" <?php echo $this->createPageAttributes(); ?>>
     <section id="bookingList_section" class="active" data-init="true">
         <nav id="bookingList_nav" class="header-secondary bg-white color-black3 font-s16">
-            <ul class="control-group w100">
+            <div class="grid w100 statusLine">
                 <?php
                 $statusActive = '';
                 if ($status == 0) {
                     $statusActive = 'active';
                 }
                 ?>
-                <li class="<?php echo $statusActive; ?>">
+                <div class="col-1 w20 <?php echo $statusActive; ?>">
                     <a href="<?php echo $urlPatientBookingList; ?>/0" id="zhuanti" data-target="link">
                         <div class="grid">
                             <div class="col-1"></div>
-                            <div class="col-0 statusLine">全部</div>
+                            <div class="col-0 statusIcon">
+                                <div class="statusText">全部</div>
+                                <div id="allOrders" class="statusNum"></div>
+                            </div>
                             <div class="col-1"></div>
                         </div>
                     </a>
-                </li>
+                </div>
                 <?php
                 $statusActive = '';
                 if ($status == 1) {
                     $statusActive = 'active';
                 }
                 ?>
-                <li class="<?php echo $statusActive; ?>">
+                <div class="col-1 w20 <?php echo $statusActive; ?>">
                     <a href="<?php echo $urlPatientBookingList; ?>/1" id="story" data-target="link">
                         <div class="grid">
                             <div class="col-1"></div>
-                            <div class="col-0 statusLine">待支付</div>
+                            <div class="col-0 statusIcon">
+                                <div class="statusText">待支付</div>
+                                <div id="waitPay" class="statusNum"></div>
+                            </div>
                             <div class="col-1"></div>
                         </div>
                     </a>
-                </li>
+                </div>
                 <?php
                 $statusActive = '';
                 if ($status == 2) {
                     $statusActive = 'active';
                 }
                 ?>
-                <li class="<?php echo $statusActive; ?>">
+                <div class="col-1 w20 <?php echo $statusActive; ?>">
                     <a href="<?php echo $urlPatientBookingList; ?>/2" id="story" data-target="link">
                         <div class="grid">
                             <div class="col-1"></div>
-                            <div class="col-0 statusLine">安排中</div>
+                            <div class="col-0 statusIcon">
+                                <div class="statusText">安排中</div>
+                                <div id="arrange" class="statusNum"></div>
+                            </div>
                             <div class="col-1"></div>
                         </div>
                     </a>
-                </li>
+                </div>
                 <?php
                 $statusActive = '';
                 if ($status == 5) {
                     $statusActive = 'active';
                 }
                 ?>
-                <li class="<?php echo $statusActive; ?>">
+                <div class="col-1 w20 <?php echo $statusActive; ?>">
                     <a href="<?php echo $urlPatientBookingList; ?>/5" id="story" data-target="link">
                         <div class="grid">
                             <div class="col-1"></div>
-                            <div class="col-0 statusLine">待确认</div>
+                            <div class="col-0 statusIcon">
+                                <div class="statusText">待确认</div>
+                                <div id="waitConfirm" class="statusNum"></div>
+                            </div>
                             <div class="col-1"></div>
                         </div>
                     </a>
-                </li>
+                </div>
                 <?php
                 $statusActive = '';
                 if ($status == 6) {
                     $statusActive = 'active';
                 }
                 ?>
-                <li class="<?php echo $statusActive; ?>">
+                <div class="col-1 w20 <?php echo $statusActive; ?>">
                     <a href="<?php echo $urlPatientBookingList; ?>/6" id="story" data-target="link">
                         <div class="grid">
                             <div class="col-1"></div>
-                            <div class="col-0 statusLine">传小结</div>
+                            <div class="col-0 statusIcon">
+                                <div class="statusText">传小结</div>
+                                <div id="uploadSummary" class="statusNum"></div>
+                            </div>
                             <div class="col-1"></div>
                         </div>
                     </a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </nav>
         <article id="bookingList_article" class="active" data-scroll="true">
             <div class="">
@@ -172,6 +188,18 @@ $checkTeamDoctor = $teamDoctor;
 </div>
 <script>
     $(document).ready(function () {
+        $.ajax({
+            url: '<?php echo $urlAjaxBookingNum; ?>',
+            success: function (data) {
+                console.log(data);
+                var info = data.results.info;
+                $('#allOrders').html(info[0]);
+                $('#waitPay').html(info[1]);
+                $('#arrange').html(info[2]);
+                $('#waitConfirm').html(info[5]);
+                $('#uploadSummary').html(info[6]);
+            }
+        });
         $('#bookingList_article').scroll(function () {
             if ($(this).scrollTop() > 0) {
                 $('#bookingList_nav').addClass('bb-gray');
