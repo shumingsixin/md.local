@@ -109,7 +109,7 @@ class MsgSmsTemplate extends EActiveRecord
 	}
 
 	/**
-	 * Returns the static model of the specified AR class.
+	 * Returns the static model of the specified AR class.test
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
 	 * @return MsgSmsTemplate the static model class
