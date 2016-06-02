@@ -150,13 +150,16 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
+                            '<a id="signAgreement" class="color-green w50">签署协议</a>',
                             function () {
                             },
                             function () {
                             });
-                    $('#closeLogout').click(function () {
+                    $('#closeLogout').tap(function () {
                         J.closePopup();
+                    });
+                    $('#signAgreement').tap(function () {
+                        location.href = '<?php echo $urlDoctorTerms; ?>';
                     });
                 } else {
                     location.href = "<?php echo $urlPatientCreate; ?>";
@@ -176,13 +179,16 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
+                            '<a id="signAgreement" class="color-green w50">签署协议</a>',
                             function () {
                             },
                             function () {
                             });
-                    $('#closeLogout').click(function () {
+                    $('#closeLogout').tap(function () {
                         J.closePopup();
+                    });
+                    $('#signAgreement').tap(function () {
+                        location.href = '<?php echo $urlDoctorTerms; ?>';
                     });
                 } else {
                     location.href = "<?php echo $urlPatientList; ?>";
@@ -202,13 +208,16 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                     J.customConfirm('您已实名认证',
                             '<div class="mt10 mb10">尚未签署《医生顾问协议》</div>',
                             '<a id="closeLogout" class="w50">暂不</a>',
-                            '<a href="<?php echo $urlDoctorTerms; ?>" class="color-green w50">签署协议</a>',
+                            '<a id="signAgreement" class="color-green w50">签署协议</a>',
                             function () {
                             },
                             function () {
                             });
-                    $('#closeLogout').click(function () {
+                    $('#closeLogout').tap(function () {
                         J.closePopup();
+                    });
+                    $('#signAgreement').tap(function () {
+                        location.href = '<?php echo $urlDoctorTerms; ?>';
                     });
                 } else {
                     location.href = "<?php echo $urlPatientBookingList; ?>";
@@ -226,26 +235,32 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未完善个人信息</div>',
                         '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a href="<?php echo $urlDoctorProfile; ?>" class="color-green w50">完善信息</a>',
+                        '<a id="doctorProfile" class="color-green w50">完善信息</a>',
                         function () {
                         },
                         function () {
                         });
-                $('#closeLogout').click(function () {
+                $('#closeLogout').tap(function () {
                     J.closePopup();
+                });
+                $('#doctorProfile').tap(function () {
+                    location.href = '<?php echo $urlDoctorProfile; ?>';
                 });
             } else if ('<?php echo $user->results->userInfo->doctorCerts; ?>' == '') {
                 J.hideMask();
                 J.customConfirm('',
                         '<div class="mt10 mb10">您尚未上传实名认证证件</div>',
                         '<a id="closeLogout" class="w50">暂不</a>',
-                        '<a href="<?php echo $urlDoctorUploadCert; ?>" class="color-green w50">上传证件</a>',
+                        '<a id="uploadFile" class="color-green w50">上传证件</a>',
                         function () {
                         },
                         function () {
                         });
-                $('#closeLogout').click(function () {
+                $('#closeLogout').tap(function () {
                     J.closePopup();
+                });
+                $('#uploadFile').tap(function () {
+                    location.href = '<?php echo $urlDoctorUploadCert; ?>';
                 });
             } else if ('<?php echo $verified; ?>' == '') {
                 J.hideMask();
@@ -257,7 +272,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         },
                         function () {
                         });
-                $('#closeLogout').click(function () {
+                $('#closeLogout').tap(function () {
                     J.closePopup();
                 });
             } else {
