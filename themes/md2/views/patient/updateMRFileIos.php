@@ -51,7 +51,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
             <div class="form-wrapper mt10">
                 <form id="patient-form" data-url-uploadfile="<?php echo $urlUploadFile; ?>" data-url-return="<?php echo $urlReturn; ?>" data-patientBookingId="<?php echo $patientBookingId; ?>" data-patientAjaxTask="<?php echo $patientAjaxTask; ?>">
                     <input id="patientId" type="hidden" name="patient[id]" value="<?php echo $output['id']; ?>" />
-                    <input id="reportType" type="hidden" name="patient[report_type]" value="" />
+                    <input id="reportType" type="hidden" name="patient[report_type]" value="mr" />
                 </form>
                 <div class="">
                     <div class="grid">
