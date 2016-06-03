@@ -286,6 +286,7 @@ class AuthManager {
         return $output;
     }
 
+    
     /**
      * doctor login by using mobile no. & verify_code.
      * @param type $mobile
