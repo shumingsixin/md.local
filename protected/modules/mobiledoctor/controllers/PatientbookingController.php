@@ -191,6 +191,7 @@ class PatientbookingController extends MobiledoctorController {
         } else {
             $output["errors"] = 'no data...';
         }
+        $this->renderJsonOutput($output);
     }
 
     public function actionCreate() {

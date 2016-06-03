@@ -20,6 +20,7 @@ class ApiViewSalesOrder extends EApiViewService {
     protected function loadData() {
         // load PatientBooking by creatorId.
         $this->loadSalesOrder();
+        $this->loadBooking();
     }
 
     //返回的参数

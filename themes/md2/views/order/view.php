@@ -7,7 +7,7 @@ $this->setPageID('pOrder');
 $this->setPageTitle('订单');
 $order = $data->results->salesOrder;
 $urlResImage = Yii::app()->theme->baseUrl . "/images/";
-$payUrl = $this->createUrl('/payment/doPingxxPay');
+$payUrl = $this->createUrl('payment/doPingxxPay');
 $refUrl = $this->createAbsoluteUrl('order/view', array('refNo' => $order->refNo));
 $bookingId = Yii::app()->request->getQuery('bookingId', 0);
 $isApp = Yii::app()->request->getQuery('app', 0);
