@@ -60,7 +60,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                 </div>
                 <ul class="list mt10">
                     <li class="nextImg hide">
-                        <a id="createCheck" class="color-000" data-target="link">
+                        <a id="createCheck" class="color-000">
                             <div class="grid font-type">
                                 <div class="col-0 w20"></div>
                                 <div class="col-0 w80">
@@ -70,7 +70,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </a>
                     </li>
                     <li class="nextImg">
-                        <a id="patientListCheck" class="color-000" data-target="link">
+                        <a id="patientListCheck" class="color-000">
                             <div class="grid font-type">
                                 <div class="col-0 w20 myPatients"></div>
                                 <div class="col-0 w80">
@@ -80,7 +80,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </a>
                     </li>
                     <li class="nextImg">
-                        <a id="patientBookingListCheck" class="color-000" data-target="link">
+                        <a id="patientBookingListCheck" class="color-000">
                             <div class="grid font-type">
                                 <div class="col-0 w20 myBooking"></div>
                                 <div class="col-0 w80">
@@ -90,7 +90,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </a>
                     </li>
                     <li class="nextImg">
-                        <a id="getBooking" class="color-000" data-target="link">
+                        <a id="getBooking" class="color-000">
                             <div class="grid font-type">
                                 <div class="col-0 w20 receivedBooking"></div>
                                 <div class="col-0 w80">
@@ -110,7 +110,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
                         </div>
                     </li>
                     <li class="nextImg">
-                        <a id="term" class="color-000" data-target="link">
+                        <a id="term" class="color-000">
                             <div class="grid font-type">
                                 <div class="col-0 w20 signDoctor"></div>
                                 <div class="col-0 w80">
@@ -135,7 +135,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
 <script>
     $(document).ready(function () {
         //个人中心
-        $('#userCenter').click(function () {
+        $('#userCenter').tap(function () {
             location.href = '<?php echo $urlDoctorAccount; ?>';
         });
 
@@ -290,7 +290,7 @@ $teamDoctor = $user->results->userInfo->teamDoctor;
 
         $('#phoneService').tap(function () {
             J.customAlert('<div><a href="tel://4006277120" class="color-green"><div class="pad10 bb-gray">立即拨打免费客服电话</div></a></div><div id="closeContract" class="color-red2 pad10">取消</div>');
-            $('#closeContract').click(function () {
+            $('#closeContract').tap(function () {
                 J.closePopup();
             });
         });
