@@ -166,7 +166,7 @@ $this->show_header = false;
                         location.href = "<?php echo $urlDoctorView; ?>";
                     });
         }
-        $(".bookingMenu").click(function () {
+        $(".bookingMenu").tap(function () {
             var dataBooking = $(this).attr('data-booking');
             if (dataBooking == 'yes') {
                 $('.noBookingList').addClass('hide');
@@ -178,7 +178,7 @@ $this->show_header = false;
                 $('#patientList_article').scrollTop(0);
             }
         });
-        $('#patientCreate').click(function () {
+        $('#patientCreate').tap(function () {
             location.href = '<?php echo $urlCreatePatient; ?>';
         });
     });

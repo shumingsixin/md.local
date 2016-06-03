@@ -154,11 +154,11 @@ $urlDoctorView = $this->createUrl('doctor/view');
 <script>
     $(document).ready(function () {
         ajaxPatientFiles();
-        $(".confirmPage").click(function () {
+        $(".confirmPage").tap(function () {
             $(this).hide();
         });
 
-        $('.btnSubmit').click(function () {
+        $('.btnSubmit').tap(function () {
             var option = $('textarea').val();
             if (option == '') {
                 J.showToast('请输入反馈意见', '', 1000);
@@ -191,7 +191,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                             },
                             function () {
                             });
-                    $('#backCenter').click(function () {
+                    $('#backCenter').tap(function () {
                         location.href = "<?php echo $urlDoctorView; ?>";
                     });
                 },
@@ -235,7 +235,7 @@ $urlDoctorView = $this->createUrl('doctor/view');
                 pos: 'top-second',
                 showCloseBtn: true
             });
-            $('.imgpopup').click(function () {
+            $('.imgpopup').tap(function () {
                 J.closePopup();
             });
         });

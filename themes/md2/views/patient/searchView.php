@@ -23,7 +23,7 @@ $urlPatientView = $this->createUrl('patient/view', array('id' => ''));
 </div>
 <script>
     $(document).ready(function () {
-        $('#searchBtn').click(function () {
+        $('#searchBtn').tap(function () {
             var searchName = $('input').val();
             if (searchName == '') {
                 J.showToast('请输入患者姓名', '', '1000');

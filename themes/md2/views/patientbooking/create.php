@@ -143,7 +143,7 @@ $userDoctorCerts = $doctorCerts;
         $urlRealName = '<?php echo $urlRealName; ?>';
         $userDoctorCerts = '<?php echo $userDoctorCerts; ?>'
         $userDoctorUploadCert = '<?php echo $urlDoctorUploadCert; ?>';
-        $('.intention').click(function (e) {
+        $('.intention').tap(function (e) {
             e.preventDefault();
             $('.noTravelType').remove();
             var travelType = $(this).attr('data-travel');

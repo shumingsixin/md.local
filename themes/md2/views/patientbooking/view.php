@@ -94,7 +94,7 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
 <script>
     $(document).ready(function () {
         ajaxPatientFiles();
-        $(".confirmPage").click(function () {
+        $(".confirmPage").tap(function () {
             $(this).hide();
         });
     });
@@ -133,8 +133,8 @@ $urlPayOrder = $this->createUrl('order/view', array('addBackBtn' => 1, 'bookingI
                 pos: 'top-second',
                 showCloseBtn: true
             });
-            $('.imgpopup').click(function () {
-                J.closePopup()
+            $('.imgpopup').tap(function () {
+                J.closePopup();
             });
         });
     }

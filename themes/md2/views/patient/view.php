@@ -94,10 +94,10 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
         if (id) {
             ajaxPatientFiles();
         }
-        $(".confirmPage").click(function () {
+        $(".confirmPage").tap(function () {
             $(this).hide();
         });
-        $('#patientBookingCreate').click(function () {
+        $('#patientBookingCreate').tap(function () {
             location.href = '<?php echo $urlPatientBookingCreate; ?>'
         });
     });
@@ -138,8 +138,8 @@ $urlPatientBookingCreate = $this->createUrl('patientbooking/create', array('pid'
                 pos: 'top-second',
                 showCloseBtn: true
             });
-            $('.imgpopup').click(function () {
-                J.closePopup()
+            $('.imgpopup').tap(function () {
+                J.closePopup();
             });
         });
     }

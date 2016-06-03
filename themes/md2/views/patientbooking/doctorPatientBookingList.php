@@ -131,7 +131,7 @@ $urlResImage = Yii::app()->theme->baseUrl . "/images/";
 </div>
 <script>
     $(document).ready(function () {
-        $(".bookingMenu").click(function () {
+        $(".bookingMenu").tap(function () {
             var dataBooking = $(this).attr('data-booking');
             if (dataBooking == 'processing') {
                 $('.doneList').addClass('hide');

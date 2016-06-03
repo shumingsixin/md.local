@@ -279,8 +279,8 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                     pos: 'top-second',
                     showCloseBtn: true
                 });
-                $('.imgpopup').click(function () {
-                    J.closePopup()
+                $('.imgpopup').tap(function () {
+                    J.closePopup();
                 });
             });
         }
@@ -311,12 +311,12 @@ $urlPatientMRFiles = 'http://file.mingyizhudao.com/api/loadpatientmr?userId=' . 
                     });
         });
 
-        $('#payNow').click(function () {
+        $('#payNow').tap(function () {
             var refNo = $(this).attr('data-refNo');
             location.href = '<?php echo $this->createUrl('order/view', array('bookingId' => $booking->id, 'refNo' => '')); ?>/' + refNo;
         });
 
-        $('#pay').click(function () {
+        $('#pay').tap(function () {
             location.href = '<?php echo $this->createUrl('order/payOrders', array('bookingId' => $booking->id, 'orderType' => $orderType, 'addBackBtn' => 1)); ?>';
         });
     });
