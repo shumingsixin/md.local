@@ -243,8 +243,8 @@ class PatientManager {
             }
             $bookingDB = $patientBooking;
             $apiRequest = new ApiRequestUrl();
-            //$remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type = ' . StatCode::TRANS_TYPE_PB . '&id = ' . $patientBooking->id;
-            $remote_url = 'http://192.168.1.216/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+            $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type = ' . StatCode::TRANS_TYPE_PB . '&id = ' . $patientBooking->id;
+            //$remote_url = 'http://192.168.1.216/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
             $data = $apiRequest->send_get($remote_url);
             if ($data['status'] == "ok") {
                 $output['status'] = EApiViewService::RESPONSE_OK;
@@ -287,8 +287,8 @@ class PatientManager {
             if ($booking->update(array('doctor_accept', 'doctor_opinion'))) {
                 //医生评价成功 调用crm接口修改admin_booking的接口
                 $urlMgr = new ApiRequestUrl();
-                //$url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
-                $url = "http://192.168.1.216/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                $url = $urlMgr->getUrlDoctorAccept() . "?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
+                //$url = "http://192.168.1.216/admin/api/doctoraccept?id={$id}&type={$type}&accept={$accept}&opinion={$opinion}";
                 $urlMgr->send_get($url);
                 $output['status'] = 'ok';
                 $output['errorCode'] = ErrorList::ERROR_NONE;

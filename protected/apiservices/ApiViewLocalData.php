@@ -37,7 +37,7 @@ class ApiViewLocalData extends EApiViewService {
                 'paymentUrl' => 'http://m.mingyizhudao.com/mobile/order/view?refNo=#&os=#&header=0&footer=0&addBackBtn=0',
                 'forgetpassword' => Yii::app()->createAbsoluteUrl('/apimd/forgetpassword'),
                 'userregister' => Yii::app()->createAbsoluteUrl('/apimd/userregister'),
-                'findView' => 'http://192.168.31.118/new.md/mobiledoctor/home/page/view/findView',
+                'findView' => 'http://md.mingyizhudao.com/mobiledoctor/home/page/view/findView',
                 'citylist' => Yii::app()->createAbsoluteUrl('/apimd/citylist'), //城市列表
                 'indexannouncement' => Yii::app()->createAbsoluteUrl('/apimd/indexannouncement'),
                 'main' => Yii::app()->createAbsoluteUrl('/apimd/main'), //个人中心数据
