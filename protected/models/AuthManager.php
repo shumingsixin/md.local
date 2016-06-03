@@ -243,7 +243,7 @@ class AuthManager {
     public function apiTokenDoctorLoginByPaw($values) {
         $mobile = $values['username'];
         $password = $values['password'];
-        $user = user::model()->getByAttributes(array('username' => $mobile, 'role' => StatCode::USER_ROLE_DOCTOR));
+        $user = User::model()->getByAttributes(array('username' => $mobile, 'role' => StatCode::USER_ROLE_DOCTOR));
         if (is_null($user)) {
             // error, so return errors.
             $output['status'] = EApiViewService::RESPONSE_NO;
@@ -286,7 +286,6 @@ class AuthManager {
         return $output;
     }
 
-    
     /**
      * doctor login by using mobile no. & verify_code.
      * @param type $mobile
@@ -307,7 +306,7 @@ class AuthManager {
                 return $output;
             }
         }
-        $user = user::model()->getByAttributes(array('username' => $mobile, 'role' => StatCode::USER_ROLE_DOCTOR));
+        $user = User::model()->getByAttributes(array('username' => $mobile, 'role' => StatCode::USER_ROLE_DOCTOR));
         if (is_null($user)) {
             $output['status'] = EApiViewService::RESPONSE_NO;
             $output['errorCode'] = ErrorList::BAD_REQUEST;
