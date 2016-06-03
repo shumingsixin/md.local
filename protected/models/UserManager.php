@@ -411,9 +411,9 @@ class UserManager {
         if ($model->save()) {
             //信息修改成功 调用远程接口创建task
             if ($isupdate) {
-                $type = StatCode::TASK_DOCTOR_CERT;
+                $type = StatCode::TASK_DOCTOR_PROFILE_UPDATE;
                 $apiRequest = new ApiRequestUrl();
-                $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . "?userid={$userId}&type={$type}";
+                $remote_url = $apiRequest->getUrlDoctorInfoTask() . "?userid={$userId}&type={$type}";
                 //本地测试请用 
                 //$remote_url = "http://localhost/admin/api/taskuserdoctor?userid={$userId}&type={$type}";
                 $apiRequest->send_get($remote_url);

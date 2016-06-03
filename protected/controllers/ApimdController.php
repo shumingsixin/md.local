@@ -17,7 +17,6 @@ class ApimdController extends Controller {
 
     public function domainWhiteList() {
         return array(
-            'http://192.168.1.216',
         );
     }
 

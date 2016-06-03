@@ -243,8 +243,8 @@ class PatientManager {
             }
             $bookingDB = $patientBooking;
             $apiRequest = new ApiRequestUrl();
-            $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type = ' . StatCode::TRANS_TYPE_PB . '&id = ' . $patientBooking->id;
-            //$remote_url = 'http://192.168.1.216/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+            $remote_url = $apiRequest->getUrlAdminSalesBookingCreate() . '?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
+            // $remote_url = 'http://localhost/admin/api/adminbooking?type=' . StatCode::TRANS_TYPE_PB . '&id=' . $patientBooking->id;
             $data = $apiRequest->send_get($remote_url);
             if ($data['status'] == "ok") {
                 $output['status'] = EApiViewService::RESPONSE_OK;
