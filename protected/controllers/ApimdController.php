@@ -124,10 +124,10 @@ class ApimdController extends Controller {
                 $city = new ApiViewState();
                 $output = $city->loadApiViewData();
                 break;
-//            case 'deptlist'://科室列表
-//                $apiService = new ApiViewDiseaseCategory();
-//                $output = $apiService->loadApiViewData();
-//                break;
+            case 'deptlist'://科室列表
+                $apiService = new ApiViewDiseaseCategory();
+                $output = $apiService->loadApiViewData();
+                break;
             case 'contractdoctorlist'://签约医生列表
                 $apiService = new ApiViewDoctorSearch($values);
                 $output = $apiService->loadApiViewData();
