@@ -95,9 +95,9 @@ class ApiViewIndex extends EApiViewService {
      */
 
     private function setUrl() {
-        $this->results->publicWelfareUrl = "http://md.mingyizhudao.com/mobiledoctor/home/page/view/mygy";
+        $this->results->publicWelfareUrl = "http://md.mingyizhudao.com/mobiledoctor/home/page/view/myzd";
         $this->results->doctorUrl = Yii::app()->createAbsoluteUrl('/apimd/contractdoctor');
-        $this->results->joinUrl = "http://md.mingyizhudao.com/mobiledoctor/home/page/view/myzd";
+        $this->results->joinUrl = "http://md.mingyizhudao.com/mobiledoctor/home/page/view/mygy";
     }
 
 }

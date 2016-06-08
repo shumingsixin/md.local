@@ -55,7 +55,7 @@ abstract class WebsiteController extends Controller {
         if (isset($_GET['footer']) && $_GET['footer'] != 1) {
             $this->show_footer = false;
         }
-
+        $this->storeUserAccessInfo();
         return parent::init();
     }
 
